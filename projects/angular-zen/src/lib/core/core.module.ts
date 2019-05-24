@@ -4,8 +4,7 @@ import { DocumentRef } from './DocumentRef/document-ref.service';
 
 @NgModule({
     declarations: [],
-    imports: [
-    ],
+    imports: [],
     providers: [WindowRef, DocumentRef]
 })
 export class CoreModule { }

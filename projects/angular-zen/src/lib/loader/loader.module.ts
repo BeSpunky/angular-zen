@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { LazyScriptLoaderService } from './LazyScriptLoader/lazy-script-loader.service';
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule
-    ]
+    declarations: [LazyScriptLoaderService],
+    imports: []
 })
 export class LoaderModule { }

@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
-import { AngularZenComponent } from './angular-zen.component';
+
+import { CoreModule } from './core/core.module';
+import { LoaderModule } from './loader/loader.module';
 
 @NgModule({
-  declarations: [AngularZenComponent],
-  imports: [
-  ],
-  exports: [AngularZenComponent]
+    declarations: [],
+    imports: [
+        CoreModule,
+        LoaderModule
+    ],
+    exports: [
+        CoreModule,
+        LoaderModule
+    ]
 })
 export class AngularZenModule { }
