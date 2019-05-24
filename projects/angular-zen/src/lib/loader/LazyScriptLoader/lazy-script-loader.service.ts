@@ -109,7 +109,7 @@ export class LazyScriptLoaderService
     {
         // Get DOM elements
         const document = this.documentRef.nativeDocument;
-        const head = document.getElementByTagName('head')[0];
+        const head = document.getElementsByTagName('head')[0];
         // Create a new script tag
         const script = document.createElement('script');
 
