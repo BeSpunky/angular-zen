@@ -20,7 +20,7 @@ export class LazyScriptLoaderService
     private defaultOptions: ScriptLoadOptions = {
         async: true,
         defer: true,
-        alreadyLoaded: this.isLoaded,
+        alreadyLoaded: this.isLoaded.bind(this),
         force: false
     };
 
