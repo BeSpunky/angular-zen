@@ -29,7 +29,10 @@ export class LazyScriptLoaderService
      */
     private scripts: { [url: string]: LazyLoadedScript };
 
-    constructor(private documentRef: DocumentRef) { }
+    constructor(private documentRef: DocumentRef)
+    {
+        this.scripts = {};
+    }
 
     /**
      * Loads a script programatically.
