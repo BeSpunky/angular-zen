@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { LazyScriptLoaderService } from './LazyScriptLoader/lazy-script-loader.service';
-
 @NgModule({
-    declarations: [LazyScriptLoaderService],
+    declarations: [],
     imports: []
 })
 export class LoaderModule { }
