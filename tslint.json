@@ -16,9 +16,11 @@
     "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
-      true,
+      false,
       140
     ],
+    "one-line": false,
+    "curly": false,
     "member-access": false,
     "member-ordering": [
       true,
