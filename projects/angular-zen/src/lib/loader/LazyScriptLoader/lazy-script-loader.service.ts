@@ -56,7 +56,7 @@ export class LazyScriptLoaderService
         }
 
         // If the script should be loaded, load it
-        if (!this.isLoaded(url) || options.force)
+        if (!options.alreadyLoaded(url) || options.force)
         {
             // Create an observable that waits until the script has been loaded and executed
             return Observable.create(observer =>
