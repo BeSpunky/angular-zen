@@ -21,7 +21,8 @@
           "options": {
             "main": "projects/angular-zen/src/test.ts",
             "tsConfig": "projects/angular-zen/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-zen/karma.conf.js"
+            "karmaConfig": "projects/angular-zen/karma.conf.js",
+            "codeCoverage": true
           }
         },
         "lint": {
