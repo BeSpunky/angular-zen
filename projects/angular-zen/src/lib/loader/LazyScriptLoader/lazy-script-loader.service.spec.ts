@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { LazyScriptLoaderService } from './lazy-script-loader.service';
 import { DocumentRef } from '../../core/DocumentRef/document-ref.service';
-import { LazyLoadedScript } from './lazy-loaded-script';
 
 // A stub for the created script tag
 class ScriptTagStub
