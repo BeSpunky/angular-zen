@@ -14,4 +14,4 @@ import { LoaderModule } from './loader/loader.module';
         LoaderModule
     ]
 })
-export class AngularZenModule { }
+export class ZenModule { }
