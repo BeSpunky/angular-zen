@@ -1,4 +1,4 @@
-import { Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -6,8 +6,10 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class DocumentRef
 {
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: any) { }
+
     get nativeDocument(): any
     {
-        return isPlatformBrowser(PLATFORM_ID) ? document : new Object();
+        return isPlatformBrowser(this.platformId) ? document : new Object();
     }
 }
