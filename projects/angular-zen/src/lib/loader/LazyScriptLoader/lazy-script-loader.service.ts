@@ -91,9 +91,7 @@ export class LazyScriptLoaderService
      */
     public isLoaded(url: string): boolean
     {
-        const script = this.scripts[url];
-
-        return script && script.completed;
+        return !!this.scripts[url];
     }
 
     /**
