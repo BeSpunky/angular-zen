@@ -4,11 +4,22 @@ import { WindowRef } from './window-ref.service';
 
 describe('WindowRef', () =>
 {
-    beforeEach(() => TestBed.configureTestingModule({}));
+    let service: WindowRef;
+
+    beforeEach(() =>
+    {
+        TestBed.configureTestingModule({});
+
+        service = TestBed.get(WindowRef);
+    });
 
     it('should be created', () =>
     {
-        const service: WindowRef = TestBed.get(WindowRef);
         expect(service).toBeTruthy();
+    });
+
+    it('should allow access to the `window` object', () =>
+    {
+        expect(typeof service.nativeWindow).toBe('object');
     });
 });

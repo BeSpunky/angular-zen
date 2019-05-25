@@ -4,11 +4,22 @@ import { DocumentRef } from './document-ref.service';
 
 describe('DocumentRef', () =>
 {
-    beforeEach(() => TestBed.configureTestingModule({}));
+    let service: DocumentRef;
+
+    beforeEach(() =>
+    {
+        TestBed.configureTestingModule({});
+
+        service = TestBed.get(DocumentRef);
+    });
 
     it('should be created', () =>
     {
-        const service: DocumentRef = TestBed.get(DocumentRef);
         expect(service).toBeTruthy();
+    });
+
+    it('should allow access to the `document` object', () =>
+    {
+        expect(typeof service.nativeDocument).toBe('object');
     });
 });
