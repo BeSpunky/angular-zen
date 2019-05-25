@@ -1,4 +1,14 @@
-# AngularZenWorkspace
+# angular-zen workspace
+
+This angular workspace provides a library with a set of general purpose modules and tools written by our team at BeSpunky, along with a `demo` app with examples.
+
+# Documentation
+
+All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
+
+### The complete documentation is found in the [wiki](/wiki/readme), and is also accessible only at [angular-zen wiki](TODO).
+
+# Angular CLI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
