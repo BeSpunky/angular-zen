@@ -1,3 +1,16 @@
+# angular-zen
+
+`angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
+These tools can be used with any app and you may use them as you like.
+
+# Documentation
+
+All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
+
+### The complete workspace documentation is found in the [wiki](/wiki/home), and is also accessible only at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome).
+
+# Angular CLI
+
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
 
 ## Code scaffolding
