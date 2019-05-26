@@ -18,7 +18,7 @@ module.exports = function(config)
         },
         coverageIstanbulReporter: {
             dir: require('path').join(__dirname, '../../coverage/angular-zen'),
-            reports: ['html', 'lcovonly'],
+            reports: ['html', 'lcovonly', 'cobertura'],
             fixWebpackSourcePaths: true
         },
         reporters: ['progress', 'kjhtml'],
