@@ -11,6 +11,7 @@ module.exports = function(config)
             require('karma-chrome-launcher'),
             require('karma-jasmine-html-reporter'),
             require('karma-coverage-istanbul-reporter'),
+            require('karma-junit-reporter'),
             require('@angular-devkit/build-angular/plugins/karma')
         ],
         client: {
@@ -22,6 +23,9 @@ module.exports = function(config)
             fixWebpackSourcePaths: true
         },
         reporters: ['progress', 'kjhtml'],
+        junitReporter: {
+            outputDir: '../../tests/angular-zen'
+        },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
