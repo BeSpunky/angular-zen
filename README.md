@@ -1,5 +1,7 @@
 # angular-zen workspace
 
+[![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
+
 This angular workspace provides a library with a set of general purpose modules and tools written by our team at BeSpunky, along with a `demo` app with examples.
 
 # Documentation

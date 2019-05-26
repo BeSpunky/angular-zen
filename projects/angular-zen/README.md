@@ -1,5 +1,14 @@
 # angular-zen
 
+[![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/BeSpunky/5caac6d0-efbb-425a-9c23-192e992543d9/27.svg?style=flat-square)
+![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/BeSpunky/BeSpunky%20Libraries/27.svg?style=flat-square)
+
+![npm bundle size](https://img.shields.io/bundlephobia/min/@bespunky/angular-zen.svg?style=flat-square)
+![npm downloads](https://img.shields.io/npm/dm/@bespunky/angular-zen.svg?style=flat-square)
+![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen.svg?style=flat-square)
+
+
 `angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
 These tools can be used with any app and you may use them as you like.
 ## This project is still a work in progress. **Not for production**.
