@@ -31,6 +31,7 @@ exports.config = {
         // [Shy Agam - 2019-05-26] Added JUnit report for consumption in Azure DevOps
         jasmine.getEnv().addReporter(new JUnitXmlReporter({
             savePath: require('path').join(__dirname, '../../tests/demo-e2e'),
+            filePrefix: `TESTS_e2e`,
             consolidateAll: true,
         }));
     }
