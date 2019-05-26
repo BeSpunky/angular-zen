@@ -2,6 +2,7 @@
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
 const { SpecReporter } = require('jasmine-spec-reporter');
+const { JUnitXmlReporter } = require('jasmine-reporters');
 
 exports.config = {
   allScriptsTimeout: 11000,
@@ -24,5 +25,10 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+    // [Shy Agam - 2019-05-26] Added JUnit report for consumption in Azure DevOps
+    jasmine.getEnv().addReporter(new JUnitXmlReporter({
+      savePath: require('path').join(__dirname, '../../tests/demo-e2e'),
+      consolidateAll: true,
+    }));
   }
 };
