@@ -2,6 +2,7 @@
 
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/BeSpunky/5caac6d0-efbb-425a-9c23-192e992543d9/27.svg?style=flat-square)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/BeSpunky/BeSpunky%20Libraries/27.svg?style=flat-square)
 ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/BeSpunky/BeSpunky%20Libraries/27.svg?style=flat-square)
 
 ![npm bundle size](https://img.shields.io/bundlephobia/min/@bespunky/angular-zen.svg?style=flat-square)
