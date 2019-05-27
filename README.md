@@ -1,4 +1,4 @@
-# Angular-Zen workspace
+# Angular-Zen Workspace
 
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 
