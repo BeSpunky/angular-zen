@@ -2,7 +2,16 @@
 
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 
-This angular **workspace** provides a library with a set of general purpose modules and tools written by our team at BeSpunky, along with a `demo` app with examples.
+This angular **workspace** provides:
+- The `angular-zen` library containing a set of general purpose modules and tools written by our team at BeSpunky
+- A `demo` app with examples.
+
+> When published to npm, only the library itself is published.
+
+### Examples
+For working examples, visit the code for the [demo app](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents).
+
+Each module in the library has its dedicated folder in the demo app.
 
 # Documentation
 
@@ -30,9 +39,22 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+> ### Production
+> Tests are configured to generate reports for production:
+> - `JUnit` reports under the `tests` folder
+> - `Cobertura` reports for code coverage under the `coverage` folder
+>
+> To run tests with production configuration, use `npm run test`.
+
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+> ### Production
+> e2e tests are configured to generate reports for production:
+> - `JUnit` reports under the `tests` folder
+>
+> To run tests with production configuration, use `npm run e2e`.
 
 ## Further help
 

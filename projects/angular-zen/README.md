@@ -16,7 +16,7 @@ These tools can be used with any app and you may use them as you like.
 > The library was written and tested in angular 7 but might work with older versions.
 
 
-# Modules
+# 🎁 What's Inside the Library?
 `angular-zen` exports the following modules:
 
 | Name | Description |
@@ -25,13 +25,13 @@ These tools can be used with any app and you may use them as you like.
 | [`CoreModule`](TODO) | Contains general tools that normally serve for infrastructure code |
 | [`LoaderModule`](TODO) | Contains tools for dynamically loading scripts on to the page    |
 
-# Documentation
+# 📖 Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
 ### The complete workspace documentation is found online at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome).
 
-# How to use
+# ✨ Getting Started
 1. Install the npm package:
    
    `> npm install @bespunky/angular-zen`
@@ -54,7 +54,7 @@ All modules / components / services are documented within the code. Some might h
             BrowserModule,
             ZenModule // 2. Import module in your app
         ],
-        providers: [],
+        providers: [], 
         bootstrap: [AppComponent]
     })
     export class AppModule { }
@@ -62,8 +62,8 @@ All modules / components / services are documented within the code. Some might h
 
 > [See wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome) for more detailed documentation and feature-specific usage.
 
-> In case you only want to use a specific tool, you can simply import the module that declares it instead of importing the entire library.
-> Simply replace `ZenModule` with the module you need (e.g. `LoaderModule`).
+> You may import all tools simply by importing `ZenModule` by itself, as it exports the rest of the modules.
+> However, if you only require a few specific tools, it is recommended that you import only the modules (e.g. `LoaderModule`) you need in order to optimize your code.
 
 
 # Angular CLI
