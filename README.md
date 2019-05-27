@@ -8,7 +8,7 @@ This angular workspace provides a library with a set of general purpose modules 
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-### The complete documentation is found in the [wiki](/wiki/home), and is also accessible only at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2FWiki%20Home).
+### The complete documentation is found in the [wiki](/wiki/home), and is also accessible only at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2FWiki%20Home).
 
 # Angular CLI
 
