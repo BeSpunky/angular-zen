@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LazyScriptLoaderService, ScriptLoadOptions } from 'angular-zen';
 
 @Component({
-    selector: 'zen-loader',
-    templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.css']
+    selector: 'zen-loader-demo',
+    templateUrl: './loader-demo.component.html',
+    styleUrls: ['./loader-demo.component.css']
 })
-export class LoaderComponent implements OnInit
+export class LoaderDemoComponent implements OnInit
 {
     public status: string;
 

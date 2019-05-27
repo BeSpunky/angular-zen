@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoaderComponent } from './loader/loader.component';
+import { LoaderDemoComponent } from './loader-demo/loader-demo.component';
 import { LoaderModule } from 'angular-zen';
 
 @NgModule({
-    declarations: [LoaderComponent],
+    declarations: [LoaderDemoComponent],
     imports: [
         CommonModule,
         LoaderModule
     ],
-    exports: [LoaderComponent]
+    exports: [LoaderDemoComponent]
 })
-export class CoreModule { }
+export class LoaderDemoModule { }
