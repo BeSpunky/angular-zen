@@ -1,4 +1,3 @@
-
 # Getting Started
 To start using the tools provided by the library:
 
