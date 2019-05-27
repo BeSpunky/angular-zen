@@ -1,7 +1,18 @@
 # Angular-Zen
 
-### `angular-zen` is a general purpose library created and published by BeSpunky.
-You may use this library as you like.
+## This project is still a work in progress. **Not for production**.
+`angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
+These tools can be used with any app and you may use them as you like.
 
-# How to use
-You can either import the main [`ZenModule`](ZenModule) or simply import the modules that you need separately.
+> The library was written and tested in angular 7 but might work with older versions.
+
+# Contents
+## 🎁 [What's in the library?](Modules)
+## ✨ [Getting Started](Getting-Started)
+## 👨‍🏫 [Examples](Examples)
+
+<br/>
+
+# References
+## [Angular-Zen Repository](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2F&version=GBmaster)
+## [NPM Package](https://www.npmjs.com/package/@bespunky/angular-zen)
