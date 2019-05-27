@@ -1,4 +1,4 @@
-# angular-zen
+# Angular-Zen
 
 ### `angular-zen` is a general purpose library created and published by BeSpunky.
 You may use this library as you like.
