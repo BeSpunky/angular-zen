@@ -1,4 +1,4 @@
-# angular-zen
+# Angular-Zen
 
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/BeSpunky/5caac6d0-efbb-425a-9c23-192e992543d9/27.svg?style=flat-square)
@@ -9,16 +9,62 @@
 ![npm downloads](https://img.shields.io/npm/dm/@bespunky/angular-zen.svg?style=flat-square)
 ![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen.svg?style=flat-square)
 
-
+## This project is still a work in progress. **Not for production**.
 `angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
 These tools can be used with any app and you may use them as you like.
-## This project is still a work in progress. **Not for production**.
+
+> The library was written and tested in angular 7 but might work with older versions.
+
+
+# Modules
+`angular-zen` exports the following modules:
+
+| Name | Description |
+| ---  | ---         |
+| [`ZenModule`](TODO) | The main module of the library. Depends on and exports all other modules.
+| [`CoreModule`](TODO) | Contains general tools that normally serve for infrastructure code |
+| [`LoaderModule`](TODO) | Contains tools for dynamically loading scripts on to the page    |
 
 # Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-### The complete workspace documentation is found in the [wiki](/wiki/home), and is also accessible online at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome).
+### The complete workspace documentation is found online at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome).
+
+# How to use
+1. Install the npm package:
+   
+   `> npm install @bespunky/angular-zen`
+
+2. Include `ZenModule` in your corresponding module:
+   
+   ```typescript
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgModule } from '@angular/core';
+
+    import { ZenModule } from '@bespunky/angular-zen'; // 1. Import module
+
+    import { AppComponent } from './app.component';
+
+    @NgModule({
+        declarations: [
+            AppComponent
+        ],
+        imports: [
+            BrowserModule,
+            ZenModule // 2. Import module in your app
+        ],
+        providers: [],
+        bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+   ```
+
+> [See wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome) for more detailed documentation and feature-specific usage.
+
+> In case you only want to use a specific tool, you can simply import the module that declares it instead of importing the entire library.
+> Simply replace `ZenModule` with the module you need (e.g. `LoaderModule`).
+
 
 # Angular CLI
 
