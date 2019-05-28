@@ -8,7 +8,8 @@ body {
 code {
     background: #eee;
     border: 0.6px solid lightgray;
-    padding: 3px;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 h1 {
@@ -22,4 +23,10 @@ h3 {
 
 h5 {
     color: rgb(159, 109, 196);
+}
+
+button {
+    padding: 8px;
+    margin-right: 5px;
+    border-radius: 5px;
 }
