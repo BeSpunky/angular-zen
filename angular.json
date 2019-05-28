@@ -3,25 +3,25 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-zen": {
-      "root": "projects/angular-zen",
-      "sourceRoot": "projects/angular-zen/src",
+    "@bespunky/angular-zen": {
+      "root": "projects/bespunky/angular-zen",
+      "sourceRoot": "projects/bespunky/angular-zen/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/angular-zen/tsconfig.lib.json",
-            "project": "projects/angular-zen/ng-package.json"
+            "tsConfig": "projects/bespunky/angular-zen/tsconfig.lib.json",
+            "project": "projects/bespunky/angular-zen/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/angular-zen/src/test.ts",
-            "tsConfig": "projects/angular-zen/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-zen/karma.conf.js",
+            "main": "projects/bespunky/angular-zen/src/test.ts",
+            "tsConfig": "projects/bespunky/angular-zen/tsconfig.spec.json",
+            "karmaConfig": "projects/bespunky/angular-zen/karma.conf.js",
             "codeCoverage": true
           }
         },
@@ -29,8 +29,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/angular-zen/tsconfig.lib.json",
-              "projects/angular-zen/tsconfig.spec.json"
+              "projects/bespunky/angular-zen/tsconfig.lib.json",
+              "projects/bespunky/angular-zen/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -168,5 +168,5 @@
       }
     }
   },
-  "defaultProject": "angular-zen"
+  "defaultProject": "@bespunky/angular-zen"
 }

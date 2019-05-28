@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "angular-zen": [
-        "dist/angular-zen"
+      "@bespunky/angular-zen": [
+        "dist/bespunky/angular-zen"
       ],
-      "angular-zen/*": [
-        "dist/angular-zen/*"
+      "@bespunky/angular-zen/*": [
+        "dist/bespunky/angular-zen/*"
       ]
     }
   }
