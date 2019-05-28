@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule } from 'angular-zen';
+import { CoreModule } from '@bespunky/angular-zen';
 
 import { CoreDemoComponent } from './core-demo.component';
 import { WindowRefDemoComponent } from './window-ref-demo/window-ref-demo.component';

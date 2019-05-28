@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentRef } from 'angular-zen';
+import { DocumentRef } from '@bespunky/angular-zen';
 
 @Component({
     selector: 'zen-document-ref-demo',
