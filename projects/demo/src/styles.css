@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px 20px;
+}
+
+code {
+    background: #eee;
+    border: 0.6px solid lightgray;
+    padding: 3px;
+}
+
+h1 {
+    color: #ffa229;
+}
+
+h3 {
+    margin-top: 60px;
+    color: #16825d;
+}
+
+h5 {
+    color: rgb(159, 109, 196);
+}
