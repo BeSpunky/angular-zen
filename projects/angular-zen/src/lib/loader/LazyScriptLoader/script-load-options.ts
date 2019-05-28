@@ -21,8 +21,11 @@ export interface ScriptLoadOptions
 
     /**
      * (Optional) A function to customize the way `LazyScriptLoader` checks if the script is already loaded.
-     * By default, `LazyScriptLoader` will check if a `<script>` tag with the specified url exists on the page and the corresponding observable has completed.
+     * By default, `LazyScriptLoader` will check `loadScript()` was already called for that same url.
      * Use this to change that behaviour.
+     *
+     * When providing a function, it is the caller's responsability to take care of any previously loaded scripts, objects in memory or anything that may lead
+     * to memory leaks and collisions.
      *
      * Example:
      * When lazy loading Google Maps API you would probably do something like:
@@ -33,6 +36,9 @@ export interface ScriptLoadOptions
     /**
      * (Optional) Specifies whether to force script download in case it was previously loaded.
      * Default is `false`.
+     *
+     * When forcing download, it is the caller's responsability to take care of any previously loaded scripts, objects in memory or anything that may lead
+     * to memory leaks and collisions.
      */
     force?: boolean;
 }
