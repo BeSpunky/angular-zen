@@ -27,11 +27,11 @@ export class LazyScriptLoaderService
     /**
      * Keeps track of loaded lazy scripts status and references
      */
-    private scripts: { [url: string]: LazyLoadedScript };
+    private cache: { [url: string]: { lazyScript: LazyLoadedScript, observable: Observable<LazyLoadedScript> } };
 
     constructor(private documentRef: DocumentRef)
     {
-        this.scripts = {};
+        this.cache = {};
     }
 
     /**
@@ -42,28 +42,22 @@ export class LazyScriptLoaderService
      * @returns An observable object which allows subscribers to know when the script has been loaded and access its associated `<script>` element.
      *          The observable will complete immediately in case the script was already previously loaded.
      */
-    public loadScript(url: string, options?: ScriptLoadOptions): Observable<LazyLoadedScript>
+    public loadScript(url: string, options: ScriptLoadOptions = this.defaultOptions): Observable<LazyLoadedScript>
     {
         // Set default options if not specified by caller
-        if (!options)
-            options = options || this.defaultOptions;
-        else
-        {
-            options.async         = options.async         === undefined ? this.defaultOptions.async : options.async;
-            options.defer         = options.defer         === undefined ? this.defaultOptions.defer : options.defer;
-            options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultOptions.alreadyLoaded : options.alreadyLoaded;
-            options.force         = options.force         === undefined ? this.defaultOptions.force : options.force;
-        }
+        options.async         = options.async         === undefined ? this.defaultOptions.async : options.async;
+        options.defer         = options.defer         === undefined ? this.defaultOptions.defer : options.defer;
+        options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultOptions.alreadyLoaded : options.alreadyLoaded;
+        options.force         = options.force         === undefined ? this.defaultOptions.force : options.force;
 
         // If the script should be loaded, load it
         if (!options.alreadyLoaded(url) || options.force)
         {
+            // Initialize a base object to store the data later
+            const lazyScript: LazyLoadedScript = { url, completed: false, element: null };
             // Create an observable that waits until the script has been loaded and executed
-            return Observable.create(observer =>
+            const observable = Observable.create(observer =>
             {
-                // Initialize a base object to store the data later
-                const lazyScript: LazyLoadedScript = { url, completed: false, scriptElement: null };
-
                 // Create the callback that will mark the script as completed and notify the subscriber
                 const onLoad = () =>
                 {
@@ -74,24 +68,27 @@ export class LazyScriptLoaderService
                 };
 
                 // Create the actual script tag, start downloading and store the element reference
-                lazyScript.scriptElement = this.createScriptElement(url, options, onLoad, observer.error);
-                // Store the script data for later use
-                this.scripts[url] = lazyScript;
+                lazyScript.element = this.createScriptElement(url, options, onLoad, observer.error);
             });
+
+            // Cache the script and the observable for later use
+            this.cache[url] = { lazyScript, observable };
+
+            return observable;
         }
 
-        // If the script was already loaded and it should be downloaded again, complete immediately with the previous script data
-        return of(this.scripts[url]);
+        // If the script was already loaded and it shouldn't be downloaded again, complete immediately with the previous script data
+        return of(this.cache[url].lazyScript);
     }
 
     /**
-     * Checks whether the script from the specified url has already been downloaded and executed.
+     * Checks whether the script from the specified url has already been cached.
      * @param url The url for the script to check.
-     * @returns A value indicating whether the script from the specified url has already been downloaded and executed.
+     * @returns A value indicating whether the script from the specified url has already been cached.
      */
     public isLoaded(url: string): boolean
     {
-        return !!this.scripts[url];
+        return !!this.cache[url];
     }
 
     /**

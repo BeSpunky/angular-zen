@@ -8,8 +8,10 @@ This angular **workspace** provides:
 
 > When published to npm, only the library itself is published.
 
-### Examples
-For working examples, visit the code for the [demo app](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents).
+# Examples
+The demo app is **live** at [Angular-Zen Demo](https://bs-angular-zen-demo.firebaseapp.com).
+For working examples, visit the **code** for the [demo app](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents).
+
 
 Each module in the library has its dedicated folder in the demo app.
 
@@ -59,3 +61,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Firebase CLI
+The demo app for this library is hosted on firebase and the workspace has been initialized using firebase CLI.
+
+To publish the demo project, use `npm run publish-demo` which will build and publish the app.

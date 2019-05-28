@@ -19,5 +19,5 @@ export interface LazyLoadedScript
     /**
      * The `<script>` element added to the document.
      */
-    scriptElement: ElementRef;
+    element: ElementRef;
 }

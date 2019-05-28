@@ -77,7 +77,7 @@ describe('LazyScriptLoaderService', () =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
-                const script: ScriptTagStub = lazyScript.scriptElement.nativeElement;
+                const script: ScriptTagStub = lazyScript.element.nativeElement;
 
                 expect(script.src).toEqual(testUrl);
                 expect(script.type).toEqual('text/javascript');
@@ -112,7 +112,7 @@ describe('LazyScriptLoaderService', () =>
             {
                 service.loadScript(testUrl, { async: false, defer: false }).subscribe(lazyScript =>
                 {
-                    const script: ScriptTagStub = lazyScript.scriptElement.nativeElement;
+                    const script: ScriptTagStub = lazyScript.element.nativeElement;
 
                     expect(script.async).toBeFalsy();
                     expect(script.defer).toBeFalsy();

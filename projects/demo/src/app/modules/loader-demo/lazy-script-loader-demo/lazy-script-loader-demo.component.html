@@ -1,0 +1,9 @@
+<h5>LazyScriptLoaderService</h5>
+<p>
+    jQuery script: {{ status }}
+</p>
+<p>
+    <code>window.$ === {{windowRef.nativeWindow.$ || 'undefined'}}</code>
+</p>
+<button (click)="loadUsingDefaults()">Use defaults and load</button>
+<button (click)="overrideAndLoad()">Override `isLoaded()` and load</button>
