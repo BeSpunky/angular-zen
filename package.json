@@ -14,9 +14,9 @@
     "app-vmajor": "for /F %m in ('npm version major --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
     "app-vminor": "for /F %m in ('npm version minor --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
     "app-vpatch": "for /F %m in ('npm version patch --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
-    "vmajor": "npm run app-vmajor && npm run lib-vmajor",
-    "vminor": "npm run app-vminor && npm run lib-vminor",
-    "vpatch": "npm run app-vpatch && npm run lib-vpatch"
+    "vmajor": "npm run lib-vmajor && npm run app-vmajor",
+    "vminor": "npm run lib-vminor && npm run app-vminor",
+    "vpatch": "npm run lib-vpatch && npm run app-vpatch"
   },
   "private": false,
   "dependencies": {
