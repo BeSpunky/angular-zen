@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CoreModule } from 'angular-zen';
 
 import { CoreDemoComponent } from './core-demo.component';
 import { WindowRefDemoComponent } from './window-ref-demo/window-ref-demo.component';
@@ -12,7 +13,8 @@ describe('CoreDemoComponent', () =>
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [CoreDemoComponent, WindowRefDemoComponent, DocumentRefDemoComponent]
+            declarations: [CoreDemoComponent, WindowRefDemoComponent, DocumentRefDemoComponent],
+            imports: [CoreModule]
         })
             .compileComponents();
     }));
