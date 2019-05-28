@@ -42,18 +42,13 @@ export class LazyScriptLoaderService
      * @returns An observable object which allows subscribers to know when the script has been loaded and access its associated `<script>` element.
      *          The observable will complete immediately in case the script was already previously loaded.
      */
-    public loadScript(url: string, options?: ScriptLoadOptions): Observable<LazyLoadedScript>
+    public loadScript(url: string, options: ScriptLoadOptions = this.defaultOptions): Observable<LazyLoadedScript>
     {
         // Set default options if not specified by caller
-        if (!options)
-            options = options || this.defaultOptions;
-        else
-        {
-            options.async         = options.async         === undefined ? this.defaultOptions.async : options.async;
-            options.defer         = options.defer         === undefined ? this.defaultOptions.defer : options.defer;
-            options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultOptions.alreadyLoaded : options.alreadyLoaded;
-            options.force         = options.force         === undefined ? this.defaultOptions.force : options.force;
-        }
+        options.async         = options.async         === undefined ? this.defaultOptions.async : options.async;
+        options.defer         = options.defer         === undefined ? this.defaultOptions.defer : options.defer;
+        options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultOptions.alreadyLoaded : options.alreadyLoaded;
+        options.force         = options.force         === undefined ? this.defaultOptions.force : options.force;
 
         // If the script should be loaded, load it
         if (!options.alreadyLoaded(url) || options.force)
