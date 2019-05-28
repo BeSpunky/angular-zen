@@ -1,13 +1,22 @@
 {
   "name": "angular-zen-workspace",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test --progress --code-coverage --browsers=ChromeHeadless --watch=false --reporters=junit,coverage-istanbul",
     "lint": "ng lint",
-    "e2e": "ng e2e --protractor-config=projects/demo-e2e/protractor.conf.prod.js"
+    "e2e": "ng e2e --protractor-config=projects/demo-e2e/protractor.conf.prod.js",
+    "lib-vmajor": "cd projects/angular-zen && for /F %m in ('npm version major') do git commit --all -m \"Bumped library version to %m\"",
+    "lib-vminor": "cd projects/angular-zen && for /F %m in ('npm version minor') do git commit --all -m \"Bumped library version to %m\"",
+    "lib-vpatch": "cd projects/angular-zen && for /F %m in ('npm version patch') do git commit --all -m \"Bumped library version to %m\"",
+    "app-vmajor": "for /F %m in ('npm version major --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
+    "app-vminor": "for /F %m in ('npm version minor --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
+    "app-vpatch": "for /F %m in ('npm version patch --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\"",
+    "vmajor": "npm run app-vmajor && npm run lib-vmajor",
+    "vminor": "npm run app-vminor && npm run lib-vminor",
+    "vpatch": "npm run app-vpatch && npm run lib-vpatch"
   },
   "private": false,
   "dependencies": {
