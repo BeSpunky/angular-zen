@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { LoaderModule } from 'angular-zen';
 
 import { LoaderDemoComponent } from './loader-demo.component';
+import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo/lazy-script-loader-demo.component';
 
 describe('LoaderDemoComponent', () =>
 {
@@ -10,7 +12,8 @@ describe('LoaderDemoComponent', () =>
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [LoaderDemoComponent]
+            declarations: [LoaderDemoComponent, LazyScriptLoaderDemoComponent],
+            imports: [LoaderModule]
         })
             .compileComponents();
     }));
