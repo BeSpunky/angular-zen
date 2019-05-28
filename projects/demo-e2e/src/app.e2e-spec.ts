@@ -13,7 +13,7 @@ describe('workspace-project App', () =>
     it('should display the title', () =>
     {
         page.navigateTo();
-        expect(page.getTitleText()).toEqual('angular-zen Demo');
+        expect(page.getTitleText()).toEqual('Angular-Zen Demo');
     });
 
     afterEach(async () =>
