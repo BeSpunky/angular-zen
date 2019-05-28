@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { WindowRef } from 'angular-zen';
 import { LazyScriptLoaderService, ScriptLoadOptions } from 'angular-zen';
+import { load } from '@angular/core/src/render3';
 
 @Component({
     selector: 'zen-lazy-script-loader-demo',
@@ -8,28 +10,34 @@ import { LazyScriptLoaderService, ScriptLoadOptions } from 'angular-zen';
 })
 export class LazyScriptLoaderDemoComponent implements OnInit
 {
+    private jQueryCDN = 'https://code.jquery.com/jquery-3.4.1.min.js';
+
     public status: string;
 
-    constructor(private loader: LazyScriptLoaderService) { }
+    constructor(private loader: LazyScriptLoaderService, public windowRef: WindowRef) { }
 
     ngOnInit()
     {
-        this.load(true);
+        this.status = 'N/A';
     }
 
-    public load(overrideCheck: boolean)
+    private load(options: ScriptLoadOptions = {})
     {
-        const options: ScriptLoadOptions = {};
+        this.status = 'Loading async...';
 
-        if (overrideCheck) options.alreadyLoaded = () => false; // (window as any).$;
+        this.loader.loadScript(this.jQueryCDN, options)
+                   .subscribe(lazyScript => this.status = 'Loaded. Check <head> element.');
+    }
 
-        this.status = 'Loading jQuery script async...';
+    public loadUsingDefaults()
+    {
+        this.load();
+    }
 
-        this.loader.loadScript('https://code.jquery.com/jquery-3.4.1.min.js', options)
-            .subscribe(lazyScript =>
-            {
-                this.status = 'jQuery script loaded. Check <head> element.';
-                console.log(lazyScript.url, lazyScript.completed);
-            });
+    public overrideAndLoad()
+    {
+        const options = { alreadyLoaded: () => (this.windowRef.nativeWindow as any).$ };
+
+        this.load(options);
     }
 }
