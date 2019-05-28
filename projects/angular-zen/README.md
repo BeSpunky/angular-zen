@@ -25,6 +25,9 @@ These tools can be used with any app and you may use them as you like.
 | [`CoreModule`](TODO) | Contains general tools that normally serve for infrastructure code |
 | [`LoaderModule`](TODO) | Contains tools for dynamically loading scripts on to the page    |
 
+# 🙌 Live Examples
+See the [demo project online](https://bs-angular-zen-demo.firebaseapp.com).
+
 # 📖 Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
