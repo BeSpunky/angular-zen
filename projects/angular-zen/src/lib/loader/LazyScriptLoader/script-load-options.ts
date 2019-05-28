@@ -26,6 +26,7 @@ export interface ScriptLoadOptions
      *
      * When providing a function, it is the caller's responsability to take care of any previously loaded scripts, objects in memory or anything that may lead
      * to memory leaks and collisions.
+     * If you don't check properly, you might end up with more than one `<script>` tags of the same script in your `<head>` tag.
      *
      * Example:
      * When lazy loading Google Maps API you would probably do something like:
