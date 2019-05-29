@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 /**
  * An injectable token that will allow us to replace the provider for the native window object when necessary (e.g. mocking the `window` object).
  */
-export const WINDOW = new InjectionToken<any>('WindowToken');
+export const WINDOW = new InjectionToken<Window>('WindowToken');
 
 /**
  * Provides an injectable wrapper for the `window` object.
