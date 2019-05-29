@@ -67,6 +67,11 @@ describe('DocumentRef', () =>
         {
             expect(service.nativeDocument).toEqual(documentMock);
         });
+
+        it('should throw a `Not Implemented` error when DocumentRef is used directly', () =>
+        {
+            expect(() => new DocumentRef().nativeDocument).toThrowError(/Not implemented/);
+        });
     });
 
     describe('running on non-browser platforms', () =>

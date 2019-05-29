@@ -46,6 +46,11 @@ describe('WindowRef', () =>
         {
             expect(typeof service.nativeWindow).toBe('object');
         });
+
+        it('should throw a `Not Implemented` error when WindowRef is used directly', () =>
+        {
+            expect(() => new WindowRef().nativeWindow).toThrowError(/Not implemented/);
+        });
     });
 
     describe('running on browser platforms', () =>
