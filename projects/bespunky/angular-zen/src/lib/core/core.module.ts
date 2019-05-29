@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { WindowRefProviders } from './WindowRef/window-ref.service';
-import { DocumentRef } from './DocumentRef/document-ref.service';
+import { DocumentRefProviders } from './DocumentRef/document-ref.service';
 
 @NgModule({
     declarations: [],
     imports: [],
     providers: [
         WindowRefProviders,
-        DocumentRef
-    ]
+        DocumentRefProviders
+    ],
+    exports: []
 })
 export class CoreModule { }
