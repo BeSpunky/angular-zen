@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 /**
  * An injectable token that will allow us to replace the provider for the native document object when necessary (e.g. mocking the `document` object).
  */
-export const DOCUMENT = new InjectionToken<any>('DocumentToken');
+export const DOCUMENT = new InjectionToken<Document>('DocumentToken');
 
 /**
  * Provides an injectable wrapper for the `document` object.
