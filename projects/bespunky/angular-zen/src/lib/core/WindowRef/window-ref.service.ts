@@ -10,37 +10,14 @@ export const WINDOW = new InjectionToken<Window>('WindowToken');
  * Provides an injectable wrapper for the `window` object.
  *
  * Inject this in your services/components and you will be able to easily mock or spy on the native `window` object in your tests.
- * You can also use `TestBed.overrideProvider()` to:
+ * You can:
  * - Replace the default `WINDOW` token provider, which allows you to mock the `window` object.
  * - Replace the default `WindowRef` service provider, which allows you to replace the logic for retrieving the `window` object.
  *
  * The default implementation provider for this service is defined by `DefaultWindowRefProvider`.
  *
  * @example
- * // Your service:
- * export class SomeService
- * {
- *     constructor(private windowRef: WindowRef) {}
- *
- *     // ...
- * }
- *
- * // Your test:
- * it('should ...', () => {
- *     const service = TestBed.get(WindowRef);
- *
- *     spyOn(service.nativeWindow, 'someWindowFunction').and.returnValue('mockValue');
- *
- *     expect(service.nativeWindow.someWindowFunction()).toBe('mockValue');
- * });
- *
- * it('should ...', () => {
- *     TestBed.overrideProvider(WINDOW, { useValue: { someWindowFunction: () => 'mockValue' } });
- *
- *     const service = TestBed.get(WindowRef);
- *
- *     expect(service.nativeWindow.someWindowFunction()).toBe('mockValue');
- * });
+ * @see window-ref.service.spec.ts for examples.
  *
  * @export
  */
