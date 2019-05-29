@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CoreModule } from '@bespunky/angular-zen';
 
 import { DocumentRefDemoComponent } from './document-ref-demo.component';
 
@@ -10,7 +11,8 @@ describe('DocumentRefDemoComponent', () =>
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [DocumentRefDemoComponent]
+            declarations: [DocumentRefDemoComponent],
+            imports: [CoreModule]
         })
             .compileComponents();
     }));
