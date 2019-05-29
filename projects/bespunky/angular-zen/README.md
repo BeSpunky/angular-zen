@@ -84,7 +84,7 @@ Run `ng build angular-zen` to build the project. The build artifacts will be sto
 
 ## Publishing
 
-After building your library with `ng build angular-zen`, go to the dist folder `cd dist/angular-zen` and run `npm publish`.
+After building your library with `ng build angular-zen`, go to the dist folder `cd dist/bespunky/angular-zen` and run `npm publish`.
 
 ## Running unit tests
 
