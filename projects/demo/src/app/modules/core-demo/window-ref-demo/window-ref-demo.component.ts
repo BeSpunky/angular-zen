@@ -8,7 +8,7 @@ import { WindowRef } from '@bespunky/angular-zen';
 })
 export class WindowRefDemoComponent implements OnInit
 {
-    public screen: Screen;
+    public screen: any;
 
     constructor(private windowRef: WindowRef) { }
 

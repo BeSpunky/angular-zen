@@ -3,23 +3,23 @@
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 
 This angular **workspace** provides:
-- The `angular-zen` library containing a set of general purpose modules and tools written by our team at BeSpunky
+- The `@bespunky/angular-zen` library containing a set of general purpose modules and tools written by our team at BeSpunky
 - A `demo` app with examples.
 
 > When published to npm, only the library itself is published.
 
-# Examples
-The demo app is **live** at [Angular-Zen Demo](https://bs-angular-zen-demo.firebaseapp.com).
-For working examples, visit the **code** for the [demo app](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents).
+# 🙌 Examples
+The demo app is **live** at [Angular-Zen Demo](https://bs-angular-zen-demo.firebaseapp.com).  
+For implementation, [visit the code](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents) for the demo app.
 
 
 Each module in the library has its dedicated folder in the demo app.
 
-# Documentation
+# 📖 Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-### The complete documentation is found in the [wiki](/wiki/Wiki-Home.md), and is also accessible only at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2FWiki%20Home).
+### The complete documentation is found in the [wiki folder](/wiki/Wiki-Home.md), and is also accessible only at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2FWiki%20Home).
 
 # Angular CLI
 
@@ -66,3 +66,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 The demo app for this library is hosted on firebase and the workspace has been initialized using firebase CLI.
 
 To publish the demo project, use `npm run publish-demo` which will build and publish the app.
+
+# NPM Scripts
+The workspace also defines custom npm scripts in `package.json`.  
+They can be run calling `npm run <scriptName>`:
+
+| Name | Action | Special Usage |
+| ---  | ---    | ---           |
+| test | Runs workspace tests once and produces JUnit and code coverage reports | |
+| e2e | Runs the demo project's e2e tests agains the production configuration in `protractor.conf.prod.js`. This adds reports and uses ChromeHeadless`.| |
+| lib-`<version>` | Stashes any WIP, bumps up the library's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
+| app-`<version>` | Stashes any WIP, bumps up the app's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
+| v`<version>` | Runs `lib-<version>` then runs `app-<version>` | Replace `<version>` with one of major/minor/patch. |
+| publish-demo | Builds the demo app in production mode and deploys it to firebase | If needed, a token can be provided when running the script: `npm run publish-demo -- --token TheTokenObtainedFromFirebase` |

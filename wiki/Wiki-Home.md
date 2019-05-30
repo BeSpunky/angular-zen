@@ -1,15 +1,15 @@
-# Angular-Zen
+# `@BeSpunky/Angular-Zen`
 
 ## This project is still a work in progress. **Not for production**.
-`angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
+`@bespunky/angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
 These tools can be used with any app and you may use them as you like.
 
 > The library was written and tested in angular 7 but might work with older versions.
 
-# Contents
+
 ## 🎁 [What's in the library?](Modules)
-## ✨ [Getting Started](Getting-Started)
 ## 👨‍🏫 [Examples](https://angular-zen-demo.firebaseapp.com)
+## ✨ [Getting Started](Getting-Started)
 
 <br/>
 

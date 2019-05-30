@@ -1,11 +1,27 @@
-# WindowRef Service
+# `WindowRef` Service
+The `window` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `window` doesn't always exist when working with angular. 
+
+## Why?
+Angular serves for many purposes other than web development:
+- Mobile development
+- Server Side development
+- Testing
+
+Basically, this means that our application might be run in different environments, others than the normal browser, hence will not have the `window` object.
+
+## What do we do?
+
 The `WindowRef` service acts as an injectable angular wrapper for the javascript `window` object.
 
 `WindowRef` will automatically detect if it is running on a browser platform and will return an empty object otherwise.
 This allows DI and unit testing.
 
+The default implementation for `WindowRef` depends on the `WINDOW` token which provides the actual native object.
+
+This eventually gives you the ability to use the `WindowRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `WINDOW` token, or both.
+
 # How to use
-1. Import `CoreModule` into your app:
+## 1. Import `CoreModule` into your app:
 
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +45,7 @@ This allows DI and unit testing.
     export class AppModule { }
    ```
 
-2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
+## 2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
 
    ```typescript
     import { Component, OnInit } from '@angular/core';
@@ -52,3 +68,8 @@ This allows DI and unit testing.
         }
     }
     ```
+
+    # See also
+    [Mocking and replacing implementation](WindowRef/Mocking)
+
+    [`WindowRef` internals](WindowRef/Internals)

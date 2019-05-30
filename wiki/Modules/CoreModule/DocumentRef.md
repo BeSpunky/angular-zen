@@ -1,11 +1,27 @@
-# DocumentRef Service
+# `DocumentRef` Service
+The `document` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `document` doesn't always exist when working with angular. 
+
+## Why?
+Angular serves for many purposes other than web development:
+- Mobile development
+- Server Side development
+- Testing
+
+Basically, this means that our application might be run in different environments, others than the normal browser, hence will not have the `document` object.
+
+## What do we do?
+
 The `DocumentRef` service acts as an injectable angular wrapper for the javascript `document` object.
 
 `DocumentRef` will automatically detect if it is running on a browser platform and will return an empty object otherwise.
 This allows DI and unit testing.
 
+The default implementation for `DocumentRef` depends on the `DOCUMENT` token which provides the actual native object.
+
+This eventually gives you the ability to use the `DocumentRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `DOCUMENT` token, or both.
+
 # How to use
-1. Import `CoreModule` into your app:
+## 1. Import `CoreModule` into your app:
 
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +45,7 @@ This allows DI and unit testing.
     export class AppModule { }
    ```
 
-2. Inject `DocumentRef` in your components and use `.nativeDocument` to access the `document` object:
+## 2. Inject `DocumentRef` in your components and use `.nativeDocument` to access the `document` object:
 
    ```typescript
     import { Component, OnInit } from '@angular/core';
@@ -42,13 +58,18 @@ This allows DI and unit testing.
     })
     export class DocumentRefDemoComponent implements OnInit
     {
-        public screen: Screen;
+        public title: string;
 
         constructor(private documentRef: DocumentRef) { }
 
         ngOnInit()
         {
-            this.screen = this.documentRef.nativeDocument.screen;
+            this.title = this.documentRef.nativeDocument.title;
         }
     }
     ```
+
+    # See also
+    [Mocking and replacing implementation](DocumentRef/Mocking)
+
+    [`DocumentRef` internals](DocumentRef/Internals)
