@@ -72,7 +72,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
         fakeLoadScript = (url: string, options: ScriptLoadOptions) =>
         {
             // Set a dummy call to already loaded just to be able to spy on it.
-            if (options.alreadyLoaded) options.alreadyLoaded.call(component, url);
+            if (options.alreadyLoaded) options.alreadyLoaded(url);
 
             return fakeObservable;
         };
