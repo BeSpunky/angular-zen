@@ -11,7 +11,7 @@
 
 ## This project is still a work in progress. **Not for production**.
 `@bespunky/angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
-These tools can be used with any app and you may use them as you like.
+These tools can be used with any app and you may use them as you like under the MIT license.
 
 > The library was written and tested in angular 7 but might work with older versions.
 
@@ -21,12 +21,12 @@ These tools can be used with any app and you may use them as you like.
 
 | Name | Description |
 | ---  | ---         |
-| [`ZenModule`](TODO) | The main module of the library. Depends on and exports all other modules.
-| [`CoreModule`](TODO) | Contains general tools that normally serve for infrastructure code |
-| [`LoaderModule`](TODO) | Contains tools for dynamically loading scripts on to the page    |
+| [`ZenModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FZenModule&pageId=88&wikiVersion=GBmaster) | The main module of the library. Depends on and exports all other modules.
+| [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&pageId=86&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code |
+| [`LoaderModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FLoaderModule&pageId=87&wikiVersion=GBmaster) | Contains tools for dynamically loading scripts on to the page    |
 
 # 🙌 Live Examples
-See the [demo project online](https://bs-angular-zen-demo.firebaseapp.com).
+See the [live demo project](https://bs-angular-zen-demo.firebaseapp.com).
 
 # 📖 Documentation
 
@@ -35,11 +35,11 @@ All modules / components / services are documented within the code. Some might h
 ### The complete workspace documentation is found online at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pageId=80&pagePath=%2Fhome).
 
 # ✨ Getting Started
-1. Install the npm package:
+## 1. Install the npm package:
    
    `> npm install @bespunky/angular-zen`
 
-2. Include `ZenModule` in your corresponding module:
+## 2. Include `ZenModule` in your corresponding module:
    
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';

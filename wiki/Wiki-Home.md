@@ -6,10 +6,10 @@ These tools can be used with any app and you may use them as you like.
 
 > The library was written and tested in angular 7 but might work with older versions.
 
-# Contents
+
 ## 🎁 [What's in the library?](Modules)
-## ✨ [Getting Started](Getting-Started)
 ## 👨‍🏫 [Examples](https://angular-zen-demo.firebaseapp.com)
+## ✨ [Getting Started](Getting-Started)
 
 <br/>
 
