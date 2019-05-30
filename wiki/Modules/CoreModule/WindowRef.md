@@ -21,7 +21,7 @@ The default implementation for `WindowRef` depends on the `WINDOW` token which p
 This eventually gives you the ability to use the `WindowRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `WINDOW` token, or both.
 
 # How to use
-1. Import `CoreModule` into your app:
+## 1. Import `CoreModule` into your app:
 
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -45,7 +45,7 @@ This eventually gives you the ability to use the `WindowRef` service in your app
     export class AppModule { }
    ```
 
-2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
+## 2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
 
    ```typescript
     import { Component, OnInit } from '@angular/core';

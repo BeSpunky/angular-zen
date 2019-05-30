@@ -21,7 +21,7 @@ The default implementation for `DocumentRef` depends on the `DOCUMENT` token whi
 This eventually gives you the ability to use the `DocumentRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `DOCUMENT` token, or both.
 
 # How to use
-1. Import `CoreModule` into your app:
+## 1. Import `CoreModule` into your app:
 
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -45,7 +45,7 @@ This eventually gives you the ability to use the `DocumentRef` service in your a
     export class AppModule { }
    ```
 
-2. Inject `DocumentRef` in your components and use `.nativeDocument` to access the `document` object:
+## 2. Inject `DocumentRef` in your components and use `.nativeDocument` to access the `document` object:
 
    ```typescript
     import { Component, OnInit } from '@angular/core';
