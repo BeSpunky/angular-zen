@@ -1,4 +1,4 @@
-# `@BeSpunky/Angular-Zen`
+# @BeSpunky/Angular-Zen
 
 ## This project is still a work in progress. **Not for production**.
 `@bespunky/angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
