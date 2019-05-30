@@ -28,6 +28,11 @@ export class LazyScriptLoaderDemoComponent implements OnInit
                    .subscribe(lazyScript => this.status = 'Loaded. Check <head> element.');
     }
 
+    private alreadyLoaded()
+    {
+        return !!(this.windowRef.nativeWindow as any).$;
+    }
+
     public loadUsingDefaults()
     {
         this.load();
@@ -35,8 +40,6 @@ export class LazyScriptLoaderDemoComponent implements OnInit
 
     public overrideAndLoad()
     {
-        const options = { alreadyLoaded: () => (this.windowRef.nativeWindow as any).$ };
-
-        this.load(options);
+        this.load({ alreadyLoaded: this.alreadyLoaded });
     }
 }

@@ -1,3 +1,4 @@
+import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { CoreModule } from '@bespunky/angular-zen';
@@ -5,7 +6,6 @@ import { CoreModule } from '@bespunky/angular-zen';
 import { CoreDemoComponent } from './core-demo.component';
 import { WindowRefDemoComponent } from './window-ref-demo/window-ref-demo.component';
 import { DocumentRefDemoComponent } from './document-ref-demo/document-ref-demo.component';
-import { By } from '@angular/platform-browser';
 
 describe('CoreDemoComponent', () =>
 {
@@ -36,7 +36,7 @@ describe('CoreDemoComponent', () =>
         expect(component).toBeTruthy();
     });
 
-    it('should have CoreModules demos displayed', () =>
+    it('should have CoreModule\'s demos displayed', () =>
     {
         const h5s = element.queryAll(By.css('h5'));
 

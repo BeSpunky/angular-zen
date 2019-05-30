@@ -1,9 +1,9 @@
+import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CoreModule, DOCUMENT } from '@bespunky/angular-zen';
 
 import { DocumentRefDemoComponent } from './document-ref-demo.component';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('DocumentRefDemoComponent', () =>
 {
@@ -48,15 +48,15 @@ describe('DocumentRefDemoComponent', () =>
         });
     });
 
-    describe('Shallow Tests', () =>
+    describe('Shallow test', () =>
     {
         let b: any;
 
         beforeEach(() => b = element.query(By.css('b')).nativeElement);
 
-        it('paragraph should start with no title', () => expect(b.textContent).toBe(''));
+        it('should start with no title value in the paragraph', () => expect(b.textContent).toBe(''));
 
-        it('paragraph should be assigned document title after init', () =>
+        it('should be assigned document title in the paragraph after init', () =>
         {
             component.ngOnInit();
 
