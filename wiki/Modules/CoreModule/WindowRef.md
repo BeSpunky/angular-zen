@@ -1,4 +1,4 @@
-# `WindowRef` Service
+# WindowRef Service
 The `window` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `window` doesn't always exist when working with angular. 
 
 ## Why?

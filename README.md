@@ -75,7 +75,7 @@ They can be run calling `npm run <scriptName>`:
 | ---  | ---    | ---           |
 | test | Runs workspace tests once and produces JUnit and code coverage reports | |
 | e2e | Runs the demo project's e2e tests agains the production configuration in `protractor.conf.prod.js`. This adds reports and uses ChromeHeadless`.| |
-| lib-`<version>` | Stashes any WIP, bumps up the library's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
-| app-`<version>` | Stashes any WIP, bumps up the app's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
-| v`<version>` | Runs `lib-<version>` then runs `app-<version>` | Replace `<version>` with one of major/minor/patch. |
+| lib-v`<version>` | Stashes any WIP, bumps up the library's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
+| app-v`<version>` | Stashes any WIP, bumps up the app's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
+| v`<version>` | Runs `lib-v<version>` then runs `app-v<version>` | Replace `<version>` with one of major/minor/patch. |
 | publish-demo | Builds the demo app in production mode and deploys it to firebase | If needed, a token can be provided when running the script: `npm run publish-demo -- --token TheTokenObtainedFromFirebase` |

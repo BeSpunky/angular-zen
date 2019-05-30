@@ -1,4 +1,4 @@
-# `LazyScriptLoaderService`
+# LazyScriptLoaderService
 In some cases it is necessary to load a script file programatically instead of predefining it in the html directly.
 
 This service surves that exact purpose, while also keeping track of loaded scripts to avoid loading them multiple times.

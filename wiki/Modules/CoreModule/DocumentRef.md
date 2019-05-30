@@ -1,4 +1,4 @@
-# `DocumentRef` Service
+# DocumentRef Service
 The `document` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `document` doesn't always exist when working with angular. 
 
 ## Why?

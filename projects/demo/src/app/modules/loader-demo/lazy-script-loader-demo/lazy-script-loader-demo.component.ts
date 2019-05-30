@@ -40,6 +40,6 @@ export class LazyScriptLoaderDemoComponent implements OnInit
 
     public overrideAndLoad()
     {
-        this.load({ alreadyLoaded: this.alreadyLoaded });
+        this.load({ alreadyLoaded: this.alreadyLoaded.bind(this) });
     }
 }
