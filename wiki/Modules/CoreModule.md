@@ -1,4 +1,5 @@
 # Services
+
 | Name | Description |
 | ---  | ---         |
 | [WindowRef](CoreModule/WindowRef) | Provides an injectable wrapper for accessing the `window` object. |

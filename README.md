@@ -3,7 +3,7 @@
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 
 This angular **workspace** provides:
-- The `angular-zen` library containing a set of general purpose modules and tools written by our team at BeSpunky
+- The `@bespunky/angular-zen` library containing a set of general purpose modules and tools written by our team at BeSpunky
 - A `demo` app with examples.
 
 > When published to npm, only the library itself is published.
