@@ -64,8 +64,26 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Firebase CLI
 The demo app for this library is hosted on firebase and the workspace has been initialized using firebase CLI.
+To publish the demo project, use `npm run publish-demo` which will publish the demo app.
 
-To publish the demo project, use `npm run publish-demo` which will build and publish the app.
+After AOT compilation, the demo app will be flattened, which is why firebase.json defines the public folder as working directory.
+```json
+{
+    "hosting": {
+        "site": "bs-angular-zen-demo",
+        "public": ".", // <-- This
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [{
+            "source": "**",
+            "destination": "/index.html"
+        }]
+    }
+}
+```
 
 # NPM Scripts
 The workspace also defines custom npm scripts in `package.json`.  
