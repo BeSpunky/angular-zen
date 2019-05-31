@@ -1,4 +1,4 @@
-import { Injectable, Inject, InjectionToken, PLATFORM_ID, ValueProvider, ClassProvider } from '@angular/core';
+import { Injectable, Inject, InjectionToken, PLATFORM_ID, ClassProvider, FactoryProvider } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 /**
@@ -61,17 +61,30 @@ export class PlatformDependantWindowRef extends WindowRef
 }
 
 /**
- * The default provider for the `WINDOW` token.
- * By default, provides the native `window` object.
+ * Returns the native `window` object directly.
+ * This factory was simply created because AOT compilation will omit the window object if provided directly in a ValueProvider instead of
+ * a FactoryProvider.
+ *
+ * @export
+ * @returns `window`.
  */
-export const DefaultWindowProvider: ValueProvider = {
+export function windowFactory()
+{
+    return window;
+}
+
+/**
+ * The default provider for the `WINDOW` token.
+ * Provides the native `window` object directly.
+ */
+export const DefaultWindowProvider: FactoryProvider = {
     provide: WINDOW,
-    useValue: window
+    useFactory: windowFactory
 };
 
 /**
  * The default `WindowRef` provider.
- * By default provides the platform dependant implementation.
+ * Provides the platform dependant implementation.
  */
 export const DefaultWindowRefProvider: ClassProvider = {
     provide: WindowRef,
