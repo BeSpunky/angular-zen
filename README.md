@@ -78,4 +78,4 @@ They can be run calling `npm run <scriptName>`:
 | lib-v`<version>` | Stashes any WIP, bumps up the library's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
 | app-v`<version>` | Stashes any WIP, bumps up the app's version, commits with a message then pops previous WIP. | Replace `<version>` with one of major/minor/patch. |
 | v`<version>` | Runs `lib-v<version>` then runs `app-v<version>` | Replace `<version>` with one of major/minor/patch. |
-| publish-demo | Builds the demo app in production mode and deploys it to firebase | If needed, a token can be provided when running the script: `npm run publish-demo -- --token TheTokenObtainedFromFirebase` |
+| publish-demo | Deploys the demo app to firebase | If needed, a token can be provided when running the script: `npm run publish-demo -- --token TheTokenObtainedFromFirebase` |
