@@ -1,12 +1,12 @@
 {
   "name": "angular-zen-workspace",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "build-demo": "ng build --prod --project demo",
-    "test": "ng test --prod --progress --code-coverage --browsers=ChromeHeadless --watch=false --reporters=junit,coverage-istanbul",
+    "test": "ng test --prod --code-coverage --browsers=ChromeHeadless --watch=false --reporters=junit,coverage-istanbul",
     "lint": "ng lint",
     "e2e": "ng e2e --prod --protractor-config=projects/demo-e2e/protractor.conf.prod.js",
     "lib-vmajor": "git stash && cd projects/bespunky/angular-zen && (for /F %m in ('npm version major') do git commit --all -m \"Bumped library version to %m\") && git stash pop",

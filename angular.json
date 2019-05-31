@@ -23,6 +23,12 @@
             "tsConfig": "projects/bespunky/angular-zen/tsconfig.spec.json",
             "karmaConfig": "projects/bespunky/angular-zen/karma.conf.js",
             "codeCoverage": true
+          },
+          "configurations": {
+            "production": {
+              "browsers": "ChromeHeadless",
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -123,6 +129,13 @@
               "projects/demo/src/favicon.ico",
               "projects/demo/src/assets"
             ]
+          },
+          "configurations": {
+            "production": {
+              "codeCoverage": true,
+              "browsers": "ChromeHeadless",
+              "watch": false
+            }
           }
         },
         "lint": {
