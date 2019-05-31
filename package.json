@@ -1,10 +1,11 @@
 {
   "name": "angular-zen-workspace",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-demo": "ng build --prod --project demo",
     "test": "ng test --progress --code-coverage --browsers=ChromeHeadless --watch=false --reporters=junit,coverage-istanbul",
     "lint": "ng lint",
     "e2e": "ng e2e --protractor-config=projects/demo-e2e/protractor.conf.prod.js",
@@ -17,7 +18,7 @@
     "vmajor": "npm run lib-vmajor && npm run app-vmajor",
     "vminor": "npm run lib-vminor && npm run app-vminor",
     "vpatch": "npm run lib-vpatch && npm run app-vpatch",
-    "publish-demo": "ng build --project=demo --prod && firebase deploy --only hosting:bs-angular-zen-demo"
+    "publish-demo": "firebase deploy --only hosting:bs-angular-zen-demo"
   },
   "private": false,
   "dependencies": {

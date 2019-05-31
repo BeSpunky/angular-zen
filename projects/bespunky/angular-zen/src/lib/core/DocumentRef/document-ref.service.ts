@@ -1,4 +1,4 @@
-import { Injectable, Inject, InjectionToken, PLATFORM_ID, ValueProvider, ClassProvider } from '@angular/core';
+import { Injectable, Inject, InjectionToken, PLATFORM_ID, ClassProvider, FactoryProvider } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 /**
@@ -58,17 +58,30 @@ export class PlatformDependantDocumentRef extends DocumentRef
 }
 
 /**
- * The default provider for the `DOCUMENT` token.
- * By default, provides the native `document` object.
+ * Returns the native `document` object directly.
+ * This factory was simply created because AOT compilation will omit the document object if provided directly in a ValueProvider instead of
+ * a FactoryProvider.
+ *
+ * @export
+ * @returns `document`.
  */
-export const DefaultDocumentProvider: ValueProvider = {
+export function documentFactory()
+{
+    return document;
+}
+
+/**
+ * The default provider for the `DOCUMENT` token.
+ * Provides the native `document` object directly.
+ */
+export const DefaultDocumentProvider: FactoryProvider = {
     provide: DOCUMENT,
-    useValue: document
+    useFactory: documentFactory
 };
 
 /**
  * The default `DocumentRef` provider.
- * By default provides the platform dependant implementation.
+ * Provides the platform dependant implementation.
  */
 export const DefaultDocumentRefProvider: ClassProvider = {
     provide: DocumentRef,
