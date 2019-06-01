@@ -60,7 +60,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
             const simulateLoadComplete = () =>
             {
                 // Set a dummy function as if jQuery was loaded
-                windowMock.$ = windowMock.jQuery = () => ({});
+                windowMock.$ = windowMock.jQuery = function() { return this; };
 
                 observer.next(lazyScriptStub);
                 observer.complete();

@@ -50,6 +50,10 @@ export class LazyScriptLoaderService
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultOptions.alreadyLoaded : options.alreadyLoaded;
         options.force         = options.force         === undefined ? this.defaultOptions.force : options.force;
 
+        // ================================================================
+        // TODO: If script tag already exists on page, don't create another
+        // ================================================================
+
         // If the script should be loaded, load it
         if (!options.alreadyLoaded(url) || options.force)
         {
