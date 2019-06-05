@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CoreDemoModule } from './modules/core-demo/core-demo.module';
-import { LoaderDemoModule } from './modules/loader-demo/loader-demo.module';
+import { AsyncDemoModule } from './modules/async-demo/async-demo.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +12,7 @@ import { LoaderDemoModule } from './modules/loader-demo/loader-demo.module';
     imports: [
         BrowserModule,
         CoreDemoModule,
-        LoaderDemoModule
+        AsyncDemoModule
     ],
     providers: [],
     bootstrap: [AppComponent]

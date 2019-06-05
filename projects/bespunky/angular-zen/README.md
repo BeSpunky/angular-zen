@@ -22,8 +22,8 @@ These tools can be used with any app and you may use them as you like under the 
 | Name | Description |
 | ---  | ---         |
 | [`ZenModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FZenModule&wikiVersion=GBmaster) | The main module of the library. Depends on and exports all other modules.
-| [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code |
-| [`LoaderModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FLoaderModule&wikiVersion=GBmaster) | Contains tools for dynamically loading scripts on to the page    |
+| [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
+| [`AsyncModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
 
 # 🙌 Live Examples
 See the [live demo project](https://bs-angular-zen-demo.firebaseapp.com).
@@ -66,7 +66,7 @@ All modules / components / services are documented within the code. Some might h
 > [See wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pagePath=%2Fhome) for more detailed documentation and feature-specific usage.
 
 > You may import all tools simply by importing `ZenModule` by itself, as it exports the rest of the modules.
-> However, if you only require a few specific tools, it is recommended that you import only the modules (e.g. `LoaderModule`) you need in order to optimize your code.
+> However, if you only require a few specific tools, it is recommended that you import only the modules (e.g. `AsyncModule`) you need in order to optimize your code.
 
 
 # Angular CLI

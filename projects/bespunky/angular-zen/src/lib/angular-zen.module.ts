@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 
 import { CoreModule } from './core/core.module';
-import { LoaderModule } from './loader/loader.module';
+import { AsyncModule } from './async/async.module';
 
 @NgModule({
     declarations: [],
     imports: [
         CoreModule,
-        LoaderModule
+        AsyncModule
     ],
     exports: [
         CoreModule,
-        LoaderModule
+        AsyncModule
     ]
 })
 export class ZenModule { }

@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 import { CoreDemoModule } from './modules/core-demo/core-demo.module';
-import { LoaderDemoModule } from './modules/loader-demo/loader-demo.module';
+import { AsyncDemoModule } from './modules/async-demo/async-demo.module';
 
 describe('AppComponent', () =>
 {
@@ -12,7 +12,7 @@ describe('AppComponent', () =>
             declarations: [
                 AppComponent
             ],
-            imports: [CoreDemoModule, LoaderDemoModule]
+            imports: [CoreDemoModule, AsyncDemoModule]
         }).compileComponents();
     }));
 
