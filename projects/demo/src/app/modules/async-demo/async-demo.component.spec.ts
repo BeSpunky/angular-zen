@@ -1,28 +1,28 @@
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { LoaderModule, CoreModule } from '@bespunky/angular-zen';
+import { AsyncModule, CoreModule } from '@bespunky/angular-zen';
 
-import { LoaderDemoComponent } from './loader-demo.component';
+import { AsyncDemoComponent } from './async-demo.component';
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo/lazy-script-loader-demo.component';
 
-describe('LoaderDemoComponent', () =>
+describe('AsyncDemoComponent', () =>
 {
-    let component: LoaderDemoComponent;
-    let fixture: ComponentFixture<LoaderDemoComponent>;
+    let component: AsyncDemoComponent;
+    let fixture: ComponentFixture<AsyncDemoComponent>;
     let element: DebugElement;
 
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [LoaderDemoComponent, LazyScriptLoaderDemoComponent],
-            imports: [LoaderModule, CoreModule]
+            declarations: [AsyncDemoComponent, LazyScriptLoaderDemoComponent],
+            imports: [AsyncModule, CoreModule]
         }).compileComponents();
     }));
 
     beforeEach(() =>
     {
-        fixture = TestBed.createComponent(LoaderDemoComponent);
+        fixture = TestBed.createComponent(AsyncDemoComponent);
 
         component = fixture.componentInstance;
         element = fixture.debugElement;
@@ -35,7 +35,7 @@ describe('LoaderDemoComponent', () =>
         expect(component).toBeTruthy();
     });
 
-    it('should have LoaderModule\'s demos displayed', () =>
+    it('should have AsyncModule\'s demos displayed', () =>
     {
         const h5s = element.queryAll(By.css('h5'));
 

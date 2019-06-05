@@ -30,6 +30,6 @@ To start using the tools provided by the library:
    ```
    
 > In case you only want to use a specific tool, you can simply import the module that declares it instead of importing the entire library.
-> Simply replace `ZenModule` with the module you need (e.g. `LoaderModule`).
+> Simply replace `ZenModule` with the module you need (e.g. `AsyncModule`).
 
 > [Read about Modules](Modules) for more detailed documentation and feature-specific usage instructions.

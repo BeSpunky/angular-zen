@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { CoreModule, LoaderModule, LazyScriptLoaderService, LazyLoadedScript, WINDOW, DOCUMENT, ScriptLoadOptions } from '@bespunky/angular-zen';
+import { CoreModule, AsyncModule, LazyScriptLoaderService, LazyLoadedScript, WINDOW, DOCUMENT, ScriptLoadOptions } from '@bespunky/angular-zen';
 
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo.component';
 import { Observable } from 'rxjs';
@@ -33,7 +33,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
     {
         TestBed.configureTestingModule({
             declarations: [LazyScriptLoaderDemoComponent],
-            imports: [LoaderModule, CoreModule],
+            imports: [AsyncModule, CoreModule],
             providers: [
                 { provide: WINDOW, useValue: windowMock },
                 { provide: DOCUMENT, useValue: documentMock },

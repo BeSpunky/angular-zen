@@ -4,11 +4,11 @@ In some cases it is necessary to load a script file programatically instead of p
 This service surves that exact purpose, while also keeping track of loaded scripts to avoid loading them multiple times.
 
 # How to use
-## 1. Import `LoaderModule` into your app:
+## 1. Import `AsyncModule` into your app:
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoaderModule } from '@bespunky/angular-zen';
+import { AsyncModule } from '@bespunky/angular-zen';
 
 import { LoaderDemoComponent } from './loader-demo.component';
 
@@ -16,7 +16,7 @@ import { LoaderDemoComponent } from './loader-demo.component';
     declarations: [LoaderDemoComponent, LazyScriptLoaderDemoComponent],
     imports: [
         CommonModule,
-        LoaderModule // Include in imports
+        AsyncModule // Include in imports
     ],
     exports: [LoaderDemoComponent]
 })
