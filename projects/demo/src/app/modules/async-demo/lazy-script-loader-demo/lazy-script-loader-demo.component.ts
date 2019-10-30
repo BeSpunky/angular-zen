@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowRef } from '@bespunky/angular-zen';
-import { LazyScriptLoaderService, ScriptLoadOptions } from '@bespunky/angular-zen';
+import { LazyLoaderService, ScriptLoadOptions } from '@bespunky/angular-zen';
 
 @Component({
     selector: 'zen-lazy-script-loader-demo',
@@ -13,7 +13,7 @@ export class LazyScriptLoaderDemoComponent implements OnInit
 
     public status: string;
 
-    constructor(private loader: LazyScriptLoaderService, public windowRef: WindowRef) { }
+    constructor(private loader: LazyLoaderService, public windowRef: WindowRef) { }
 
     ngOnInit()
     {
