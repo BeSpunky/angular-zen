@@ -9,8 +9,9 @@ export * from './lib/core/WindowRef/window-ref.service';
 export * from './lib/core/DocumentRef/document-ref.service';
 
 export * from './lib/async/async.module';
-export * from './lib/async/LazyScriptLoader/lazy-script-loader.service';
-export * from './lib/async/LazyScriptLoader/script-load-options';
-export * from './lib/async/LazyScriptLoader/lazy-loaded-script';
+export * from './lib/async/LazyLoader/lazy-loader.service';
+export * from './lib/async/LazyLoader/script-load-options';
+export * from './lib/async/LazyLoader/style-load-options';
+export * from './lib/async/LazyLoader/lazy-loaded-file';
 
 export * from './lib/async/utils/promiseLater';
