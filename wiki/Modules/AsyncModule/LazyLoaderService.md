@@ -1,7 +1,7 @@
-# LazyScriptLoaderService
-In some cases it is necessary to load a script file programatically instead of predefining it in the html directly.
+# LazyLoaderService
+In some cases it is necessary to load a script/style file programatically instead of predefining it in the html directly.
 
-This service surves that exact purpose, while also keeping track of loaded scripts to avoid loading them multiple times.
+This service surves that exact purpose, while also keeping track of loaded files to avoid loading them multiple times.
 
 # How to use
 ## 1. Import `AsyncModule` into your app:
@@ -24,11 +24,11 @@ export class LoaderDemoModule { }
 
 ```
 
-## 2. Inject `LazyScriptLoaderService` into your component/service and call `loadScript()`:
+## 2. Inject `LazyLoaderService` into your component/service and call `loadScript()` or `loadStyle()`:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { LazyScriptLoaderService } from '@bespunky/angular-zen';
+import { LazyLoaderService } from '@bespunky/angular-zen';
 
 @Component({
     selector: 'zen-lazy-script-loader-demo',
@@ -41,7 +41,7 @@ export class LazyScriptLoaderDemoComponent implements OnInit
 
     public status: string;
 
-    constructor(private loader: LazyScriptLoaderService) { }
+    constructor(private loader: LazyLoaderService) { }
 
     ngOnInit()
     {
@@ -59,10 +59,11 @@ export class LazyScriptLoaderDemoComponent implements OnInit
 ```
 
 For more exensive examples, see:
-* [Service unit tests](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fsrc%2Flib%2Floader%2FLazyScriptLoader%2Flazy-script-loader.service.spec.ts&version=GBmaster)
-* [Demo component](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Floader-demo%2Flazy-script-loader-demo&version=GBmaster)
+* [Service unit tests](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fsrc%2Flib%2Fasync%2FLazyLoader%2Flazy-loader.service.spec.ts&version=GBmaster)
+* [Async Script Demo component](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-script-loader-demo&version=GBmaster)
+* [Async Style Demo component](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-style-loader-demo&version=GBmaster)
 
 # See also
-[Service API](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fsrc%2Flib%2Floader%2FLazyScriptLoader%2Flazy-script-loader.service.ts&version=GBmaster)
+[Service API](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fsrc%2Flib%2Fasync%2FLazyLoader%2Flazy-loader.service.ts&version=GBmaster)
 
 [Providing options](LazyScriptLoaderService/Options)
