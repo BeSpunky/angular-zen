@@ -125,7 +125,7 @@ export class LazyLoaderService
                 };
 
                 // Create the actual file tag, start downloading and store the element reference
-                lazyFile.element = createElement(url, options, onLoad, observer.error);
+                lazyFile.element = createElement(url, options, onLoad, observer.error.bind(observer));
             });
 
             // Cache the file and the observable for later use
