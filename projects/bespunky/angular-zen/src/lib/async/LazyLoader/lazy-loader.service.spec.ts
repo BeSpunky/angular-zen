@@ -71,11 +71,7 @@ describe('LazyLoaderService', () =>
         // Create the document object allowing to spy on its createElement() function
         documentMock = jasmine.createSpyObj('document', ['createElement']);
         // When the element should be created, substitute it for the stub
-        documentMock.createElement.and.callFake((tagName: string) =>
-        {
-            console.log('create element called.');
-            return tagName === 'script' ? scriptTagStub : linkTagStub;
-        });
+        documentMock.createElement.and.callFake((tagName: string) => tagName === 'script' ? scriptTagStub : linkTagStub);
 
         // Create hierarchy
         documentRefMock = { nativeDocument: documentMock };
