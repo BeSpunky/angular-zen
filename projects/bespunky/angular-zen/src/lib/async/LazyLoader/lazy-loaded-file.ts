@@ -1,10 +1,14 @@
 import { ElementRef } from '@angular/core';
 
 /**
- * Holds the data and status of a lazy loaded script.
+ * Holds the data and status of a lazy loaded file.
  */
-export interface LazyLoadedScript
+export interface LazyLoadedFile
 {
+    /**
+     * The type of the loaded file.
+     */
+    type: 'script' | 'style';
 
     /**
      * The url of the script being loaded.
@@ -17,7 +21,7 @@ export interface LazyLoadedScript
     completed: boolean;
 
     /**
-     * The `<script>` element added to the document.
+     * The `<script>` or `<link>` element added to the document.
      */
     element: ElementRef;
 }

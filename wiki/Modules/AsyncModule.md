@@ -2,7 +2,7 @@
 
 | Name | Description |
 | ---  | ---         |
-| [LazyScriptLoaderService](AsyncModule/LazyScriptLoaderService) | Provides tools for loading scripts on runtime. |
+| [LazyLoaderService](AsyncModule/LazyLoaderService) | Provides tools for loading scripts and styles on runtime. |
 
 # Utils
 The module also contains a set of exported functions that are available regardless of importing the `AsyncModule`.
