@@ -5,6 +5,7 @@ import { AsyncModule, CoreModule } from '@bespunky/angular-zen';
 
 import { AsyncDemoComponent } from './async-demo.component';
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo/lazy-script-loader-demo.component';
+import { LazyStyleLoaderDemoComponent } from './lazy-style-loader-demo/lazy-style-loader-demo.component';
 
 describe('AsyncDemoComponent', () =>
 {
@@ -15,7 +16,7 @@ describe('AsyncDemoComponent', () =>
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [AsyncDemoComponent, LazyScriptLoaderDemoComponent],
+            declarations: [AsyncDemoComponent, LazyScriptLoaderDemoComponent, LazyStyleLoaderDemoComponent],
             imports: [AsyncModule, CoreModule]
         }).compileComponents();
     }));
@@ -38,7 +39,11 @@ describe('AsyncDemoComponent', () =>
     it('should have AsyncModule\'s demos displayed', () =>
     {
         const h5s = element.queryAll(By.css('h5'));
+        const titles = h5s.map(e => e.nativeElement.innerHTML);
 
-        expect(h5s.find((e) => e.nativeElement.textContent === 'LazyScriptLoaderService')).toBeDefined();
+        expect([
+            'LazyLoaderService.loadScript()',
+            'LazyLoaderService.loadStyle()'
+        ].every(titles.includes.bind(titles))).toBeTruthy();
     });
 });

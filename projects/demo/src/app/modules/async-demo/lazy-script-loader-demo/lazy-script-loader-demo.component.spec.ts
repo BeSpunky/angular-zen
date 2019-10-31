@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { CoreModule, AsyncModule, LazyScriptLoaderService, LazyLoadedScript, WINDOW, DOCUMENT, ScriptLoadOptions } from '@bespunky/angular-zen';
+import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { CoreModule, AsyncModule, LazyLoaderService, LazyLoadedFile, WINDOW, DOCUMENT, ScriptLoadOptions } from '@bespunky/angular-zen';
 
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo.component';
-import { Observable } from 'rxjs';
-import { By } from '@angular/platform-browser';
 
 describe('LazyScriptLoaderDemoComponent', () =>
 {
     const scriptLoadTime = 5000;
 
     let lazyLoaderSpy: jasmine.Spy;
-    let lazyLoader: LazyScriptLoaderService;
+    let lazyLoader: LazyLoaderService;
     let windowMock: any;
     let documentMock: any;
-    let lazyScriptStub: LazyLoadedScript;
-    let fakeObservable: Observable<LazyLoadedScript>;
-    let fakeLoadScript: (url: string, options: ScriptLoadOptions) => Observable<LazyLoadedScript>;
+    let lazyScriptStub: LazyLoadedFile;
+    let fakeObservable: Observable<LazyLoadedFile>;
+    let fakeLoadScript: (url: string, options: ScriptLoadOptions) => Observable<LazyLoadedFile>;
 
     let component: LazyScriptLoaderDemoComponent;
     let fixture: ComponentFixture<LazyScriptLoaderDemoComponent>;
@@ -26,7 +26,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
     {
         windowMock = { $: undefined, jQuery: undefined };
         documentMock = {};
-        lazyLoader = new LazyScriptLoaderService(documentMock);
+        lazyLoader = new LazyLoaderService(documentMock);
     }
 
     function setupTestBed()
@@ -37,7 +37,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
             providers: [
                 { provide: WINDOW, useValue: windowMock },
                 { provide: DOCUMENT, useValue: documentMock },
-                { provide: LazyScriptLoaderService, useValue: lazyLoader }
+                { provide: LazyLoaderService, useValue: lazyLoader }
             ]
         }).compileComponents();
 
@@ -53,7 +53,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
 
     function stubLoadScript()
     {
-        lazyScriptStub = { url: 'https://code.jquery.com/jquery-3.4.1.min.js', completed: true, element: fixture.elementRef };
+        lazyScriptStub = { type: 'script', url: 'https://code.jquery.com/jquery-3.4.1.min.js', completed: true, element: fixture.elementRef };
 
         fakeObservable = Observable.create(observer =>
         {
