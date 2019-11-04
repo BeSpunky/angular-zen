@@ -4,8 +4,7 @@ import { CoreModule } from '../core/core.module';
 
 @NgModule({
     declarations: [],
-    imports: [
-        CoreModule
-    ]
+    imports: [ CoreModule ],
+    exports: [ CoreModule ]
 })
 export class AsyncModule { }
