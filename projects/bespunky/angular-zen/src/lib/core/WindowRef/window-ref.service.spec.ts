@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
-import { WINDOW, WindowRef, DefaultWindowRefProvider } from './window-ref.service';
+import { WINDOW, WindowRef, WindowRefProviders } from './window-ref.service';
 
 // These are not exported by angular so they are redefined here
 const PLATFORM_BROWSER_ID = 'browser';
@@ -11,27 +11,14 @@ const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
 
 describe('WindowRef', () =>
 {
-    const originStub = 'angular-zen demo';
-
-    let windowMock: any;
     let service: WindowRef;
-
-    beforeEach(() =>
-    {
-        windowMock = {
-            origin: originStub
-        };
-    });
 
     describe('basically', () =>
     {
         beforeEach(() =>
         {
             TestBed.configureTestingModule({
-                providers: [
-                    DefaultWindowRefProvider,
-                    { provide: WINDOW, useValue: windowMock }
-                ]
+                providers: [ WindowRefProviders ]
             });
 
             service = TestBed.get(WindowRef);
@@ -46,11 +33,6 @@ describe('WindowRef', () =>
         {
             expect(typeof service.nativeWindow).toBe('object');
         });
-
-        it('should throw a `Not Implemented` error when WindowRef is used directly', () =>
-        {
-            expect(() => new WindowRef().nativeWindow).toThrowError(/Not implemented/);
-        });
     });
 
     describe('running on browser platforms', () =>
@@ -59,9 +41,8 @@ describe('WindowRef', () =>
         {
             TestBed.configureTestingModule({
                 providers: [
-                    DefaultWindowRefProvider,
                     { provide: PLATFORM_ID, useValue: PLATFORM_BROWSER_ID },
-                    { provide: WINDOW, useValue: windowMock }
+                    WindowRefProviders
                 ]
             });
 
@@ -70,7 +51,7 @@ describe('WindowRef', () =>
 
         it('should return the `window` object', () =>
         {
-            expect(service.nativeWindow).toEqual(windowMock);
+            expect(service.nativeWindow.screenX).toBeDefined();
         });
     });
 
@@ -80,9 +61,8 @@ describe('WindowRef', () =>
         {
             TestBed.configureTestingModule({
                 providers: [
-                    DefaultWindowRefProvider,
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
-                    { provide: WINDOW, useValue: windowMock }
+                    WindowRefProviders
                 ]
             });
 
@@ -91,8 +71,27 @@ describe('WindowRef', () =>
 
         it('should return an empty object', () =>
         {
-            expect(service.nativeWindow).not.toEqual(windowMock);
-            expect(service.nativeWindow).not.toContain('origin');
+            expect(Object.keys(service.nativeWindow).length).toEqual(0);
         });
+    });
+
+    describe('mocking WINDOW', () =>
+    {
+        let mockWindow = { dummy: 'value' };
+
+        beforeEach(() =>
+        {
+
+            TestBed.configureTestingModule({
+                providers: [
+                    { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
+                    { provide: WINDOW, useValue: mockWindow }
+                ]
+            });
+
+            service = TestBed.get(WindowRef);
+        })
+
+        it('should allow replacing the windowFactory() implementation', () => expect(service.nativeWindow).toEqual(mockWindow));
     });
 });
