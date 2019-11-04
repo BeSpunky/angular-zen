@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DocumentRef } from '../../core/DocumentRef/document-ref.service';
@@ -7,6 +7,7 @@ import { LoadOptions } from './load-options';
 import { LazyLoadedFile } from './lazy-loaded-file';
 import { StyleLoadOptions } from './style-load-options';
 import { castArray } from 'lodash';
+import { isPlatformBrowser } from '@angular/common';
 
 export type ElementCreator = (url: string, options: LoadOptions, onLoad: () => void, onError: (error: any) => void) => ElementRef;
 
@@ -44,7 +45,7 @@ export class LazyLoaderService
      */
     private cache: { [url: string]: { lazyFile: LazyLoadedFile, observable: Observable<LazyLoadedFile> } };
 
-    constructor(private documentRef: DocumentRef)
+    constructor(private documentRef: DocumentRef, @Inject(PLATFORM_ID) private platformId: any)
     {
         this.cache = {};
     }
@@ -107,6 +108,8 @@ export class LazyLoaderService
 
     private loadFile(url: string, type: 'script' | 'style', options: LoadOptions, createElement: ElementCreator): Observable<LazyLoadedFile>
     {
+        if (!isPlatformBrowser(this.platformId)) return of(null);
+
         // If the script should be loaded, load it
         if (!options.alreadyLoaded(url) || options.force)
         {
