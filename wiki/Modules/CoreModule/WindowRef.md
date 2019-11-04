@@ -1,5 +1,5 @@
 # WindowRef Service
-The `window` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `window` doesn't always exist when working with angular. 
+The `window` object is necessary many times when working with the web, and normally we would summon it directly in our code. However, `window` doesn't always exist when working with angular. 
 
 ## Why?
 Angular serves for many purposes other than web development:
@@ -14,7 +14,7 @@ Basically, this means that our application might be run in different environment
 The `WindowRef` service acts as an injectable angular wrapper for the javascript `window` object.
 
 `WindowRef` will automatically detect if it is running on a browser platform and will return an empty object otherwise.
-This allows DI and unit testing.
+This allows DI and unit testing and prevents "`window` is undefined" on non-browser platforms.
 
 The default implementation for `WindowRef` depends on the `WINDOW` token which provides the actual native object.
 
@@ -23,53 +23,53 @@ This eventually gives you the ability to use the `WindowRef` service in your app
 # How to use
 ## 1. Import `CoreModule` into your app:
 
-   ```typescript
-    import { BrowserModule } from '@angular/platform-browser';
-    import { NgModule } from '@angular/core';
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-    import { CoreModule } from '@bespunky/angular-zen'; // 1. Import module
+import { CoreModule } from '@bespunky/angular-zen'; // 1. Import module
 
-    import { AppComponent } from './app.component';
+import { AppComponent } from './app.component';
 
-    @NgModule({
-        declarations: [
-            AppComponent
-        ],
-        imports: [
-            BrowserModule,
-            CoreModule // 2. Import module in your app
-        ],
-        providers: [], 
-        bootstrap: [AppComponent]
-    })
-    export class AppModule { }
-   ```
+@NgModule({
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        CoreModule // 2. Import module in your app
+    ],
+    providers: [], 
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
 ## 2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
 
-   ```typescript
-    import { Component, OnInit } from '@angular/core';
-    import { WindowRef } from 'angular-zen';
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { WindowRef } from 'angular-zen';
 
-    @Component({
-        selector: 'zen-window-ref-demo',
-        templateUrl: './window-ref-demo.component.html',
-        styleUrls: ['./window-ref-demo.component.css']
-    })
-    export class WindowRefDemoComponent implements OnInit
+@Component({
+    selector: 'zen-window-ref-demo',
+    templateUrl: './window-ref-demo.component.html',
+    styleUrls: ['./window-ref-demo.component.css']
+})
+export class WindowRefDemoComponent implements OnInit
+{
+    public screen: Screen;
+
+    constructor(private windowRef: WindowRef) { }
+
+    ngOnInit()
     {
-        public screen: Screen;
-
-        constructor(private windowRef: WindowRef) { }
-
-        ngOnInit()
-        {
-            this.screen = this.windowRef.nativeWindow.screen;
-        }
+        this.screen = this.windowRef.nativeWindow.screen;
     }
-    ```
+}
+```
 
-    # See also
-    [Mocking and replacing implementation](WindowRef/Mocking)
+# See also
+[Mocking and replacing implementation](WindowRef/Mocking)
 
-    [`WindowRef` internals](WindowRef/Internals)
+[`WindowRef` internals](WindowRef/Internals)

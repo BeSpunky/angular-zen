@@ -1,11 +1,11 @@
 # DocumentRef Internals
-`DocumentRef` by itself doesn't work, and will actually throw a 'not implemented' exception if you use it as-is.
-The service has some friends that accompany it and help it acheive its goal: **DI & Testability**.
+The `DocumentRef` service has some friends that accompany it and help it acheive its goal: **DI & Testability**.
 
-`CoreModule` exports 2 providers defined along with `DocumentRef`:
+`CoreModule` exports the following elements as part of the `DocumentRef` mechanism:
 | Name | Purpose | Default Implementation |
 | ---  | ---     | ---                    |
-| `DefaultDocumentProvider` | Allow injection of the native `document` object through the `DOCUMENT` token. | Returns `document` directly. |
-| `DefaultDocumentRefProvider` | Provide a platform dependant access to the native object. | `PlatformDependantDocumentRef` which determines if it is running on a browser and returns an appropriate object. |
+| `DOCUMENT` | An injectable token allowing the definition or redefinition of what the `document` value is. | See `DocumentProvider`.
+| `DocumentProvider` | The default provider for `DOCUMENT`. A factory provider defining a platform dependant way of retrieving the `document` object. | Returns `document` or an empty object directly. |
+| `DocumentRefProviders` | A bundle of all providers defined by the `DocumentRef` module allowing a quick import. | Currently only includes `DocumentProvider`. |
 
 See [code file](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fsrc%2Flib%2Fcore%2FDocumentRef%2Fdocument-ref.service.ts&version=GBmaster) for implementation.
