@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { LazyLoaderService } from './lazy-loader.service';
 import { DocumentRef } from '../../core/DocumentRef/document-ref.service';
-import { StyleLoadOptions, LinkRel } from './style-load-options';
+import { StyleLoadOptions } from './style-load-options';
 
 // A stub for the created script tag
 class ScriptTagStub
