@@ -26,7 +26,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
     {
         windowMock = { $: undefined, jQuery: undefined };
         documentMock = {};
-        lazyLoader = new LazyLoaderService(documentMock);
+        lazyLoader = new LazyLoaderService(documentMock, 'browser');
     }
 
     function setupTestBed()

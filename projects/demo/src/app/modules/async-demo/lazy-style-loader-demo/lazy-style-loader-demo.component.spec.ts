@@ -18,7 +18,7 @@ describe('LazyStyleLoaderDemoComponent', () =>
     function initializeMocks()
     {
         documentMock = {};
-        lazyLoader = new LazyLoaderService(documentMock);
+        lazyLoader = new LazyLoaderService(documentMock, 'browser');
     }
 
     function setupTestBed()
