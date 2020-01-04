@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreDemoModule } from './modules/core-demo/core-demo.module';
 import { AsyncDemoModule } from './modules/async-demo/async-demo.module';
+import { UniversalDemoModule } from './modules/universal-demo/universal-demo.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { AsyncDemoModule } from './modules/async-demo/async-demo.module';
     imports: [
         BrowserModule,
         CoreDemoModule,
-        AsyncDemoModule
+        AsyncDemoModule,
+        UniversalDemoModule
     ],
     providers: [],
     bootstrap: [AppComponent]
