@@ -6,6 +6,7 @@
 | [`ZenModule`](Modules/ZenModule) | The main module of the library. Depends on and exports all other modules.
 | [`CoreModule`](Modules/CoreModule) | Contains general tools that normally serve for infrastructure code |
 | [`AsyncModule`](Modules/AsyncModule) | Contains tools for dynamically loading scripts on to the page    |
+| [`UniversalModule`](Modules/UniversalModule) | Contains tools for working easily with Angular Universal and SSR |
 
 # Exports Hierarchy
 The following diagram shows the which modules export which modules and the tools they export:
