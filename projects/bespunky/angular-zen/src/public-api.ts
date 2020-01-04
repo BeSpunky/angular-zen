@@ -15,3 +15,6 @@ export * from './lib/async/LazyLoader/style-load-options';
 export * from './lib/async/LazyLoader/lazy-loaded-file';
 
 export * from './lib/async/utils/promiseLater';
+
+export * from './lib/universal/universal.module';
+export * from './lib/universal/services/universal.service';
