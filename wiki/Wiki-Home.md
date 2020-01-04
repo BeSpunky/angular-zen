@@ -8,7 +8,7 @@ These tools can be used with any app and you may use them as you like.
 
 
 ## 🎁 [What's in the library?](Modules)
-## 👨‍🏫 [Examples](https://bs-angular-zen-demo.firebaseapp.com)
+## 👨‍🏫 [Examples](https://bs-angular-zen-demo.web.app)
 ## ✨ [Getting Started](Getting-Started)
 
 <br/>
