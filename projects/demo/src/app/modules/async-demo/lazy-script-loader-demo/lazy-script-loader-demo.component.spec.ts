@@ -200,7 +200,7 @@ describe('LazyScriptLoaderDemoComponent', () =>
 
             beforeEach(() => code = element.query(By.css('code')).nativeElement);
 
-            it('should start empty', () => expect(code.textContent).toBe('window.$ === '));
+            it('should start empty', () => expect(code.textContent).toBe(''));
 
             it('should change to `undefined` on init', () =>
             {

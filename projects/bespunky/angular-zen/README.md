@@ -13,7 +13,7 @@
 `@bespunky/angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
 These tools can be used with any app and you may use them as you like under the MIT license.
 
-> The library was written and tested in angular 7 but might work with older versions.
+> The library was generated using Angular 7 and has been updated and tested on Angular 8 and 9. Compatibility with older versions is possible but not garantied.
 
 
 # 🎁 What's Inside the Library?
@@ -24,6 +24,7 @@ These tools can be used with any app and you may use them as you like under the 
 | [`ZenModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FZenModule&wikiVersion=GBmaster) | The main module of the library. Depends on and exports all other modules.
 | [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
+| [`UniversalModule`]([Modules/UniversalModule](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster)) | Contains tools for working easily with Angular Universal and SSR |
 
 # 🙌 Live Examples
 See the [live demo project](https://bs-angular-zen-demo.firebaseapp.com).
