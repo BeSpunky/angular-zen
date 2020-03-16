@@ -24,6 +24,7 @@ These tools can be used with any app and you may use them as you like under the 
 | [`ZenModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FZenModule&wikiVersion=GBmaster) | The main module of the library. Depends on and exports all other modules.
 | [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
+| [`UniversalModule`]([Modules/UniversalModule](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster)) | Contains tools for working easily with Angular Universal and SSR |
 
 # 🙌 Live Examples
 See the [live demo project](https://bs-angular-zen-demo.firebaseapp.com).
