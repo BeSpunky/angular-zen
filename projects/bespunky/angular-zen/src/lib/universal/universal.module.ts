@@ -19,7 +19,7 @@ export class UniversalModule
         }
     }
 
-    static forRoot(): ModuleWithProviders
+    static forRoot(): ModuleWithProviders<UniversalModule>
     {
         return {
             ngModule: UniversalModule,
