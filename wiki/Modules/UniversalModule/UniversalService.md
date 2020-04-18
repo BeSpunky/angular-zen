@@ -22,14 +22,14 @@ export class CoolComponent implements OnInit
 }
 ```
 
-Three imports every time (i.e. `Inject`, `PLATFORM_ID` and `isPlatformBrowser`)?? **and** a dirty code?? I've always found this to be tedious to write and annoying to work with. This is where the `UniversalService` comes in...
+Three imports every time (i.e. `Inject`, `PLATFORM_ID` and `isPlatformBrowser`)?? **and** a dirty code?? I've always found this to be tedious to write and annoying to work with. This is where `UniversalService` comes in...
 
 ## The Service
 `UniversalService` simply wraps the above syntax and simplifies its use. So instead of the above, we now have:
 
 ```typescript
 import { Component } from '@angular/core';
-import { UniversalService } from '@bespunky/angular-zen';
+import { UniversalService } from '@bespunky/angular-zen/universal';
 
 @Component({...})
 export class CoolComponent implements OnInit

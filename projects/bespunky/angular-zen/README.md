@@ -1,4 +1,4 @@
-# Angular-Zen
+# @bespunky/angular-zen
 
 [![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/BeSpunky/5caac6d0-efbb-425a-9c23-192e992543d9/27.svg?style=flat-square)
@@ -10,43 +10,40 @@
 ![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen.svg?style=flat-square)
 
 ## This project is still a work in progress. **Not for production**.
-`@bespunky/angular-zen` provides a set of general purpose tools written by our team at BeSpunky.
+`@bespunky/angular-zen` provides a set of **🌳 tree-shakable** general purpose tools written by our team at BeSpunky.
 These tools can be used with any app and you may use them as you like under the MIT license.
 
+🙌 Examples in [live demo project](https://bs-angular-zen-demo.firebaseapp.com).  
+  
 > The library was generated using Angular 7 and has been updated and tested on Angular 8 and 9. Compatibility with older versions is possible but not garantied.
-
 
 # 🎁 What's Inside the Library?
 `@bespunky/angular-zen` exports the following modules:
 
 | Name | Description |
 | ---  | ---         |
-| [`ZenModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FZenModule&wikiVersion=GBmaster) | The main module of the library. Depends on and exports all other modules.
 | [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
-| [`UniversalModule`]([Modules/UniversalModule](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster)) | Contains tools for working easily with Angular Universal and SSR |
-
-# 🙌 Live Examples
-See the [live demo project](https://bs-angular-zen-demo.firebaseapp.com).
+| [`UniversalModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster) | Contains tools for working easily with Angular Universal and SSR |
 
 # 📖 Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-### The complete workspace documentation is found online at [Angular-Zen Wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pagePath=%2Fhome).
+The complete workspace documentation is found online at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen/Wiki-Home).
 
 # ✨ Getting Started
-## 1. Install the npm package:
+1. Install the npm package:
    
    `> npm install @bespunky/angular-zen`
 
-## 2. Include `ZenModule` in your corresponding module:
+2. Include the module you need in your corresponding app/feature module:
    
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
 
-    import { ZenModule } from '@bespunky/angular-zen'; // 1. Import module
+    import { AsyncModule } from '@bespunky/angular-zen/async'; // 1. Import module
 
     import { AppComponent } from './app.component';
 
@@ -56,7 +53,7 @@ All modules / components / services are documented within the code. Some might h
         ],
         imports: [
             BrowserModule,
-            ZenModule // 2. Import module in your app
+            AsyncModule // 2. Include module in your app
         ],
         providers: [], 
         bootstrap: [AppComponent]
@@ -64,11 +61,9 @@ All modules / components / services are documented within the code. Some might h
     export class AppModule { }
    ```
 
-> [See wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pagePath=%2Fhome) for more detailed documentation and feature-specific usage.
-
-> You may import all tools simply by importing `ZenModule` by itself, as it exports the rest of the modules.
-> However, if you only require a few specific tools, it is recommended that you import only the modules (e.g. `AsyncModule`) you need in order to optimize your code.
-
+> 🌳 The library is intended to be tree-shakable, which is why it is constructed as a set of separate modules. Remember to import from the corresponding module (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.
+>
+> [More about modules](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen/112/Modules) and feature-specific information in the full wiki.
 
 # Angular CLI
 

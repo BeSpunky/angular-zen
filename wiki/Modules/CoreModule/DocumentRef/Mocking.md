@@ -6,17 +6,17 @@ When testing, we sometimes need to simulate the internal workings of the native 
 Assuming you injected `DocumentRef` into your component or service:
 ```typescript
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule, DocumentRef, DOCUMENT } from '@bespunky/angular-zen';
+import { CoreModule, DocumentRef, DOCUMENT } from '@bespunky/angular-zen/core';
 
 import { DocumentRefDemoComponent } from './document-ref-demo.component';
 
 describe('DocumentRefDemoComponent', () =>
 {
-    let component: DocumentRefDemoComponent;
-    let fixture: ComponentFixture<DocumentRefDemoComponent>;
-    let element: DebugElement;
+    let component   : DocumentRefDemoComponent;
+    let fixture     : ComponentFixture<DocumentRefDemoComponent>;
+    let element     : DebugElement;
     let documentMock: any;
-    let documentRef: DocumentRef;
+    let documentRef : DocumentRef;
 
     beforeEach(async(() =>
     {
@@ -33,7 +33,7 @@ describe('DocumentRefDemoComponent', () =>
         ...
 
         // 3. Get a hold of the DocumentRef implementation and our mock document object
-        documentRef = TestBed.get(DocumentRef);
+        documentRef  = TestBed.get(DocumentRef);
         documentMock = TestBed.get(DOCUMENT);
     }));
 
