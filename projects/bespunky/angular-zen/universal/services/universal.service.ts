@@ -1,7 +1,9 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser, isPlatformWorkerApp, isPlatformWorkerUi, isPlatformServer } from '@angular/common';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class UniversalService
 {
     /**

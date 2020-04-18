@@ -24,7 +24,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/bespunky/angular-zen/src/test.ts",
+            "main": "projects/bespunky/angular-zen/test.ts",
             "tsConfig": "projects/bespunky/angular-zen/tsconfig.spec.json",
             "karmaConfig": "projects/bespunky/angular-zen/karma.conf.js",
             "codeCoverage": true

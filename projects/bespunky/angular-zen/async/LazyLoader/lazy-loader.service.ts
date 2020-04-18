@@ -1,13 +1,13 @@
-import { Injectable, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { castArray } from 'lodash';
 import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
 
-import { DocumentRef } from '../../core/DocumentRef/document-ref.service';
+import { DocumentRef } from '@bespunky/angular-zen/core';
 import { ScriptLoadOptions } from './script-load-options';
 import { LoadOptions } from './load-options';
 import { LazyLoadedFile } from './lazy-loaded-file';
 import { StyleLoadOptions } from './style-load-options';
-import { castArray } from 'lodash';
-import { isPlatformBrowser } from '@angular/common';
 
 export type ElementCreator = (url: string, options: LoadOptions, onLoad: () => void, onError: (error: any) => void) => ElementRef;
 

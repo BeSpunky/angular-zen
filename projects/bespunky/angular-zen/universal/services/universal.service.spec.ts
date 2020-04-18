@@ -10,7 +10,7 @@ describe('UniversalService', () =>
     beforeEach(() =>
     {
         TestBed.configureTestingModule({
-            imports: [UniversalModule.forRoot()]
+            imports: [UniversalModule]
         });
         
         service = TestBed.get(UniversalService);

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '@bespunky/angular-zen';
+import { CoreModule } from '@bespunky/angular-zen/core';
 
 import { CoreDemoComponent } from './core-demo.component';
 import { WindowRefDemoComponent } from './window-ref-demo/window-ref-demo.component';

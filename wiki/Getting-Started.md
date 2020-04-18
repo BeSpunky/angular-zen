@@ -5,13 +5,13 @@ To start using the tools provided by the library:
    
    `> npm install @bespunky/angular-zen`
 
-2. Include `ZenModule` in your corresponding module:
+2. Include the module you need in your corresponding app/feature module:
    
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
 
-    import { ZenModule } from '@bespunky/angular-zen'; // 1. Import module
+    import { AsyncModule } from '@bespunky/angular-zen/async'; // 1. Import module
 
     import { AppComponent } from './app.component';
 
@@ -21,15 +21,12 @@ To start using the tools provided by the library:
         ],
         imports: [
             BrowserModule,
-            ZenModule // 2. Import module in your app
+            AsyncModule // 2. Include module in your app
         ],
-        providers: [],
+        providers: [], 
         bootstrap: [AppComponent]
     })
     export class AppModule { }
    ```
-   
-> In case you only want to use a specific tool, you can simply import the module that declares it instead of importing the entire library.
-> Simply replace `ZenModule` with the module you need (e.g. `AsyncModule`).
 
 > [Read about Modules](Modules) for more detailed documentation and feature-specific usage instructions.

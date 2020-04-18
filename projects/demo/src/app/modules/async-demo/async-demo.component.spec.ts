@@ -1,7 +1,8 @@
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { AsyncModule, CoreModule } from '@bespunky/angular-zen';
+import { CoreModule } from '@bespunky/angular-zen/core';
+import { AsyncModule} from '@bespunky/angular-zen/async';
 
 import { AsyncDemoComponent } from './async-demo.component';
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo/lazy-script-loader-demo.component';

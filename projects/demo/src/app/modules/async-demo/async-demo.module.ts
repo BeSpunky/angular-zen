@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsyncModule } from '@bespunky/angular-zen';
+import { AsyncModule } from '@bespunky/angular-zen/async';
 
 import { AsyncDemoComponent } from './async-demo.component';
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo/lazy-script-loader-demo.component';
