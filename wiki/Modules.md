@@ -19,6 +19,9 @@ For that reason, each module defines a secondary entry point. The end result is 
 
 For you it simply means that you have to import from the corresponding module (e.g. @bespunky/angular-zen/async), and not directly from @bespunky/angular-zen.
 
+This is how a simple app build looks like when importing only the `core` and `async` modules. Other modules (e.g. `universal`) are not included.
+[![Tree Shaking](.attachments/treeshaking.gif)](.attachments/treeshaking.gif)
+###### Created using [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
 # Shared Module
 If you find yourself frequently importing the same modules, consider creating a shared module for them and import that module instead:
 
