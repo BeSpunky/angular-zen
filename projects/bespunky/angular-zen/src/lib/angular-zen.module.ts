@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 
-import { CoreModule } from './core/core.module';
-import { AsyncModule } from './async/async.module';
+import { CoreModule      } from '@bespunky/angular-zen/core';
+import { AsyncModule     } from '@bespunky/angular-zen/async';
+import { UniversalModule } from '@bespunky/angular-zen/universal';
 
 @NgModule({
     declarations: [],
     imports: [
         CoreModule,
-        AsyncModule
+        AsyncModule,
+        UniversalModule
     ],
     exports: [
         CoreModule,
-        AsyncModule
+        AsyncModule,
+        UniversalModule
     ]
 })
 export class ZenModule { }
