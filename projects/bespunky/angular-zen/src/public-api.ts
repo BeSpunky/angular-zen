@@ -2,6 +2,6 @@
  * Public API Surface of angular-zen
  */
 
-export * from '@bespunky/angular-zen/src/lib/core';
-export * from '@bespunky/angular-zen/src/lib/async';
-export * from '@bespunky/angular-zen/src/lib/universal';
+export * from '@bespunky/angular-zen/core';
+export * from '@bespunky/angular-zen/async';
+export * from '@bespunky/angular-zen/universal';
