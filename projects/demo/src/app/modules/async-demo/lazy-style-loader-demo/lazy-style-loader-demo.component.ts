@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LazyLoaderService } from '@bespunky/angular-zen';
+import { LazyLoaderService } from '@bespunky/angular-zen/async';
 
 export const MagicStyleUrl = '/assets/magic.css';
 

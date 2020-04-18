@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WindowRef } from '@bespunky/angular-zen';
-import { LazyLoaderService, ScriptLoadOptions } from '@bespunky/angular-zen';
+import { WindowRef } from '@bespunky/angular-zen/core';
+import { LazyLoaderService, ScriptLoadOptions } from '@bespunky/angular-zen/async';
 
 @Component({
     selector: 'zen-lazy-script-loader-demo',

@@ -1,6 +1,6 @@
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule, DOCUMENT } from '@bespunky/angular-zen';
+import { CoreModule, DOCUMENT } from '@bespunky/angular-zen/core';
 
 import { DocumentRefDemoComponent } from './document-ref-demo.component';
 import { DebugElement } from '@angular/core';

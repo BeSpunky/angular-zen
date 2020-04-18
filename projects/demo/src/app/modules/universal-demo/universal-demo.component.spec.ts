@@ -1,7 +1,7 @@
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { UniversalModule} from '@bespunky/angular-zen';
+import { UniversalModule } from '@bespunky/angular-zen/universal';
 
 import { UniversalDemoComponent } from './universal-demo.component';
 import { UniversalServiceDemoComponent } from './universal-service-demo/universal-service-demo.component';
@@ -16,7 +16,7 @@ describe('UniversalDemoComponent', () =>
     {
         TestBed.configureTestingModule({
             declarations: [UniversalDemoComponent, UniversalServiceDemoComponent],
-            imports: [UniversalModule.forRoot()]
+            imports: [UniversalModule]
         }).compileComponents();
     }));
 

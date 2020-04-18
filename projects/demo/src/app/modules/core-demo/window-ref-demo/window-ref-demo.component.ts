@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WindowRef } from '@bespunky/angular-zen';
+import { WindowRef } from '@bespunky/angular-zen/core';
 
 @Component({
     selector: 'zen-window-ref-demo',
