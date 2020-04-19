@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UniversalService } from '@bespunky/angular-zen';
+import { UniversalService } from '@bespunky/angular-zen/universal';
 
 @Component({
     selector: 'zen-universal-service-demo',

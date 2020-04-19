@@ -21,53 +21,51 @@ The default implementation for `WindowRef` depends on the `WINDOW` token which p
 This eventually gives you the ability to use the `WindowRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `WINDOW` token, or both.
 
 # How to use
-## 1. Import `CoreModule` into your app:
+1. Import `CoreModule` into your app:
+    ```typescript
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgModule } from '@angular/core';
 
-```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+    import { CoreModule } from '@bespunky/angular-zen/core'; // 1. Import core module
 
-import { CoreModule } from '@bespunky/angular-zen'; // 1. Import module
+    import { AppComponent } from './app.component';
 
-import { AppComponent } from './app.component';
+    @NgModule({
+        declarations: [
+            AppComponent
+        ],
+        imports: [
+            BrowserModule,
+            CoreModule // 2. Include module in your app
+        ],
+        providers: [], 
+        bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+    ```
 
-@NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        CoreModule // 2. Import module in your app
-    ],
-    providers: [], 
-    bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
+2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
+    ```typescript
+    import { Component, OnInit } from '@angular/core';
+    import { WindowRef } from '@bespunky/angular-zen/core';
 
-## 2. Inject `WindowRef` in your components and use `.nativeWindow` to access the `window` object:
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { WindowRef } from 'angular-zen';
-
-@Component({
-    selector: 'zen-window-ref-demo',
-    templateUrl: './window-ref-demo.component.html',
-    styleUrls: ['./window-ref-demo.component.css']
-})
-export class WindowRefDemoComponent implements OnInit
-{
-    public screen: Screen;
-
-    constructor(private windowRef: WindowRef) { }
-
-    ngOnInit()
+    @Component({
+        selector: 'zen-window-ref-demo',
+        templateUrl: './window-ref-demo.component.html',
+        styleUrls: ['./window-ref-demo.component.css']
+    })
+    export class WindowRefDemoComponent implements OnInit
     {
-        this.screen = this.windowRef.nativeWindow.screen;
+        public screen: Screen;
+
+        constructor(private windowRef: WindowRef) { }
+
+        ngOnInit()
+        {
+            this.screen = this.windowRef.nativeWindow.screen;
+        }
     }
-}
-```
+    ```
 
 # See also
 [Mocking and replacing implementation](WindowRef/Mocking)

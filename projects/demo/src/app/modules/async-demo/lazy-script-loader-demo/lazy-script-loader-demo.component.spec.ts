@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { CoreModule, AsyncModule, LazyLoaderService, LazyLoadedFile, WINDOW, DOCUMENT, ScriptLoadOptions } from '@bespunky/angular-zen';
 
+import { CoreModule, WINDOW, DOCUMENT } from '@bespunky/angular-zen/core';
+import { AsyncModule, LazyLoaderService, LazyLoadedFile, ScriptLoadOptions } from '@bespunky/angular-zen/async';
 import { LazyScriptLoaderDemoComponent } from './lazy-script-loader-demo.component';
 
 describe('LazyScriptLoaderDemoComponent', () =>

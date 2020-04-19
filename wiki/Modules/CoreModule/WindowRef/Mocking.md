@@ -6,17 +6,17 @@ When testing, we sometimes need to simulate the internal workings of the native 
 Assuming you injected `WindowRef` into your component or service:
 ```typescript
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule, WindowRef, WINDOW } from '@bespunky/angular-zen';
+import { CoreModule, WindowRef, WINDOW } from '@bespunky/angular-zen/core';
 
 import { WindowRefDemoComponent } from './window-ref-demo.component';
 
 describe('WindowRefDemoComponent', () =>
 {
-    let component: WindowRefDemoComponent;
-    let fixture: ComponentFixture<WindowRefDemoComponent>;
-    let element: DebugElement;
+    let component : WindowRefDemoComponent;
+    let fixture   : ComponentFixture<WindowRefDemoComponent>;
+    let element   : DebugElement;
     let windowMock: any;
-    let windowRef: WindowRef;
+    let windowRef : WindowRef;
 
     beforeEach(async(() =>
     {
@@ -33,7 +33,7 @@ describe('WindowRefDemoComponent', () =>
         ...
 
         // 3. Get a hold of the WindowRef implementation and our mock window object
-        windowRef = TestBed.get(WindowRef);
+        windowRef  = TestBed.get(WindowRef);
         windowMock = TestBed.get(WINDOW);
     }));
 

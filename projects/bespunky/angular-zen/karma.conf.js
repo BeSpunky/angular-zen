@@ -17,12 +17,12 @@ module.exports = function(config)
         client: {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
+        reporters: ['progress', 'kjhtml'],
         coverageIstanbulReporter: {
             dir: require('path').join(__dirname, '../../../coverage/angular-zen'),
             reports: ['html', 'lcovonly', 'cobertura'],
             fixWebpackSourcePaths: true
         },
-        reporters: ['progress', 'kjhtml'],
         junitReporter: {
             outputDir: '../../../tests/angular-zen'
         },

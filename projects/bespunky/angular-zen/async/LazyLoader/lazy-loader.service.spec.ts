@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
+import { DocumentRef } from '@bespunky/angular-zen/core';
 import { LazyLoaderService } from './lazy-loader.service';
-import { DocumentRef } from '../../core/DocumentRef/document-ref.service';
 import { StyleLoadOptions } from './style-load-options';
 
 // A stub for the created script tag
