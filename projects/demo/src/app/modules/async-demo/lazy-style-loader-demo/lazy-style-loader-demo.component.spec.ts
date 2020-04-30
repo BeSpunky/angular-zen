@@ -1,4 +1,4 @@
-import { timer } from 'rxjs';
+import { timer, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -88,7 +88,7 @@ describe('LazyStyleLoaderDemoComponent', () =>
 
         it('button should call `loadStyle()`', () =>
         {
-            const loadStyle = spyOn(lazyLoader, 'loadStyle').and.callFake(() => true);
+            const loadStyle = spyOn(lazyLoader, 'loadStyle').and.callFake(() => of(true));
 
             button.click();
 
