@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { DOCUMENT, CoreModule } from '@bespunky/angular-zen/core';
+import { DOCUMENT } from '@bespunky/angular-zen/core';
 import { LazyLoaderService, AsyncModule } from '@bespunky/angular-zen/async';
 import { LazyStyleLoaderDemoComponent, MagicStyleUrl } from './lazy-style-loader-demo.component';
 
@@ -19,17 +19,15 @@ describe('LazyStyleLoaderDemoComponent', () =>
     function initializeMocks()
     {
         documentMock = {};
-        lazyLoader = new LazyLoaderService(documentMock, 'browser');
     }
 
     function setupTestBed()
     {
         TestBed.configureTestingModule({
             declarations: [LazyStyleLoaderDemoComponent],
-            imports: [AsyncModule, CoreModule],
-            providers: [
-                { provide: DOCUMENT, useValue: documentMock },
-                { provide: LazyLoaderService, useValue: lazyLoader }
+            imports     : [AsyncModule],
+            providers   : [
+                { provide: DOCUMENT, useValue: documentMock }
             ]
         }).compileComponents();
 
