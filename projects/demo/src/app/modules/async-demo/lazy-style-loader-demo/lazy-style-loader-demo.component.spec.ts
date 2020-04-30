@@ -11,10 +11,10 @@ import { LazyStyleLoaderDemoComponent, MagicStyleUrl } from './lazy-style-loader
 describe('LazyStyleLoaderDemoComponent', () =>
 {
     let documentMock: any;
-    let lazyLoader: LazyLoaderService
-    let component: LazyStyleLoaderDemoComponent;
-    let fixture: ComponentFixture<LazyStyleLoaderDemoComponent>;
-    let element: DebugElement;
+    let lazyLoader  : LazyLoaderService
+    let component   : LazyStyleLoaderDemoComponent;
+    let fixture     : ComponentFixture<LazyStyleLoaderDemoComponent>;
+    let element     : DebugElement;
 
     function initializeMocks()
     {
@@ -33,10 +33,10 @@ describe('LazyStyleLoaderDemoComponent', () =>
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(LazyStyleLoaderDemoComponent);
-
-        component = fixture.componentInstance;
-        element = fixture.debugElement;
+        lazyLoader = TestBed.inject(LazyLoaderService);
+        fixture    = TestBed.createComponent(LazyStyleLoaderDemoComponent);
+        component  = fixture.componentInstance;
+        element    = fixture.debugElement;
     }
 
     beforeEach(async(() =>
@@ -48,7 +48,7 @@ describe('LazyStyleLoaderDemoComponent', () =>
 
     beforeEach(() =>
     {
-        fixture = TestBed.createComponent(LazyStyleLoaderDemoComponent);
+        fixture   = TestBed.createComponent(LazyStyleLoaderDemoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
