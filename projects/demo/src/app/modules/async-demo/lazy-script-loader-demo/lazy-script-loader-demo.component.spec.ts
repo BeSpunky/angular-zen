@@ -27,25 +27,23 @@ describe('LazyScriptLoaderDemoComponent', () =>
     {
         windowMock = { $: undefined, jQuery: undefined };
         documentMock = {};
-        lazyLoader = new LazyLoaderService(documentMock, 'browser');
     }
 
     function setupTestBed()
     {
         TestBed.configureTestingModule({
             declarations: [LazyScriptLoaderDemoComponent],
-            imports: [AsyncModule, CoreModule],
-            providers: [
+            imports     : [AsyncModule],
+            providers   : [
                 { provide: WINDOW, useValue: windowMock },
-                { provide: DOCUMENT, useValue: documentMock },
-                { provide: LazyLoaderService, useValue: lazyLoader }
+                { provide: DOCUMENT, useValue: documentMock }
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(LazyScriptLoaderDemoComponent);
-
-        component = fixture.componentInstance;
-        element = fixture.debugElement;
+        lazyLoader = TestBed.inject(LazyLoaderService);
+        fixture    = TestBed.createComponent(LazyScriptLoaderDemoComponent);
+        component  = fixture.componentInstance;
+        element    = fixture.debugElement;
 
         // Seems like TestBed makes copies of all passed in provider mocks.
         // This grabs hold of the copy referenced by the TestBed to allow simulating jquery script load.

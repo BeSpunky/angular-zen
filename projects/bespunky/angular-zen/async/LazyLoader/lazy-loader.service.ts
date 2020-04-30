@@ -1,9 +1,9 @@
 import { castArray } from 'lodash';
 import { Observable, of } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
-import { Injectable, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 import { DocumentRef } from '@bespunky/angular-zen/core';
+import { UniversalService } from '@bespunky/angular-zen/universal';
 import { ScriptLoadOptions } from './script-load-options';
 import { LoadOptions } from './load-options';
 import { LazyLoadedFile } from './lazy-loaded-file';
@@ -45,7 +45,7 @@ export class LazyLoaderService
      */
     private cache: { [url: string]: { lazyFile: LazyLoadedFile, observable: Observable<LazyLoadedFile> } };
 
-    constructor(private documentRef: DocumentRef, @Inject(PLATFORM_ID) private platformId: any)
+    constructor(private documentRef: DocumentRef, private universal: UniversalService)
     {
         this.cache = {};
     }
@@ -108,7 +108,7 @@ export class LazyLoaderService
 
     private loadFile(url: string, type: 'script' | 'style', options: LoadOptions, createElement: ElementCreator): Observable<LazyLoadedFile>
     {
-        if (!isPlatformBrowser(this.platformId)) return of(null);
+        if (!this.universal.isPlatformBrowser) return of(null);
 
         // If the script should be loaded, load it
         if (!options.alreadyLoaded(url) || options.force)

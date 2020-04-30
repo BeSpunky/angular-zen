@@ -1,42 +1,40 @@
-import { timer } from 'rxjs';
+import { timer, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { DOCUMENT, CoreModule } from '@bespunky/angular-zen/core';
+import { DOCUMENT } from '@bespunky/angular-zen/core';
 import { LazyLoaderService, AsyncModule } from '@bespunky/angular-zen/async';
 import { LazyStyleLoaderDemoComponent, MagicStyleUrl } from './lazy-style-loader-demo.component';
 
 describe('LazyStyleLoaderDemoComponent', () =>
 {
     let documentMock: any;
-    let lazyLoader: LazyLoaderService
-    let component: LazyStyleLoaderDemoComponent;
-    let fixture: ComponentFixture<LazyStyleLoaderDemoComponent>;
-    let element: DebugElement;
+    let lazyLoader  : LazyLoaderService
+    let component   : LazyStyleLoaderDemoComponent;
+    let fixture     : ComponentFixture<LazyStyleLoaderDemoComponent>;
+    let element     : DebugElement;
 
     function initializeMocks()
     {
         documentMock = {};
-        lazyLoader = new LazyLoaderService(documentMock, 'browser');
     }
 
     function setupTestBed()
     {
         TestBed.configureTestingModule({
             declarations: [LazyStyleLoaderDemoComponent],
-            imports: [AsyncModule, CoreModule],
-            providers: [
-                { provide: DOCUMENT, useValue: documentMock },
-                { provide: LazyLoaderService, useValue: lazyLoader }
+            imports     : [AsyncModule],
+            providers   : [
+                { provide: DOCUMENT, useValue: documentMock }
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(LazyStyleLoaderDemoComponent);
-
-        component = fixture.componentInstance;
-        element = fixture.debugElement;
+        lazyLoader = TestBed.inject(LazyLoaderService);
+        fixture    = TestBed.createComponent(LazyStyleLoaderDemoComponent);
+        component  = fixture.componentInstance;
+        element    = fixture.debugElement;
     }
 
     beforeEach(async(() =>
@@ -48,7 +46,7 @@ describe('LazyStyleLoaderDemoComponent', () =>
 
     beforeEach(() =>
     {
-        fixture = TestBed.createComponent(LazyStyleLoaderDemoComponent);
+        fixture   = TestBed.createComponent(LazyStyleLoaderDemoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -88,7 +86,7 @@ describe('LazyStyleLoaderDemoComponent', () =>
 
         it('button should call `loadStyle()`', () =>
         {
-            const loadStyle = spyOn(lazyLoader, 'loadStyle').and.callFake(() => true);
+            const loadStyle = spyOn(lazyLoader, 'loadStyle').and.callFake(() => of(true));
 
             button.click();
 
