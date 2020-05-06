@@ -1,9 +1,9 @@
 # @bespunky/angular-zen
 
-[![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
-![Azure DevOps builds](https://img.shields.io/azure-devops/build/BeSpunky/5caac6d0-efbb-425a-9c23-192e992543d9/27.svg?style=flat-square)
-![Azure DevOps tests](https://img.shields.io/azure-devops/tests/BeSpunky/BeSpunky%20Libraries/27.svg?style=flat-square)
-![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/BeSpunky/BeSpunky%20Libraries/27.svg?style=flat-square)
+[![Build status](https://dev.azure.com/BeSpunky/Libraries/_apis/build/status/angular-zen/Build%20angular-zen)](https://dev.azure.com/BeSpunky/Libraries/_build/latest?definitionId=29)
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/bespunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/BeSpunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
+![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/BeSpunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
 
 ![npm bundle size](https://img.shields.io/bundlephobia/min/@bespunky/angular-zen.svg?style=flat-square)
 ![npm downloads](https://img.shields.io/npm/dm/@bespunky/angular-zen.svg?style=flat-square)
@@ -22,15 +22,15 @@ These tools can be used with any app and you may use them as you like under the 
 
 | Name | Description |
 | ---  | ---         |
-| [`CoreModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
-| [`AsyncModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
-| [`UniversalModule`](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster) | Contains tools for working easily with Angular Universal and SSR |
+| [`CoreModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
+| [`AsyncModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
+| [`UniversalModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster) | Contains tools for working easily with Angular Universal and SSR |
 
 # 📖 Documentation
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-The complete workspace documentation is found online at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen/Wiki-Home).
+The complete workspace documentation is found online at [angular-zen wiki](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/Wiki-Home).
 
 # ✨ Getting Started
 1. Install the npm package:
@@ -63,7 +63,7 @@ The complete workspace documentation is found online at [angular-zen wiki](https
 
 > 🌳 The library is intended to be tree-shakable, which is why it is constructed as a set of separate modules. Remember to import from the corresponding module (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.
 >
-> [More about modules](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen/112/Modules) and feature-specific information in the full wiki.
+> [More about modules](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/132/Modules) and feature-specific information in the full wiki.
 
 # Angular CLI
 
