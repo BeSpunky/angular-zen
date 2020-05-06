@@ -1,6 +1,6 @@
 # Angular-Zen Workspace
 
-[![Build status](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_build/latest?definitionId=27)
+[![Build status](https://dev.azure.com/BeSpunky/Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/Libraries/_build/latest?definitionId=27)
 
 This angular **workspace** provides:
 - The `@bespunky/angular-zen` library containing a set of **🌳 tree-shakable** general purpose tools written by our team at BeSpunky.
@@ -12,7 +12,7 @@ This angular **workspace** provides:
 
 # 🙌 Examples
 The demo app is **live** at [angular-zen demo](https://bs-angular-zen-demo.firebaseapp.com).  
-For implementation, [visit the code](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents) for the demo app.
+For implementation, [visit the code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo&version=GBmaster&_a=contents) for the demo app.
 
 Each module in the library has its dedicated folder in the demo app.
 
@@ -20,7 +20,7 @@ Each module in the library has its dedicated folder in the demo app.
 
 All modules / components / services are documented within the code. Some might have their own `Readme.md` file accessible at their folder.
 
-The complete documentation is found in the [wiki folder](/wiki/Wiki-Home.md), and is also accessible online at [angular-zen wiki](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pagePath=%2FWiki%20Home).
+The complete documentation is found in the [wiki folder](/wiki/Wiki-Home.md), and is also accessible online at [angular-zen wiki](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?wikiVersion=GBmaster&pagePath=%2FWiki%20Home).
 
 # Angular CLI
 

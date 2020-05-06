@@ -8,9 +8,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen"
+        "url": "https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen"
     },
-    "homepage": "https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_wiki/wikis/angular-zen",
+    "homepage": "https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen",
     "license": "MIT",
     "peerDependencies": {
         "@angular/common": ">= 7.2.0 <= 9.1.4",

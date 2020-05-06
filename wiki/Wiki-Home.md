@@ -14,5 +14,5 @@ These tools can be used with any app and you may use them as you like under the 
 <br/>
 
 # References
-## [angular-zen repository](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2F&version=GBmaster)
+## [angular-zen repository](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2F&version=GBmaster)
 ## [npm package](https://www.npmjs.com/package/@bespunky/angular-zen)

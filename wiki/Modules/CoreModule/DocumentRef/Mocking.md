@@ -44,4 +44,4 @@ describe('DocumentRefDemoComponent', () =>
 });
 ```
 
-See [demo project](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fcore-demo%2Fdocument-ref-demo&version=GBmaster) for more mocking and testing examples.
+See [demo project](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fcore-demo%2Fdocument-ref-demo&version=GBmaster) for more mocking and testing examples.

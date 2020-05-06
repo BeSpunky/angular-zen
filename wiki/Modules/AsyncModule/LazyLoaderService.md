@@ -57,11 +57,11 @@ This service surves that exact purpose, while also keeping track of loaded files
     ```
 
 For more exensive examples, see:
-* [Service unit tests](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.spec.ts&version=GBmaster)
-* [Async Script Demo component](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-script-loader-demo&version=GBmaster)
-* [Async Style Demo component](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-style-loader-demo&version=GBmaster)
+* [Service unit tests](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.spec.ts&version=GBmaster)
+* [Async Script Demo component](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-script-loader-demo&version=GBmaster)
+* [Async Style Demo component](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-style-loader-demo&version=GBmaster)
 
 # See also
-[Service API](https://dev.azure.com/BeSpunky/BeSpunky%20Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.ts&version=GBmaster)
+[Service API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.ts&version=GBmaster)
 
 [Providing options](LazyLoaderService/Options)
