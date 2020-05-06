@@ -1,6 +1,6 @@
 # Angular-Zen Workspace
 
-[![Build status](https://dev.azure.com/BeSpunky/Libraries/_apis/build/status/Build%20and%20test%20angular-zen)](https://dev.azure.com/BeSpunky/Libraries/_build/latest?definitionId=27)
+[![Build status](https://dev.azure.com/BeSpunky/Libraries/_apis/build/status/angular-zen/Build%20angular-zen)](https://dev.azure.com/BeSpunky/Libraries/_build/latest?definitionId=29)
 
 This angular **workspace** provides:
 - The `@bespunky/angular-zen` library containing a set of **🌳 tree-shakable** general purpose tools written by our team at BeSpunky.
