@@ -37,13 +37,16 @@ If you find yourself frequently importing the same modules, consider creating a 
     import { AsyncModule } from '@bespunky/angular-zen/async';
     import { UniversalModule } from '@bespunky/angular-zen/universal';
 
+    // 2. Include in shared module
+    const modules = [        
+        CoreModule,
+        AsyncModule,
+        UniversalModule
+    ];
+
     @NgModule({
-        imports: [
-            // 2. Include in shared module
-            CoreModule,
-            AsyncModule,
-            UniversalModule
-        ]
+        imports: modules,
+        exports: modules
     })
     export class SharedZenModule { } 
    ```
