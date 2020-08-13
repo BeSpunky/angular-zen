@@ -8,7 +8,9 @@ This angular **workspace** provides:
 
 > When published to npm, only the library itself is published.
   
-> The library was generated using Angular 7 and has been updated and tested on Angular 8 and 9. Compatibility with older versions is possible but not garantied.
+> The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10.
+>
+> Compatibility with older versions is possible but not garantied.
 
 # 🙌 Examples
 The demo app is **live** at [angular-zen demo](https://bs-angular-zen-demo.firebaseapp.com).  
