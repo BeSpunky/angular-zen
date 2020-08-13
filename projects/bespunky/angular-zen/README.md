@@ -15,7 +15,10 @@ These tools can be used with any app and you may use them as you like under the 
 
 🙌 Examples in [live demo project](https://bs-angular-zen-demo.firebaseapp.com).  
   
-> The library was generated using Angular 7 and has been updated and tested on Angular 8 and 9. Compatibility with older versions is possible but not garantied.
+> The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10.
+>
+> Compatibility with older versions is possible but not garantied.
+
 
 # 🎁 What's Inside the Library?
 `@bespunky/angular-zen` exports the following modules:
