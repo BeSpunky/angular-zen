@@ -1,4 +1,3 @@
-import { castArray } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { Injectable, ElementRef } from '@angular/core';
 
@@ -195,7 +194,7 @@ export class LazyLoaderService
         if (options.hreflang   ) link.hreflang    = options.hreflang;
         if (options.crossOrigin) link.crossOrigin = options.crossOrigin;
         if (options.media      ) link.media       = options.media;
-        link.relList.add(castArray(options.rel) as any);
+        link.relList.add(Array.isArray(options.rel) ? options.rel : [options.rel] as any);
         link.type = options.type;
         link.href = url;
         
