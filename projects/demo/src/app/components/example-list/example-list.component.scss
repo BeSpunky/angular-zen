@@ -1,0 +1,19 @@
+.soon {
+    opacity: 0.4;
+    transition: opacity .5s ease;
+}
+
+.soon::before {
+    content: '🚧 Coming Soon';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    background: rgb(212, 71, 141);
+    padding: 5px 15px;
+    border-radius: 3px;
+    transform: rotate(7deg);
+}
+
+.soon:hover {
+    opacity: 1;
+}

@@ -1,0 +1,37 @@
+<div class="cover fill-screen-v relative" fxLayout="column" fxLayoutAlign="center center">
+    <div class="box padding-30 text-center" [ngStyle.xs]="{ width: 'initial' }" [ngStyle.gt-xs]="{ width: '500px' }">
+        <div class="logo text-center">
+            <img src="assets/logo@1.25x.png" width="234" height="403"/>
+        </div>
+        <h1 class="title">@bespunky/angular-google-maps</h1>
+        <h3 class="subtitle">A brilliant solution for using Google Maps in Angular.</h3>
+        <button mat-raised-button color="primary" (click)="slideTo(demos)">Start Experimenting</button>
+    </div>
+</div>
+
+<div class="benefits padding-30" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="15px">
+    <h1 class="text-center">The Cool Benefits</h1>
+    <h3 class="text-center">The true potential of Google Maps at your fingertips.</h3>
+
+    <demo-library-benefits class=""></demo-library-benefits>
+
+    <div class="text-center">
+        <a mat-raised-button color="primary" [href]="wikiUrl" target="_blank" class="margin-top-30">See The Docs</a>
+    </div>
+</div>
+
+<div class="demos padding-30" #demos>
+    <a name="demos"></a>
+    <h1 class="text-center">Demos</h1>
+    <h3 class="text-center">⚡ All of the examples are served using StackBlitz. For tips and insights, look below the map.</h3>
+    
+    <demo-example-list [cards]="cards" class="padding-30"></demo-example-list>
+
+    <h3 class="text-center">🚧 More coming soon...</h3>
+</div>
+
+<div class="footer padding-30" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+    <span>This demo site and the library are provided freely under the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT license</a>.</span>
+    <span>Issues and requests can be sent to <a href="mailto:us@bespunky.io?subject=@bespunky/angular-google-maps" target="_blank">us@bespunky.io</a>.</span>
+    <small><a href="https://www.freepik.com/free-photo/crop-hands-holding-globe_1935152.htm#page=1&query=globe%20hands&position=22" target="_blank">Cover image created by freepik - www.freepik.com</a></small>
+</div>

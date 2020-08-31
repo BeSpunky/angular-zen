@@ -1,0 +1,11 @@
+<div class="example padding-30">
+    <div class="summary">
+        <h1><mat-icon>{{example.icon}}</mat-icon> {{example.title}} <small><a routerLink="../" class="non-link-style" matTooltip="Back"><mat-icon>keyboard_arrow_up</mat-icon></a></small></h1>
+        <h3>{{example.description}}</h3>
+        <p *ngIf="example.notes" class="notes">{{example.notes}}</p>
+    </div>
+</div>
+
+<div [ngClass.gt-xs]="'padding-30'" [ngStyle.gt-xs]="{ paddingTop: 0 }">
+    <iframe [src]="safeEmbedUrl"></iframe>
+</div>
