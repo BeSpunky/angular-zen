@@ -18,6 +18,7 @@
     "vmajor": "npm run lib-vmajor && npm run app-vmajor",
     "vminor": "npm run lib-vminor && npm run app-vminor",
     "vpatch": "npm run lib-vpatch && npm run app-vpatch",
+    "publish": "cd dist/bespunky/angular-zen && npm publish --access public",
     "publish-demo": "firebase deploy --only hosting:bs-angular-zen-demo"
   },
   "private": false,
