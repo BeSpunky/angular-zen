@@ -21,6 +21,12 @@
     },
     {
       "path": "./projects/demo-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./projects/demo/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/demo/tsconfig.spec.json"
     }
   ]
 }
