@@ -1,7 +1,7 @@
 {
   "name": "@bespunky/angular-zen",
-  "version": "2.3.0",
-  "description": "A set of general purpose tools written by our team at BeSpunky.",
+  "version": "2.3.2",
+  "description": "Helps you focus on what you really need to do.",
   "private": false,
   "author": {
     "name": "BeSpunky",
