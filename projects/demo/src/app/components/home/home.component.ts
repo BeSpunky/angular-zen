@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Topic  } from '../../types/topic';
-import { Topics } from '../../topics/all';
+import { Project  } from '../../types/project';
+import { Topic    } from '../../types/topic';
+import { Topics   } from '../../topics/all';
+import { WikiUrl  } from '../../app.component';
 import { CardInfo } from '../example-list/example-list.component';
-import { WikiUrl } from '../../app.component';
 
 @Component({
     selector   : 'demo-home',
@@ -20,6 +21,11 @@ export class HomeComponent
         icon    : topic.icon,
         content : topic.description
     }));
+
+    public readonly projects: Project[] = [
+        { name: `angular-zen-ux`, description: `` },
+        { name: `angular-zen-seo`, description: `` },
+    ];
 
     public slideTo(element: HTMLElement): void
     {

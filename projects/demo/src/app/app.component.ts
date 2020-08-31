@@ -5,8 +5,8 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Topics } from './topics/all';
 
-export const WikiUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-google-maps';
-export const RepoUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-google-maps';
+export const WikiUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen';
+export const RepoUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen';
 
 @Component({
     selector   : 'demo-root',

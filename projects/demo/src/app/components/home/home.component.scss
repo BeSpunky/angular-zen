@@ -10,7 +10,10 @@
     background-size    : cover;
     background-position: center center;
     background-repeat  : no-repeat;
-    filter             : brightness(.5) grayscale(1);
+}
+
+.project-link {
+    padding: 10px 25px !important;
 }
 
 .demos {
@@ -18,5 +21,5 @@
 }
 
 .footer a {
-    color: white;
+    color: rgb(71, 71, 71);
 }

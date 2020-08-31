@@ -1,11 +1,15 @@
 <div class="cover fill-screen-v relative" fxLayout="column" fxLayoutAlign="center center">
     <div class="box padding-30 text-center" [ngStyle.xs]="{ width: 'initial' }" [ngStyle.gt-xs]="{ width: '500px' }">
         <div class="logo text-center">
-            <img src="assets/logo@1.25x.png" width="234" height="403"/>
+            <img src="assets/angular-zen/logo@1.25x.png" width="297" height="413"/>
         </div>
-        <h1 class="title">@bespunky/angular-google-maps</h1>
-        <h3 class="subtitle">A brilliant solution for using Google Maps in Angular.</h3>
+        <h1 class="title">@bespunky/angular-zen</h1>
+        <h3 class="subtitle">Helps you focus on what you really need to do.</h3>
         <button mat-raised-button color="primary" (click)="slideTo(demos)">Start Experimenting</button>
+    </div>
+
+    <div class="padding-30 text-center" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
+        <a mat-raised-button class="project-link" *ngFor="let project of projects" routerLink="/"><img [src]="'assets/' + project.name + '/logo64x64.png'"/></a>
     </div>
 </div>
 
@@ -33,5 +37,7 @@
 <div class="footer padding-30" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
     <span>This demo site and the library are provided freely under the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT license</a>.</span>
     <span>Issues and requests can be sent to <a href="mailto:us@bespunky.io?subject=@bespunky/angular-google-maps" target="_blank">us@bespunky.io</a>.</span>
-    <small><a href="https://www.freepik.com/free-photo/crop-hands-holding-globe_1935152.htm#page=1&query=globe%20hands&position=22" target="_blank">Cover image created by freepik - www.freepik.com</a></small>
+    <small><a href="https://pixabay.com/photos/buddha-india-mind-prayer-concept-1550588/" target="_blank">Cover image created by pixabay - www.pixabay.com</a></small>
+    <small><a href="https://www.flaticon.com/authors/kiranshastry" target="_blank" title="Kiranshastry">Hand gesture icon made by Kiranshastry - www.flaticon.com</a></small>
+    <small><a href="https://www.freepik.com/vectors/infographic" target="_blank" title="Kiranshastry">Infographic vector created by freepik - www.freepik.com</a></small>
 </div>
