@@ -1,0 +1,14 @@
+{
+    "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+
+    "tsconfig": "./projects/bespunky/angular-zen/tsconfig.lib.json",
+
+    "output": "./dist/bespunky/angular-zen/api",
+
+    "theme": "material",
+
+    "customLogo"   : "./projects/demo/src/assets/logo@0.75x.png",
+    "customFavicon": "./projects/demo/src/favicon.ico",
+
+    "watch": true
+}
