@@ -1,6 +1,6 @@
-import { Observable     } from 'rxjs';
-import { tap, filter, map,           } from 'rxjs/operators';
-import { Component,     } from '@angular/core';
+import { Observable                                                    } from 'rxjs';
+import { filter, map                                                   } from 'rxjs/operators';
+import { Component,                                                    } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
 
 import { Project } from './types/project';
@@ -18,7 +18,6 @@ export class AppComponent
     {
         this.project$ = this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
-            tap(_ => console.log(route.snapshot)),
             map(_ => this.extractProject(this.route.snapshot))
         );
     }

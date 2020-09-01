@@ -10,6 +10,10 @@ export const ZenBenefits = [
     { title: 'Open-source!',            emoji: '🤩', description: 'Learn how it works! Contribute! Fork it! Make it your own!' }
 ];
 
+export const ZenCredits = [
+    { text: 'Cover image created by pixabay - www.pixabay.com', url: 'https://pixabay.com/photos/buddha-india-mind-prayer-concept-1550588/' }
+];
+
 export const ZenProject: Project = {
     name          : 'angular-zen',
     strongName    : 'Angular Zen',
@@ -19,5 +23,6 @@ export const ZenProject: Project = {
     examplesTopics: ZenTopics,
     linkedProjects: [ZenUxProject, ZenSeoProject],
     wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen',
-    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen'
+    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
+    credits       : ZenCredits
 };

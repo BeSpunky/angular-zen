@@ -10,6 +10,11 @@ export const ZenSeoBenefits = [
     { title: 'Open-source!',            emoji: '🤩', description: 'Learn how it works! Contribute! Fork it! Make it your own!' }
 ];
 
+export const ZenSeoCredits = [
+    { text: 'Cover image by Aurélien - Wild Spot - www.unsplash.com', url: 'https://unsplash.com/@wildspot?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText' },
+    { text: 'Infographic vector created by freepik - www.freepik.com', url: 'https://www.freepik.com/vectors/infographic' }
+];
+
 export const ZenSeoProject: Project = {
     name          : 'angular-zen-seo',
     strongName    : 'Angular Zen SEO',
@@ -20,5 +25,6 @@ export const ZenSeoProject: Project = {
     // linkedProjects: [ZenProject, ZenUxProject],
     linkedProjects: [],
     wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen-seo',
-    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen'
+    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
+    credits       : ZenSeoCredits
 };

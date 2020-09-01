@@ -10,6 +10,11 @@ export const ZenUxBenefits = [
     { title: 'Open-source!',            emoji: '🤩', description: 'Learn how it works! Contribute! Fork it! Make it your own!' }
 ];
 
+export const ZenUxCredits = [
+    { text: 'Cover image by Elias Sch. - www.pixabay.com', url: 'https://pixabay.com/users/EliasSch-3372715/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2040340' },
+    { text: 'Hand gesture icon made by Kiranshastry - www.flaticon.com', url: 'https://www.flaticon.com/authors/kiranshastry' }
+];
+
 export const ZenUxProject: Project = {
     name          : 'angular-zen-ux',
     strongName    : 'Angular Zen UX',
@@ -20,5 +25,6 @@ export const ZenUxProject: Project = {
     // linkedProjects: [ZenProject, ZenSeoProject],
     linkedProjects: [],
     wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen-seo',
-    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen'
+    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
+    credits       : ZenUxCredits
 };

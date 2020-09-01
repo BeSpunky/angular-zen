@@ -1,4 +1,5 @@
 import { Benefit } from '../types/benefit';
+import { Credit } from '../types/credit';
 import { Topic   } from './topic';
 
 export interface Project
@@ -12,4 +13,5 @@ export interface Project
     linkedProjects: Project[];
     wikiUrl       : string;
     repoUrl       : string;
+    credits       : Credit[];
 }
