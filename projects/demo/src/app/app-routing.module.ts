@@ -2,12 +2,14 @@ import { NgModule             } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { topic         } from './utils/route-builders';
-import { Topics        } from './topics/all';
+import { ZenProjects   } from './content/all';
+import { ZenProject    } from './content/angular-zen/project';
+import { project       } from './utils/route-builders';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    ...Topics.map(topic)
+    { path: '', component: HomeComponent, data: ZenProject },
+    ...ZenProjects.map(project),
+    { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 
 @NgModule({

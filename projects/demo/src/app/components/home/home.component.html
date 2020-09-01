@@ -1,26 +1,31 @@
 <div class="cover fill-screen-v relative" fxLayout="column" fxLayoutAlign="center center">
     <div class="box padding-30 text-center" [ngStyle.xs]="{ width: 'initial' }" [ngStyle.gt-xs]="{ width: '500px' }">
         <div class="logo text-center">
-            <img src="assets/angular-zen/logo@1.25x.png" width="297" height="413"/>
+            <img [src]="'assets/' + project.name + '/logo@1.25x.png'" width="297" height="413"/>
         </div>
-        <h1 class="title">@bespunky/angular-zen</h1>
-        <h3 class="subtitle">Helps you focus on what you really need to do.</h3>
+        <h1 class="title">@bespunky/{{project.name}}</h1>
+        <h3 class="subtitle">{{project.slogan}}</h3>
         <button mat-raised-button color="primary" (click)="slideTo(demos)">Start Experimenting</button>
     </div>
 
-    <div class="padding-30 text-center" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
-        <a mat-raised-button class="project-link" *ngFor="let project of projects" routerLink="/"><img [src]="'assets/' + project.name + '/logo64x64.png'"/></a>
+    <div class="margin-top-30 text-center" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" *ngIf="project.linkedProjects.length">
+        <a mat-raised-button *ngFor="let linkedProject of project.linkedProjects"
+                             [routerLink]="['/', linkedProject.name]"
+                             class="project-link"
+        >
+            <img [src]="'assets/' + linkedProject.name + '/logo64x64.png'"/>
+        </a>
     </div>
 </div>
 
 <div class="benefits padding-30" fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="15px">
     <h1 class="text-center">The Cool Benefits</h1>
-    <h3 class="text-center">The true potential of Google Maps at your fingertips.</h3>
+    <h3 class="text-center">{{project.benefitsSlogan}}</h3>
 
-    <demo-library-benefits class=""></demo-library-benefits>
+    <demo-library-benefits [benefits]="project.benefits"></demo-library-benefits>
 
     <div class="text-center">
-        <a mat-raised-button color="primary" [href]="wikiUrl" target="_blank" class="margin-top-30">See The Docs</a>
+        <a mat-raised-button color="primary" [href]="project.wikiUrl" target="_blank" class="margin-top-30">See The Docs</a>
     </div>
 </div>
 

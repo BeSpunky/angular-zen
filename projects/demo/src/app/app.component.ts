@@ -1,12 +1,9 @@
-import { Observable                      } from 'rxjs';
-import { map, shareReplay                } from 'rxjs/operators';
-import { Component                       } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable     } from 'rxjs';
+import { tap, filter, map,           } from 'rxjs/operators';
+import { Component,     } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
 
-import { Topics } from './topics/all';
-
-export const WikiUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen';
-export const RepoUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen';
+import { Project } from './types/project';
 
 @Component({
     selector   : 'demo-root',
@@ -15,16 +12,19 @@ export const RepoUrl: string = 'https://dev.azure.com/BeSpunky/Libraries/_git/an
 })
 export class AppComponent
 {
-    public readonly wikiUrl: string = WikiUrl;
-    public readonly repoUrl: string = RepoUrl;
+    public project$: Observable<Project>;
 
-    public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-        .pipe(
-            map(result => result.matches),
-            shareReplay()
+    constructor(private router: Router, private route: ActivatedRoute)
+    {
+        this.project$ = this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd),
+            tap(_ => console.log(route.snapshot)),
+            map(_ => this.extractProject(this.route.snapshot))
         );
+    }
 
-    public readonly topics = Topics;
-
-    constructor(private breakpointObserver: BreakpointObserver) { }
+    private extractProject(route: ActivatedRouteSnapshot): Project
+    {
+        return Object.keys(route.data).length ? route.data as Project : this.extractProject(route.firstChild);
+    }
 }

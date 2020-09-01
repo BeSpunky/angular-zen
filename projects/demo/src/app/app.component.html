@@ -1,8 +1,10 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
-    <span class="margin-top-10"><img src="assets/logo-icon64x64.png" width="30"/></span>
-    <a mat-button routerLink="/" matTooltip="Go to homepage">Angular Zen</a>
-    <span fxFlex></span>
-    <a mat-icon-button [href]="wikiUrl" matTooltip="Go to wiki" target="_blank">Docs</a>
-    <a mat-icon-button [href]="repoUrl" matTooltip="Go to repository" target="_blank"><mat-icon>code</mat-icon></a>
+    <ng-container *ngIf="(project$ | async); let project">
+        <span class="margin-top-10"><img [src]="'assets/' + project.name + '/logo-icon64x64.png'" width="30"/></span>
+        <a mat-button routerLink="/" matTooltip="Go to homepage">{{project.strongName}}</a>
+        <span fxFlex></span>
+        <a mat-icon-button [href]="project.wikiUrl" matTooltip="Go to wiki" target="_blank">Docs</a>
+        <a mat-icon-button [href]="project.repoUrl" matTooltip="Go to repository" target="_blank"><mat-icon>code</mat-icon></a>
+    </ng-container>
 </mat-toolbar>
 <router-outlet></router-outlet>
