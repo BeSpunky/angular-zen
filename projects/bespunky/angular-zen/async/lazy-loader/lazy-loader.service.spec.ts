@@ -1,32 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DOCUMENT } from '@bespunky/angular-zen/core';
-import { LazyLoaderService } from './lazy-loader.service';
-
-// A stub for the created script tag
-class ScriptTagStub
-{
-    async: boolean;
-    defer: boolean;
-    src: string;
-    type: string;
-
-    onload: () => void;
-    onerror: () => void;
-}
-
-class LinkTagStub
-{
-    href: string;
-    type: string;
-    rel: string;
-    relList = {
-        add: (...tokens: string[]) => this.rel = tokens.join(',')
-    };
-    
-    onload: () => void;
-    onerror: () => void;
-}
+import { setupDocumentRefMock, MockScriptTag, MockLinkTag } from '@bespunky/angular-zen/core/testing';
+import { DOCUMENT                                         } from '@bespunky/angular-zen/core';
+import { LazyLoaderService                                } from './lazy-loader.service';
 
 describe('LazyLoaderService', () =>
 {
@@ -35,48 +11,20 @@ describe('LazyLoaderService', () =>
     // The loader service to test
     let service: LazyLoaderService;
     // Mock for the DocumentRef.nativeDocument object
-    let documentMock: any;
+    let mockDocument: any;
     // Mock for the document.head object
-    let headMock: any;
+    let mockHead: any;
     // Stub for the instance of the script tag that will be created when calling loadScript()
-    let scriptTagStub: ScriptTagStub;
+    let mockScriptTag: MockScriptTag;
     // Stub for the instance of the link tag that will be created when calling loadStyle()
-    let linkTagStub: LinkTagStub;
-
-    /* Mocks the following hierarchy:
-     * DocumentRef {
-     *   nativeDocument: {
-     *     head: { appendChild: () => void },
-     *     createElement: () => scriptTagStub | linkTagStub
-     *   }
-     * }
-     */
-    function setupDocumentRefMock()
-    {
-        // Create the stubs for the elements to be created
-        scriptTagStub = new ScriptTagStub();
-        linkTagStub = new LinkTagStub();
-
-        // Create the head object allowing to spy on its appendChild() function
-        headMock = jasmine.createSpyObj('head', ['appendChild']);
-        // When head.appendChile() is called, simulate async call to onload()
-        headMock.appendChild.and.callFake(createdTag => setTimeout(createdTag.onload, 0));
-
-        // Create the document object allowing to spy on its createElement() function
-        documentMock = jasmine.createSpyObj('document', ['createElement']);
-        // When the element should be created, substitute it for the stub
-        documentMock.createElement.and.callFake((tagName: string) => tagName === 'script' ? scriptTagStub : linkTagStub);
-
-        // Create hierarchy
-        documentMock.head = headMock;
-    }
+    let mockLinkTag: MockLinkTag;
 
     beforeEach(() =>
     {
-        setupDocumentRefMock();
+        ({ mockScriptTag, mockLinkTag, mockHead, mockDocument } = setupDocumentRefMock());
 
         TestBed.configureTestingModule({
-            providers: [{ provide: DOCUMENT, useValue: documentMock }]
+            providers: [{ provide: DOCUMENT, useValue: mockDocument }]
         });
 
         service = TestBed.get(LazyLoaderService);
@@ -90,7 +38,7 @@ describe('LazyLoaderService', () =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
-                const script: ScriptTagStub = lazyScript.element.nativeElement;
+                const script: MockScriptTag = lazyScript.element.nativeElement;
 
                 expect(script.src).toEqual(testUrl);
                 expect(script.type).toEqual('text/javascript');
@@ -106,7 +54,7 @@ describe('LazyLoaderService', () =>
             service.loadScript(testUrl).subscribe();
             service.loadScript(testUrl).subscribe();
 
-            expect(documentMock.createElement).toHaveBeenCalledTimes(1);
+            expect(mockDocument.createElement).toHaveBeenCalledTimes(1);
         });
 
         it('should return same script object if script was previously loaded', (done: DoneFn) =>
@@ -127,7 +75,7 @@ describe('LazyLoaderService', () =>
             {
                 service.loadScript(testUrl, { async: false, defer: false }).subscribe(lazyScript =>
                 {
-                    const script: ScriptTagStub = lazyScript.element.nativeElement;
+                    const script: MockScriptTag = lazyScript.element.nativeElement;
 
                     expect(script.async).toBeFalsy();
                     expect(script.defer).toBeFalsy();
@@ -141,11 +89,11 @@ describe('LazyLoaderService', () =>
                 service.loadScript(testUrl, { alreadyLoaded: () => false }).subscribe();
                 service.loadScript(testUrl, { alreadyLoaded: () => false }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
 
                 service.loadScript(testUrl, { alreadyLoaded: () => true }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
             });
 
             it('should allow forcing script load if script was previously loaded', () =>
@@ -153,7 +101,7 @@ describe('LazyLoaderService', () =>
                 service.loadScript(testUrl).subscribe();
                 service.loadScript(testUrl, { force: true }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
             });
         });
     });
@@ -164,7 +112,7 @@ describe('LazyLoaderService', () =>
         {
             service.loadStyle(testUrl).subscribe(lazyStyle =>
             {
-                const link: LinkTagStub = lazyStyle.element.nativeElement;
+                const link: MockLinkTag = lazyStyle.element.nativeElement;
 
                 expect(link.href).toEqual(testUrl);
                 expect(link.rel).toEqual('stylesheet');
@@ -179,7 +127,7 @@ describe('LazyLoaderService', () =>
             service.loadStyle(testUrl).subscribe();
             service.loadStyle(testUrl).subscribe();
 
-            expect(documentMock.createElement).toHaveBeenCalledTimes(1);
+            expect(mockDocument.createElement).toHaveBeenCalledTimes(1);
         });
 
         it('should return same link object if link was previously loaded', (done: DoneFn) =>
@@ -201,11 +149,11 @@ describe('LazyLoaderService', () =>
                 service.loadStyle(testUrl, { alreadyLoaded: () => false }).subscribe();
                 service.loadStyle(testUrl, { alreadyLoaded: () => false }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
 
                 service.loadStyle(testUrl, { alreadyLoaded: () => true }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
             });
 
             it('should allow forcing script load if script was previously loaded', () =>
@@ -213,7 +161,7 @@ describe('LazyLoaderService', () =>
                 service.loadStyle(testUrl).subscribe();
                 service.loadStyle(testUrl, { force: true }).subscribe();
 
-                expect(documentMock.createElement).toHaveBeenCalledTimes(2);
+                expect(mockDocument.createElement).toHaveBeenCalledTimes(2);
             });
         });
     });
