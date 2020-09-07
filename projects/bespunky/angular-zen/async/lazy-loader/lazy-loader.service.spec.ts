@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DocumentRef } from '@bespunky/angular-zen/core';
+import { DOCUMENT } from '@bespunky/angular-zen/core';
 import { LazyLoaderService } from './lazy-loader.service';
-import { StyleLoadOptions } from './style-load-options';
 
 // A stub for the created script tag
 class ScriptTagStub
@@ -21,9 +20,6 @@ class LinkTagStub
     href: string;
     type: string;
     rel: string;
-    crossOrigin: string;
-    hreflang: string;
-    media: string;
     relList = {
         add: (...tokens: string[]) => this.rel = tokens.join(',')
     };
@@ -38,8 +34,6 @@ describe('LazyLoaderService', () =>
 
     // The loader service to test
     let service: LazyLoaderService;
-    // Mock for DocumentRef that is injected to LazyScriptLoaderService
-    let documentRefMock: any;
     // Mock for the DocumentRef.nativeDocument object
     let documentMock: any;
     // Mock for the document.head object
@@ -74,7 +68,6 @@ describe('LazyLoaderService', () =>
         documentMock.createElement.and.callFake((tagName: string) => tagName === 'script' ? scriptTagStub : linkTagStub);
 
         // Create hierarchy
-        documentRefMock = { nativeDocument: documentMock };
         documentMock.head = headMock;
     }
 
@@ -83,7 +76,7 @@ describe('LazyLoaderService', () =>
         setupDocumentRefMock();
 
         TestBed.configureTestingModule({
-            providers: [{ provide: DocumentRef, useValue: documentRefMock }]
+            providers: [{ provide: DOCUMENT, useValue: documentMock }]
         });
 
         service = TestBed.get(LazyLoaderService);
@@ -93,7 +86,7 @@ describe('LazyLoaderService', () =>
 
     describe('Calling `loadScript()`', () =>
     {
-        it('should create a `<script>` tag inside `<head>`', () =>
+        it('should create a `<script>` tag inside `<head>`', (done: DoneFn) =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
@@ -103,6 +96,8 @@ describe('LazyLoaderService', () =>
                 expect(script.type).toEqual('text/javascript');
                 expect(script.async).toBeTruthy();
                 expect(script.defer).toBeTruthy();
+
+                done();
             });
         });
 
@@ -165,7 +160,7 @@ describe('LazyLoaderService', () =>
 
     describe('Calling `loadStyle()`', () =>
     {
-        it('should create a `<link>` tag inside `<head>`', () =>
+        it('should create a `<link>` tag inside `<head>`', (done: DoneFn) =>
         {
             service.loadStyle(testUrl).subscribe(lazyStyle =>
             {
@@ -174,6 +169,8 @@ describe('LazyLoaderService', () =>
                 expect(link.href).toEqual(testUrl);
                 expect(link.rel).toEqual('stylesheet');
                 expect(link.type).toEqual('text/css');
+
+                done();
             });
         });
 
@@ -199,38 +196,14 @@ describe('LazyLoaderService', () =>
 
         describe('Providing options', () =>
         {
-            it('should change `<link>` tag attributes', (done: DoneFn) =>
-            {
-                const options: StyleLoadOptions = {
-                    crossOrigin: 'use-credentials',
-                    hreflang: 'fr_FR',
-                    media: '(max-width: 100px)',
-                    rel: ['next', 'help'],
-                    type: 'type'
-                };
-
-                service.loadStyle(testUrl, options).subscribe(lazyLink =>
-                {
-                    const link: LinkTagStub = lazyLink.element.nativeElement;
-
-                    expect(link.crossOrigin).toEqual(options.crossOrigin);
-                    expect(link.hreflang).toEqual(options.hreflang);
-                    expect(link.media).toEqual(options.media);
-                    expect(link.rel).toEqual((options.rel as string[]).join(','));
-                    expect(link.type).toEqual(options.type);
-
-                    done();
-                });
-            });
-
             it('should allow overriding `isLoaded()` implementation', () =>
             {
-                service.loadStyle(testUrl, { rel: 'stylesheet', alreadyLoaded: () => false }).subscribe();
-                service.loadStyle(testUrl, { rel: 'stylesheet', alreadyLoaded: () => false }).subscribe();
+                service.loadStyle(testUrl, { alreadyLoaded: () => false }).subscribe();
+                service.loadStyle(testUrl, { alreadyLoaded: () => false }).subscribe();
 
                 expect(documentMock.createElement).toHaveBeenCalledTimes(2);
 
-                service.loadStyle(testUrl, { rel: 'stylesheet', alreadyLoaded: () => true }).subscribe();
+                service.loadStyle(testUrl, { alreadyLoaded: () => true }).subscribe();
 
                 expect(documentMock.createElement).toHaveBeenCalledTimes(2);
             });
@@ -238,7 +211,7 @@ describe('LazyLoaderService', () =>
             it('should allow forcing script load if script was previously loaded', () =>
             {
                 service.loadStyle(testUrl).subscribe();
-                service.loadStyle(testUrl, { rel: 'stylesheet', force: true }).subscribe();
+                service.loadStyle(testUrl, { force: true }).subscribe();
 
                 expect(documentMock.createElement).toHaveBeenCalledTimes(2);
             });
