@@ -117,10 +117,6 @@ export class HeadService
      */
     private applyConfiguration<TElement extends HTMLElement>(element: TElement, config: ElementConfigurator<TElement>): void
     {
-        debugger;
-
-        console.log(config);
-
         config instanceof Function ? config(element) : Object.assign(element, config);
     }
 
