@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { WindowRefProviders } from './WindowRef/window-ref.service';
-import { DocumentRefProviders } from './DocumentRef/document-ref.service';
+import { WindowRefProviders   } from './window-ref/window-ref.service';
+import { DocumentRefProviders } from './document-ref/document-ref.service';
 
 @NgModule({
     declarations: [],
