@@ -126,12 +126,15 @@ export class HeadService
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
      * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * @returns The removed element, or null if none found.
      */
-    public removeElement<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): void
+    public removeElement<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): TElement | null
     {
         const element = this.findElements(name, lookup)[0];
 
         element?.remove();
+
+        return element || null;
     }
 
     /**
@@ -140,12 +143,15 @@ export class HeadService
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
      * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for elements to be detected.
+     * @returns The list of removed elements.
      */
-    public removeElements<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): void
+    public removeElements<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): NodeListOf<TElement>
     {
         const elements = this.findElements(name, lookup);
 
         elements.forEach(element => element.remove());
+
+        return elements;
     }
 
     /**
