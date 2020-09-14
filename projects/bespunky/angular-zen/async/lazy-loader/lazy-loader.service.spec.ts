@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { setupDocumentRefMock, MockScriptTag, MockLinkTag } from '@bespunky/angular-zen/core/testing';
-import { DOCUMENT                                         } from '@bespunky/angular-zen/core';
-import { LazyLoaderService                                } from './lazy-loader.service';
+import { setupDocumentRefMock, MockScriptElement, MockLinkElement, MockHeadElement } from '@bespunky/angular-zen/core/testing';
+import { LazyLoaderService } from './lazy-loader.service';
 
 describe('LazyLoaderService', () =>
 {
@@ -13,21 +12,17 @@ describe('LazyLoaderService', () =>
     // Mock for the DocumentRef.nativeDocument object
     let mockDocument: any;
     // Mock for the document.head object
-    let mockHead: any;
-    // Stub for the instance of the script tag that will be created when calling loadScript()
-    let mockScriptTag: MockScriptTag;
-    // Stub for the instance of the link tag that will be created when calling loadStyle()
-    let mockLinkTag: MockLinkTag;
+    let mockHeadElement: MockHeadElement;
+    // Stub for the instance of the script element that will be created when calling loadScript()
+    let mockScriptElement: MockScriptElement;
+    // Stub for the instance of the link element that will be created when calling loadStyle()
+    let mockLinkElement: MockLinkElement;
 
     beforeEach(() =>
     {
-        ({ mockScriptTag, mockLinkTag, mockHead, mockDocument } = setupDocumentRefMock());
+        ({ mockScriptElement, mockLinkElement, mockHeadElement, mockDocument } = setupDocumentRefMock());
 
-        TestBed.configureTestingModule({
-            providers: [{ provide: DOCUMENT, useValue: mockDocument }]
-        });
-
-        service = TestBed.get(LazyLoaderService);
+        service = TestBed.inject(LazyLoaderService);
     });
 
     it('should be created', () => expect(service).toBeTruthy());
@@ -38,7 +33,7 @@ describe('LazyLoaderService', () =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
-                const script: MockScriptTag = lazyScript.element.nativeElement;
+                const script: MockScriptElement = lazyScript.element.nativeElement;
 
                 expect(script.src).toEqual(testUrl);
                 expect(script.type).toEqual('text/javascript');
@@ -75,7 +70,7 @@ describe('LazyLoaderService', () =>
             {
                 service.loadScript(testUrl, { async: false, defer: false }).subscribe(lazyScript =>
                 {
-                    const script: MockScriptTag = lazyScript.element.nativeElement;
+                    const script: MockScriptElement = lazyScript.element.nativeElement;
 
                     expect(script.async).toBeFalsy();
                     expect(script.defer).toBeFalsy();
@@ -112,7 +107,7 @@ describe('LazyLoaderService', () =>
         {
             service.loadStyle(testUrl).subscribe(lazyStyle =>
             {
-                const link: MockLinkTag = lazyStyle.element.nativeElement;
+                const link: MockLinkElement = lazyStyle.element.nativeElement;
 
                 expect(link.href).toEqual(testUrl);
                 expect(link.rel).toEqual('stylesheet');
