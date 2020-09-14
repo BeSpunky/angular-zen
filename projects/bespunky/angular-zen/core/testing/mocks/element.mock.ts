@@ -21,7 +21,7 @@ export class MockElement
 
         if (index > -1)
         {
-            this.children.splice(index);
+            this.children.splice(index, 1);
 
             node.parentElement = null;
         }
