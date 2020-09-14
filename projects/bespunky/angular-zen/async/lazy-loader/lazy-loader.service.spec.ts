@@ -11,16 +11,10 @@ describe('LazyLoaderService', () =>
     let service: LazyLoaderService;
     // Mock for the DocumentRef.nativeDocument object
     let mockDocument: any;
-    // Mock for the document.head object
-    let mockHeadElement: MockHeadElement;
-    // Stub for the instance of the script element that will be created when calling loadScript()
-    let mockScriptElement: MockScriptElement;
-    // Stub for the instance of the link element that will be created when calling loadStyle()
-    let mockLinkElement: MockLinkElement;
 
     beforeEach(() =>
     {
-        ({ mockScriptElement, mockLinkElement, mockHeadElement, mockDocument } = setupDocumentRefMock());
+        ({ mockDocument } = setupDocumentRefMock());
 
         service = TestBed.inject(LazyLoaderService);
     });

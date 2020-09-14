@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
 import { setupDocumentRefMock, MockElement, MockScriptElement, MockLinkElement, MockHeadElement } from '@bespunky/angular-zen/core/testing';
-import { ScriptConfigurator, LinkConfigurator, ElementConfigurator, HeadService } from '@bespunky/angular-zen/core';
+import { ScriptConfigurator, LinkConfigurator, ElementConfigurator, HeadService                 } from '@bespunky/angular-zen/core';
 
 describe('HeadService', () =>
 {
     let service: HeadService;
-    // Mock for the DocumentRef.nativeDocument object
-    let mockDocument: any;
     // Mock for the document.head object
     let mockHeadElement: MockHeadElement;
     // Stub for the instance of the script element that will be created when calling addScriptElement()
@@ -19,7 +17,7 @@ describe('HeadService', () =>
 
     beforeEach(() =>
     {
-        ({ mockDivElement, mockScriptElement, mockLinkElement, mockHeadElement, mockDocument } = setupDocumentRefMock());
+        ({ mockDivElement, mockScriptElement, mockLinkElement, mockHeadElement } = setupDocumentRefMock());
         
         spyOn(mockHeadElement as any, 'querySelectorAll').and.callFake((selector: string) =>
         {
