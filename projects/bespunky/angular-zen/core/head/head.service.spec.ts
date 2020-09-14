@@ -116,9 +116,57 @@ describe('HeadService', () =>
         it('should create an element in <head> when calling `addElement()` a config function', () => testElement(element => element.dir = 'rtl', () => expect(mockDivElement.dir).toBe('rtl')));
     });
 
+    function addTdElementsWithDifferentAttributesForLookup()
+    {
+        service.addElement('td', { colspan: 2 });
+        service.addElement('td', { colspan: 2, rowspan: 2 });
+        service.addElement('td', { colspan: 4, rowspan: 4 });
+    }
+
     describe('calling `removeElement()`', () =>
     {
-        it('should ')
+        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+
+        it('should remove the first matching element from <head>', () =>
+        {
+            const shouldBeRemoved = mockHeadElement.children[0];
+
+            expect(mockHeadElement.children.length).toBe(3);
+
+            expect(service.removeElement('td', { colspan: 2 })).toBe(shouldBeRemoved);
+            expect(mockHeadElement.children.length).toBe(2);
+        });
+
+        it('should not throw if no matching element was found in <head>', () => expect(() => service.removeElement('meta', {})).not.toThrow());
+        it('should return null if no matching element was found in <head>', () => expect(service.removeElement('meta', {})).toBeNull());
+    });
+
+    describe('calling `removeElements()`', () =>
+    {
+        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+
+        it('should remove all matching element from <head>', () =>
+        {
+            const shouldBeRemoved = [mockHeadElement.children[0], mockHeadElement.children[1]];
+
+            expect(mockHeadElement.children.length).toBe(3);
+
+            expect(service.removeElements('td', { colspan: 2 })).toEqual(shouldBeRemoved);
+            expect(mockHeadElement.children.length).toBe(1);
+        });
+
+        it('should match elements using ALL attributes', () =>
+        {
+            const shouldBeRemoved = [mockHeadElement.children[1]];
+
+            expect(mockHeadElement.children.length).toBe(3);
+
+            expect(service.removeElements('td', { colspan: 2, rowspan: 2 })).toEqual(shouldBeRemoved);
+            expect(mockHeadElement.children.length).toBe(2);
+        });
+
+        it('should not throw if no matching element was found in <head>', () => expect(() => service.removeElements('meta', {})).not.toThrow());
+        it('should return an empty array if no matching element was found in <head>', () => expect(service.removeElements('meta', {})).toEqual([]));
     });
 
     describe('calling `findElements()`', () =>
@@ -132,9 +180,7 @@ describe('HeadService', () =>
 
         it('should return the elements in <head> matching the given name element and attributes', () =>
         {
-            service.addElement('td', { colspan: 2 });
-            service.addElement('td', { colspan: 2, rowspan: 2 });
-            service.addElement('td', { colspan: 4, rowspan: 4 });
+            addTdElementsWithDifferentAttributesForLookup();
 
             testFind('script', {}, 0);
             
