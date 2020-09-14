@@ -7,7 +7,7 @@ import { ElementConfig, LoadEventHandlingAttributes } from './element-configs';
 export type ElementConfigFn<TElement extends HTMLElement> = (element: TElement) => void;
 
 /** The well-known 'rel' values for a <link> element. */
-export type LinkRel = 'alternate' | 'author' | 'dns-prefetch' | 'help' | 'icon' | 'license' | 'next' | 'pingback' | 'preconnect' | 'prefetch' | 'preload' | 'prerender' | 'prev' | 'search' | 'stylesheet';
+export type LinkRel = 'alternate' | 'author' | 'canonical' | 'dns-prefetch' | 'help' | 'icon' | 'license' | 'next' | 'pingback' | 'preconnect' | 'prefetch' | 'preload' | 'prerender' | 'prev' | 'search' | 'stylesheet';
 
 /**
  * Either a configurating function or a configuration object for new elements.
