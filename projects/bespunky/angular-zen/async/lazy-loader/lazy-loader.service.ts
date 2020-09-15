@@ -57,6 +57,18 @@ export class LazyLoaderService
     }
 
     /**
+     * @deprecated Will be removed in the next major release. Use `isCached()` instead.
+     * 
+     * Checks whether the file from the specified url has already been cached.
+     * @param url The url for the file to check.
+     * @returns A value indicating whether the file from the specified url has already been cached.
+     */
+    public isLoaded(url: string): boolean
+    {
+        return !!this.cache[url];
+    }
+
+    /**
      * Checks whether a script element is already present in `<head>` for the given url.
      * This doesn't guarantee that the script has been loaded.
      * 
