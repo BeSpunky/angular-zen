@@ -24,7 +24,7 @@ export class LazyLoaderService
     private defaultScriptOptions: ScriptLoadOptions = {
         async: true,
         defer: true,
-        alreadyLoaded: this.isLoaded.bind(this),
+        alreadyLoaded: (url) => this.isCached(url) || this.isScriptPresent(url),
         force: false
     };
 
@@ -32,7 +32,7 @@ export class LazyLoaderService
      * Defines the default options when calling the `LazyLoaderService.loadStyle()` method.
      */
     private defaultStyleOptions: LoadOptions = {
-        alreadyLoaded: this.isLoaded.bind(this),
+        alreadyLoaded: (url) => this.isCached(url) || this.isStylePresent(url),
         force: false
     };
 
@@ -51,9 +51,33 @@ export class LazyLoaderService
      * @param url The url for the file to check.
      * @returns A value indicating whether the file from the specified url has already been cached.
      */
-    public isLoaded(url: string): boolean
+    public isCached(url: string): boolean
     {
         return !!this.cache[url];
+    }
+
+    /**
+     * Checks whether a script element is already present in `<head>` for the given url.
+     * This doesn't guarantee that the script has been loaded.
+     * 
+     * @param {string} url The url of the loaded script.
+     * @returns {boolean} `true` if an element matching the url is present in `<head>`; otherwise `false.
+     */
+    public isScriptPresent(url: string): boolean
+    {
+        return this.head.contains('script', { src: url });
+    }
+
+    /**
+     * Checks whether a link element is already present in `<head>` for the given style url.
+     * This doesn't guarantee that the style has been loaded.
+     * 
+     * @param {string} url The url of the loaded link.
+     * @returns {boolean} `true` if an element matching the url is present in `<head>`; otherwise `false.
+     */
+    public isStylePresent(url: string): boolean
+    {
+        return this.head.contains('link', { rel: 'stylesheet', href: url });
     }
 
     /**
@@ -63,6 +87,7 @@ export class LazyLoaderService
      * @param options (Optional) Specifies custom options to override default behaviour.
      * @returns An observable object which allows subscribers to know when the script has been loaded and access its associated `<script>` element.
      *          The observable will complete immediately in case the script was already previously loaded.
+     *          If the script was already loaded outside of the service, the observable will stream `undefined`.
      */
     public loadScript(url: string, options: ScriptLoadOptions = this.defaultScriptOptions): Observable<LazyLoadedFile>
     {
@@ -70,11 +95,7 @@ export class LazyLoaderService
         options.async         = options.async         === undefined ? this.defaultScriptOptions.async : options.async;
         options.defer         = options.defer         === undefined ? this.defaultScriptOptions.defer : options.defer;
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultScriptOptions.alreadyLoaded : options.alreadyLoaded;
-        options.force         = options.force         === undefined ? this.defaultScriptOptions.force : options.force;
-
-        // ================================================================
-        // TODO: If script tag already exists on page, don't create another
-        // ================================================================
+        options.force         = options.force         === undefined ? this.defaultScriptOptions.force : options.force;          
 
         return this.loadFile(url, 'script', options, this.createScriptElement.bind(this));
     }
@@ -86,16 +107,13 @@ export class LazyLoaderService
      * @param options (Optional) Specifies custom options to override default behaviour.
      * @returns An observable object which allows subscribers to know when the style has been loaded and access its associated `<link>` element.
      *          The observable will complete immediately in case the style was already previously loaded.
+     *          If the style was already loaded outside of the service, the observable will stream `undefined`.
      */
     public loadStyle(url: string, options: LoadOptions = this.defaultStyleOptions): Observable<LazyLoadedFile>
     {
         // Set default options if not specified by caller
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultStyleOptions.alreadyLoaded : options.alreadyLoaded;
         options.force         = options.force         === undefined ? this.defaultStyleOptions.force : options.force;
-
-        // ================================================================
-        // TODO: If link tag already exists on page, don't create another
-        // ================================================================
 
         return this.loadFile(url, 'style', options, this.createLinkElement.bind(this));
     }
@@ -131,8 +149,9 @@ export class LazyLoaderService
             return observable;
         }
 
-        // If the file was already loaded and it shouldn't be downloaded again, complete immediately with the previous link data
-        return of(this.cache[url].lazyFile);
+        // If the file was already loaded and it shouldn't be downloaded again, complete immediately with the previous link data.
+        // If the file was already loaded outside of the service, the observable will stream `undefined` as there is nothing cached.
+        return of(this.cache[url]?.lazyFile);
     }
 
     /**
