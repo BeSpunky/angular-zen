@@ -6,14 +6,32 @@ import { MockLinkElement      } from '../mocks/link.mock';
 import { MockHeadElement      } from '../mocks/head.mock';
 import { MockElement          } from '../mocks/element.mock';
 
-/* Mocks the following hierarchy:
-*  DocumentRef {
-*    nativeDocument: {
-*      head: { appendChild: () => void },
-*      createElement: () => mockScriptElement | mockLinkElement
-*    }
-*  }
-*/
+/**
+ * Mocks the following hierarchy:
+ *  DocumentRef {
+ *    nativeDocument: {
+ *      head: mockHeadElement,
+ *      createElement: () => mockScriptElement | mockLinkElement | mockDivElement | MockElement(<tagName>)
+ *    }
+ *  }
+ * 
+ * Used when testing head related services (e.g. HeadService, LazyLoaderService).
+ * The returned mocks can be deconstructed like so:
+ * 
+ * @example
+ * let mockDivElement, mockScriptElement, ...;
+ * 
+ * ({ mockDivElement, mockScriptElement, mockLinkElement, mockHeadElement, mockDocument } = setupDocumentRefMock());
+ *
+ * Any element created using `DocumentRef.nativeDocument.createElement()` will go through this mock.
+ * The returned mocks allow expectations and state comparison as they are the objects returned
+ * by the fake `createElement()` function.
+ * 
+ * If a script element was requested, the mockScriptElement object is returned.
+ * If a link element was requested, the mockLinkElement object is returned.
+ * If a div element was requested, the mockDivElement object is returned.
+ * If any other tag name is requested, a new MockElement object is returned.
+ */
 export function setupDocumentRefMock()
 {        
     // Create the stubs for the elements to be created
