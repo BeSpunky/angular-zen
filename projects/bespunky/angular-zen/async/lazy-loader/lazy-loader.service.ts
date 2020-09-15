@@ -1,14 +1,13 @@
 import { Observable, of } from 'rxjs';
 import { Injectable, ElementRef } from '@angular/core';
 
-import { DocumentRef } from '@bespunky/angular-zen/core';
-import { UniversalService } from '@bespunky/angular-zen/universal';
+import { HeadService       } from '@bespunky/angular-zen/core';
+import { UniversalService  } from '@bespunky/angular-zen/universal';
 import { ScriptLoadOptions } from './script-load-options';
-import { LoadOptions } from './load-options';
-import { LazyLoadedFile } from './lazy-loaded-file';
-import { StyleLoadOptions } from './style-load-options';
+import { LoadOptions       } from './load-options';
+import { LazyLoadedFile    } from './lazy-loaded-file';
 
-export type ElementCreator = (url: string, options: LoadOptions, onLoad: () => void, onError: (error: any) => void) => ElementRef;
+type ElementCreator = (url: string, onLoad: () => void, onError: (error: any) => void, options: LoadOptions) => ElementRef;
 
 /**
  * Provides methods for lazy loading scripts and styles programatically.
@@ -32,9 +31,7 @@ export class LazyLoaderService
      /**
      * Defines the default options when calling the `LazyLoaderService.loadStyle()` method.
      */
-    private defaultStyleOptions: StyleLoadOptions = {
-        rel: 'stylesheet',
-        type: 'text/css',
+    private defaultStyleOptions: LoadOptions = {
         alreadyLoaded: this.isLoaded.bind(this),
         force: false
     };
@@ -44,7 +41,7 @@ export class LazyLoaderService
      */
     private cache: { [url: string]: { lazyFile: LazyLoadedFile, observable: Observable<LazyLoadedFile> } };
 
-    constructor(private documentRef: DocumentRef, private universal: UniversalService)
+    constructor(private head: HeadService, private universal: UniversalService)
     {
         this.cache = {};
     }
@@ -90,11 +87,9 @@ export class LazyLoaderService
      * @returns An observable object which allows subscribers to know when the style has been loaded and access its associated `<link>` element.
      *          The observable will complete immediately in case the style was already previously loaded.
      */
-    public loadStyle(url: string, options: StyleLoadOptions = this.defaultStyleOptions): Observable<LazyLoadedFile>
+    public loadStyle(url: string, options: LoadOptions = this.defaultStyleOptions): Observable<LazyLoadedFile>
     {
         // Set default options if not specified by caller
-        options.rel           = options.rel           === undefined ? this.defaultStyleOptions.rel : options.rel;
-        options.type          = options.type          === undefined ? this.defaultStyleOptions.type : options.type;
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultStyleOptions.alreadyLoaded : options.alreadyLoaded;
         options.force         = options.force         === undefined ? this.defaultStyleOptions.force : options.force;
 
@@ -127,7 +122,7 @@ export class LazyLoaderService
                 };
 
                 // Create the actual file tag, start downloading and store the element reference
-                lazyFile.element = createElement(url, options, onLoad, observer.error.bind(observer));
+                lazyFile.element = createElement(url, onLoad, observer.error.bind(observer), options);
             });
 
             // Cache the file and the observable for later use
@@ -144,67 +139,38 @@ export class LazyLoaderService
      * Creates a `<script>` tag for the given url and adds it to the `<head>` tag to start downloading the script.
      *
      * @param url       The url for the script to download.
-     * @param options   The options to add to the script.
      * @param onLoad    The callback to execute when the script has been downloaded and executed.
      * @param onError   The callback to execute when script download or execution has failed.
+     * @param options   The options to add to the script.
      * @returns A reference to the `<script>` element that was added to the DOM.
      */
-    private createScriptElement(url: string, options: ScriptLoadOptions, onLoad: () => void, onError: (error: any) => void)
+    private createScriptElement(url: string, onLoad: () => void, onError: (error: any) => void, options: ScriptLoadOptions): ElementRef<HTMLScriptElement>
     {
-        // Get DOM elements
-        const document = this.documentRef.nativeDocument;
-        const head = document.head as HTMLHeadElement;
-        // Create a new script tag
-        const script = document.createElement('script') as HTMLScriptElement;
-
-        // Config the script
-        script.type = 'text/javascript';
-        script.async = options.async;
-        script.defer = options.defer;
-        script.src = url;
-
-        // Set event handlers
-        script.onload = onLoad;
-        script.onerror = onError;
-
-        // Add the script tag to the head element to start downloading
-        head.appendChild(script);
-
-        return new ElementRef(script);
+        return this.head.addScriptElement('text/javascript', url,
+            {
+                async: options.async,
+                defer: options.defer,
+                onload: onLoad,
+                onerror: onError
+            });
     }
 
     /**
      * Creates a `<link>` tag for the given url and adds it to the `<head>` tag to start downloading the link.
      *
      * @param url       The url for the link to download.
-     * @param options   The options to add to the link.
      * @param onLoad    The callback to execute when the script has been downloaded and executed.
      * @param onError   The callback to execute when script download or execution has failed.
      * @returns A reference to the `<link>` element that was added to the DOM.
      */
-    private createLinkElement(url: string, options: StyleLoadOptions, onLoad: () => void, onError: (error: any) => void)
+    private createLinkElement(url: string, onLoad: () => void, onError: (error: any) => void): ElementRef<HTMLLinkElement>
     {
-        // Get DOM elements
-        const document = this.documentRef.nativeDocument;
-        const head = document.head as HTMLHeadElement;
-        // Create a new link tag
-        const link = document.createElement('link') as HTMLLinkElement;
-
-        // Config the link
-        if (options.hreflang   ) link.hreflang    = options.hreflang;
-        if (options.crossOrigin) link.crossOrigin = options.crossOrigin;
-        if (options.media      ) link.media       = options.media;
-        link.relList.add(Array.isArray(options.rel) ? options.rel : [options.rel] as any);
-        link.type = options.type;
-        link.href = url;
-        
-        // Set event handlers
-        link.onload = onLoad;
-        link.onerror = onError;
-
-        // Add the script tag to the head element to start downloading
-        head.appendChild(link);
-
-        return new ElementRef(link);
+        return this.head.addLinkElement('stylesheet',
+            {
+                type: 'text/css',
+                href: url,
+                onload: onLoad,
+                onerror: onError
+            });
     }
 }
