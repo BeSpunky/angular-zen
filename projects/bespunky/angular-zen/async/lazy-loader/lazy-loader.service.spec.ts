@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { setupDocumentRefMock, MockScriptElement, MockLinkElement, MockHeadElement } from '@bespunky/angular-zen/core/testing';
+import { setupDocumentRefMock, MockScriptElement, MockLinkElement } from '@bespunky/angular-zen/core/testing';
 import { LazyLoaderService } from './lazy-loader.service';
 
 describe('LazyLoaderService', () =>
