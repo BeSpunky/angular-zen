@@ -1,26 +1,81 @@
-import { Subject, Observable, Subscription, PartialObserver } from 'rxjs';
-import { takeUntil                                          } from 'rxjs/operators';
-import { OnDestroy                                          } from '@angular/core';
+import { Observable, PartialObserver, Subject, Subscription   } from 'rxjs';
+import { Directive, OnDestroy } from '@angular/core';
 
+/**
+ * Facilitates working with components, directives and services which manually subscribe to observables.
+ * Extend this class to easily hook into ngOnDestroy and avoid memory leaks.
+ *
+ * @see [Wiki](TODO: ADD LINK TO WIKI) for full guide.
+ * 
+ * @export
+ * @abstract
+ * @class Destroyable
+ * @implements {OnDestroy}
+ */
+@Directive()
 export abstract class Destroyable implements OnDestroy
 {
-    protected destroyed: Subject<void> = new Subject();
+    /**
+     * Emits a value when `ngOnDestroy()` is called.
+     * Pipe together with `takeUntil()` to auto unsubscribe from your observables.
+     *
+     * @example
+     * observable.pipe(takeUntil(this.destroyed)).subscribe(...);
+     * 
+     * @protected
+     * @type {Subject<void>}
+     */
+    protected readonly destroyed    : Subject<void> = new Subject();
+    /**
+     * A list of all subscriptions manually added using the `subscribe()` method.
+     * These are automatically unsubscribed when `ngOnDestroy()` is called.
+     *
+     * @protected
+     * @type {Subscription}
+     */
+    protected readonly subscriptions: Subscription  = new Subscription();
 
     ngOnDestroy()
     {
         this.destroyed.next();
         this.destroyed.complete();
+        
+        this.subscriptions.unsubscribe();
     }
-
-    protected subscribe<T>(observable: Observable<T>, pipeOrObserver: ((destroyable: Observable<T>) => Observable<any>) | PartialObserver<T> , observer?: PartialObserver<T>): Subscription
+    
+    /**
+     * Subscribes to an observable and stores the subscription for automatic disposal.
+     * When `ngOnDestroy()` is called, all subscriptions created with this method will unsubscribe.
+     *
+     * @protected
+     * @template T The type of data the observable will emit.
+     * @param {Observable<T>} observable The observable to subscribe to.
+     * @param {(value: T) => void} [next] (Optional) A callback function to execute on each emission of the observable.
+     * @param {(error: any) => void} [error] (Optional) A callback function to execute when the observable errors.
+     * @param {() => void} [complete] (Optional) A callback function to execute when the observable completes.
+     * @returns {Subscription} The subscription created for the observable.
+     */
+    protected subscribe<T>(observable: Observable<T>, next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+    /**
+     * Subscribes to an observable and stores the subscription for automatic disposal.
+     * When `ngOnDestroy()` is called, all subscriptions created with this method will unsubscribe.
+     *
+     * @protected
+     * @template T The type of data the observable will emit.
+     * @param {Observable<T>} observable The observable to subscribe to.
+     * @param {PartialObserver<T>} [observer] The observer that will handle observable events.
+     * @returns {Subscription} The subscription created for the observable.
+     */
+    protected subscribe<T>(observable: Observable<T>, observer?: PartialObserver<T>): Subscription;
+    protected subscribe<T>(observable: Observable<T>, observerOrNext?: PartialObserver<T> | ((value: T) => void), error?: (error: any) => void, complete?: () => void): Subscription
     {
-        const destroyeable = observable.pipe(takeUntil(this.destroyed));
+        // Cast partial observer object
+        const observer = observerOrNext instanceof Function ? {
+            next: observerOrNext,
+            error,
+            complete
+        } : observerOrNext;
 
-        // If a pipe function was provided...
-        return pipeOrObserver instanceof Function ?
-                // ... use it to aggregate pipes, then subscribe
-                    pipeOrObserver(destroyeable).subscribe(observer) :
-                // otherwise, subscribe to the destroyable observable immediately    
-                    destroyeable.subscribe(pipeOrObserver);
+        return this.subscriptions.add(observable.subscribe(observer));
     }
 }
