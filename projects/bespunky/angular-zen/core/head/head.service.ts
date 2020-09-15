@@ -172,4 +172,17 @@ export class HeadService
 
         return head.querySelectorAll(`${name}${attributes}`);
     }
+
+    /**
+     * Checks whether an element with the given tag name and attributes exists in <head>.
+     *
+     * @template TElement The type of element being searched for.
+     * @param {string} name The name of the tag to look for.
+     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for elements to be detected.
+     * @returns {boolean} `true` if <head> contains a matching element; otherwise `false.
+     */
+    public contains<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): boolean
+    {
+        return !!this.findElements(name, lookup).length;
+    }
 }

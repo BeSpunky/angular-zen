@@ -186,5 +186,13 @@ describe('HeadService', () =>
             testFind('td', { colspan: 2             }, 2);
             testFind('td', { colspan: 2, rowspan: 2 }, 1);
         });
-    })
+    });
+
+    describe('calling `contains()`', () =>
+    {
+        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+
+        it('should return `true` when a matching element is found', () => expect(service.contains('td', { colspan: 2 })).toBeTruthy());
+        it('should return `false` when no matching element is found', () => expect(service.contains('td', { colspan: 10 })).toBeFalsy());
+    });
 });
