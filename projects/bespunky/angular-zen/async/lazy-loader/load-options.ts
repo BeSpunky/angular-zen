@@ -2,7 +2,10 @@ export interface LoadOptions
 {
     /**
      * (Optional) A function to customize the way `LazyLoaderService` checks if the script is already loaded.
-     * By default, `LazyLoaderService` will check if `loadScript()` or `loadStyle()` was already called for that same url.
+     * By default, `LazyLoaderService` will skip loading a script or a style if one of the following is true:
+     * 1. The file has been previously cached (i.e. either `loadScript()` or `loadStyle()` was already called for that same url).
+     * 2. A relevant element is already present in `<head>` for the specified url.
+     * 
      * Use this to change that behaviour.
      *
      * When providing a function, it is the caller's responsability to take care of any previously loaded scripts, objects in memory or anything that may lead
