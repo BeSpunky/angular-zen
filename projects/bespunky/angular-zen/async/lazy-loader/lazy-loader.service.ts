@@ -140,7 +140,7 @@ export class LazyLoaderService
             // Initialize a base object to store the data later
             const lazyFile: LazyLoadedFile = { url, type, completed: false, element: null };
             // Create an observable that waits until the script has been loaded and executed
-            const observable = Observable.create(observer =>
+            const observable = new Observable<LazyLoadedFile>(observer =>
             {
                 // Create the callback that will mark the script as completed and notify the subscriber
                 const onLoad = () =>
