@@ -20,7 +20,7 @@
     🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/132/Modules">What's in the library?</a>
 </p>
 
-You probably know the feeling... It's late at night and you simply want do something, say writing a class method, then you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
+You probably know the feeling... It's late at night and you simply want to do something, say writing a class method, then you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
 
 `@bespunky/angular-zen` takes away the pain of common Angular related implementations many of us have already encountered, by providing a set of **🌳 tree-shakable** general purpose tools which, IMHO, should probably be incorporated into the framework itself... Well, at least some of them...
 

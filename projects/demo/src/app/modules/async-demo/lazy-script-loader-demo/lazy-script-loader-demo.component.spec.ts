@@ -47,14 +47,14 @@ describe('LazyScriptLoaderDemoComponent', () =>
 
         // Seems like TestBed makes copies of all passed in provider mocks.
         // This grabs hold of the copy referenced by the TestBed to allow simulating jquery script load.
-        windowMock = TestBed.get(WINDOW);
+        windowMock = TestBed.inject(WINDOW);
     }
 
     function stubLoadScript()
     {
         lazyScriptStub = { type: 'script', url: 'https://code.jquery.com/jquery-3.4.1.min.js', completed: true, element: fixture.elementRef };
 
-        fakeObservable = Observable.create(observer =>
+        fakeObservable = new Observable(observer =>
         {
             const simulateLoadComplete = () =>
             {

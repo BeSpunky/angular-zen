@@ -13,7 +13,7 @@ describe('UniversalService', () =>
             imports: [UniversalModule]
         });
         
-        service = TestBed.get(UniversalService);
+        service = TestBed.inject(UniversalService);
     });
 
     it('should be created', () =>

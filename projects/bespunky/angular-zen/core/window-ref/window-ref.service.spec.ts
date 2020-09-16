@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
-import { DOCUMENT, DocumentRef, DocumentRefProviders } from './document-ref.service';
+import { WINDOW, WindowRef, WindowRefProviders } from './window-ref.service';
 
 // These are not exported by angular so they are redefined here
 const PLATFORM_BROWSER_ID = 'browser';
@@ -9,19 +9,19 @@ const PLATFORM_SERVER_ID = 'server';
 const PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
 const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
 
-describe('DocumentRef', () =>
+describe('WindowRef', () =>
 {
-    let service: DocumentRef;
+    let service: WindowRef;
 
     describe('basically', () =>
     {
         beforeEach(() =>
         {
             TestBed.configureTestingModule({
-                providers: [ DocumentRefProviders ]
+                providers: [ WindowRefProviders ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(WindowRef);
         });
 
         it('should be created', () =>
@@ -29,9 +29,9 @@ describe('DocumentRef', () =>
             expect(service).toBeTruthy();
         });
 
-        it('should allow access to the `document` object', () =>
+        it('should allow access to the `window` object', () =>
         {
-            expect(typeof service.nativeDocument).toBe('object');
+            expect(typeof service.nativeWindow).toBe('object');
         });
     });
 
@@ -42,16 +42,16 @@ describe('DocumentRef', () =>
             TestBed.configureTestingModule({
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_BROWSER_ID },
-                    DocumentRefProviders
+                    WindowRefProviders
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(WindowRef);
         });
 
-        it('should return the `document` object', () =>
+        it('should return the `window` object', () =>
         {
-            expect(service.nativeDocument.body).toBeDefined();
+            expect(service.nativeWindow.screenX).toBeDefined();
         });
     });
 
@@ -62,22 +62,22 @@ describe('DocumentRef', () =>
             TestBed.configureTestingModule({
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
-                    DocumentRefProviders
+                    WindowRefProviders
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(WindowRef);
         });
 
         it('should return an empty object', () =>
         {
-            expect(Object.keys(service.nativeDocument).length).toEqual(0);
+            expect(Object.keys(service.nativeWindow).length).toEqual(0);
         });
     });
 
-    describe('mocking DOCUMENT', () =>
+    describe('mocking WINDOW', () =>
     {
-        let mockDocument = { dummy: 'value' };
+        let mockWindow = { dummy: 'value' };
 
         beforeEach(() =>
         {
@@ -85,13 +85,13 @@ describe('DocumentRef', () =>
             TestBed.configureTestingModule({
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
-                    { provide: DOCUMENT, useValue: mockDocument }
+                    { provide: WINDOW, useValue: mockWindow }
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(WindowRef);
         })
 
-        it('should allow replacing the documentFactory() implementation', () => expect(service.nativeDocument).toEqual(mockDocument));
+        it('should allow replacing the windowFactory() implementation', () => expect(service.nativeWindow).toEqual(mockWindow));
     });
 });

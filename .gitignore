@@ -47,3 +47,7 @@ testem.log
 Thumbs.db
 
 \.firebase/
+
+chrome-debugging-profile/
+
+projects/bespunky/angular-zen/debug.log
