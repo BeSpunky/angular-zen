@@ -33,8 +33,8 @@ describe('WindowRefDemoComponent', () =>
         ...
 
         // 3. Get a hold of the WindowRef implementation and our mock window object
-        windowRef  = TestBed.get(WindowRef);
-        windowMock = TestBed.get(WINDOW);
+        windowRef  = TestBed.inject(WindowRef);
+        windowMock = TestBed.inject(WINDOW);
     }));
 
     it('should ...', () => {

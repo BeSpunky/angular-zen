@@ -21,7 +21,7 @@ describe('WindowRef', () =>
                 providers: [ WindowRefProviders ]
             });
 
-            service = TestBed.get(WindowRef);
+            service = TestBed.inject(WindowRef);
         });
 
         it('should be created', () =>
@@ -46,7 +46,7 @@ describe('WindowRef', () =>
                 ]
             });
 
-            service = TestBed.get(WindowRef);
+            service = TestBed.inject(WindowRef);
         });
 
         it('should return the `window` object', () =>
@@ -66,7 +66,7 @@ describe('WindowRef', () =>
                 ]
             });
 
-            service = TestBed.get(WindowRef);
+            service = TestBed.inject(WindowRef);
         });
 
         it('should return an empty object', () =>
@@ -89,7 +89,7 @@ describe('WindowRef', () =>
                 ]
             });
 
-            service = TestBed.get(WindowRef);
+            service = TestBed.inject(WindowRef);
         })
 
         it('should allow replacing the windowFactory() implementation', () => expect(service.nativeWindow).toEqual(mockWindow));

@@ -33,8 +33,8 @@ describe('DocumentRefDemoComponent', () =>
         ...
 
         // 3. Get a hold of the DocumentRef implementation and our mock document object
-        documentRef  = TestBed.get(DocumentRef);
-        documentMock = TestBed.get(DOCUMENT);
+        documentRef  = TestBed.inject(DocumentRef);
+        documentMock = TestBed.inject(DOCUMENT);
     }));
 
     it('should ...', () => {

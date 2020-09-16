@@ -21,7 +21,7 @@ describe('DocumentRef', () =>
                 providers: [ DocumentRefProviders ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(DocumentRef);
         });
 
         it('should be created', () =>
@@ -46,7 +46,7 @@ describe('DocumentRef', () =>
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(DocumentRef);
         });
 
         it('should return the `document` object', () =>
@@ -66,7 +66,7 @@ describe('DocumentRef', () =>
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(DocumentRef);
         });
 
         it('should return an empty object', () =>
@@ -89,7 +89,7 @@ describe('DocumentRef', () =>
                 ]
             });
 
-            service = TestBed.get(DocumentRef);
+            service = TestBed.inject(DocumentRef);
         })
 
         it('should allow replacing the documentFactory() implementation', () => expect(service.nativeDocument).toEqual(mockDocument));
