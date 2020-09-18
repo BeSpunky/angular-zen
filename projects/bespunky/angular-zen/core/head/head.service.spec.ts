@@ -1,31 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 
-import { setupDocumentRefMock, MockElement, MockScriptElement, MockLinkElement, MockHeadElement } from '@bespunky/angular-zen/core/testing';
-import { ScriptConfigurator, LinkConfigurator, ElementConfigurator, HeadService                 } from '@bespunky/angular-zen/core';
+import { setupDocumentRefMock, MockHeadElement                                  } from '@bespunky/angular-zen/core/testing';
+import { ScriptConfigurator, LinkConfigurator, ElementConfigurator, HeadService } from '@bespunky/angular-zen/core';
 
 describe('HeadService', () =>
 {
     let service: HeadService;
     // Mock for the document.head object
     let mockHeadElement: MockHeadElement;
-    // Stub for the instance of the script element that will be created when calling addScriptElement()
-    let mockScriptElement: MockScriptElement;
-    // Stub for the instance of the link element that will be created when calling addLinkElement()
-    let mockLinkElement: MockLinkElement;
-    // Stub for the instance of the link element that will be created when calling addElement()
-    let mockDivElement: MockElement;
 
     beforeEach(() =>
     {
-        ({ mockDivElement, mockScriptElement, mockLinkElement, mockHeadElement } = setupDocumentRefMock());
+        ({ mockHeadElement } = setupDocumentRefMock());
         
         spyOn(mockHeadElement as any, 'querySelectorAll').and.callFake((selector: string) =>
         {
             const tagEnd = selector.indexOf('[');
             const tag    = selector.substring(0, tagEnd >= 0 ? tagEnd : undefined);
-    
+
             const attributes = mockHeadElement.extractAttributesFromSelector(selector);
-            
+
             return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every(attr =>
             {
                 return attr.value === '**' ? child[attr.name] : child[attr.name] == attr.value;
@@ -39,103 +33,105 @@ describe('HeadService', () =>
 
     describe('calling `addScriptElement()`', () =>
     {
-        function testScript(config?: ScriptConfigurator, expectMore?: () => void)
+        function testScript(config?: ScriptConfigurator, expectMore?: (script: HTMLScriptElement) => void)
         {
             const type = 'application/javascript';
             const src  = 'https://dummy.url';
             
-            service.addScriptElement(type, src, config);
+            const script = service.addScriptElement(type, src, config).nativeElement;
 
-            expect(mockHeadElement.children[0]).toBe(mockScriptElement);
-            expect(mockScriptElement.type).toBe(type);
-            expect(mockScriptElement.src).toBe(src);
+            expect(mockHeadElement.children[0]).toBe(script);
+            expect(script.type).toBe(type);
+            expect(script.src).toBe(src);
 
-            if (expectMore) expectMore();
+            if (expectMore) expectMore(script);
         }
 
         it('should create a <script> element in <head> when calling `addScriptElement()` with no config', () => testScript());
 
-        it('should create a <script> element in <head> when calling `addScriptElement()` a config object', () => testScript({ async: true, onload: () => void 0 }, () =>
+        it('should create a <script> element in <head> when calling `addScriptElement()` a config object', () => testScript({ async: true, onload: () => void 0 }, (script) =>
         {
-            expect(mockScriptElement.async).toBeTruthy();
-            expect(mockScriptElement.onload instanceof Function).toBeTruthy();
+            expect(script.async).toBeTruthy();
+            expect(script.onload instanceof Function).toBeTruthy();
         }));
 
-        it('should create a <script> element in <head> when calling `addScriptElement()` a config function', () => testScript(script => script.onerror = () => void 0, () =>
+        it('should create a <script> element in <head> when calling `addScriptElement()` a config function', () => testScript(script => script.onerror = () => void 0, (script) =>
         {
-            expect(mockScriptElement.onerror instanceof Function).toBeTruthy();
+            expect(script.onerror instanceof Function).toBeTruthy();
         }));
     });
 
     describe('calling `addLinkElement()`', () =>
     {
-        function testLink(config?: LinkConfigurator, expectMore?: () => void)
+        function testLink(config?: LinkConfigurator, expectMore?: (link: HTMLLinkElement) => void)
         {
             const rel = 'canonical';
             
-            service.addLinkElement(rel, config);
+            const link = service.addLinkElement(rel, config).nativeElement;
 
-            expect(mockHeadElement.children[0]).toBe(mockLinkElement);
-            expect(mockLinkElement.rel).toBe(rel);
+            expect(mockHeadElement.children[0]).toBe(link);
+            expect(link.rel).toBe(rel);
 
-            if (expectMore) expectMore();
+            if (expectMore) expectMore(link);
         }
 
         it('should create a <link> element in <head> when calling `addLinkElement()` with no config', () => testLink());
 
-        it('should create a <link> element in <head> when calling `addLinkElement()` a config object', () => testLink({ as: 'happy', onload: () => void 0 }, () =>
+        it('should create a <link> element in <head> when calling `addLinkElement()` a config object', () => testLink({ as: 'happy', onload: () => void 0 }, (link) =>
         {
-            expect(mockLinkElement.as).toBe('happy');
-            expect(mockLinkElement.onload instanceof Function).toBeTruthy();
+            expect(link.as).toBe('happy');
+            expect(link.onload instanceof Function).toBeTruthy();
         }));
 
-        it('should create a <link> element in <head> when calling `addLinkElement()` a config function', () => testLink(script => script.onerror = () => void 0, () =>
+        it('should create a <link> element in <head> when calling `addLinkElement()` a config function', () => testLink(script => script.onerror = () => void 0, (link) =>
         {
-            expect(mockLinkElement.onerror instanceof Function).toBeTruthy();
+            expect(link.onerror instanceof Function).toBeTruthy();
         }));
     });
 
     describe('calling `addElement()`', () =>
     {
-        function testElement(config?: ElementConfigurator<HTMLElement>, expectMore?: () => void)
+        function testElement(config?: ElementConfigurator<HTMLElement>, expectMore?: (div: HTMLElement) => void)
         {
-            service.addElement('div', config);
+            const div = service.addElement('div', config).nativeElement;
 
-            expect(mockHeadElement.children[0]).toBe(mockDivElement);
+            expect(mockHeadElement.children[0]).toBe(div);
 
-            if (expectMore) expectMore();
+            if (expectMore) expectMore(div);
         }
 
         it('should create an element in <head> when calling `addElement()` with no config', () => testElement());
 
-        it('should create an element in <head> when calling `addElement()` a config object', () => testElement({ dir: 'rtl', className: 'container' }, () =>
+        it('should create an element in <head> when calling `addElement()` a config object', () => testElement({ dir: 'rtl', className: 'container' }, (div) =>
         {
-            expect(mockDivElement.dir).toBe('rtl');
-            expect(mockDivElement.className).toBe('container');
+            expect(div.dir).toBe('rtl');
+            expect(div.className).toBe('container');
         }));
 
-        it('should create an element in <head> when calling `addElement()` a config function', () => testElement(element => element.dir = 'rtl', () => expect(mockDivElement.dir).toBe('rtl')));
+        it('should create an element in <head> when calling `addElement()` a config function', () => testElement(element => element.dir = 'rtl', (div) => expect(div.dir).toBe('rtl')));
     });
 
-    function addTdElementsWithDifferentAttributesForLookup()
+    function addLinkElementsWithDifferentAttributesForLookup()
     {
-        service.addElement('td', { colspan: 2 });
-        service.addElement('td', { colspan: 2, rowspan: 2 });
-        service.addElement('td', { colspan: 4, rowspan: 4 });
+        service.addLinkElement('alternate', { hreflang: 'en' });
+        service.addLinkElement('alternate', { hreflang: 'es' });
+        service.addLinkElement('alternate', { hreflang: 'he', href: 'https://dummy.url' });
+        
+        service.addLinkElement('canonical', { href: 'https://dummy.canonical.url' });
     }
 
     describe('calling `removeElement()`', () =>
     {
-        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+        beforeEach(addLinkElementsWithDifferentAttributesForLookup);
 
         it('should remove the first matching element from <head>', () =>
         {
-            const shouldBeRemoved = mockHeadElement.children[0];
+            const shouldBeRemoved = mockHeadElement.children[3];
 
+            expect(mockHeadElement.children.length).toBe(4);
+
+            expect(service.removeElement('link', { rel: 'canonical' })).toBe(shouldBeRemoved);
             expect(mockHeadElement.children.length).toBe(3);
-
-            expect(service.removeElement('td', { colspan: 2 })).toBe(shouldBeRemoved);
-            expect(mockHeadElement.children.length).toBe(2);
         });
 
         it('should not throw if no matching element was found in <head>', () => expect(() => service.removeElement('meta', {})).not.toThrow());
@@ -144,30 +140,66 @@ describe('HeadService', () =>
 
     describe('calling `removeElements()`', () =>
     {
-        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+        beforeEach(addLinkElementsWithDifferentAttributesForLookup);
 
         it('should remove all matching element from <head>', () =>
         {
-            const shouldBeRemoved = [mockHeadElement.children[0], mockHeadElement.children[1]];
+            const shouldBeRemoved = mockHeadElement.children.slice(0, 3);
 
-            expect(mockHeadElement.children.length).toBe(3);
+            expect(mockHeadElement.children.length).toBe(4);
 
-            expect(service.removeElements('td', { colspan: 2 })).toEqual(shouldBeRemoved);
+            expect(service.removeElements('link', { hreflang: '**' })).toEqual(shouldBeRemoved);
             expect(mockHeadElement.children.length).toBe(1);
         });
 
         it('should match elements using ALL attributes', () =>
         {
-            const shouldBeRemoved = [mockHeadElement.children[1]];
+            const shouldBeRemoved = [mockHeadElement.children[2]];
 
+            expect(mockHeadElement.children.length).toBe(4);
+
+            expect(service.removeElements('link', { hreflang: '**', href: '**' })).toEqual(shouldBeRemoved);
             expect(mockHeadElement.children.length).toBe(3);
-
-            expect(service.removeElements('td', { colspan: 2, rowspan: 2 })).toEqual(shouldBeRemoved);
-            expect(mockHeadElement.children.length).toBe(2);
         });
 
         it('should not throw if no matching element was found in <head>', () => expect(() => service.removeElements('meta', {})).not.toThrow());
         it('should return an empty array if no matching element was found in <head>', () => expect(service.removeElements('meta', {})).toEqual([]));
+    });
+
+    describe('calling `removeLinkElement()`', () =>
+    {
+        beforeEach(addLinkElementsWithDifferentAttributesForLookup);
+
+        it('should remove the first matching element from <head>', () =>
+        {
+            const shouldBeRemoved = mockHeadElement.children[0];
+
+            expect(mockHeadElement.children.length).toBe(4);
+
+            expect(service.removeLinkElement('alternate', { })).toBe(shouldBeRemoved);
+            expect(mockHeadElement.children.length).toBe(3);
+        });
+
+        it('should not throw if no matching element was found in <head>', () => expect(() => service.removeLinkElement('author', {})).not.toThrow());
+        it('should return null if no matching element was found in <head>', () => expect(service.removeLinkElement('author', {})).toBeNull());
+    });
+
+    describe('calling `removeLinkElements()`', () =>
+    {
+        beforeEach(addLinkElementsWithDifferentAttributesForLookup);
+
+        it('should remove all matching element from <head>', () =>
+        {
+            const shouldBeRemoved = mockHeadElement.children.slice(0, 3);
+
+            expect(mockHeadElement.children.length).toBe(4);
+
+            expect(service.removeLinkElements('alternate', { hreflang: '**' })).toEqual(shouldBeRemoved);
+            expect(mockHeadElement.children.length).toBe(1);
+        });
+
+        it('should not throw if no matching element was found in <head>', () => expect(() => service.removeLinkElements('author', {})).not.toThrow());
+        it('should return an empty array if no matching element was found in <head>', () => expect(service.removeLinkElements('author', {})).toEqual([]));
     });
 
     describe('calling `findElements()`', () =>
@@ -181,23 +213,24 @@ describe('HeadService', () =>
 
         it('should return the elements in <head> matching the given name element and attributes', () =>
         {
-            addTdElementsWithDifferentAttributesForLookup();
+            addLinkElementsWithDifferentAttributesForLookup();
 
             testFind('script', {}, 0);
             
-            testFind('td', {                        }, 3);
-            testFind('td', { colspan: 2             }, 2);
-            testFind('td', { colspan: 2, rowspan: 2 }, 1);
+            testFind('link', {                        }, 4);
+            testFind('link', { hreflang: 'en'         }, 1);
+            testFind('link', { hreflang: 'en', href: 'https://dummy.url' }, 0);
+            testFind('link', { hreflang: 'he', href: 'https://dummy.url' }, 1);
             
-            testFind('td', { rowspan: '**' }, 2);
+            testFind('link', { href: '**' }, 2);
         });
     });
 
     describe('calling `contains()`', () =>
     {
-        beforeEach(addTdElementsWithDifferentAttributesForLookup);
+        beforeEach(addLinkElementsWithDifferentAttributesForLookup);
 
-        it('should return `true` when a matching element is found', () => expect(service.contains('td', { colspan: 2 })).toBeTruthy());
+        it('should return `true` when a matching element is found', () => expect(service.contains('link', { hreflang: 'en' })).toBeTruthy());
         it('should return `false` when no matching element is found', () => expect(service.contains('td', { colspan: 10 })).toBeFalsy());
     });
 });

@@ -1,3 +1,6 @@
+# **v2.6.0** <small>2020-09-18</small>
+➕ Added methods for quick `<link>` removal.
+
 # **v2.5.0** <small>2020-09-18</small>
 ➕ Added wildcard support for attribute matching in `<head>`.
 
