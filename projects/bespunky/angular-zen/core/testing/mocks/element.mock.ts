@@ -45,10 +45,17 @@ export class MockElement
         `);
     }
 
+    /**
+     * Extracts an array of {name, value} objects mapping the attributes from the specified selector string.
+     * Attributes with no value will be mapped with wildcard value (i.e. '**').
+     *
+     * @param {string} selector
+     * @returns {*}
+     */
     public extractAttributesFromSelector(selector: string): any
     {
-        // Searches for [key=value] groups and extracts the attribute and value from each
-        const regex = /(?:(\[(?<attr>\w+)=(?<value>\w+(?:[ .\/\-\\_]\w+)*)\]))/g;
+        // Searches for [key=value] and [key] groups and extracts the attribute and value from each
+        const regex = /(?:(\[(?<attr>\w+)(?:=(?<value>\w+(?:[ .\/\-\\_]\w+)*))?\]))/g;
         let match: RegExpExecArray;
         
         const attributes = []
@@ -58,7 +65,7 @@ export class MockElement
             // This is necessary to avoid infinite loops with zero-width matches
             if (match.index === regex.lastIndex) regex.lastIndex++;
 
-            attributes.push({ name: match.groups.attr, value: match.groups.value });
+            attributes.push({ name: match.groups.attr, value: match.groups.value || '**' });
         }
 
         return attributes;
