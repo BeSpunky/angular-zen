@@ -1,3 +1,6 @@
+# **v2.5.0** <small>2020-09-18</small>
+➕ Added wildcard support for attribute matching in `<head>`.
+
 # **v2.4.0** <small>2020-09-16</small>
 
 ➕ Added a CHANGELOG.md file.
