@@ -26,7 +26,10 @@ describe('HeadService', () =>
     
             const attributes = mockHeadElement.extractAttributesFromSelector(selector);
             
-            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every(attr => child[attr.name] == attr.value));
+            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every(attr =>
+            {
+                return attr.value === '**' ? child[attr.name] : child[attr.name] == attr.value;
+            }));
         });
 
         service = TestBed.inject(HeadService);
@@ -185,6 +188,8 @@ describe('HeadService', () =>
             testFind('td', {                        }, 3);
             testFind('td', { colspan: 2             }, 2);
             testFind('td', { colspan: 2, rowspan: 2 }, 1);
+            
+            testFind('td', { rowspan: '**' }, 2);
         });
     });
 

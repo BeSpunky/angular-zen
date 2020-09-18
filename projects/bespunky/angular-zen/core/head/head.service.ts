@@ -168,7 +168,17 @@ export class HeadService
         const document = this.document.nativeDocument as Document;
         const head     = document.head;
         
-        const attributes = Object.keys(lookup).map(attribute => `[${attribute}=${lookup[attribute]}]`).join('');
+        const attributes = Object.keys(lookup).map(attribute =>
+        {
+            const value = lookup[attribute];
+
+            // If a wildcard was specified for the attribute...
+            return value === '**' ?
+                // ... Query only by attribute name
+                `[${attribute}]` :
+                // Otherwise, match the exact value
+                `[${attribute}=${lookup[attribute]}]`;
+        }).join('');
 
         return head.querySelectorAll(`${name}${attributes}`);
     }
