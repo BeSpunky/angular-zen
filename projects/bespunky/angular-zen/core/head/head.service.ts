@@ -81,6 +81,41 @@ export class HeadService
     }
 
     /**
+     * Removes the first <link> element matching the specified params.
+     *
+     * @param {(LinkRel | LinkRel[])} rel The rel attribute value to look for.
+     * @param {ElementConfig<HTMLLinkElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
+     * @returns {(HTMLLinkElement | null)} The removed element, or null if none found.
+     */
+    public removeLinkElement(rel: LinkRel | LinkRel[], lookup: ElementConfig<HTMLLinkElement>): HTMLLinkElement | null
+    {
+        return this.removeElement('link', this.buildLinkLookup(rel, lookup));
+    }
+
+    /**
+     * Removes all <link> elements matching the specified params.
+     *
+     * @param {(LinkRel | LinkRel[])} rel The rel attribute value to look for.
+     * @param {ElementConfig<HTMLLinkElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
+     * @returns {NodeListOf<HTMLLinkElement>} The list of removed elements.
+     */
+    public removeLinkElements(rel: LinkRel | LinkRel[], lookup: ElementConfig<HTMLLinkElement>): NodeListOf<HTMLLinkElement>
+    {
+        return this.removeElements('link', this.buildLinkLookup(rel, lookup));
+    }
+
+    private buildLinkLookup(rel: LinkRel | LinkRel[], lookup: ElementConfig<HTMLLinkElement>): ElementConfig<HTMLLinkElement>
+    {
+        // If rel is an array, join to a space-separated string
+        const fullRel = Array.isArray(rel) ? rel.join(' ') : rel;
+
+        // Combine with the lookup object and return
+        return Object.assign(lookup, { rel: fullRel });
+    }
+
+    /**
      * Creates an element of the given name, configures it and adds it to the <head> element.
      *
      * @template TElement The type of element being created.
@@ -126,6 +161,7 @@ export class HeadService
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
      * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
      * @returns The removed element, or null if none found.
      */
     public removeElement<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): TElement | null
@@ -142,7 +178,8 @@ export class HeadService
      *
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
-     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for elements to be detected.
+     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
      * @returns The list of removed elements.
      */
     public removeElements<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): NodeListOf<TElement>
@@ -159,7 +196,8 @@ export class HeadService
      *
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
-     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for elements to be detected.
+     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
      * @returns A node list of all matching elements inside of <head>.
      */
     public findElements<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): NodeListOf<TElement>
@@ -188,7 +226,8 @@ export class HeadService
      *
      * @template TElement The type of element being searched for.
      * @param {string} name The name of the tag to look for.
-     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for elements to be detected.
+     * @param {ElementConfig<TElement>} lookup A map of attribute names and values to match with the element. All must match for the element to be detected.
+     * To match all elements containing a specific attribute regardless of the attribute's value, use the `'**'` value.
      * @returns {boolean} `true` if <head> contains a matching element; otherwise `false.
      */
     public contains<TElement extends HTMLElement>(name: string, lookup: ElementConfig<TElement>): boolean
