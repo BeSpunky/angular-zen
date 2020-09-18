@@ -64,6 +64,18 @@ The `findElements()` and `removeElements()` methods both use the same mechanism 
 Tag name + any additional attributes you provide.
 Lookup is done using `AND` comparisons, meaning all provided arguments must match exactly for the element to be grabbed.
 
+> **Tip** Specifying the wildcard `'**'` as an attribute value will match elements with marked with the attribute, regardless of the attributes value.
+> Example:
+> ```typescript
+> // Finds all <link> elements with an `hreflang` attribute
+> head.findElements('link', { hreflang: '**' })
+> 
+> // <link rel="alternate" hreflang="en"/> Matched
+> // <link rel="alternate" hreflang="fr"/> Matched
+> // <link rel="alternate" media="only screen and (max-width: 640px)"/> Not Matched
+> ```
+
+
 # Mocking
 The service uses the [`DocumentRef`](DocumentRef.md) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](DocumentRef/Mocking.md).
 
