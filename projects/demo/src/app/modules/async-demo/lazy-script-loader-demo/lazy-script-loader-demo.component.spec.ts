@@ -132,13 +132,13 @@ describe('LazyScriptLoaderDemoComponent', () =>
 
         it('should use the function provided by `alreadyLoaded` instead of the default one', () =>
         {
-            spyOn(lazyLoader, 'isLoaded');
+            spyOn(lazyLoader, 'isCached');
 
             const alreadyLoadedSpy = spyOn<any>(component, 'alreadyLoaded').and.callThrough();
 
             component.overrideAndLoad();
 
-            expect(lazyLoader.isLoaded).not.toHaveBeenCalled();
+            expect(lazyLoader.isCached).not.toHaveBeenCalled();
             expect(alreadyLoadedSpy).toHaveBeenCalledTimes(1);
         });
     });
