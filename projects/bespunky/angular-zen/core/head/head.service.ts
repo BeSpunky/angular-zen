@@ -215,7 +215,7 @@ export class HeadService
                 // ... Query only by attribute name
                 `[${attribute}]` :
                 // Otherwise, match the exact value
-                `[${attribute}=${lookup[attribute]}]`;
+                `[${attribute}="${lookup[attribute]}"]`;
         }).join('');
 
         return head.querySelectorAll(`${name}${attributes}`);
