@@ -7,7 +7,7 @@ import { DocumentRefProviders } from './document-ref/document-ref.service';
     imports: [],
     providers: [
         WindowRefProviders,
-        DocumentRefProviders
+        // DocumentRefProviders
     ],
     exports: []
 })
