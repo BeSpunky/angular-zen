@@ -1,10 +1,10 @@
 import { InjectionToken, PLATFORM_ID, FactoryProvider, Inject, Injectable } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 /**
  * An injectable token that will allow us to replace the provider for the native document object when necessary (e.g. mocking the `document` object).
  */
-export const DOCUMENT = new InjectionToken<Document>('DocumentToken');
+// export const DOCUMENT = new InjectionToken<Document>('DocumentToken');
 
 /**
  * Provides an injectable wrapper for the `document` object.
