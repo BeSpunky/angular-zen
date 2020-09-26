@@ -9,7 +9,7 @@ export class MockLinkElement extends MockElement
     type: string;
     rel : string;
     relList = {
-        add: (...tokens: string[]) => this.rel = tokens.join(',')
+        add: (...tokens: string[]) => this.rel = tokens.join(' ')
     };
     
     onload : () => void;

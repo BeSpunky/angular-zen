@@ -74,7 +74,7 @@ export class HeadService
     {
         return this.addElement<HTMLLinkElement>('link', link =>
         {
-            link.relList.add(Array.isArray(rel) ? rel : [rel] as any);
+            link.rel = Array.isArray(rel) ? rel.join(' ') : rel;
 
             this.applyConfiguration(link, config);
         });
