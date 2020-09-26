@@ -1,11 +1,11 @@
-import { timer, of } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { timer, of                                         } from 'rxjs';
+import { take                                              } from 'rxjs/operators';
+import { By                                                } from '@angular/platform-browser';
+import { DebugElement                                      } from '@angular/core';
+import { DOCUMENT                                          } from '@angular/common';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { DOCUMENT } from '@bespunky/angular-zen/core';
-import { LazyLoaderService, AsyncModule } from '@bespunky/angular-zen/async';
+import { LazyLoaderService, AsyncModule              } from '@bespunky/angular-zen/async';
 import { LazyStyleLoaderDemoComponent, MagicStyleUrl } from './lazy-style-loader-demo.component';
 
 describe('LazyStyleLoaderDemoComponent', () =>

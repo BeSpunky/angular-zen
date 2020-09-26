@@ -1,5 +1,5 @@
 import { InjectionToken, PLATFORM_ID, FactoryProvider, Inject, Injectable } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser                                                } from '@angular/common';
 
 /**
  * An injectable token that will allow us to replace the provider for the native window object when necessary (e.g. mocking the `window` object).
@@ -18,12 +18,7 @@ export const WINDOW = new InjectionToken<Window>('WindowToken');
 export class WindowRef
 {
     // Treating native window as `any` save users typecasting everytime and deducing if the object is of type `Window` or `object`.
-    constructor(@Inject(WINDOW) private native: any) { }
-    
-    get nativeWindow(): any
-    {
-        return this.native;
-    }
+    constructor(@Inject(WINDOW) public readonly nativeWindow: any) { }
 }
 
 /**

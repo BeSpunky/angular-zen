@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
-import { DOCUMENT, DocumentRef, DocumentRefProviders } from './document-ref.service';
+import { DocumentRef } from './document-ref.service';
+import { DOCUMENT } from '@angular/common';
 
 // These are not exported by angular so they are redefined here
 const PLATFORM_BROWSER_ID = 'browser';
@@ -17,9 +18,7 @@ describe('DocumentRef', () =>
     {
         beforeEach(() =>
         {
-            TestBed.configureTestingModule({
-                providers: [ DocumentRefProviders ]
-            });
+            TestBed.configureTestingModule({});
 
             service = TestBed.inject(DocumentRef);
         });
@@ -41,8 +40,7 @@ describe('DocumentRef', () =>
         {
             TestBed.configureTestingModule({
                 providers: [
-                    { provide: PLATFORM_ID, useValue: PLATFORM_BROWSER_ID },
-                    DocumentRefProviders
+                    { provide: PLATFORM_ID, useValue: PLATFORM_BROWSER_ID }
                 ]
             });
 
@@ -57,21 +55,23 @@ describe('DocumentRef', () =>
 
     describe('running on non-browser platforms', () =>
     {
+        let doc: Document;
+
         beforeEach(() =>
         {
             TestBed.configureTestingModule({
                 providers: [
-                    { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
-                    DocumentRefProviders
+                    { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID }
                 ]
             });
 
             service = TestBed.inject(DocumentRef);
+            doc     = TestBed.inject(DOCUMENT);
         });
 
-        it('should return an empty object', () =>
+        it('should return angular\'s dom adapter object', () =>
         {
-            expect(Object.keys(service.nativeDocument).length).toEqual(0);
+            expect(service.nativeDocument).toBe(doc);
         });
     });
 

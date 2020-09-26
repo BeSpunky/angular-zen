@@ -1,9 +1,10 @@
-import { By } from '@angular/platform-browser';
+import { By                               } from '@angular/platform-browser';
+import { DebugElement                     } from '@angular/core';
+import { DOCUMENT                         } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule, DOCUMENT } from '@bespunky/angular-zen/core';
+import { CoreModule                       } from '@bespunky/angular-zen/core';
 
 import { DocumentRefDemoComponent } from './document-ref-demo.component';
-import { DebugElement } from '@angular/core';
 
 describe('DocumentRefDemoComponent', () =>
 {
