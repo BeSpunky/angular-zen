@@ -4,10 +4,10 @@ import { PLATFORM_ID } from '@angular/core';
 import { WINDOW, WindowRef, WindowRefProviders } from './window-ref.service';
 
 // These are not exported by angular so they are redefined here
-const PLATFORM_BROWSER_ID = 'browser';
-const PLATFORM_SERVER_ID = 'server';
+const PLATFORM_BROWSER_ID    = 'browser';
+const PLATFORM_SERVER_ID     = 'server';
 const PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
-const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
+const PLATFORM_WORKER_UI_ID  = 'browserWorkerUi';
 
 describe('WindowRef', () =>
 {
