@@ -1,14 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { PLATFORM_ID } from '@angular/core';
+import { TestBed                      } from '@angular/core/testing';
+import { PLATFORM_ID                  } from '@angular/core';
+import { DOCUMENT as ANGULAR_DOCUMENT } from '@angular/common';
 
-import { DocumentRef } from './document-ref.service';
-import { DOCUMENT } from '@angular/common';
+import { CoreModule            } from '../core.module';
+import { DocumentRef, DOCUMENT } from './document-ref.service';
 
 // These are not exported by angular so they are redefined here
-const PLATFORM_BROWSER_ID = 'browser';
-const PLATFORM_SERVER_ID = 'server';
+const PLATFORM_BROWSER_ID    = 'browser';
+const PLATFORM_SERVER_ID     = 'server';
 const PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
-const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
+const PLATFORM_WORKER_UI_ID  = 'browserWorkerUi';
 
 describe('DocumentRef', () =>
 {
@@ -18,7 +19,7 @@ describe('DocumentRef', () =>
     {
         beforeEach(() =>
         {
-            TestBed.configureTestingModule({});
+            TestBed.configureTestingModule({imports: [CoreModule]});
 
             service = TestBed.inject(DocumentRef);
         });
@@ -36,20 +37,29 @@ describe('DocumentRef', () =>
 
     describe('running on browser platforms', () =>
     {
+        let doc: Document;
+        
         beforeEach(() =>
         {
             TestBed.configureTestingModule({
+                imports  : [CoreModule],
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_BROWSER_ID }
                 ]
             });
 
             service = TestBed.inject(DocumentRef);
+            doc     = TestBed.inject(ANGULAR_DOCUMENT);
         });
 
         it('should return the `document` object', () =>
         {
             expect(service.nativeDocument.body).toBeDefined();
+        });
+
+        it('should return angular\'s dom adapter object', () =>
+        {
+            expect(service.nativeDocument).toBe(doc);
         });
     });
 
@@ -60,13 +70,14 @@ describe('DocumentRef', () =>
         beforeEach(() =>
         {
             TestBed.configureTestingModule({
+                imports  : [CoreModule],
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID }
                 ]
             });
 
             service = TestBed.inject(DocumentRef);
-            doc     = TestBed.inject(DOCUMENT);
+            doc     = TestBed.inject(ANGULAR_DOCUMENT);
         });
 
         it('should return angular\'s dom adapter object', () =>
@@ -81,8 +92,8 @@ describe('DocumentRef', () =>
 
         beforeEach(() =>
         {
-
             TestBed.configureTestingModule({
+                imports  : [CoreModule],
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
                     { provide: DOCUMENT, useValue: mockDocument }
