@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CoreModule } from '@bespunky/angular-zen/core';
+import { CoreModule, DOCUMENT } from '@bespunky/angular-zen/core';
 import { MockScriptElement    } from '../mocks/script.mock';
 import { MockLinkElement      } from '../mocks/link.mock';
 import { MockHeadElement      } from '../mocks/head.mock';
 import { MockElement          } from '../mocks/element.mock';
-import { DOCUMENT } from '@angular/common';
 
 /**
  * Mocks the following hierarchy:

@@ -54,11 +54,11 @@ export class MockElement
      */
     public extractAttributesFromSelector(selector: string): any
     {
-        // Searches for [key=value] and [key] groups and extracts the attribute and value from each
-        const regex = /(?:(\[(?<attr>\w+)(?:=(?<value>[^\]]+))?)\]*)/g;
+        // Searches for [key="value"] and [key] groups and extracts the attribute and value from each
+        const regex = /(?:(\[(?<attr>\w+)(?:="(?<value>[^\]]+)")?)\]*)/g;
         let match: RegExpExecArray;
         
-        const attributes = []
+        const attributes = [];
         
         while ((match = regex.exec(selector)) !== null)
         {
