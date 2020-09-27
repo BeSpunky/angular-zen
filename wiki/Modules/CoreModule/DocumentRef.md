@@ -1,4 +1,8 @@
 # DocumentRef Service
+> **TLDR Summary**  
+> Use the `DocumentRef` to **safely** access the document object and/or mock it with a simple to use class and syntax.
+
+
 The `document` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `document` doesn't always exist when working with angular. 
 
 ## Why?
@@ -9,14 +13,15 @@ Angular serves for many purposes other than web development:
 
 Basically, this means that our application might be run in different environments, others than the normal browser, hence will not have the `document` object.
 
+## What's about angular's `DOCUMENT` token?
+Angular's `DOCUMENT` token will actually, depending on the platform, provide the correct DOM Adapter.
+
+Drawbacks:
+1. You have to use the `@Inject(DOCUMENT)` syntax. Personally, I hate it. 😒
+2. The `DOCUMENT` token is used internally by angular, meaning attempts to mock and replace it directly might break your app/spec. 🤦‍♂️
+
 ## What do we do?
-
-The `DocumentRef` service acts as an injectable angular wrapper for the javascript `document` object.
-
-`DocumentRef` will automatically detect if it is running on a browser platform and will return an empty object otherwise.
-This allows DI and unit testing.
-
-The default implementation for `DocumentRef` depends on the `DOCUMENT` token which provides the actual native object.
+The `DocumentRef` service acts as an injectable angular wrapper for the javascript `document` object. By default, `DocumentRef` will use angular's implementation to provide the native document, but you can always mock and provide another implementation.
 
 This eventually gives you the ability to use the `DocumentRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `DOCUMENT` token, or both.
 
@@ -27,7 +32,7 @@ This eventually gives you the ability to use the `DocumentRef` service in your a
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CoreModule } from '@bespunky/angular-zen'; // 1. Import module
+import { CoreModule } from '@bespunky/angular-zen/core'; // 1. Import module
 
 import { AppComponent } from './app.component';
 
