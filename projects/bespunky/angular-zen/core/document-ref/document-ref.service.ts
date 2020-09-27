@@ -1,6 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT           } from '@angular/common';
+import { ExistingProvider, Inject, Injectable, InjectionToken } from '@angular/core';
+import { DOCUMENT as ANGULAR_DOCUMENT                         } from '@angular/common';
 
+export const DOCUMENT = new InjectionToken<Document>('DocumentToken');
 /**
  * Provides an injectable wrapper for the `document` object.
  *
@@ -15,3 +16,16 @@ export class DocumentRef
     // Treating native document as `any` save users typecasting everytime and deducing if the object is of type `Document` or `object`.
     constructor(@Inject(DOCUMENT) public readonly nativeDocument: any) { }
 }
+
+/**
+ * The default provider for the `DOCUMENT` token. Uses angular's DOM adapters which will be injected according to the platform.
+ */
+export const DocumentProvider: ExistingProvider = {
+    provide    : DOCUMENT,
+    useExisting: ANGULAR_DOCUMENT
+};
+
+/**
+ * A bundle of all providers needed for DocumentRef to work.
+ */
+export const DocumentRefProviders = [DocumentProvider];
