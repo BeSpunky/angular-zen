@@ -1,36 +1,166 @@
-// import { TestBed } from '@angular/core/testing';
-// import { LanguageIntegrationConfig, LanguageIntegrationModule, LanguageIntegrationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language'
-// import { of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
+import { TestBed               } from '@angular/core/testing';
 
-// describe('LanguageIntegrationService', () =>
-// {
-//     let service: LanguageIntegrationService;
+import { LanguageIntegrationModule        } from '../language-integration.module';
+import { LanguageIntegrationConfig        } from '../config/language-integration-config';
+import { LanguageIntegrationService       } from './language-integration.service';
 
-//     function createIntegrationConfig(): LanguageIntegrationConfig
-//     {
-//         return {
-//             changed  : of('en'),
-//             default  : 'en',
-//             supported: ['en', 'fr', 'he'],
-//             translate: value => `TRANSLATED: ${value}`,
-//             ready    : of (true)
-//         };
-//     }
+const supportedLanguages = ['en', 'fr', 'he'];
+const defaultLanguage    = supportedLanguages[0];
 
-//     function setupTest(configFactory: LanguageIntegrationConfigFactory, urlLocalization?: UrlLocalizationConfig): void
-//     {
-//         TestBed.configureTestingModule({
-//             imports: [
-//                 LanguageIntegrationModule.forRoot({ useFactory: configFactory }, urlLocalization)
-//             ]
-//         });
+const config: LanguageIntegrationConfig = {
+    changed  : of(defaultLanguage),
+    supported: supportedLanguages,
+    default  : defaultLanguage,
+    translate: value => `TRANSLATED: ${value}`,
+    ready    : of(true)
+};
 
-//         service = TestBed.inject(LanguageIntegrationService);
-//     }
+describe('LanguageIntegrationService', () =>
+{
+    let service: LanguageIntegrationService;
 
-//     describe('')
-//     beforeEach(async () =>
-//     {
-//         sup
-//     });
-// });
+    function setupTest(config?: LanguageIntegrationConfig): void
+    {
+        const imports = [];
+
+        if (config)
+            imports.push(LanguageIntegrationModule.forRoot({ useFactory: () => config }));
+
+        TestBed.configureTestingModule({ imports });
+
+        service = TestBed.inject(LanguageIntegrationService);
+    }
+
+    describe('basically', () =>
+    {
+        beforeEach(() => setupTest());
+
+        it('should be created', () => expect(service).toBeDefined());
+    });
+
+    describe('when enabled', () =>
+    {
+        beforeEach(() => setupTest(config));
+
+        it('should expose language changes through an observable', () =>
+        {
+            expect(service.changed).toBeInstanceOf(Observable);
+            expect(service.changed).toBe(config.changed);
+        });
+
+        it('should expose the default language', () =>
+        {
+            expect(service.default).toBe(defaultLanguage);
+        });
+
+        it('should expose the supported languages', () =>
+        {
+            expect(service.supportedLanguages).toBe(supportedLanguages);
+        });
+
+        it('should expose the current language', () =>
+        {
+            expect(service.currentLanguage).toBe(defaultLanguage);
+        });
+
+        it('should be flagged as enabled', () =>
+        {
+            expect(service.enabled).toBeTruthy();
+        });
+
+        it('should expose readyness through an observable', () =>
+        {
+            expect(service.ready).toBeInstanceOf(Observable);
+        });
+
+        it('should get the alternate languages for a language', () =>
+        {
+            expect(service.getAlternateLanguages(defaultLanguage)).toEqual(['fr', 'he']);
+        });        
+
+        it('should return all supported languages when asking for alternates of a non-supported language', () =>
+        {
+            expect(service.getAlternateLanguages('not-supported-language')).toEqual(supportedLanguages);
+        });
+        
+        it('should translate a given value', () =>
+        {
+            expect(service.translate('text')).toEqual(config.translate('text'));
+        });
+
+        it('should deep translate and assign all translatable properties in an object', () =>
+        {
+            const text = 'title';
+            const deepText = 'deepTitle';
+
+            const dummy = {
+                text,
+                value: 123,
+                data: {
+                    deepText,
+                    deepValue: 321
+                }
+            };
+
+            service.translateProperties(dummy, ['text', 'data.deepText']);
+
+            expect(dummy.text         ).toEqual(config.translate(text));
+            expect(dummy.data.deepText).toEqual(config.translate(deepText));
+
+            // Make sure nothing else was touched.
+            expect(dummy.value         ).toEqual(123);
+            expect(dummy.data.deepValue).toEqual(321);
+        });
+    });
+
+    describe('when disabled', () =>
+    {
+        beforeEach(() => setupTest());
+
+        it('should return undefined for changes', () =>
+        {
+            expect(service.changed).toBeUndefined();
+        });
+
+        it('should return undefined for default language', () =>
+        {
+            expect(service.default).toBeUndefined();
+        });
+
+        it('should return undefined for supported languages', () =>
+        {
+            expect(service.supportedLanguages).toBeUndefined();
+        });
+        
+        it('should return undefined for current language', () =>
+        {
+            expect(service.currentLanguage).toBeUndefined();
+        });
+
+        it('should be flagged as disabled', () =>
+        {
+            expect(service.enabled).toBeFalsy();
+        });
+
+        it('should return an empty observable for readyness', () =>
+        {
+            expect(service.ready).toBe(EMPTY);
+        });
+
+        it('should throw when getting the alternate languages for a language', () =>
+        {
+            expect(() => service.getAlternateLanguages(defaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
+        });
+
+        it('should throw when translating a given value', () =>
+        {
+            expect(() => service.translate('text')).toThrowError(/Multi language support hasn't been enabled/);
+        });
+
+        it('should throw when deep translating properties in an object', () =>
+        {
+            expect(() => service.translateProperties({ value: 'text' }, ['value'])).toThrowError(/Multi language support hasn't been enabled/);
+        });
+    });
+});
