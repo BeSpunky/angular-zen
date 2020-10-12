@@ -124,9 +124,9 @@ export class LanguageIntegrationService extends Destroyable
     {
         if (!this.enabled)
             throw new Error(`
-                Multi language support hasn't been enabled. Probable causes:
-                1. You haven't provided language integration config using the 'LanguageIntegration' token. You can use the 'provideLanguageIntegration()' function.
-                2. Supported languages haven't been loaded yet.
+                Multi language support hasn't been enabled.
+                Did you provide language integration config using the 'LanguageIntegration' token?
+                You can use the 'provideLanguageIntegration()' function.
             `);
     }
 }
