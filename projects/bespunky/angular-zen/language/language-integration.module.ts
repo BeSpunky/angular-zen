@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { provideUrlLocalizationConfig, UrlLocalizationConfig     } from './url-localization/url-localization-config';
-import { LanguageIntegrationProvider, provideLanguageIntegration } from './config/language-integration-config';
+import { LanguageIntegrationProvider, provideLanguageIntegration } from "./config/language-integration.provider";
 
 @NgModule()
 export class LanguageIntegrationModule
