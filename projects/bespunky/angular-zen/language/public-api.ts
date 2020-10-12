@@ -1,8 +1,14 @@
+export * from './language-integration.module';
 
-export * from './async.module';
+export * from './config/language-integration-config';
 
-export * from './lazy-loader/lazy-loader.service';
-export * from './lazy-loader/script-load-options';
-export * from './lazy-loader/lazy-loaded-file';
+export * from './services/language-integration.service';
+// export * from './services/localized-route-aware.service';
 
-export * from './utils/promiseLater';
+export * from './url-localization/url-localization-config';
+export * from './url-localization/url-localization-state';
+export * from './url-localization/url-localization.service';
+export * from './url-localization/localizers/url-localizer';
+export * from './url-localization/localizers/noop-url-localizer';
+export * from './url-localization/localizers/route-position-url-localizer';
+export * from './url-localization/localizers/query-params-url-localizer';
