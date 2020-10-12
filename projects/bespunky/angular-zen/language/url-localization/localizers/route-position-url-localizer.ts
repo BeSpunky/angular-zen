@@ -1,6 +1,9 @@
+import { Injectable } from '@angular/core';
+
 import { UrlLocalizationState } from '../services/url-localization-state';
 import { UrlLocalizer         } from './url-localizer';
 
+@Injectable({ providedIn: 'root'})
 export class RoutePositionUrlLocalizer extends UrlLocalizer
 {
     constructor(public readonly position: number) { super(); }

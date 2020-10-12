@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { UrlLocalizationState } from '../services/url-localization-state';
 
 @Injectable()
