@@ -56,11 +56,6 @@ export class LanguageIntegrationService extends Destroyable
         return Array.isArray(supported) ? of(supported) : from(supported); 
     }
 
-    public getAlternateLanguages(lang: string): string[]
-    {
-        return this.supportedLanguages.filter(supportedLocale => supportedLocale !== lang);
-    }
-
     public get changed(): Observable<string>
     {
         return this.config?.changed;
@@ -91,6 +86,13 @@ export class LanguageIntegrationService extends Destroyable
         return this.$ready;
     }
 
+    public getAlternateLanguages(lang: string): string[]
+    {
+        this.ensureEnabled();
+        
+        return this.supportedLanguages.filter(supportedLocale => supportedLocale !== lang);
+    }
+    
     public translate(value: string, params?: any): string
     {
         this.ensureEnabled();
