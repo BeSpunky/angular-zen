@@ -4,7 +4,6 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Destroyable                  } from '@bespunky/angular-zen/core';
 
 import { LanguageIntegrationConfig, LanguageIntegration } from '../config/language-integration-config';
-import { UrlLocalization, UrlLocalizationConfig         } from '../url-localization/config/url-localization-config';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageIntegrationService extends Destroyable
@@ -14,10 +13,7 @@ export class LanguageIntegrationService extends Destroyable
     private supported  : string[];
     private current    : string;
 
-    constructor(
-        @Optional() @Inject(LanguageIntegration) public readonly config?               : LanguageIntegrationConfig,
-        @Optional() @Inject(UrlLocalization)     public readonly urlLocalizetionConfig?: UrlLocalizationConfig,
-    )
+    constructor(@Optional() @Inject(LanguageIntegration) public readonly config?: LanguageIntegrationConfig)
     {
         super();
 

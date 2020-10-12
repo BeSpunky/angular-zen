@@ -1,8 +1,9 @@
-import { Injectable             } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DocumentRef            } from '@bespunky/angular-zen/core';
+import { Injectable, Inject, Optional } from '@angular/core';
+import { Router, ActivatedRoute       } from '@angular/router';
+import { DocumentRef                  } from '@bespunky/angular-zen/core';
 
 import { LanguageIntegrationService } from '../../services/language-integration.service';
+import { UrlLocalization, UrlLocalizationConfig      } from '../config/url-localization-config';
 import { UrlLocalizer               } from '../localizers/url-localizer';
 import { UrlLocalizationState       } from './url-localization-state';
 
@@ -12,14 +13,15 @@ export class UrlLocalizationService
     public readonly hostUrl: string;
 
     constructor(
-        private language : LanguageIntegrationService,
-        private router   : Router,
-        private route    : ActivatedRoute,
-        private document : DocumentRef,
-        private localizer: UrlLocalizer
+                                 private         language : LanguageIntegrationService,
+                                 private         router   : Router,
+                                 private         route    : ActivatedRoute,
+                                 private         document : DocumentRef,
+                                 private         localizer: UrlLocalizer,
+        @Inject(UrlLocalization) public readonly config?  : UrlLocalizationConfig
     )
     {
-        const hostUrl = this.language.urlLocalizetionConfig?.hostUrl;
+        const hostUrl = this.config?.hostUrl;
 
         // If the hostUrl has been provided by the user, use it; otherwise, fetch from the location service
         this.hostUrl = hostUrl || this.document.nativeDocument.location.origin;
@@ -56,6 +58,6 @@ export class UrlLocalizationService
 
     public replaceHttpIfRequired(url: string): string
     {
-        return this.language.urlLocalizetionConfig?.forceHttps ? url.replace(/^http:\/\//, 'https://') : url;
+        return this.config?.forceHttps ? url.replace(/^http:\/\//, 'https://') : url;
     }
 }
