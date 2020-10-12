@@ -20,11 +20,4 @@ export class LanguageIntegrationModule
             ]
         };
     }
-
-    static forChild(): ModuleWithProviders<LanguageIntegrationModule>
-    {
-        return {
-            ngModule : LanguageIntegrationModule
-        };
-    }
 }
