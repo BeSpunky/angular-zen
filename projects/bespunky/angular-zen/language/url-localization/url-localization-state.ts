@@ -33,7 +33,7 @@ export class UrlLocalizationState
 
     public get routeUrl(): string
     {
-        const { url }       = this.router;
+        const { url } = this.router;
 
         return url.replace(this.QueryRegEx, '');
     }
