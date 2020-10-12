@@ -1,9 +1,9 @@
-import { UrlLocalizationState } from '../url-localization-state';
+import { UrlLocalizationState } from '../services/url-localization-state';
 import { UrlLocalizer         } from './url-localizer';
 
-export class RoutePositionUrlLocalizer implements UrlLocalizer
+export class RoutePositionUrlLocalizer extends UrlLocalizer
 {
-    constructor(public readonly position: number) { }
+    constructor(public readonly position: number) { super(); }
 
     localize(lang: string, state: UrlLocalizationState): string
     {

@@ -5,11 +5,11 @@ import { SupportedLanguagesFactory, DefaultLanguageFactory, TranslationFn, Obser
 
 export interface LanguageIntegrationConfig
 {
-    supported: string[] | SupportedLanguagesFactory;
-    default  : string   | DefaultLanguageFactory,
-    ready?   : ObservableLike<any>;
-    changed  : Observable<string>;
-    translate: TranslationFn;
+    supported       : string[] | SupportedLanguagesFactory;
+    default         : string   | DefaultLanguageFactory,
+    ready?          : ObservableLike<any>;
+    changed         : Observable<string>;
+    translate       : TranslationFn;
 }
 
 export const LanguageIntegration = new InjectionToken<LanguageIntegrationConfig>('LanguageIntegration.Config');

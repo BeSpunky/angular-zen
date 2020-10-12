@@ -4,7 +4,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Destroyable                  } from '@bespunky/angular-zen/core';
 
 import { LanguageIntegrationConfig, LanguageIntegration } from '../config/language-integration-config';
-import { UrlLocalization, UrlLocalizationConfig         } from '../url-localization/url-localization-config';
+import { UrlLocalization, UrlLocalizationConfig         } from '../url-localization/config/url-localization-config';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageIntegrationService extends Destroyable
@@ -15,8 +15,8 @@ export class LanguageIntegrationService extends Destroyable
     private current    : string;
 
     constructor(
-        @Optional() @Inject(LanguageIntegration) private config?               : LanguageIntegrationConfig,
-        @Optional() @Inject(UrlLocalization)     private urlLocalizetionConfig?: UrlLocalizationConfig,
+        @Optional() @Inject(LanguageIntegration) public readonly config?               : LanguageIntegrationConfig,
+        @Optional() @Inject(UrlLocalization)     public readonly urlLocalizetionConfig?: UrlLocalizationConfig,
     )
     {
         super();
@@ -91,11 +91,6 @@ export class LanguageIntegrationService extends Destroyable
         return this.$ready;
     }
 
-    public get forceHttps(): boolean
-    {
-        return this.urlLocalizetionConfig?.forceHttps === true;
-    }
-
     public translate(value: string, params?: any): string
     {
         this.ensureEnabled();
@@ -125,8 +120,7 @@ export class LanguageIntegrationService extends Destroyable
         if (!this.enabled)
             throw new Error(`
                 Multi language support hasn't been enabled.
-                Did you provide language integration config using the 'LanguageIntegration' token?
-                You can use the 'provideLanguageIntegration()' function.
+                Did you import the language integration module in your app using 'LanguageIntegrationModule.forRoot()'?
             `);
     }
 }

@@ -1,11 +1,11 @@
 import { UrlTree } from '@angular/router';
 
-import { UrlLocalizationState } from '../url-localization-state';
+import { UrlLocalizationState } from '../services/url-localization-state';
 import { UrlLocalizer         } from './url-localizer';
 
-export class QueryParamsUrlLocalizer implements UrlLocalizer
+export class QueryParamsUrlLocalizer extends UrlLocalizer
 {
-    constructor(public readonly paramName: string) { }
+    constructor(public readonly paramName: string) { super(); }
 
     localize(lang: string, state: UrlLocalizationState): string
     {
