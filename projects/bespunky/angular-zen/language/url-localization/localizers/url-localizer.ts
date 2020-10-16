@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { UrlLocalizationState } from '../services/url-localization-state';
+import { UrlReflectionService } from '../services/url-reflection.service';
 
 @Injectable()
 export abstract class UrlLocalizer
 {
-    public abstract localize(lang: string, state: UrlLocalizationState): string;
+    constructor(protected urlReflection: UrlReflectionService) { }
 
-    public abstract delocalize(state: UrlLocalizationState): string;
+    public abstract localize(lang: string): string;
+
+    public abstract delocalize(): string;
 }

@@ -1,31 +1,41 @@
-import { Injectable } from '@angular/core';
-import { UrlTree    } from '@angular/router';
+import { Inject, Injectable } from '@angular/core';
+import { UrlTree            } from '@angular/router';
 
-import { UrlLocalizationState } from '../services/url-localization-state';
-import { UrlLocalizer         } from './url-localizer';
+import { UrlLocalization, UrlLocalizationConfig } from '../config/url-localization-config';
+import { UrlReflectionService                   } from '../services/url-reflection.service';
+import { UrlLocalizer                           } from './url-localizer';
 
 @Injectable({ providedIn: 'root'})
 export class QueryParamsUrlLocalizer extends UrlLocalizer
 {
-    constructor(public readonly paramName: string) { super(); }
+    public readonly paramName: string;
 
-    localize(lang: string, state: UrlLocalizationState): string
+    constructor(@Inject(UrlLocalization) { strategy }: UrlLocalizationConfig, urlReflection: UrlReflectionService)
     {
-        const currentUrlTree    = this.parseUrlTree(state);
-        const localizedParams   = this.replaceLanguageParam(state.queryParams, lang);
-        const localizedRoute    = this.replaceQueryParamsInUrlTree(currentUrlTree, localizedParams);
-        const localizedRouteUrl = state.router.serializeUrl(localizedRoute);
+        super(urlReflection);
 
-        return this.composeUrl(localizedRouteUrl, state);
+        this.paramName = strategy as string;
+    }
+
+    localize(lang: string): string
+    {
+        const currentUrlTree    = this.parseUrlTree();
+        const localizedParams   = this.replaceLanguageParam(this.urlReflection.queryParams, lang);
+        const localizedRoute    = this.replaceQueryParamsInUrlTree(currentUrlTree, localizedParams);
+        const localizedRouteUrl = this.urlReflection.router.serializeUrl(localizedRoute);
+
+        return this.composeUrl(localizedRouteUrl);
     }
     
-    delocalize(state: UrlLocalizationState): string
+    delocalize(): string
     {
-        return this.localize(undefined, state);
+        return this.localize(undefined);
     }
 
-    protected parseUrlTree({ router }: UrlLocalizationState): UrlTree
-    {        
+    protected parseUrlTree(): UrlTree
+    {
+        const { router } = this.urlReflection;
+
         // Parsing the url seems dumb as the router should have it parsed already, but the route object doesn't hold
         // the tree and the router SOMETIMES holds it in getCurrentNavigation().
         return router.parseUrl(router.url);
@@ -46,8 +56,10 @@ export class QueryParamsUrlLocalizer extends UrlLocalizer
         return Object.assign(url, { queryParams: newParams });
     }
 
-    protected composeUrl(routeUrl: string, { hostUrl }: UrlLocalizationState): string
+    protected composeUrl(routeUrl: string): string
     {      
+        const { hostUrl } = this.urlReflection;
+
         return `${hostUrl}${routeUrl}`;
     }
 }

@@ -1,5 +1,7 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { LanguageIntegrationProvider, provideLanguageIntegration } from "./config/language-integration.provider";
+
+import { CoreModule                                              } from '@bespunky/angular-zen/core';
+import { LanguageIntegrationProvider, provideLanguageIntegration } from './config/language-integration.provider';
 
 /**
  * Provides services for libraries requiring integration with their user's language services.
@@ -7,7 +9,9 @@ import { LanguageIntegrationProvider, provideLanguageIntegration } from "./confi
  * @export
  * @class LanguageIntegrationModule
  */
-@NgModule()
+@NgModule({
+    imports: [CoreModule]
+})
 export class LanguageIntegrationModule
 {
     constructor(@Optional() @SkipSelf() parentModule: LanguageIntegrationModule)

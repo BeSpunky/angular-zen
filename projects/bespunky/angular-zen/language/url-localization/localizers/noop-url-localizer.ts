@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { UrlLocalizationState } from '../services/url-localization-state';
-import { UrlLocalizer         } from './url-localizer';
+import { UrlLocalizer } from './url-localizer';
 
 @Injectable({ providedIn: 'root'})
 export class NoopUrlLocalizer extends UrlLocalizer
 {
-    localize(lang: string, state: UrlLocalizationState): string
+    localize(lang: string): string
     {
-        return state.hostUrl + state.router.url;
+        return this.urlReflection.fullUrl;
     }
     
-    delocalize(state: UrlLocalizationState): string
+    delocalize(): string
     {
-        return state.hostUrl + state.router.url;
+        return this.urlReflection.fullUrl;
     }
 }

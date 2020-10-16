@@ -14,9 +14,11 @@ export interface UrlLocalizerClassProvider extends Omit<ClassProvider, 'provide'
     useClass: Type<UrlLocalizer>;
 }
 
+export type UrlLocalizationStrategy = number | string | UrlLocalizerFactoryProvider | UrlLocalizerClassProvider;
+
 export interface UrlLocalizationConfig
 {
-    strategy   : number | string | UrlLocalizerFactoryProvider | UrlLocalizerClassProvider;
+    strategy   : UrlLocalizationStrategy;
     forceHttps?: boolean;
     hostUrl?   : string;
 }
