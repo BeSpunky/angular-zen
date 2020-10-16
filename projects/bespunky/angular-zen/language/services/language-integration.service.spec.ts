@@ -1,31 +1,21 @@
-import { EMPTY, Observable, of } from 'rxjs';
-import { TestBed               } from '@angular/core/testing';
+import { EMPTY, Observable } from 'rxjs';
+import { TestBed           } from '@angular/core/testing';
 
-import { LanguageIntegrationModule        } from '../language-integration.module';
-import { LanguageIntegrationConfig        } from '../config/language-integration-config';
-import { LanguageIntegrationService       } from './language-integration.service';
-
-const supportedLanguages = ['en', 'fr', 'he'];
-const defaultLanguage    = supportedLanguages[0];
-
-const config: LanguageIntegrationConfig = {
-    changed  : of(defaultLanguage),
-    supported: supportedLanguages,
-    default  : defaultLanguage,
-    translate: value => `TRANSLATED: ${value}`,
-    ready    : of(true)
-};
+import { SupportedLanguages, DefaultLanguage, LanguageConfig } from '@bespunky/angular-zen/language/testing';
+import { LanguageIntegrationModule                           } from '../language-integration.module';
+import { LanguageIntegrationConfig                           } from '../config/language-integration-config';
+import { LanguageIntegrationService                          } from './language-integration.service';
 
 describe('LanguageIntegrationService', () =>
 {
     let service: LanguageIntegrationService;
 
-    function setupTest(config?: LanguageIntegrationConfig): void
+    function setupTest(LanguageConfig?: LanguageIntegrationConfig): void
     {
         const imports = [];
 
-        if (config)
-            imports.push(LanguageIntegrationModule.forRoot({ useFactory: () => config }));
+        if (LanguageConfig)
+            imports.push(LanguageIntegrationModule.forRoot({ useFactory: () => LanguageConfig }));
 
         TestBed.configureTestingModule({ imports });
 
@@ -41,27 +31,27 @@ describe('LanguageIntegrationService', () =>
 
     describe('when enabled', () =>
     {
-        beforeEach(() => setupTest(config));
+        beforeEach(() => setupTest(LanguageConfig));
 
         it('should expose language changes through an observable', () =>
         {
             expect(service.changed).toBeInstanceOf(Observable);
-            expect(service.changed).toBe(config.changed);
+            expect(service.changed).toBe(LanguageConfig.changed);
         });
 
         it('should expose the default language', () =>
         {
-            expect(service.default).toBe(defaultLanguage);
+            expect(service.default).toBe(DefaultLanguage);
         });
 
         it('should expose the supported languages', () =>
         {
-            expect(service.supportedLanguages).toBe(supportedLanguages);
+            expect(service.supportedLanguages).toBe(SupportedLanguages);
         });
 
         it('should expose the current language', () =>
         {
-            expect(service.currentLanguage).toBe(defaultLanguage);
+            expect(service.currentLanguage).toBe(DefaultLanguage);
         });
 
         it('should be flagged as enabled', () =>
@@ -76,17 +66,17 @@ describe('LanguageIntegrationService', () =>
 
         it('should get the alternate languages for a language', () =>
         {
-            expect(service.getAlternateLanguages(defaultLanguage)).toEqual(['fr', 'he']);
+            expect(service.getAlternateLanguages(DefaultLanguage)).toEqual(['fr', 'he']);
         });        
 
         it('should return all supported languages when asking for alternates of a non-supported language', () =>
         {
-            expect(service.getAlternateLanguages('not-supported-language')).toEqual(supportedLanguages);
+            expect(service.getAlternateLanguages('not-supported-language')).toEqual(SupportedLanguages);
         });
         
         it('should translate a given value', () =>
         {
-            expect(service.translate('text')).toEqual(config.translate('text'));
+            expect(service.translate('text')).toEqual(LanguageConfig.translate('text'));
         });
 
         it('should deep translate and assign all translatable properties in an object', () =>
@@ -105,8 +95,8 @@ describe('LanguageIntegrationService', () =>
 
             service.translateProperties(dummy, ['text', 'data.deepText']);
 
-            expect(dummy.text         ).toEqual(config.translate(text));
-            expect(dummy.data.deepText).toEqual(config.translate(deepText));
+            expect(dummy.text         ).toEqual(LanguageConfig.translate(text));
+            expect(dummy.data.deepText).toEqual(LanguageConfig.translate(deepText));
 
             // Make sure nothing else was touched.
             expect(dummy.value         ).toEqual(123);
@@ -150,7 +140,7 @@ describe('LanguageIntegrationService', () =>
 
         it('should throw when getting the alternate languages for a language', () =>
         {
-            expect(() => service.getAlternateLanguages(defaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
+            expect(() => service.getAlternateLanguages(DefaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
         });
 
         it('should throw when translating a given value', () =>
