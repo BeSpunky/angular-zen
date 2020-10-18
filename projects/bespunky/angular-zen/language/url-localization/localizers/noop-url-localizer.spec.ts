@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 
-import { DeepRoutePath, setupUrlLocalizerTest              } from '@bespunky/angular-zen/language/testing';
-import { UrlReflectionService, UrlLocalizer } from '@bespunky/angular-zen/language';
+import { DeepRoutePath, setupUrlLocalizerTest } from '@bespunky/angular-zen/language/testing';
+import { UrlReflectionService, UrlLocalizer   } from '@bespunky/angular-zen/language';
 
 describe('NoopUrlLocalizer', () =>
 {
