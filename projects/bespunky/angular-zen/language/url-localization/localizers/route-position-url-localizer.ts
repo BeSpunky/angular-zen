@@ -23,25 +23,31 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
 
     localize(lang: string): string
     {
-        return this.transformUrl((segments, langIndex, isLanguage) => this.insertOrReplaceLanguage(lang, segments, langIndex, isLanguage));
+        return this.transformUrl(
+            (segments, langIndex, isLanguage) => this.insertOrReplaceLanguage(lang, segments, langIndex, isLanguage)
+        );
     }
 
     delocalize(): string
     {
-        return this.transformUrl((segments, langIndex, isLanguage) => this.removeLanguage(segments, langIndex, isLanguage));
+        return this.transformUrl(
+            (segments, langIndex, isLanguage) => this.removeLanguage(segments, langIndex, isLanguage),
+            (segments, langIndex            ) => langIndex >= segments.length ? segments.length - 1: langIndex
+        );
     }
     
-    private transformUrl(transform: (segments: string[], langIndex: number, isLanguage: boolean) => void): string
+    private transformUrl(transform: (segments: string[], langIndex: number, isLanguage: boolean) => void, sanitizeIndex?: (segments: string[], langIndex: number) => number): string
     {
         // Position of zero will not touch the url as zero's functionality is not defined
         if (this.position === 0) return this.urlReflection.fullUrl;
 
-        const segments   = this.urlReflection.routeSegments;
+        const segments = this.urlReflection.routeSegments;
         // Convert the position to replace/add to an index (might result in large negatives or positives, exceeding array bounds)
-        const langIndex  = this.indexOfPosition(segments.length);
+        let langIndex  = this.indexOfPosition();
         
         this.accessSegmentsSafely(segments, () =>
         {
+            if (sanitizeIndex) langIndex = sanitizeIndex(segments, langIndex);
             // Determine if a language segment exists at the specified index
             const isLanguage = this.isLanguage(segments[langIndex]);
 
@@ -98,11 +104,9 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
         return this.position < 0;
     }
 
-    protected indexOfPosition(segmentCount: number): number
+    protected indexOfPosition(): number
     {
-        const index = Math.abs(this.position) - 1;
-
-        return index < segmentCount ? index : segmentCount - 1;
+        return Math.abs(this.position) - 1;
     }
 
     protected isLanguage(value: string): boolean
