@@ -32,6 +32,7 @@ export function setupUrlLocalizerTest(strategy: UrlLocalizationStrategy)
     const navigate      = router.navigate.bind(router);
     const navigateByUrl = router.navigateByUrl.bind(router);
 
+    // Fix for angular's warning of running navigation outside angular's zone
     spyOn(router, 'navigate'     ).and.callFake((...args: any[]) => zone.run(() => navigate     (...args)));
     spyOn(router, 'navigateByUrl').and.callFake((...args: any[]) => zone.run(() => navigateByUrl(...args)));
 
