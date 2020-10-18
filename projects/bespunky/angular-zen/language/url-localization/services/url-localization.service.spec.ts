@@ -1,4 +1,4 @@
-import { setupUrlLocalizerTest                                                                                                       } from '@bespunky/angular-zen/language/testing';
+import { setupUrlLocalizerTest                                                                                      } from '@bespunky/angular-zen/language/testing';
 import { UrlLocalizer, UrlLocalizationService, UrlLocalizationStrategy, UrlLocalizationConfig, UrlReflectionService } from '@bespunky/angular-zen/language';
 
 describe('UrlLocalizationService', () =>
