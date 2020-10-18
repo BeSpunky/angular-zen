@@ -1,33 +1,35 @@
-import { Component, NgZone           } from '@angular/core';
+import { Component, NgZone   } from '@angular/core';
 import { TestBed             } from '@angular/core/testing';
 import { Route, Router       } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlReflectionService } from '@bespunky/angular-zen/language';
-import { LanguageConfig                                                                         } from './language-integration-config';
+import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlReflectionService, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
+import { LanguageConfig } from './language-integration-config';
 
 export const DeepRoutePath           = '/deeply/nested/route/for/testing';
 export const DeepRouteSegments       = DeepRoutePath.split('/');
 export const DeepRouteSegmentsNoRoot = DeepRouteSegments.slice(1);
 
-export function setupUrlLocalizerTest(strategy: UrlLocalizationStrategy)
+export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy | UrlLocalizationConfig)
 {
     const nestedRoutes = createDeeplyNestedRoutes(DeepRouteSegments);
+    const config       = isUrlLocalizationConfig(strategyOrConfig) ? strategyOrConfig : { strategy: strategyOrConfig } as UrlLocalizationConfig;
 
     TestBed.configureTestingModule({
         imports: [
             RouterTestingModule.withRoutes([nestedRoutes]),
             LanguageIntegrationModule.forRoot({
                 useFactory     : () => LanguageConfig,
-                urlLocalization: { strategy }
+                urlLocalization: config
             })
         ]
     });
 
-    const localizer     = TestBed.inject(UrlLocalizer);
-    const urlReflection = TestBed.inject(UrlReflectionService);
-    const router        = TestBed.inject(Router);
-    const zone          = TestBed.inject(NgZone);
+    const localizer       = TestBed.inject(UrlLocalizer);
+    const urlLocalization = TestBed.inject(UrlLocalizationService);
+    const urlReflection   = TestBed.inject(UrlReflectionService);
+    const router          = TestBed.inject(Router);
+    const zone            = TestBed.inject(NgZone);
     
     const navigate      = router.navigate.bind(router);
     const navigateByUrl = router.navigateByUrl.bind(router);
@@ -38,7 +40,7 @@ export function setupUrlLocalizerTest(strategy: UrlLocalizationStrategy)
 
     router.initialNavigation();
 
-    return { localizer, urlReflection, router };
+    return { localizer, urlLocalization, urlReflection, router };
 }
 
 export function createDeeplyNestedRoutes(segments: string[]): Route
@@ -58,6 +60,11 @@ export function createDeeplyNestedRoutes(segments: string[]): Route
     }
 
     return parent;
+}
+
+function isUrlLocalizationConfig(value: any): value is UrlLocalizationConfig
+{
+    return !!value?.strategy;
 }
 
 @Component({
