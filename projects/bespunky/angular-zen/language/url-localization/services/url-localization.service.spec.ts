@@ -1,16 +1,17 @@
 import { setupUrlLocalizerTest                                                                                                       } from '@bespunky/angular-zen/language/testing';
-import { UrlLocalizer, UrlLocalizationService, UrlLocalizationStrategy, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
+import { UrlLocalizer, UrlLocalizationService, UrlLocalizationStrategy, UrlLocalizationConfig, UrlReflectionService } from '@bespunky/angular-zen/language';
 
 describe('UrlLocalizationService', () =>
 {
     let localizer      : UrlLocalizer;
     let urlLocalization: UrlLocalizationService;
+    let urlReflection  : UrlReflectionService;
     let localize       : jasmine.Spy;
     let delocalize     : jasmine.Spy;
 
     function setup(config: UrlLocalizationStrategy | UrlLocalizationConfig)
     {
-        ({ localizer, urlLocalization } = setupUrlLocalizerTest(config));
+        ({ localizer, urlLocalization, urlReflection } = setupUrlLocalizerTest(config));
   
         localize   = spyOn(localizer, 'localize'  ).and.callThrough();
         delocalize = spyOn(localizer, 'delocalize').and.callThrough();
@@ -35,6 +36,15 @@ describe('UrlLocalizationService', () =>
 
             expect(delocalize).toHaveBeenCalledTimes(1);
             expect(delocalize.calls.first().returnValue).toBe(url);
+        });
+
+        it('generate localized urls for all specified languages using `generateLocalizedUrls()`', () =>
+        {
+            const langs = ['en', 'fr', 'he'];
+            const urls  = urlLocalization.generateLocalizedUrls(langs);
+
+            // Expect all languages to have an appropriate url
+            langs.forEach((lang, index) => expect(urlReflection.queryStringOf(urls[index][lang])).toContain(`lang=${lang}`));
         });
     });
 
