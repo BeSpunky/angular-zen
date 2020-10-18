@@ -1,21 +1,16 @@
-import { TestBed } from '@angular/core/testing';
-import { Router  } from '@angular/router';
-
 import { setupUrlLocalizerTest                                                                                                       } from '@bespunky/angular-zen/language/testing';
-import { UrlReflectionService, UrlLocalizer, UrlLocalizationService, UrlLocalization, UrlLocalizationStrategy, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
+import { UrlLocalizer, UrlLocalizationService, UrlLocalizationStrategy, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
 
 describe('UrlLocalizationService', () =>
 {
     let localizer      : UrlLocalizer;
     let urlLocalization: UrlLocalizationService;
-    let urlReflection  : UrlReflectionService;
-    let router         : Router;
     let localize       : jasmine.Spy;
     let delocalize     : jasmine.Spy;
 
     function setup(config: UrlLocalizationStrategy | UrlLocalizationConfig)
     {
-        ({ localizer, urlLocalization, urlReflection, router } = setupUrlLocalizerTest(config));
+        ({ localizer, urlLocalization } = setupUrlLocalizerTest(config));
   
         localize   = spyOn(localizer, 'localize'  ).and.callThrough();
         delocalize = spyOn(localizer, 'delocalize').and.callThrough();
