@@ -23,45 +23,69 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
 
     localize(lang: string): string
     {
-        // Position of zero will not touch the url as zero's functionality is not defined
-        if (this.position === 0) return this.urlReflection.fullUrl;
-
-        const { segments, index, langFound } = this.deconstructUrl();
-        
-        // Define how many items to remove. If the segment is already a language and should be replaced, zero items should be removed.
-        const deleteCount = langFound ? 1 : 0;
-
-        // Replace existing language segment or add a new one. If the specified index exceeds the length of the array, splice will add a new item at the end/beginning of the array.
-        segments.splice(index, deleteCount, lang);
-            
-        return this.composeUrl(segments);
+        return this.transformUrl((segments, langIndex, isLanguage) => this.insertOrReplaceLanguage(lang, segments, langIndex, isLanguage));
     }
 
     delocalize(): string
     {
+        return this.transformUrl((segments, langIndex, isLanguage) => this.removeLanguage(segments, langIndex, isLanguage));
+    }
+    
+    private transformUrl(transform: (segments: string[], langIndex: number, isLanguage: boolean) => void): string
+    {
         // Position of zero will not touch the url as zero's functionality is not defined
         if (this.position === 0) return this.urlReflection.fullUrl;
 
-        const { segments, index, langFound } = this.deconstructUrl();
+        const segments   = this.urlReflection.routeSegments;
+        // Convert the position to replace/add to an index (might result in large negatives or positives, exceeding array bounds)
+        const langIndex  = this.indexOfPosition(segments.length);
+        
+        this.accessSegmentsSafely(segments, () =>
+        {
+            // Determine if a language segment exists at the specified index
+            const isLanguage = this.isLanguage(segments[langIndex]);
 
-        if (langFound) segments.splice(index, 1);
+            return transform(segments, langIndex, isLanguage);
+        });
 
         return this.composeUrl(segments);
     }
 
-    protected deconstructUrl()
+    protected insertOrReplaceLanguage(lang: string, segments: string[], langIndex: number, isLanguage: boolean): void
     {
-        const segments       = this.urlReflection.routeSegments;
-        // Convert the position to replace/add to an index (might result in large negatives or positives, exceeding array bounds)
-        const positionIndex  = this.indexOfPosition(segments.length);
-        // Make sure the index is within array bounds
-        const sanitizedIndex = this.sanitizeIndex(positionIndex, segments.length);
-        // Determine if a language segment exists at the specified index
-        const langFound      = this.isLanguage(segments[sanitizedIndex]);
-        // Determine the final index for the replaced/added segment
-        const index          = this.defineManipulatedIndex(sanitizedIndex, segments.length, langFound);
+        // Define how many items to remove. If the segment is already a language and should be replaced, zero items should be removed.
+        const deleteCount = isLanguage ? 1 : 0;
 
-        return { segments, index, langFound };
+        // Replace existing language segment or add a new one. If the specified index exceeds the length of the array, splice will add a new item at the end/beginning of the array.
+        segments.splice(langIndex, deleteCount, lang);
+    }
+
+    protected removeLanguage(segments: string[], langIndex: number, isLanguage: boolean): void
+    {
+        if (!isLanguage) return;
+
+        segments.splice(langIndex, 1);
+    }
+
+    /**
+     * Accessing segments by index requires the `this.position` to be translated into an index.
+     * As the position can either be positive or negative, there are two different formulas for index calculation.
+     * In turn, this means two different scenarios with different edge cases.
+     * 
+     * To unify the cases and reduce complexity, when position is negative, this method reverses the segments array, runs the segments manipulation, then reverses it again to restore the original order.
+     * This way the indexing is always done from one side of the array.
+     * 
+     * @protected
+     * @param {string[]} segments The segments about to be manipulated.
+     * @param {() => void} accessSegments The function that needs safe access by index to the 
+     */
+    protected accessSegmentsSafely(segments: string[], accessSegments: () => void): void
+    {
+        if (this.isNegativeLookup) segments.reverse();
+        
+        accessSegments();
+        
+        if (this.isNegativeLookup) segments.reverse();
     }
 
     protected get isPositiveLookup(): boolean
@@ -76,33 +100,9 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
 
     protected indexOfPosition(segmentCount: number): number
     {
-        const position = Math.abs(this.position) - 1;
+        const index = Math.abs(this.position) - 1;
 
-        return this.isPositiveLookup ? position: segmentCount - position;
-    }
-    
-    protected sanitizeIndex(index: number, segmentCount: number): number
-    {
-        // If the position exceeds the length of the segments, cut it to the last available position.
-        // This will place prefixes at the end and postfixes at the beginning
-        if (index < 0)             return 0;
-        if (index >= segmentCount) return segmentCount - 1;
-        
-        return index;
-    }
-    
-    // Define the index of the item to add/replace.
-    protected defineManipulatedIndex(sanitizedIndex: number, segmentCount: number, isLanguage: boolean): number
-    {
-        const isLastSegment = sanitizedIndex === segmentCount - 1;
-
-        // For backwords lookup, if a language segment is not present, the array should be "pushed" to the left. Hence the insertion at index + 1.
-        //    0      1      2 <- position is -1, index is 1, start should be 2
-        // ['don', 'bon']
-        // ['don', 'bon', 'en']
-        if (isLastSegment && !isLanguage) return sanitizedIndex + 1;
-        
-        return sanitizedIndex;
+        return index < segmentCount ? index : segmentCount - 1;
     }
 
     protected isLanguage(value: string): boolean
