@@ -28,6 +28,6 @@ export class UrlLocalizationService
 
     public replaceHttpIfRequired(url: string): string
     {
-        return this.config?.forceHttps ? url.replace(/^http:\/\//, 'https://') : url;
+        return this.config?.forceHttps ? this.urlReflection.forceHttps(url) : url;
     }
 }

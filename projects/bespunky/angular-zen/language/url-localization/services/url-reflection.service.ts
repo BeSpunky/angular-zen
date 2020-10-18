@@ -77,6 +77,11 @@ export class UrlReflectionService
     {
         return url.replace(this.QueryStringRegex, '');
     }
+    
+    public forceHttps(url: string): string
+    {
+        return url.replace(/^http:\/\//, 'https://');
+    }
 
     public get fullUrl(): string
     {
