@@ -6,6 +6,7 @@
 | [`CoreModule`](Modules/CoreModule) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](Modules/AsyncModule) | Contains tools for handling dynamic and async situations on the page.    |
 | [`UniversalModule`](Modules/UniversalModule) | Contains tools for working easily with Angular Universal and SSR. |
+| [`LanguageIntegrationModule`](Modules/LanguageIntegrationModule) | Contains tools for integrating your library with your user's language services. |
 
 # Exports Hierarchy
 The following diagram shows the which tools are exported by which module:
