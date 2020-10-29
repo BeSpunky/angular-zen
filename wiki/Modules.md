@@ -6,22 +6,14 @@
 | [`CoreModule`](Modules/CoreModule) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](Modules/AsyncModule) | Contains tools for handling dynamic and async situations on the page.    |
 | [`UniversalModule`](Modules/UniversalModule) | Contains tools for working easily with Angular Universal and SSR. |
+| [`LanguageIntegrationModule`](Modules/LanguageIntegrationModule) | Contains tools for integrating your library with your user's language services. |
 
-# Exports Hierarchy
-The following diagram shows the which tools are exported by which module:
-
-![Hierarchy](.attachments/hierarchy.png)
 
 # 🌳 Tree Shaking
-The library is intended to be tree-shakable, meaning the compiler will only include modules used in your app in your final build.
+The library is tree-shakable, meaning the compiler will only include modules used in your app in your final build.
 
-For that reason, each module defines a secondary entry point. The end result is modules being packed separately, allowing the compiler to identify used modules and include them in the build.
+Remember to import from the corresponding module (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.
 
-For you it simply means that you have to import from the corresponding module (e.g. @bespunky/angular-zen/async), and not directly from @bespunky/angular-zen.
-
-This is how a simple app build looks like when importing only the `core` and `async` modules. Other modules (e.g. `universal`) are not included.
-[![Tree Shaking](.attachments/treeshaking.gif)](.attachments/treeshaking.gif)
-###### Created using [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
 # Shared Module
 If you find yourself frequently importing the same modules, consider creating a shared module for them and import that module instead:
 
