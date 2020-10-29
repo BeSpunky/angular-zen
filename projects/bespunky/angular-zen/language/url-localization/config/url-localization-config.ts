@@ -1,4 +1,5 @@
 import { ClassProvider, FactoryProvider, InjectionToken, Type } from '@angular/core';
+
 import { UrlLocalizer } from '../localizers/url-localizer';
 
 /** Represents a factory function for building a `UrlLocalizer` using dependency injection. */
