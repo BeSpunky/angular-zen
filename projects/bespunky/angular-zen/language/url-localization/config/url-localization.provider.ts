@@ -1,18 +1,33 @@
 import { ClassProvider, FactoryProvider, Provider } from '@angular/core';
 
+import { LanguageIntegrationService             } from '../../services/language-integration.service';
 import { UrlLocalizer                           } from '../localizers/url-localizer';
 import { RoutePositionUrlLocalizer              } from '../localizers/route-position-url-localizer';
 import { QueryParamsUrlLocalizer                } from '../localizers/query-params-url-localizer';
 import { NoopUrlLocalizer                       } from '../localizers/noop-url-localizer';
+import { UrlReflectionService                   } from '../services/url-reflection.service';
 import { UrlLocalizationConfig, UrlLocalization } from './url-localization-config';
-import { UrlReflectionService } from '../services/url-reflection.service';
-import { LanguageIntegrationService } from '../../services/language-integration.service';
 
+/**
+ * The default configuration for url localization when loading the language integration module.
+ * Uses the `NoopUrlLocalizer` as strategy and does not force https. Localization and delocalization will always return an unchanged url url.
+ */
 export const DefaultUrlLocalizationConfig: UrlLocalizationConfig = {
     strategy  : { useClass: NoopUrlLocalizer },
     forceHttps: false
 };
 
+/**
+ * Creates the appropriate DI compatible provider for the `UrlLocalizer` class, depending on the strategy specified in the url localization configuration.  
+ * If the configured strategy is a number, `RoutePositionUrlLocalizer` will be used.  
+ * If the configured strategy is a string, `QueryParamsUrlLocalizer` will be used.  
+ * If the configured strategy is a valid `UrlLocalizer` provider, the provider will be used as is.  
+ * Otherwise, `NoopUrlLocalizer` will be used.
+ * 
+ * @export
+ * @param {UrlLocalizationConfig} config The url localization configuration holding the strategy.
+ * @returns {(ClassProvider | FactoryProvider)} A DI compatible provider for the `UrlLocalizer` class with the implementation appropriate for the specified strategy.
+ */
 export function provideUrlLocalizer(config: UrlLocalizationConfig): ClassProvider | FactoryProvider
 {
     const strategy = config?.strategy;
@@ -35,6 +50,13 @@ export function provideUrlLocalizer(config: UrlLocalizationConfig): ClassProvide
     return Object.assign(provider, strategies[typeof strategy]()) as (ClassProvider | FactoryProvider);
 }
 
+/**
+ * Creates the providers for the `UrlLocalization` token and the `UrlLocalizer` class.
+ *
+ * @export
+ * @param {UrlLocalizationConfig} [config] (Optional) The configuration for url localization tools. Default is `DefaultUrlLocalizationConfig`.
+ * @returns {Provider[]} The providers for the `UrlLocalization` token and the `UrlLocalizer` class.
+ */
 export function provideUrlLocalization(config?: UrlLocalizationConfig): Provider[]
 {
     config = Object.assign({}, DefaultUrlLocalizationConfig, config);
