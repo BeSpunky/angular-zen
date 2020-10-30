@@ -16,10 +16,10 @@ import { LanguageIntegrationConfig, LanguageIntegration } from '../config/langua
 @Injectable({ providedIn: 'root' })
 export class LanguageIntegrationService extends Destroyable
 {
-    private $ready     : Observable<void>;
-    private defaultLang: string;
-    private supported  : string[];
-    private current    : string;
+    private $ready        : Observable<void>;
+    private defaultLang   : string;
+    private supportedLangs: string[];
+    private currentLang   : string;
 
     /**
      * Creates an instance of LanguageIntegrationService.
@@ -44,11 +44,11 @@ export class LanguageIntegrationService extends Destroyable
 
     private initMultiLanguageSupport(): void
     {
-        this.subscribe(this.config.changed, lang => this.current = lang);
+        this.subscribe(this.config.changed, lang => this.currentLang = lang);
 
         // User's responsability to provide a completing observables.
-        this.loadDefaultLanguage   ().subscribe(defaultLang => this.defaultLang = defaultLang);
-        this.loadSupportedLanguages().subscribe(languages   => this.supported   = languages);
+        this.loadDefaultLanguage   ().subscribe(defaultLang => this.defaultLang    = defaultLang);
+        this.loadSupportedLanguages().subscribe(languages   => this.supportedLangs = languages);
     }
 
     private loadDefaultLanguage(): Observable<string>
@@ -104,9 +104,9 @@ export class LanguageIntegrationService extends Destroyable
      * @readonly
      * @type {string[]}
      */
-    public get supportedLanguages(): string[]
+    public get supported(): string[]
     {
-        return this.supported;
+        return this.supportedLangs;
     }
 
     /**
@@ -119,9 +119,9 @@ export class LanguageIntegrationService extends Destroyable
      * @readonly
      * @type {string}
      */
-    public get currentLanguage(): string
+    public get current(): string
     {
-        return this.current;
+        return this.currentLang;
     }
     
     /**
@@ -157,11 +157,11 @@ export class LanguageIntegrationService extends Destroyable
      * @returns {string[]} An array of alternative languages supported by the integrated app.
      * @throws If the language integration module hasn't been imported into the app.
      */
-    public getAlternateLanguages(lang: string): string[]
+    public alternateLanguagesFor(lang: string): string[]
     {
         this.ensureEnabled();
         
-        return this.supportedLanguages.filter(supportedLocale => supportedLocale !== lang);
+        return this.supported.filter(supportedLocale => supportedLocale !== lang);
     }
     
     /**

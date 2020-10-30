@@ -212,7 +212,7 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
      */
     protected isLanguage(value: string): boolean
     {
-        return this.language.supportedLanguages.includes(value);
+        return this.language.supported.includes(value);
     }
 
     /**

@@ -46,12 +46,12 @@ describe('LanguageIntegrationService', () =>
 
         it('should expose the supported languages', () =>
         {
-            expect(service.supportedLanguages).toBe(SupportedLanguages);
+            expect(service.supported).toBe(SupportedLanguages);
         });
 
         it('should expose the current language', () =>
         {
-            expect(service.currentLanguage).toBe(DefaultLanguage);
+            expect(service.current).toBe(DefaultLanguage);
         });
 
         it('should be flagged as enabled', () =>
@@ -66,12 +66,12 @@ describe('LanguageIntegrationService', () =>
 
         it('should get the alternate languages for a language', () =>
         {
-            expect(service.getAlternateLanguages(DefaultLanguage)).toEqual(['fr', 'he']);
+            expect(service.alternateLanguagesFor(DefaultLanguage)).toEqual(['fr', 'he']);
         });        
 
         it('should return all supported languages when asking for alternates of a non-supported language', () =>
         {
-            expect(service.getAlternateLanguages('not-supported-language')).toEqual(SupportedLanguages);
+            expect(service.alternateLanguagesFor('not-supported-language')).toEqual(SupportedLanguages);
         });
         
         it('should translate a given value', () =>
@@ -120,12 +120,12 @@ describe('LanguageIntegrationService', () =>
 
         it('should return undefined for supported languages', () =>
         {
-            expect(service.supportedLanguages).toBeUndefined();
+            expect(service.supported).toBeUndefined();
         });
         
         it('should return undefined for current language', () =>
         {
-            expect(service.currentLanguage).toBeUndefined();
+            expect(service.current).toBeUndefined();
         });
 
         it('should be flagged as disabled', () =>
@@ -140,7 +140,7 @@ describe('LanguageIntegrationService', () =>
 
         it('should throw when getting the alternate languages for a language', () =>
         {
-            expect(() => service.getAlternateLanguages(DefaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
+            expect(() => service.alternateLanguagesFor(DefaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
         });
 
         it('should throw when translating a given value', () =>
