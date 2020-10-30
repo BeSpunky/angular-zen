@@ -1,0 +1,1 @@
+To consume your user app's language services in your library, inject the `LanguageIntegrationService` into your services or components.
