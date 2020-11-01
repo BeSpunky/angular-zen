@@ -51,12 +51,12 @@ Unfortunately, Azure DevOps doesn't support issue collection. I'm considering mo
 In the meantime, any issues or requests can be sent to [us@bespunky.io](mailto:us@bespunky.io?subject=@bespunky/angular-zen).
 
 # Other Packages by [`@bespunky`](https://www.npmjs.com/~bespunky)
-[`@bespunky/angular-google-maps`](https://www.npmjs.com/package/@bespunky/angular-google-maps)
 
-# Coming Soon
-🚧 `@bespunky/angular-zen-ux` will help you with simple UX tasks.
+📦 [`@bespunky/angular-google-maps`](https://www.npmjs.com/package/@bespunky/angular-google-maps)
 
-🚧 `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
+🚧 (soon) `@bespunky/angular-zen-ux` will help you with simple UX tasks.
+
+🚧 (soon) `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
 
 # References
 [Source Code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen)
