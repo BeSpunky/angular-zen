@@ -47,3 +47,8 @@ export function createLanguageIntegrationConfig(translate: TranslateService): La
 })
 export class AppModule { }
 ```
+
+# Next Steps
+[Implementing integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
+
+[Additional tools and configuration](/Modules/LanguageIntegrationModule/Additional-Language-Tools)
