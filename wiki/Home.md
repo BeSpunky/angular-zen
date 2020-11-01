@@ -20,16 +20,16 @@
     🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/132/Modules">What's in the library?</a>
 </p>
 
-You probably know the feeling... It's late at night and you simply want to do something, say writing a class method, then you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
+You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
 
-`@bespunky/angular-zen` takes away the pain of common Angular related implementations many of us have already encountered, by providing a set of **🌳 tree-shakable** general purpose tools which, IMHO, should probably be incorporated into the framework itself... Well, at least some of them...
+# 🧘‍♂️ Enter Zen...
+`@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow.
+
+These tools are all **🌳 tree-shakable**.
 
 You may use the library as you like, with any app, under the MIT license.
 
-# 🧘‍♂️ Zen
-As the name implies, these are well meditated tools to help you keep focused and stay in control of your workflow.
-
-# 📦 Meet Our Friends
+# 📦 Highlight Features
 `@bespunky/angular-zen` exports the following modules:
 
 | Name | Description |
