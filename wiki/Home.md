@@ -32,14 +32,14 @@ You may use the library as you like, with any app, under the MIT license.
 # 📦 The Highlights
 
 
-| 🔲 `WindowRef`                             | 📄 `DocumentRef`                            | 💥`Destroyable`                      | 😎 `HeadService`                               |
-|:-------------------------------------------:|:--------------------------------------------:|:-------------------------------------:|:-----------------------------------------------:|
-| The safe way to access the `window` object. | The safe way to access the `document` object | No more manual `unsubscribe()` calls. | Cleanly access and manipulate the head element. |
+| [🔲 `WindowRef`](/Modules/CoreModule/WindowRef) | [📄 `DocumentRef`](/Modules/CoreModule/DocumentRef) | [💥`Destroyable`](/Modules/CoreModule/Destroyable) | [😎 `HeadService`](/Modules/CoreModule/HeadService) |
+|:------------------------------------------------:|:----------------------------------------------------:|:---------------------------------------------------:|:----------------------------------------------------:|
+| The safe way to access the `window` object.      | The safe way to access the `document` object         | No more manual `unsubscribe()` calls.               | Cleanly access and manipulate the head element.      |
 
 
-| ⏳ `LazyLoaderService`                    | 🌎 `Universal Platform Directives`                     | 🔗 `LanguageIntegrationService`                          | 🔍 `UrlReflectionService`     |
-|:-----------------------------------------:|:-------------------------------------------------------:|:-----------------------------------------------------:|:--------------------------:|
-| Programmatically load scripts and styles. | Prevent element rendering in Universal with directives. | Hook your library with your user's language services. | Break urls to their parts. |
+| [⏳ `LazyLoaderService`](/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](/Modules/UniversalModule/Platform-Directives) | [🔗 `LanguageIntegrationService`](/Modules/LanguageIntegrationModule) | [🔍 `UrlReflectionService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
+|:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
+| Programmatically load scripts and styles.                        | Prevent element rendering in Universal with directives.                             | Hook your library with your user's language services.                  | Break urls to their parts.                                                                                      |
 
 
 # Versions
