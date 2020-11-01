@@ -102,10 +102,14 @@ describe('LanguageIntegrationService', () =>
             expect(dummy.value         ).toEqual(123);
             expect(dummy.data.deepValue).toEqual(321);
         });
+
+        it('should not throw', () => expect(() => service.ensureEnabled()).not.toThrow());
     });
 
     describe('when disabled', () =>
     {
+        const integrationDisabledError = /Language integration hasn't been enabled/;
+
         beforeEach(() => setupTest());
 
         it('should return undefined for changes', () =>
@@ -140,17 +144,19 @@ describe('LanguageIntegrationService', () =>
 
         it('should throw when getting the alternate languages for a language', () =>
         {
-            expect(() => service.alternateLanguagesFor(DefaultLanguage)).toThrowError(/Multi language support hasn't been enabled/);
+            expect(() => service.alternateLanguagesFor(DefaultLanguage)).toThrowError(integrationDisabledError);
         });
 
         it('should throw when translating a given value', () =>
         {
-            expect(() => service.translate('text')).toThrowError(/Multi language support hasn't been enabled/);
+            expect(() => service.translate('text')).toThrowError(integrationDisabledError);
         });
 
         it('should throw when deep translating properties in an object', () =>
         {
-            expect(() => service.translateProperties({ value: 'text' }, ['value'])).toThrowError(/Multi language support hasn't been enabled/);
+            expect(() => service.translateProperties({ value: 'text' }, ['value'])).toThrowError(integrationDisabledError);
         });
+   
+        it('should throw explaining that language integration is not enabled', () => expect(() => service.ensureEnabled()).toThrowError(integrationDisabledError));
     });
 });

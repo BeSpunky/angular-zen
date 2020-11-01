@@ -205,14 +205,15 @@ export class LanguageIntegrationService extends Destroyable
     }
     
     /**
-     * @throws {Error}
+     * @throws {Error} The language integration module hasn't been imported by the app.
      */
-    private ensureEnabled(): void
+    public ensureEnabled(): void
     {
-        if (!this.enabled)
-            throw new Error(`
-                Multi language support hasn't been enabled.
-                Did you import the language integration module in your app using 'LanguageIntegrationModule.forRoot()'?
-            `);
+        if (this.enabled) return;
+
+        throw new Error(`
+            Language integration hasn't been enabled.
+            Did you import the language integration module in your app module using 'LanguageIntegrationModule.forRoot()'?
+        `);
     }
 }
