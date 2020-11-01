@@ -21,7 +21,7 @@ An example use case would be localization using sub-domains or host replacement 
 
 See the [`LanguageIntegrationProvider.urlLocalization`](LINK TO CODE) property for complete API and documentation.
 
-# UrlReflection
+# UrlReflectionService
 > **❗ EXPECT CHANGES**  
 > The `UrlReflection` service currently partially depends on the language module.
 > The next major version will decouple the `UrlReflection` service from the language module. The required refactoring is still unpredicted.
