@@ -5,15 +5,15 @@ Your bridge to the language services of your user's app is the `LanguageIntegrat
 [[_TOC_]]
 
 # Preparation
-## `enabled` - Checking for integration presence
-The service is always injectable. However it is up to the app developer using your library to import the language integration module.
+## `enabled` - Vefiying integration presence
+The service is always injectable. However it is up to the **app** developer using your library to import the language integration module.
 If the module hasn't been imported, the service is considered to be 'disabled'.
 
 > When the service is disabled methods might throw an error and properties might return `null` or `undefined` values.
 
 To verify that the app has enabled language integration, use the `enabled` property.
 
-## `ready` - Checking for integration readiness
+## `ready` - Vefiying  integration readiness
 Some apps might take some time to load their translation files or initialize their language services. To hook into the initialization process and know when the app's language services are ready, use the `ready` property.
 
 > If the app didn't provide a ready promise or observable, the `ready` property will complete immediately.
