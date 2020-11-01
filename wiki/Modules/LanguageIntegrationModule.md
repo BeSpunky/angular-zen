@@ -12,3 +12,6 @@ A multi-language app will only need to import the language integration module on
 
 > **Note** This module is intended for apps that work with a 'live' localization library similar to [`ngx-translate`](https://github.com/ngx-translate/core).  
 There might be a way to use it with Angular's i18n engine but no attempt or research have been performed to confirm it. You are welcome to try and give your feedback.
+
+# See Also
+[How to use in a library](/Modules/LanguageIntegrationModule/How-to-use-in-a-library)
