@@ -36,6 +36,6 @@ The service also exposes the regular expressions it uses as public members for m
 # See Also
 [LanguageIntegrationModule](/Modules/LanguageIntegrationModule)
 
-[Implementing language integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
+[Implementing integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
 
-[Using language integration in an app](/Modules/LanguageIntegrationModule/Using-in-apps)
+[Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
