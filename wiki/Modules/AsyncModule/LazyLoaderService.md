@@ -1,7 +1,5 @@
 # LazyLoaderService
-In some cases it is necessary to load a script/style file programatically instead of predefining it in the html directly.
-
-This service surves that exact purpose, while also keeping track of loaded files to avoid loading them multiple times.
+This service loads a script/style file programmatically, while also keeping track of loaded files to avoid loading them multiple times.
 
 # How to use
 1. Import `AsyncModule` into your app:
