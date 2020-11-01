@@ -1,4 +1,3 @@
-# The Module
 Once your app implements its language solution, you can provide language services to supporting libraries by importing `LanguageIntegrationModule`.
 
 The module should be imported only once, in your app root, using the `forRoot()` method.
