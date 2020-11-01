@@ -14,4 +14,4 @@ A multi-language app will only need to import the language integration module on
 There might be a way to use it with Angular's i18n engine but no attempt or research have been performed to confirm it. You are welcome to try and give your feedback.
 
 # Next Steps
-[How to use in a library](/Modules/LanguageIntegrationModule/How-to-use-in-a-library)
+[How to implement in a library](/Modules/LanguageIntegrationModule/Implement-in-a-library)
