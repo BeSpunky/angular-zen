@@ -12,7 +12,7 @@
 </p>
 
 <p align="center" style="font-size: x-large">@bespunky/angular-zen</p>
-<p align="center" style="font-size: medium">Helps you focus on what you really need to do.</p>
+<p align="center" style="font-size: medium">Angular tools that you always wished were there.</p>
 
 <p align="center" style="font-size: medium; margin: 20px auto">
     ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/131/Getting-Started">Getting Started</a> |
@@ -29,14 +29,18 @@ These tools are all **🌳 tree-shakable**.
 
 You may use the library as you like, with any app, under the MIT license.
 
-# 📦 Highlight Features
-`@bespunky/angular-zen` exports the following modules:
+# 📦 The Highlights
 
-| Name | Description |
-| ---  | ---         |
-| [`CoreModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
-| [`AsyncModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
-| [`UniversalModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster) | Contains tools for working easily with Angular Universal and SSR |
+
+| 🔲 `WindowRef`                             | 📄 `DocumentRef`                            | 💥`Destroyable`                      | 😎 `HeadService`                               |
+|:-------------------------------------------:|:--------------------------------------------:|:-------------------------------------:|:-----------------------------------------------:|
+| The safe way to access the `window` object. | The safe way to access the `document` object | No more manual `unsubscribe()` calls. | Cleanly access and manipulate the head element. |
+
+
+| ⏳ `LazyLoaderService`                    | 🌎 `Universal Platform Directives`                     | 🔗 `LanguageIntegrationService`                          | 🔍 `UrlReflectionService`     |
+|:-----------------------------------------:|:-------------------------------------------------------:|:-----------------------------------------------------:|:--------------------------:|
+| Programmatically load scripts and styles. | Prevent element rendering in Universal with directives. | Hook your library with your user's language services. | Break urls to their parts. |
+
 
 # Versions
 The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10. 
