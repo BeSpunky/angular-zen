@@ -1,0 +1,219 @@
+import { get, set                     } from 'lodash-es';
+import { EMPTY, from, Observable, of  } from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { Destroyable                  } from '@bespunky/angular-zen/core';
+
+import { LanguageIntegrationConfig, LanguageIntegration } from '../config/language-integration-config';
+
+/**
+ * Uses the language integration configuration provided by an app to provide language services for a library.
+ * @see `LanguageIntegrationModule.forRoot()`.
+ * 
+ * @export
+ * @class LanguageIntegrationService
+ * @extends {Destroyable}
+ */
+@Injectable({ providedIn: 'root' })
+export class LanguageIntegrationService extends Destroyable
+{
+    private $ready        : Observable<void>;
+    private defaultLang   : string;
+    private supportedLangs: string[];
+    private currentLang   : string;
+
+    /**
+     * Creates an instance of LanguageIntegrationService.
+     * 
+     * @param {LanguageIntegrationConfig} [config] The language integration configuration provided using `LanguageIntegrationModule.forRoot()`.
+     */
+    constructor(@Optional() @Inject(LanguageIntegration) public readonly config?: LanguageIntegrationConfig)
+    {
+        super();
+
+        this.initReadyObservable();
+
+        if (config) this.initMultiLanguageSupport();
+    }
+    
+    private initReadyObservable(): void
+    {
+        const ready = this.config?.ready;
+
+        this.$ready = ready ? from(ready) : EMPTY;
+    }
+
+    private initMultiLanguageSupport(): void
+    {
+        this.subscribe(this.config.changed, lang => this.currentLang = lang);
+
+        // User's responsability to provide a completing observables.
+        this.loadDefaultLanguage   ().subscribe(defaultLang => this.defaultLang    = defaultLang);
+        this.loadSupportedLanguages().subscribe(languages   => this.supportedLangs = languages);
+    }
+
+    private loadDefaultLanguage(): Observable<string>
+    {
+        const defaultLang = this.config.default;
+    
+        return typeof defaultLang === 'string' ? of(defaultLang) : from(defaultLang);
+    }
+
+    private loadSupportedLanguages(): Observable<string[]>
+    {
+        const supported = this.config.supported;
+        
+        return Array.isArray(supported) ? of(supported) : from(supported); 
+    }
+
+    /**
+     * A subscribable event emitting every time the integrated app changes a language.
+     * The new language name is emitted with each change.
+     *
+     * This will be `undefined` if the language integration module hasn't been imported by the app.
+     * 
+     * @readonly
+     * @type {Observable<string>}
+     */
+    public get changed(): Observable<string>
+    {
+        return this.config?.changed;
+    }
+
+    /**
+     * The default language used by the integrated app.
+     *
+     * This will be `undefined` in the following cases:
+     * 1. The language integration module hasn't been imported by the app.
+     * 2. The default language hasn't resolved yet.
+     * 
+     * @readonly
+     * @type {string}
+     */
+    public get default(): string
+    {
+        return this.defaultLang;
+    }
+
+    /**
+     * The languages supported by the integrated app.
+     *
+     * This will be `undefined` in the following cases:
+     * 1. The language integration module hasn't been imported by the app.
+     * 2. Supported languages haven't resolved yet.
+     *
+     * @readonly
+     * @type {string[]}
+     */
+    public get supported(): string[]
+    {
+        return this.supportedLangs;
+    }
+
+    /**
+     * The current language used by the integrated app.
+     *
+     * This will be `undefined` in the following cases:
+     * 1. The language integration module hasn't been imported by the app.
+     * 2. The `changed` event hasn't emitted yet.
+     *
+     * @readonly
+     * @type {string}
+     */
+    public get current(): string
+    {
+        return this.currentLang;
+    }
+    
+    /**
+     * Indicated whether the language integration module has been imported into the app.
+     * If this is `false`, this service will serve no purpose.
+     *
+     * @readonly
+     * @type {boolean}
+     */
+    public get enabled(): boolean
+    {
+        return !!(this.config);
+    }
+
+    /**
+     * A resolvable async object which emits once when the intgrated language services are ready for operation.
+     * 
+     * This will complete immediately if the the language integration module hasn't been imported, or a `ready` observable hasn't
+     * been provided when importing the module.
+     *
+     * @readonly
+     * @type {Observable<void>}
+     */
+    public get ready(): Observable<void>
+    {
+        return this.$ready;
+    }
+
+    /**
+     * Retrieves the list of alternative languages to the specified language supported by the integrated app.
+     *
+     * @param {string} lang The language for which to get the alternative languages.
+     * @returns {string[]} An array of alternative languages supported by the integrated app.
+     * @throws If the language integration module hasn't been imported into the app.
+     */
+    public alternateLanguagesFor(lang: string): string[]
+    {
+        this.ensureEnabled();
+        
+        return this.supported.filter(supportedLocale => supportedLocale !== lang);
+    }
+    
+    /**
+     * Translates a value (typically a translation id) into the current language used by the integrated app.
+     *
+     * @param {string} value The value to translate (typically a translation id).
+     * @param {*} [params] (Optional) Any params needed for translating the value.
+     * @returns {string} The translation of the specified value and params in the current language used by the integrated app.
+     * @throws If the language integration module hasn't been imported into the app.
+     */
+    public translate(value: string, params?: any): string
+    {
+        this.ensureEnabled();
+
+        return this.config.translate(value, params);
+    }
+
+    /**
+     * Dives deep into an object or an array and replaces the indicated properties in-place with their translation. 
+     *
+     * This method uses lodash's `get` and `set` functions to access properties.
+     * The `paths` argument is an array of `get`/`set` compatible paths.
+     * 
+     * @param {*} data The object/array which holds the translatable properties/values. Can be a deeply nested object..
+     * @param {string[]} paths The paths of the translatable properties/values to translate and replace.
+     * @see https://lodash.com/docs/4.17.15#get for path syntax.
+     * @throws If the language integration module hasn't been imported into the app.
+     */
+    public translateProperties(data: any, paths: string[]): void
+    {
+        this.ensureEnabled();
+        
+        paths.forEach(path =>
+        {
+            const value = get(data, path);
+
+            if (typeof value !== 'string') return;
+
+            set(data, path, this.translate(value));
+        });
+    }
+    
+    /**
+     * @throws {Error} The language integration module hasn't been imported by the app.
+     */
+    public ensureEnabled(): void
+    {
+        if (this.enabled) return;
+
+        throw new Error(`
+            Language integration hasn't been enabled.
+            Did you import the language integration module in your app module using 'LanguageIntegrationModule.forRoot()'?
+        `);
+    }
+}
