@@ -69,6 +69,6 @@ To force integration, the constructor in the above example could be changed as f
 [See full API](LINK TO CODE)
 
 # Next Steps
-[Using integration in an app](/Modules/LanguageIntegrationModule/Using-in-apps)
+[Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
 
 [Additional tools and configuration](/Modules/LanguageIntegrationModule/Additional-Language-Tools)
