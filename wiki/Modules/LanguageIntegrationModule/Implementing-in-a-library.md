@@ -30,7 +30,7 @@ import { LanguageIntegrationService } from '@bespunky/angular-zen/language';
 export class SomeLibraryService extends Destroyable
 {
     constructor(private language: LanguageIntegrationService)
-    {        
+    {
         if (this.language.enabled) this.initLanguageSupport();
     }
 
@@ -50,6 +50,20 @@ export class SomeLibraryService extends Destroyable
         // act on language change...
     }
 }
+```
+
+# Forcing Integration
+If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.
+
+To force integration, the constructor in the above example could be changed as follows:
+```typescript
+    constructor(private language: LanguageIntegrationService)
+    {
+        // Throw if language integration is disabled
+        this.language.ensureEnabled();
+        // Code still running. No error. Go ahead and initialize...
+        this.initLanguageSupport();
+    }
 ```
 
 [See full API](LINK TO CODE)
