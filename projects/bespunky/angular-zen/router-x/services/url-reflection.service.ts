@@ -1,4 +1,4 @@
-import { Inject, Injectable     } from '@angular/core';
+import { Inject, Injectable, Optional     } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DocumentRef   } from '@bespunky/angular-zen/core';
@@ -70,10 +70,10 @@ export class UrlReflectionService
     public readonly hostUrl: string;
 
     constructor(
-        @Inject(RouterX) private          config  : RouterXConfig,
-                         private          document: DocumentRef,
-                         public  readonly router  : Router,
-                         public  readonly route   : ActivatedRoute,
+                                     private          document: DocumentRef,
+                                     public  readonly router  : Router,
+                                     public  readonly route   : ActivatedRoute,
+        @Optional() @Inject(RouterX) private          config? : RouterXConfig
     )
     {
         const hostUrl = this.config?.hostUrl;
