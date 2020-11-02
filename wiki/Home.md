@@ -12,7 +12,7 @@
 </p>
 
 <p align="center" style="font-size: x-large">@bespunky/angular-zen</p>
-<p align="center" style="font-size: medium">Angular tools that you always wished were there.</p>
+<p align="center" style="font-size: medium">The Angular tools you always wished were there.</p>
 
 <p align="center" style="font-size: medium; margin: 20px auto">
     ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/131/Getting-Started">Getting Started</a> |
@@ -37,7 +37,7 @@ You may use the library as you like, with any app, under the MIT license.
 | The safe way to access the `window` object.      | The safe way to access the `document` object         | No more manual `unsubscribe()` calls.               | Cleanly access and manipulate the head element.      |
 
 
-| [⏳ `LazyLoaderService`](/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](/Modules/UniversalModule/Platform-Directives) | [🔗 `LanguageIntegrationService`](/Modules/LanguageIntegrationModule) | [🔍 `UrlReflectionService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
+| [⏳ `LazyLoaderService`](/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](/Modules/UniversalModule/Platform-Directives) | [⚙ `LanguageIntegrationService`](/Modules/LanguageIntegrationModule) | [🔗 `UrlReflectionService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
 |:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
 | Programmatically load scripts and styles.                        | Prevent element rendering in Universal with directives.                             | Hook your library with your user's language services.                  | Break urls to their parts.                                                                                      |
 
