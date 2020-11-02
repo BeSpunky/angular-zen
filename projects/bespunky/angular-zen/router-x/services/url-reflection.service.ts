@@ -1,11 +1,9 @@
 import { Inject, Injectable     } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { DocumentRef                            } from '@bespunky/angular-zen/core';
-import { UrlLocalization, UrlLocalizationConfig } from '../config/url-localization-config';
-
-// TODO: Decouple reflection service from localization. Move to a new @bespunky/angular-zen/router module.
-// The language module will use that new router module for localization. Router module will present a new HostUrl token.
+import { DocumentRef   } from '@bespunky/angular-zen/core';
+import { RouterXConfig } from '../config/router-x-config';
+import { RouterX       } from '../config/router-x-config.provider';
 
 @Injectable({ providedIn: 'root'})
 export class UrlReflectionService
@@ -72,10 +70,10 @@ export class UrlReflectionService
     public readonly hostUrl: string;
 
     constructor(
-        @Inject(UrlLocalization) private          config  : UrlLocalizationConfig,
-                                 private          document: DocumentRef,
-                                 public  readonly router  : Router,
-                                 public  readonly route   : ActivatedRoute,
+        @Inject(RouterX) private          config  : RouterXConfig,
+                         private          document: DocumentRef,
+                         public  readonly router  : Router,
+                         public  readonly route   : ActivatedRoute,
     )
     {
         const hostUrl = this.config?.hostUrl;
