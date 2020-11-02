@@ -23,9 +23,7 @@
 You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
 
 # 🧘‍♂️ Enter Zen...
-`@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow.
-
-These tools are all **🌳 tree-shakable**.
+`@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow. These tools are all **🌳 tree-shakable**.
 
 You may use the library as you like, with any app, under the MIT license.
 
