@@ -16,7 +16,7 @@ export class LanguageIntegrationModule
 {
     constructor(@Optional() @SkipSelf() parentModule: LanguageIntegrationModule)
     {
-        if (parentModule) throw new Error('`LanguageIntegrationModule` has already been loaded. Import it in your app module using `forRoot()`.');
+        if (parentModule) throw new Error('`LanguageIntegrationModule` has already been loaded. Import it only once, in your app module, using `forRoot()`.');
     }
 
     /**

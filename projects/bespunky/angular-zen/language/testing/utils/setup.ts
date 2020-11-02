@@ -3,8 +3,9 @@ import { TestBed             } from '@angular/core/testing';
 import { Route, Router       } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlReflectionService, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
-import { LanguageConfig } from './language-integration-config';
+import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
+import { UrlReflectionService                                                                                            } from '@bespunky/angular-zen/router-x';
+import { LanguageConfig                                                                                                  } from './language-integration-config';
 
 /** A multi-level route string for. */
 export const DeepRoutePath           = '/deeply/nested/route/for/testing';

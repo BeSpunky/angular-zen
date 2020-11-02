@@ -1,8 +1,8 @@
 import { get, set                     } from 'lodash-es';
 import { EMPTY, from, Observable, of  } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Destroyable                  } from '@bespunky/angular-zen/core';
 
+import { Destroyable                                    } from '@bespunky/angular-zen/core';
 import { LanguageIntegrationConfig, LanguageIntegration } from '../config/language-integration-config';
 
 /**

@@ -1,0 +1,5 @@
+3. Import RouteAware from Thoughts of a Random Person
+4. Generalize, then add tests and docs
+5. Update readmes:
+    - Speak about what the library offers. It's too general right now. ppl need to understand what they get as soon as the see the readme.
+    - Update 'other packages' section to match the design from BSGM.

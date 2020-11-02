@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { UrlTree            } from '@angular/router';
 
+import { UrlReflectionService                   } from '@bespunky/angular-zen/router-x';
 import { UrlLocalization, UrlLocalizationConfig } from '../config/url-localization-config';
-import { UrlReflectionService                   } from '../services/url-reflection.service';
 import { UrlLocalizer                           } from './url-localizer';
 
 /**
