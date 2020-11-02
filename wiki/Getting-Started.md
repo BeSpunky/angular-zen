@@ -29,4 +29,8 @@ To start using the tools provided by the library:
     export class AppModule { }
    ```
 
-> [Read about Modules](Modules) for more detailed documentation and feature-specific usage instructions.
+# Next Steps
+
+| Topic              | Description                                            |
+|--------------------|--------------------------------------------------------|
+| [Modules](Modules) | Feature-specific documentation and usage instructions. |
