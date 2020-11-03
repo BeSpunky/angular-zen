@@ -44,10 +44,11 @@ export abstract class RouteAwareService extends Destroyable
     protected onNavigationEnd(event: NavigationEnd): void { }
 
     protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => void): void
+    protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => void, levels: number = -1): void
     {
         process(route, this.componentBus?.instance(route.outlet));
 
-        if (route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process));
+        if (levels > 0 && route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process, levels - 1));
     }
     
     protected resolveAndProcess(resolvers: Resolver | Resolver[], process: (resolved: any) => void, ...resolverArgs: any[]): void
