@@ -121,7 +121,7 @@ describe('PublishComponentDirective', () =>
         expect(componentBus.instance()).toBeInstanceOf(MainComponent);
         expect(componentBus.instance('header')).toBeInstanceOf(HeaderComponent);
         expect(componentBus.instance('footer')).toBeNull();
-        expect(componentBus.changes ('footer')).toBeUndefined();
+        expect(componentBus.changes ('footer')).toBeNull();
     });
 });
 
