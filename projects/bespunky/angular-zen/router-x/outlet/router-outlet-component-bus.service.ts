@@ -113,10 +113,15 @@ export class RouterOutletComponentBus
     public componentUnpublished: EventEmitter<RouterOutletEventData>     = new EventEmitter();
 
     /**
-     * Publishes 
-     *
-     * @param {*} instance
-     * @param {string} [outletName]
+     * Publishes the instance of a currently activated or deactivated component by the specified outlet.
+     * When an outlet first publishes, this will create an observable for tracking the outlet's changes.
+     * The observable can be fetched using the `changes()` method.
+     * Following calls to publish a component by the same outlet will subscribers.
+     * 
+     * The last published component of an outlet can be fetched using the `instance()` method.
+     * 
+     * @param {*} instance The instance of the activated component. For publishing deactivation of a component pass `null`.
+     * @param {string} [outletName] (Optional) The name of the outlet which activated or deactivated the component. The primary unnamed outlet will be used when not specified.
      */
     public publishComponent(instance: any, outletName?: string): void
     {
@@ -130,7 +135,13 @@ export class RouterOutletComponentBus
         this.componentPublished.emit(new ComponentPublishEventData(componentChanged, outletName));
     }
 
-    public unpublishComponent(outletName: string): void
+    /**
+     * Notifies any subscribers to the outlet's changes observable that the outlet is being removed by completing
+     * the observable and removes the observable from the service.
+     *
+     * @param {string} outletName (Optional) The name of the outlet to unpublish. The primary unnamed outlet will be used when not specified.
+     */
+    public unpublishComponent(outletName?: string): void
     {
         const components = this.components;
 
