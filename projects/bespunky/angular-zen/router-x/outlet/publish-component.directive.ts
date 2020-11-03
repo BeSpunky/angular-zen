@@ -73,8 +73,8 @@ export class PublishComponentDirective extends Destroyable implements OnInit, On
         const components = this.componentBus.components;
 
         if (components[this.outletName])
-            components[this.outletName] = new BehaviorSubject(instance);
-        else
             components[this.outletName].next(instance);
+        else
+            components[this.outletName] = new BehaviorSubject(instance);
     }
 }
