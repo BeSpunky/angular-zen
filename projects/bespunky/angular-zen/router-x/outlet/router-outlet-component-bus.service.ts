@@ -92,7 +92,7 @@ export class RouterOutletComponentBus
      * A map of the currently instantiated components by outlet name.
      * Users can either subscribe to changes, or get the current value of a component.
      * 
-     * The primary unnamed outlet component will be accessible via `undefined`, but for scalability it is better to access it via the `primaryComponent` property of the service.
+     * The primary unnamed outlet component will be accessible via `undefined`, but for scalability it is better to access it via the `instance()` method.
      *
      * @type {{ [outletName: string]: BehaviorSubject<any> }}
      */
@@ -170,28 +170,6 @@ export class RouterOutletComponentBus
     public isComponentPublished(outletName?: string): boolean
     {
         return !!this.components[outletName];
-    }
-
-    /**
-     * Gets the subscribable bus for the primary unnamed outlet component.
-     *
-     * @readonly
-     * @type {BehaviorSubject<any>}
-     */
-    public get primaryChanges(): BehaviorSubject<any>
-    {
-        return this.changes();
-    }
-
-    /**
-     * Gets the current instance of the primary unnamed outlet component.
-     *
-     * @readonly
-     * @type {(any | null)}
-     */
-    public get primaryInstance(): any | null
-    {
-        return this.instance();
     }
 
     /**
