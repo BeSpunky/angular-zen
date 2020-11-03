@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { NgZone  } from '@angular/core';
+import { Router  } from '@angular/router';
 
 import { CoreModule, DOCUMENT } from '@bespunky/angular-zen/core';
 import { MockScriptElement    } from '../mocks/script.mock';
@@ -58,4 +60,23 @@ export function setupDocumentRefMock()
     });
 
     return { mockHeadElement, mockDocument };
+}
+
+/**
+ * Wraps the `navigate` and `navigateByUrl` methods of the router with a call to `NgZone.run()`.
+ * Fixes the warning when using the router in unit tests.
+ *
+ * @export
+ * @param {Router} router The router instance.
+ */
+export function forceRoutingInsideAngularZone(router: Router): void
+{
+    const zone          = TestBed.inject(NgZone);
+    
+    const navigate      = router.navigate.bind(router);
+    const navigateByUrl = router.navigateByUrl.bind(router);
+
+    // Fix for angular's warning of running navigation outside angular's zone
+    spyOn(router, 'navigate'     ).and.callFake((...args: any[]) => zone.run(() => navigate     (...args)));
+    spyOn(router, 'navigateByUrl').and.callFake((...args: any[]) => zone.run(() => navigateByUrl(...args)));
 }

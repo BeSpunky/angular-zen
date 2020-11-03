@@ -1,8 +1,9 @@
-import { Component, NgZone   } from '@angular/core';
+import { Component           } from '@angular/core';
 import { TestBed             } from '@angular/core/testing';
 import { Route, Router       } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { forceRoutingInsideAngularZone                                                                                   } from '@bespunky/angular-zen/core/testing';
 import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
 import { UrlReflectionService                                                                                            } from '@bespunky/angular-zen/router-x';
 import { LanguageConfig                                                                                                  } from './language-integration-config';
@@ -50,14 +51,8 @@ export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy 
     const urlLocalization = TestBed.inject(UrlLocalizationService);
     const urlReflection   = TestBed.inject(UrlReflectionService);
     const router          = TestBed.inject(Router);
-    const zone            = TestBed.inject(NgZone);
     
-    const navigate      = router.navigate.bind(router);
-    const navigateByUrl = router.navigateByUrl.bind(router);
-
-    // Fix for angular's warning of running navigation outside angular's zone
-    spyOn(router, 'navigate'     ).and.callFake((...args: any[]) => zone.run(() => navigate     (...args)));
-    spyOn(router, 'navigateByUrl').and.callFake((...args: any[]) => zone.run(() => navigateByUrl(...args)));
+    forceRoutingInsideAngularZone(router);
 
     router.initialNavigation();
 
