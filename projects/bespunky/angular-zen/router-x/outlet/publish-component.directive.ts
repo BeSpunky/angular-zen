@@ -1,6 +1,6 @@
-import { BehaviorSubject                          } from 'rxjs';
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { RouterOutlet                             } from '@angular/router';
+import { BehaviorSubject               } from 'rxjs';
+import { Directive, ElementRef, OnInit } from '@angular/core';
+import { RouterOutlet                  } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from './router-outlet-component-bus.service';
@@ -29,12 +29,11 @@ import { RouterOutletComponentBus } from './router-outlet-component-bus.service'
  * @class PublishComponentDirective
  * @extends {Destroyable}
  * @implements {OnInit}
- * @implements {OnDestroy}
  */
 @Directive({
     selector: 'router-outlet[publishComponent]'
 })
-export class PublishComponentDirective extends Destroyable implements OnInit, OnDestroy
+export class PublishComponentDirective extends Destroyable implements OnInit
 {
     private outletName: string;
 
