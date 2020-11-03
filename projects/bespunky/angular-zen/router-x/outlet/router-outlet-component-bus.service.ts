@@ -62,14 +62,13 @@ export class ComponentPublishEventData extends RouterOutletEventData
 }
 
 /**
- * What this service does:
  * Provides a publish bus for the currently rendered component.
  * 
- * Why?
+ * **Why?**  
  * Angular's router only provides the type of component being rendered for a specific route, but not the instance it has created for it.
  * This service is a bridge allows other services to get a hold of the instance of a currently rendered component.
  * 
- * How to use:
+ * **How to use:**  
  * Use the `publishComponent` directive on your `<router-outlet>` element. This will hook into the outlet's `activate` event and pass
  * the activated component to the bus service:
  * 
@@ -80,7 +79,7 @@ export class ComponentPublishEventData extends RouterOutletEventData
  * <router-outlet publishComponent name="footer"></router-outlet>
  * ```
  * 
- * The components instantiated by outlets marked with `publishComponent` will be accessible by outlet name in the bus service.
+ * The components instantiated by outlets marked with `publishComponent` will be accessible by outlet name on the bus service.
  * 
  * @export
  * @class RouterOutletComponentBus
