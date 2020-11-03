@@ -75,12 +75,10 @@ describe('PublishComponentDirective', () =>
     it('should create an observable for each marked outlet accessible by name', async () =>
     {
         await setup('outletInit');
-
-        expect(Object.keys(componentBus.components).length).toBe(3);
         
-        expect(componentBus.components['undefined']).toBeInstanceOf(BehaviorSubject);
-        expect(componentBus.components['header']   ).toBeInstanceOf(BehaviorSubject);
-        expect(componentBus.components['footer']   ).toBeInstanceOf(BehaviorSubject);
+        expect(componentBus.changes('undefined')).toBeInstanceOf(BehaviorSubject);
+        expect(componentBus.changes('header'   )).toBeInstanceOf(BehaviorSubject);
+        expect(componentBus.changes('footer'   )).toBeInstanceOf(BehaviorSubject);
     });
 
     it('should publish the activated component to the bus', async () =>
@@ -123,7 +121,7 @@ describe('PublishComponentDirective', () =>
         expect(componentBus.instance()).toBeInstanceOf(MainComponent);
         expect(componentBus.instance('header')).toBeInstanceOf(HeaderComponent);
         expect(componentBus.instance('footer')).toBeNull();
-        expect(componentBus.components['footer']).toBeUndefined();
+        expect(componentBus.changes ('footer')).toBeUndefined();
     });
 });
 
