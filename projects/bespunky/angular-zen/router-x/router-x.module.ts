@@ -28,7 +28,7 @@ export class RouterXModule
     }
 
     /**
-     * Generates the router module with the appropriate providers.
+     * Generates the router-x module with the appropriate providers.
      *
      * @static
      * @param {RouterXConfig} config (Optional) The configuration for the router extension module.
@@ -39,5 +39,15 @@ export class RouterXModule
             ngModule : RouterXModule,
             providers: [provideRouterXConfig(config)]
         };
+    }
+
+    /**
+     * Generates the router-x module for child modules.
+     *
+     * @static
+     */
+    static forChild(): ModuleWithProviders<RouterXModule>
+    {
+        return { ngModule : RouterXModule };
     }
 }
