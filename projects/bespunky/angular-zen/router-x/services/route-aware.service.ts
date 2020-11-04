@@ -72,7 +72,7 @@ export abstract class RouteAwareService extends Destroyable
      * const route   = ...; // Some route
      * const process = (route, component) => ...; // Some processing function
      * 
-     * // The following will process the route and its first-level children.
+     * // The following will process the route and its first-level children only.
      * this.deepScanRoute(route, process, 1);
      * ```
      */
