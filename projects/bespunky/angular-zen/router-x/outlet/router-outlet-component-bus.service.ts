@@ -1,5 +1,6 @@
 import { BehaviorSubject          } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
+import { PRIMARY_OUTLET           } from '@angular/router';
 
 /**
  * Holds data related with a router outlet event.
@@ -12,7 +13,7 @@ export class RouterOutletEventData
     /**
      * Creates an instance of RouterOutletEventData.
      * 
-     * @param {string} outletName The name of the outlet which triggered the event. For the primary unnamed outlet, this will be `undefined`.
+     * @param {string} outletName The name of the outlet which triggered the event. For the primary unnamed outlet, this will be angular's PRIMARY_OUTLET.
      */
     constructor(public readonly outletName: string) { }
     
@@ -24,7 +25,7 @@ export class RouterOutletEventData
      */
     public get isPrimaryOutlet(): boolean
     {
-        return this.outletName === 'undefined';
+        return this.outletName === PRIMARY_OUTLET;
     }
 }
 
@@ -41,7 +42,7 @@ export class ComponentPublishEventData extends RouterOutletEventData
      * Creates an instance of ComponentPublishEventData.
      * 
      * @param {BehaviorSubject<any>} changes The observable used to track changes to the activated component of the triggering outlet.
-     * @param {string} outletName The name of the outlet which triggered the event. For the primary unnamed outlet, this will be `undefined`.
+     * @param {string} outletName The name of the outlet which triggered the event. For the primary unnamed outlet, this will be angular's PRIMARY_OUTLET.
      */
     constructor(public readonly changes: BehaviorSubject<any>, outletName: string)
     {
@@ -91,7 +92,7 @@ export class RouterOutletComponentBus
      * A map of the currently instantiated components by outlet name.
      * Users can either subscribe to changes, or get the current value of a component.
      * 
-     * The primary unnamed outlet component will be accessible via `undefined`, but for scalability it is better to access it via the `instance()` method.
+     * The primary unnamed outlet component will be accessible via PRIMARY_OUTLET, but for scalability it is better to access it via the `instance()` method.
      *
      * @type {{ [outletName: string]: BehaviorSubject<any> }}
      */
@@ -120,9 +121,9 @@ export class RouterOutletComponentBus
      * The last published component of an outlet can be fetched using the `instance()` method.
      * 
      * @param {*} instance The instance of the activated component. For publishing deactivation of a component pass `null`.
-     * @param {string} [outletName] (Optional) The name of the outlet which activated or deactivated the component. The primary unnamed outlet will be used when not specified.
+     * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet which activated or deactivated the component. The primary unnamed outlet will be used when not specified.
      */
-    public publishComponent(instance: any, outletName?: string): void
+    public publishComponent(instance: any, outletName: string = PRIMARY_OUTLET): void
     {
         const components       = this.components;
         const componentChanged = components[outletName] || new BehaviorSubject(instance);
@@ -138,9 +139,9 @@ export class RouterOutletComponentBus
      * Notifies any subscribers to the outlet's changes observable that the outlet is being removed by completing
      * the observable and removes the observable from the service.
      *
-     * @param {string} outletName (Optional) The name of the outlet to unpublish. The primary unnamed outlet will be used when not specified.
+     * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to unpublish. The primary unnamed outlet will be used when not specified.
      */
-    public unpublishComponent(outletName?: string): void
+    public unpublishComponent(outletName: string = PRIMARY_OUTLET): void
     {
         const components = this.components;
 
@@ -163,10 +164,10 @@ export class RouterOutletComponentBus
      * 
      * When `true`, the user can subscribe to changes of that outlet through the `changes()` method.
      * 
-     * @param {string} [outletName] (Optional) The name of the outlet to check. The primary unnamed outlet will be checked if no name is provided.
+     * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to check. The primary unnamed outlet will be checked if no name is provided.
      * @returns {boolean} `true` if the outlet has published a component at least once; otherwise `false`.
      */
-    public isComponentPublished(outletName?: string): boolean
+    public isComponentPublished(outletName: string = PRIMARY_OUTLET): boolean
     {
         return !!this.components[outletName];
     }
@@ -175,10 +176,10 @@ export class RouterOutletComponentBus
      * Gets an observable which can be used to track changes to the activated component of the specified outlet.
      * If the outlet is not rendered (present in the DOM), or hasn't been marked with `publishComponent`, this will be `null`.
      *
-     * @param {string} [outletName] (Optional) The name of the outlet to track changes for. The primary unnamed outlet will be used when not specified.
+     * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to track changes for. The primary unnamed outlet will be used when not specified.
      * @returns {(BehaviorSubject<any> | null)} An observable to use for tracking changes to the activated component for the specified outlet, or `null` if no such outlet exists.
      */
-    public changes(outletName?: string): BehaviorSubject<any> | null
+    public changes(outletName: string = PRIMARY_OUTLET): BehaviorSubject<any> | null
     {
         return this.components[outletName] || null;
     }
@@ -186,10 +187,10 @@ export class RouterOutletComponentBus
     /**
      * Gets the current instance of the component created by the specified outlet.
      *
-     * @param {string} [outletName] (Optional) The name of the outlet to fetch the component instance for. If not provided, the primary unnamed outlet's component will be fetched.
+     * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to fetch the component instance for. If not provided, the primary unnamed outlet's component will be fetched.
      * @returns {(any | null)} The instance of the component created by the specified outlet. If the outlet doesn't exist, or there is no component instance for the requested outlet, returns `null`.
      */
-    public instance(outletName?: string): any | null
+    public instance(outletName: string = PRIMARY_OUTLET): any | null
     {
         return this.components[outletName]?.value || null;
     }
