@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-import { Router  } from '@angular/router';
-import { RouterTestingModule  } from '@angular/router/testing';
+import { TestBed             } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router              } from '@angular/router';
 
-import { createDeeplyNestedRoutes, DeepRoutePath, DeepRouteSegments  } from '@bespunky/angular-zen/language/testing';
-import { UrlReflectionService } from './url-reflection.service';
-import { RouterXModule } from '../router-x.module';
-import { RouterXConfig } from '../config/router-x-config';
+import { createDeeplyNestedRoutes, DeepRoutePath, DeepRouteSegments } from '@bespunky/angular-zen/router-x/testing';
+import { RouterXModule                                              } from '../router-x.module';
+import { RouterXConfig                                              } from '../config/router-x-config';
+import { UrlReflectionService                                       } from './url-reflection.service';
 
 const hostUrl           = 'https://www.thoughtsofarandomperson.com';
 const routeUrl          = DeepRoutePath;

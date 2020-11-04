@@ -4,22 +4,10 @@ import { Route, Router       } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { forceRoutingInsideAngularZone                                                                                   } from '@bespunky/angular-zen/core/testing';
+import { createDeeplyNestedRoutes, DeepRouteSegments                                                                     } from '@bespunky/angular-zen/router-x/testing';
 import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
 import { UrlReflectionService                                                                                            } from '@bespunky/angular-zen/router-x';
 import { LanguageConfig                                                                                                  } from './language-integration-config';
-
-/** A multi-level route string for. */
-export const DeepRoutePath           = '/deeply/nested/route/for/testing';
-/**
- * The segments of `DeepRoutePath`. First element will always be '' (empty string) as the route begins with a forward slash.
- * Use `DeepRouteSegmentsNoRoot` for an array of segments without the root ''.
- */
-export const DeepRouteSegments       = DeepRoutePath.split('/');
-/**
- * The segments of `DeepRoutePath` without the root route (the '' route).
- * Use `DeepRouteSegments` for an array of segments with the root ''.
- */
-export const DeepRouteSegmentsNoRoot = DeepRouteSegments.slice(1);
 
 /**
  * Configures the testing module with localized routes for testing and language integration services.
@@ -34,7 +22,7 @@ export const DeepRouteSegmentsNoRoot = DeepRouteSegments.slice(1);
  */
 export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy | UrlLocalizationConfig)
 {
-    const nestedRoutes = createDeeplyNestedRoutes(DeepRouteSegments);
+    const nestedRoutes = createLocalizedDeeplyNestedRoutes(DeepRouteSegments);
     const config       = isUrlLocalizationConfig(strategyOrConfig) ? strategyOrConfig : { strategy: strategyOrConfig } as UrlLocalizationConfig;
 
     TestBed.configureTestingModule({
@@ -86,23 +74,31 @@ export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy 
  * @param {string[]} segments
  * @returns {Route}
  */
-export function createDeeplyNestedRoutes(segments: string[]): Route
+export function createLocalizedDeeplyNestedRoutes(segments: string[]): Route
 {
-    const parent: Route = {
-        path: segments[0], component: NoopComponent, children: [{ path: 'en', component: NoopComponent }]
-    };
-
-    if (segments.length > 1)
-    {
-        const nestedChildren = createDeeplyNestedRoutes(segments.slice(1));
+    const nestedRoutes = createDeeplyNestedRoutes(segments);
     
-        // Add the route tree to the node
-        parent.children.push(nestedChildren);
-        // Add the route tree to the /en child of the node as well
-        parent.children[0].children = [nestedChildren];
-    }
+    localizeRoute(nestedRoutes);
 
-    return parent;
+    return nestedRoutes;
+}
+
+/**
+ * Recoursively adds an 'en' segment to all routes in the tree.
+ *
+ * @param {Route} route The top most route to localize.
+ */
+function localizeRoute(route: Route): void
+{
+    route.children.forEach(child => localizeRoute(child));
+ 
+    const localizedRoute: Route = { path: 'en', component: NoopComponent };
+
+    // Copy the children of the current route to the localized route as well to ensure a route can be
+    // accessed with or without localization (i.e. the /en) prefix.
+    localizedRoute.children = [...route.children];
+    // Add the english segment as the first child of the route
+    route.children.unshift(localizedRoute);
 }
 
 function isUrlLocalizationConfig(value: any): value is UrlLocalizationConfig
@@ -110,8 +106,4 @@ function isUrlLocalizationConfig(value: any): value is UrlLocalizationConfig
     return !!value?.strategy;
 }
 
-@Component({
-    selector: 'zen-language-noop',
-    template: '<div></div>'
-})
-class NoopComponent { }
+@Component({ selector: 'zen-language-noop', template: '<div>noop</div>' }) class NoopComponent { }

@@ -1,8 +1,10 @@
 import { Router } from '@angular/router';
 
-import { DeepRoutePath, DeepRouteSegmentsNoRoot, setupUrlLocalizerTest } from '@bespunky/angular-zen/language/testing';
-import { UrlLocalizer,                                                 } from '@bespunky/angular-zen/language';
-import { UrlReflectionService                                          } from '@bespunky/angular-zen/router-x';
+import { setupUrlLocalizerTest                  } from '@bespunky/angular-zen/language/testing';
+import { DeepRoutePath, DeepRouteSegmentsNoRoot } from '@bespunky/angular-zen/router-x/testing';
+import { UrlLocalizer,                          } from '@bespunky/angular-zen/language';
+import { UrlReflectionService                   } from '@bespunky/angular-zen/router-x';
+
 interface SimpleTestConfig
 {
     testedRoute : string;
