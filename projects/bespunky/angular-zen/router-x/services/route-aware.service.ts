@@ -22,6 +22,14 @@ export type Resolver = (component: any, ...resolverArgs: any[]) => Observable<an
 @Injectable()
 export abstract class RouteAwareService extends Destroyable
 {
+    /**
+     * Creates an instance of RouteAwareService.
+     * 
+     * @param {Router} router The instance of Angular's router service.
+     * @param {ActivatedRoute} route The instance of Angular's active route service.
+     * @param {RouterOutletComponentBus} [componentBus] (Optional) The component bus for router-x functionality.
+     * Provide this when you want your route-aware service to have access to the instance(s) of the activated component(s).
+     */
     constructor(
         protected router       : Router,
         protected route        : ActivatedRoute,
@@ -131,6 +139,7 @@ export abstract class RouteAwareService extends Destroyable
 
     /**
      * The instance of the component created for the currently activated route.
+     * If no component bus was supplied at construction time, this will be `undefined`.
      *
      * @readonly
      * @protected
