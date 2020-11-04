@@ -1,8 +1,8 @@
-import { from, InteropObservable, Observable, of                                        } from 'rxjs';
-import { filter, concatAll, toArray                                                     } from 'rxjs/operators';
-import { Injectable                                                                     } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, NavigationStart, ActivatedRouteSnapshot } from '@angular/router';
-import { Destroyable                                                                    } from '@bespunky/angular-zen/core';
+import { from, InteropObservable, Observable, of                     } from 'rxjs';
+import { concatAll, toArray                                          } from 'rxjs/operators';
+import { Injectable                                                  } from '@angular/core';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
+import { Destroyable                                                 } from '@bespunky/angular-zen/core';
 
 import { RouterOutletComponentBus } from '../outlet/router-outlet-component-bus.service';
 
@@ -30,27 +30,23 @@ export abstract class RouteAwareService extends Destroyable
     {
         super();
 
-        this.subscribe(this.router.events.pipe(filter(event => event instanceof NavigationStart)), this.onNavigationStart.bind(this));
-        this.subscribe(this.router.events.pipe(filter(event => event instanceof NavigationEnd  )), this.onNavigationEnd.bind(this));
+        this.subscribe(this.router.events, this.dispatchRouterEvent.bind(this));
     }
     
     /**
-     * Runs on route change, before navigating to it. Override to implement.
+     * Checks if a handler method for the specific event type exists on the service and calls it.
+     * Handler methods should comply with `onEventType` naming (lowercase 'on', first-upper event type).
      * 
-     * @virtual
-     * @protected
-     * @param {NavigationStart} event The router's event data.
+     * @private
+     * @param {RouterEvent} event The event data received from the router.
      */
-    protected onNavigationStart(event: NavigationStart): void { }
+    private dispatchRouterEvent(event: RouterEvent): void
+    {
+        const type   = (event as Object).constructor.name;
+        const handle = this[`on${type}`];
 
-    /**
-     * Runs after the route was changed. Override to implement.
-     * 
-     * @virtual
-     * @protected
-     * @param {NavigationEnd} event The router's event data.
-     */
-    protected onNavigationEnd(event: NavigationEnd): void { }
+        if (handle) handle(event);
+    }
 
     /**
      * Recoursively runs a processing function on the route and its children.
