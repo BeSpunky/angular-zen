@@ -80,7 +80,10 @@ export abstract class RouteAwareService extends Destroyable
     {
         process(route, this.componentBus?.instance(route.outlet));
 
-        if (levels > 0 && route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process, levels - 1));
+        // Negative values will scan all, positives will scan until reaching zero
+        const shouldScanNextLevel = levels !== 0;
+
+        if (shouldScanNextLevel && route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process, levels - 1));
     }
     
     /**
