@@ -96,6 +96,29 @@ export abstract class RouteAwareService extends Destroyable
     /**
      * Creates an observable that runs all the specified resolvers and concats their results as an array.
      * The resolvers will be passed with the instance of the component for the currently activated route.
+     *
+     * @protected
+     * @param {(Resolver | Resolver[])} resolvers The resolver(s) to concat.
+     * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers in addition to the component.
+     * @returns {Observable<any[]>} An array with the concatenated results of the resolvers.
+     */
+    protected resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
+    {
+        if (!resolvers) return of([]);
+
+        // Cast array
+        if (!Array.isArray(resolvers)) resolvers = [resolvers];
+
+        // Run resolvers to create observable tasks
+        const observables = resolvers.map(resolve => resolve(this.activatedRouteComponent, ...resolverArgs));
+        
+        // Run tasks and output their returned data as an array
+        return from(observables).pipe(concatAll(), toArray());
+    }
+
+    /**
+     * Creates an observable that runs all the specified resolvers and concats their results as an array.
+     * The resolvers will be passed with the instance of the component for the currently activated route.
      * 
      * **Angular Universal:**
      * In SSR, the server doesn't wait for async code to complete. The result is scapers and search engines receivng a page without resolved data,
@@ -122,29 +145,6 @@ export abstract class RouteAwareService extends Destroyable
             // Signal end of macro task on completion or error and allow server to return
             .pipe(finalize(() => macroTask.invoke())
         );
-    }
-
-    /**
-     * Creates an observable that runs all the specified resolvers and concats their results as an array.
-     * The resolvers will be passed with the instance of the component for the currently activated route.
-     *
-     * @protected
-     * @param {(Resolver | Resolver[])} resolvers The resolver(s) to concat.
-     * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers in addition to the component.
-     * @returns {Observable<any[]>} An array with the concatenated results of the resolvers.
-     */
-    protected resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
-    {
-        if (!resolvers) return of([]);
-
-        // Cast array
-        if (!Array.isArray(resolvers)) resolvers = [resolvers];
-
-        // Run resolvers to create observable tasks
-        const observables = resolvers.map(resolve => resolve(this.activatedRouteComponent, ...resolverArgs));
-        
-        // Run tasks and output their returned data as an array
-        return from(observables).pipe(concatAll(), toArray());
     }
 
     /**
