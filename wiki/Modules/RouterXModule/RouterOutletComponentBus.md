@@ -7,7 +7,7 @@ This service lets you:
 [Why the service?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
 
 # How to use
-1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](LINK).
+1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective).
 
 2. Mark your outlet with `publishComponent`:
     ```html
@@ -26,7 +26,7 @@ When an outlet has no name, the service uses Angular's `PRIMARY_OUTLET` constant
 When a component is published on the service, an observable is created and is mapped with the outlet's name.  
 When a component is unpublished, that observable is completed and removed.
 
-The service is intended to be managed by the [`PublishComponentDirective`](LINK), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods.
+The service is intended to be managed by the [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods.
 
 # `TLDR` Why do I need a service?
 Before `@bespunky/angular-zen`, the common way of finding the activated component was to listen to the `activated` event on the relevant outlet:
