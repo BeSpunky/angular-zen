@@ -1,4 +1,4 @@
-RouteAwareService-(abstract)
 UrlReflectionService
 PublishComponentDirective
 RouterOutletComponentBus
+RouteAwareService-(abstract)
