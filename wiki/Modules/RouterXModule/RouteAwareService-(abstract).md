@@ -44,7 +44,7 @@ Route aware services integrate seamlessly with [`RouterOutletComponentBus`](/Mod
 # Resolves
 Angular resolves work pretty well, but they don't fit all scenarios. By definition, Angular processes resolves **before** a component is loaded.
 
-`resolve()` - Route aware services can run resolves at any given moment using the `resolve()` method.
+Use `resolve()` to run resolves at any given moment.
 
 ### Angular Universal
 In SSR, the server doesn't wait for async code to complete. The result is scrapers and search engines receiving a page without resolved data, which is bad in case you need them to read some resolved metadata tags for example.
