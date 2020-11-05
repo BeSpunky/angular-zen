@@ -13,7 +13,7 @@ Use `RouterXModule.forChild()` when importing in child/feature modules.
 |-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
 | [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService)         | Provides to reflect on urls and extract their different parts.                                                                                                                  | ✔                                                               |
 | [RouterOutletComponentBus](/Modules/RouterXModule/RouterOutletComponentBus) | Provides access to the instances of components activated by router outlets. Used together with [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
-| [RouteAwareService (abstract)](LINK)                                        | Simplified the creation of services that work with routes.                                                                                                                      | ✔                                                               |
+| [RouteAwareService (abstract)]()                                        | Simplified the creation of services that work with routes.                                                                                                                      | ✔                                                               |
 
 # Directives
 
