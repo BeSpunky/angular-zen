@@ -1,5 +1,5 @@
-RouterXModule
 CoreModule
 AsyncModule
 UniversalModule
 LanguageIntegrationModule
+RouterXModule
