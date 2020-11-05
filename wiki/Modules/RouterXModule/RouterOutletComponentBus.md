@@ -4,7 +4,7 @@ This service lets you:
 1. Gain access to the instances of router activated components from anywhere in your app.
 2. Observe changes to the active component in outlets.
 
-[Why a service?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
+[Why the service?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
 
 # How to use
 1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](LINK).
