@@ -1,8 +1,10 @@
-Angular's `ActivatedRoute` service only exposes the *type* of component and the name of the outlet it relates to. However, in some cases it is necessary to get a hold of the actual *instance* of the component activated for a certain route ([why?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)).
+Angular's `ActivatedRoute` service only exposes the *type* of component and the name of the outlet it relates to. However, in some cases it is necessary to get a hold of the actual *instance* of the component activated for a certain route.
 
 This service lets you:
 1. Gain access to the instances of router activated components from anywhere in your app.
 2. Observe changes to the active component in outlets.
+
+[Why a service?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
 
 # How to use
 1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](LINK).
