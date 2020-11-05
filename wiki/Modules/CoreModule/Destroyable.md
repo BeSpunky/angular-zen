@@ -1,4 +1,3 @@
-# `Destroyable` abstract class
 Using the `async` pipe is not always possible. Sometimes we simply have to manually subscribe to observables.
 In turn, this means manually unsubscribing to avoid memory leaks.
 
