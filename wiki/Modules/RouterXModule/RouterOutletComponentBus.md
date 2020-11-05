@@ -35,5 +35,7 @@ Before `@bespunky/angular-zen`, the common way of finding the activated componen
    <router-outlet (activate)="doSomethingWithComponent($event)"></router-outlet>
 ```
 
-This is problematic for 2 main reasons:
-1. 
+This is problematic for a few main reasons:
+1. It is cumbersome to write - You have to use the above template syntax *and* have a method in your component to handle it.
+2. Tight coupling - What happens if you need the instance of the activated component in some service? Your service now depends on the component hosting your outlet to notify it of the new instance.
+3. No global access - `Router` and `ActivatedRoute` give you global access to the current state. The component instance is part of that state, but is not globally accessible.
