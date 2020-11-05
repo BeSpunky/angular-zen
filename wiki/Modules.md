@@ -7,6 +7,7 @@
 | [`AsyncModule`](Modules/AsyncModule) | Contains tools for handling dynamic and async situations on the page.    |
 | [`UniversalModule`](Modules/UniversalModule) | Contains tools for working easily with Angular Universal and SSR. |
 | [`LanguageIntegrationModule`](Modules/LanguageIntegrationModule) | Contains tools for integrating your library with your user's language services. |
+| [`RouterXModule`](/Modules/RouterXModule) | Contains tools for routing related tasks. |
 
 
 # 🌳 Tree Shaking

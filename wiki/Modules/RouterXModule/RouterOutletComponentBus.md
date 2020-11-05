@@ -7,9 +7,9 @@ This service lets you:
 [Why the service?](/Modules/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
 
 # How to use
-The service is intended to be managed by the [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
+The service is intended to be managed by the [`PublishComponentDirective`](/Modules/RouterXModule/RouterOutletComponentBus/PublishComponentDirective), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
 
-1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective).
+1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](/Modules/RouterXModule/RouterOutletComponentBus/PublishComponentDirective).
 
 2. Mark your outlet with `publishComponent`:
     ```html
