@@ -9,8 +9,6 @@ export * from './services/language-integration.service';
 
 export * from './url-localization/config/url-localization-config';
 export * from './url-localization/config/url-localization.provider';
-
-export * from './url-localization/services/url-reflection.service';
 export * from './url-localization/services/url-localization.service';
 
 export * from './url-localization/localizers/url-localizer';

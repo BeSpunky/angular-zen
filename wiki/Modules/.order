@@ -2,3 +2,4 @@ CoreModule
 AsyncModule
 UniversalModule
 LanguageIntegrationModule
+RouterXModule

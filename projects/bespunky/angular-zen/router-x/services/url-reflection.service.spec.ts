@@ -1,7 +1,11 @@
-import { Router } from '@angular/router';
+import { TestBed             } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router              } from '@angular/router';
 
-import { DeepRoutePath, setupUrlLocalizerTest                                 } from '@bespunky/angular-zen/language/testing';
-import { UrlLocalizationStrategy, UrlLocalizationConfig, UrlReflectionService } from '@bespunky/angular-zen/language';
+import { createDeeplyNestedRoutes, DeepRoutePath, DeepRouteSegments } from '@bespunky/angular-zen/router-x/testing';
+import { RouterXModule                                              } from '../router-x.module';
+import { RouterXConfig                                              } from '../config/router-x-config';
+import { UrlReflectionService                                       } from './url-reflection.service';
 
 const hostUrl           = 'https://www.thoughtsofarandomperson.com';
 const routeUrl          = DeepRoutePath;
@@ -16,9 +20,19 @@ describe('UrlReflectionService', () =>
     let urlReflection: UrlReflectionService;
     let router       : Router;
 
-    function setup(config: UrlLocalizationStrategy | UrlLocalizationConfig)
+    function setup(config?: RouterXConfig)
     {
-        ({ urlReflection, router } = setupUrlLocalizerTest(config));
+        const nestedRoutes = createDeeplyNestedRoutes(DeepRouteSegments);
+
+        TestBed.configureTestingModule({
+            imports: [
+                RouterXModule.forRoot(config),
+                RouterTestingModule.withRoutes([nestedRoutes])
+            ]
+        });
+        
+        urlReflection = TestBed.inject(UrlReflectionService);
+        router        = TestBed.inject(Router);
     }
 
     function testRegex(url: string, regex: RegExp, groupName: string, expected: string)
@@ -62,9 +76,9 @@ describe('UrlReflectionService', () =>
             expect(urlReflection.hostUrl.startsWith('http://localhost:')).toBeTrue();
         });
 
-        it('should expose the provided host url is specified in config', () =>
+        it('should expose the provided host url that is specified in config', () =>
         {
-            setup({ strategy: 'lang', hostUrl });
+            setup({ hostUrl });
 
             expect(urlReflection.hostUrl).toBe(hostUrl);
         });
@@ -139,7 +153,7 @@ describe('UrlReflectionService', () =>
     {
         beforeEach(() =>
         {
-            setup({ strategy: 'lang', hostUrl });
+            setup({ hostUrl });
 
             return router.navigateByUrl(relativeUrl);
         });

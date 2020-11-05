@@ -1,7 +1,8 @@
 import { ClassProvider, FactoryProvider, Injectable, Type } from '@angular/core';
 
-import { setupUrlLocalizerTest } from '@bespunky/angular-zen/language/testing';
-import { provideUrlLocalizer, UrlReflectionService, UrlLocalizer, UrlLocalizationStrategy, UrlLocalizerClassProvider, UrlLocalizerFactoryProvider, RoutePositionUrlLocalizer, QueryParamsUrlLocalizer, NoopUrlLocalizer } from '@bespunky/angular-zen/language';
+import { setupUrlLocalizerTest                                                                                                                                                                    } from '@bespunky/angular-zen/language/testing';
+import { provideUrlLocalizer, UrlLocalizer, UrlLocalizationStrategy, UrlLocalizerClassProvider, UrlLocalizerFactoryProvider, RoutePositionUrlLocalizer, QueryParamsUrlLocalizer, NoopUrlLocalizer } from '@bespunky/angular-zen/language';
+import { UrlReflectionService                                                                                                                                                                     } from '@bespunky/angular-zen/router-x';
 
 describe('provideUrlLocalizer()', () =>
 {

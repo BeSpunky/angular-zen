@@ -1,11 +1,11 @@
 import { ClassProvider, FactoryProvider, Provider } from '@angular/core';
 
+import { UrlReflectionService                   } from '@bespunky/angular-zen/router-x';
 import { LanguageIntegrationService             } from '../../services/language-integration.service';
 import { UrlLocalizer                           } from '../localizers/url-localizer';
 import { RoutePositionUrlLocalizer              } from '../localizers/route-position-url-localizer';
 import { QueryParamsUrlLocalizer                } from '../localizers/query-params-url-localizer';
 import { NoopUrlLocalizer                       } from '../localizers/noop-url-localizer';
-import { UrlReflectionService                   } from '../services/url-reflection.service';
 import { UrlLocalizationConfig, UrlLocalization } from './url-localization-config';
 
 /**

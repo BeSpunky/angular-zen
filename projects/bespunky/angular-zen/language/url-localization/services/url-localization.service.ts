@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 
+import { UrlReflectionService                   } from '@bespunky/angular-zen/router-x';
 import { UrlLocalization, UrlLocalizationConfig } from '../config/url-localization-config';
 import { UrlLocalizer                           } from '../localizers/url-localizer';
-import { UrlReflectionService                   } from './url-reflection.service';
 
 /**
  * Provides tools for localization and delocalization of the currently navigated url taking into

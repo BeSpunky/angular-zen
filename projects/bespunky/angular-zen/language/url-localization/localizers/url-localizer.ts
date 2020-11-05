@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UrlReflectionService } from '../services/url-reflection.service';
+import { UrlReflectionService } from '@bespunky/angular-zen/router-x';
 
 /**
  * The base class for url localization implementors. This can be used as an injectable token to get a hold of the currently

@@ -47,11 +47,6 @@ export interface UrlLocalizationConfig
      * @type {boolean}
      */
     forceHttps?: boolean;
-    /**
-     * (Optional) The complete host url (e.g. https://www.example.com) to set for localized and delocalized urls.
-     * Default is the current host url as extracted from the document object.
-     */
-    hostUrl?   : string;
 }
 
 /**
