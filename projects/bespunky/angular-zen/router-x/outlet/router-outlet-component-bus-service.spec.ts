@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed        } from '@angular/core/testing';
+import { PRIMARY_OUTLET } from '@angular/router';
 
 import { ComponentPublishEventData, RouterOutletComponentBus, RouterOutletEventData } from './router-outlet-component-bus.service';
 
@@ -76,7 +77,7 @@ describe('RouterOutletComponentBus', () =>
             {
                 const event = publishedEvent.calls.mostRecent().args[0] as ComponentPublishEventData;
 
-                expect(event.outletName       ).toBe(outletName);
+                expect(event.outletName       ).toBe(outletName || PRIMARY_OUTLET);
                 expect(event.changes          ).toBe(bus.changes (outletName));
                 expect(event.componentInstance).toBe(bus.instance(outletName));
             });
@@ -121,7 +122,7 @@ describe('RouterOutletComponentBus', () =>
 
                 const event = unpublishedEvent.calls.mostRecent().args[0] as RouterOutletEventData;
 
-                expect(event.outletName).toBe(outletName);
+                expect(event.outletName).toBe(outletName || PRIMARY_OUTLET);
             });
 
             it('should not throw if the requested outlet was never published', () =>

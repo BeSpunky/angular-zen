@@ -76,7 +76,7 @@ describe('PublishComponentDirective', () =>
     {
         await setup('outletInit');
         
-        expect(componentBus.changes('undefined')).toBeInstanceOf(BehaviorSubject);
+        expect(componentBus.changes()).toBeInstanceOf(BehaviorSubject);
         expect(componentBus.changes('header'   )).toBeInstanceOf(BehaviorSubject);
         expect(componentBus.changes('footer'   )).toBeInstanceOf(BehaviorSubject);
     });
