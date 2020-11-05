@@ -9,14 +9,14 @@ Use `RouterXModule.forRoot()` to import
 
 # Services
 
-| Name                                                                | Description                                                                                                                             | Works Without Module                                  |
-|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------:|
-| [RouterOutletComponentBus](LINK)                                    | Provides access to the instances of the components activated by router outlets. Used together with [`PublishComponentDirective`](LINK). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
-| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService) | Provides to reflect on urls and extract their different parts.                                                                          | ✔                                                    |
-| [RouteAwareService (abstract)](LINK)                                | Simplified the creation of services that work with routes.                                                                              | ✔                                                    |
+| Name                                                                | Description                                                                                                                             | Works Without Module                                             |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
+| [RouterOutletComponentBus](/Modules/RouterXModule/RouterOutletComponentBus)                                    | Provides access to the instances of the components activated by router outlets. Used together with [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
+| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService) | Provides to reflect on urls and extract their different parts.                                                                          | ✔                                                               |
+| [RouteAwareService (abstract)](LINK)                                | Simplified the creation of services that work with routes.                                                                              | ✔                                                               |
 
 # Directives
 
 | Name                              | Description                                                                                   |
 |-----------------------------------|-----------------------------------------------------------------------------------------------|
-| [PublishComponentDirective](LINK) | Integrates with router outlets to publish activated components to `RouterOutletComponentBus`. |
+| [PublishComponentDirective](/Modules/RouterXModule/PublishComponentDirective) | Integrates with router outlets to publish activated components to [`RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus) . |
