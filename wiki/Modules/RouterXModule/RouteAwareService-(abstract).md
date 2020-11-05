@@ -59,3 +59,6 @@ Use `resolveInMacroTask()` to have your server block and wait for resolves befor
 Use `deepScanRoute()` to recursively run a function on the complete route tree.
 
 > If you provide the `componentBus` param at construction time, your processing function will receive the instance of the component matching the route currently being scanned.
+
+# Activated Route Component
+If you provide the `componentBus` param at construction time, you can use the `activatedRouteComponent` property to fetch the instance of the active component.
