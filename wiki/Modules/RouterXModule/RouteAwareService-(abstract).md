@@ -1,7 +1,7 @@
 Acting as a base class, this service creates a layer between the router and your app to help facilitate route related tasks.
 
 # Destroyable
-The service is [`Destroyable`](/Modules/CoreModule/Destroyable). You can take advantage of that when working with subscriptions.
+The service is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
 
 # Events Dispatcher
 Recognize this line...?
