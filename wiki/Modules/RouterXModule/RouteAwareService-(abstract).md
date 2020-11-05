@@ -53,3 +53,5 @@ Use `resolveInMacroTask()` to have your server block and wait for resolves befor
 
 [More Info](API)
 
+# Deep Route Scan
+Use `deepScanRoute()` to recursively run a function on the complete route tree.
