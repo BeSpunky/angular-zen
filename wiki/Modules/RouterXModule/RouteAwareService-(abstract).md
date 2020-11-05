@@ -46,6 +46,8 @@ Angular resolves work pretty well, but they don't fit all scenarios. By definiti
 
 Use `resolve()` to run resolves at any given moment.
 
+> If you provide the `componentBus` param at construction time, your resolvers will receive the instance of the component matching the active route.
+
 ### Angular Universal
 In SSR, the server doesn't wait for async code to complete. The result is scrapers and search engines receiving a page without resolved data, which is bad in case you need them to read some resolved metadata tags for example.
 
@@ -55,3 +57,5 @@ Use `resolveInMacroTask()` to have your server block and wait for resolves befor
 
 # Deep Route Scan
 Use `deepScanRoute()` to recursively run a function on the complete route tree.
+
+> If you provide the `componentBus` param at construction time, your processing function will receive the instance of the component matching the route currently being scanned.
