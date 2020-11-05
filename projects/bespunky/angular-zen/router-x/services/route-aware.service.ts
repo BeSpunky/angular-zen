@@ -12,6 +12,13 @@ declare const Zone: any;
 export type Resolver = (component: any, ...resolverArgs: any[]) => Observable<any> | InteropObservable<any> | Promise<any>;
 
 /**
+ * The prefix of the id generated for zone macro tasks when calling `RouteAwareService.resolveInMacroTask()`.
+ * 
+ * Generated ids will confrom to a `{prefix}-{random number}` format.
+ */
+export const ResolverMacroTaskIdPrefix = 'route-aware-resolver';
+
+/**
  * Provides functionality for extending class to easily work with routes and process changes.
  *
  * @export
@@ -99,15 +106,17 @@ export abstract class RouteAwareService extends Destroyable
      * 
      * > *ℹ Make sure your resolves and process function are fast enough so that the server won't hang too much trying to render.*
      *
-     * See https://stackoverflow.com/a/50065783/4371525 for the discussion.
+     * @see https://stackoverflow.com/a/50065783/4371525 for the discussion.
      *
+     * @see {ResolverMacroTaskIdPrefix} if you need to identify the created macro task in your code.
+     * 
      * @protected
      * @param {(Resolver | Resolver[])} resolvers The resolver(s) to concat.
      * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers in addition to the component.
      */
     protected resolveInMacroTask(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
-        const macroTask = Zone.current.scheduleMacroTask('route-aware-resolver-' + Math.random(), () => { }, {}, () => { }, () => { });
+        const macroTask = Zone.current.scheduleMacroTask(`${ResolverMacroTaskIdPrefix}-${Math.random()}`, () => { }, {}, () => { }, () => { });
 
         return this.resolve(resolvers, ...resolverArgs)
             // Signal end of macro task on completion or error and allow server to return
