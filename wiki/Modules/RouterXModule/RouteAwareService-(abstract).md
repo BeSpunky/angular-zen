@@ -14,7 +14,6 @@ Create a handler method named `on<EventType>` for any of [Angular's router event
 
 In the following example the service will intercept navigation start and end events, but will let go of any other events:
 
-
 ```typescript
 import { Injectable                     } from '@angular/core';
 import { NavigationStart, NavigationEnd } from '@angular/router';
