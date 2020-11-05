@@ -22,6 +22,8 @@ import { RouteAwareService } from '@bespunky/angular-zen/router-x';
 @Injectable({ providedIn: 'root' })
 class MyService extends RouteAwareService
 {
+    // Bonus: No constructor. Will default to base constructor.
+
     protected onNavigationStart(event: NavigationStart): void
     {
         // Act on navigation start...
@@ -35,4 +37,19 @@ class MyService extends RouteAwareService
 ```
 
 > Consider marking your handlers `protected` as they are usually intended for internal class use.
+
+# Component Bus
+Route aware services integrate seamlessly with [`RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus). Different methods in the service take advantage of the bus to provide their caller with the instance of the activated component.
+
+# Resolves
+Angular resolves work pretty well, but they don't fit all scenarios. By definition, Angular processes resolves **before** a component is loaded.
+
+`resolve()` - Route aware services can run resolves at any given moment using the `resolve()` method.
+
+### Angular Universal
+In SSR, the server doesn't wait for async code to complete. The result is scrapers and search engines receiving a page without resolved data, which is bad in case you need them to read some resolved metadata tags for example.
+
+Use `resolveInMacroTask()` to have your server block and wait for resolves before rendering.
+
+[More Info](API)
 
