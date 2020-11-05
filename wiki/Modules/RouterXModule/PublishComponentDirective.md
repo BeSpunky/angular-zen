@@ -10,3 +10,4 @@ When the outlet deactivates a component, the directive publishes a `null` value 
 When the outlet is destroyed (i.e. removed from the DOM), the directive unpublishes the component from the bus service.
 
 # How to use
+See [`RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) for instructions.
