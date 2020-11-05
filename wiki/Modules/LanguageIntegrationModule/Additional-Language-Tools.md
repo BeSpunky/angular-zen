@@ -10,7 +10,7 @@ The strategy is then transformed into a localizer class which holds the implemen
 
 There are 3 built-in localizers:
 
-| Localizer                   | Instantiated when is... | Implementation                                                                         |
+| Localizer                   | Instantiated when strategy is... | Implementation                                                                         |
 |-----------------------------|-------------------------|----------------------------------------------------------------------------------------|
 | `RoutePositionUrlLocalizer` | a `number`              | The language is a segment in the route. The strategy is the position within the route. |
 | `QueryParamsUrlLocalizer`   | a `string`              | The language is a query param. The strategy is the param name.                         |
