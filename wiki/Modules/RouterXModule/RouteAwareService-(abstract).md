@@ -16,8 +16,9 @@ In the following example the service will intercept navigation start and end eve
 
 
 ```typescript
-import { Injectable        } from '@angular/core';
-import { RouteAwareService } from '@bespunky/angular-zen/router-x';
+import { Injectable                     } from '@angular/core';
+import { NavigationStart, NavigationEnd } from '@angular/router';
+import { RouteAwareService              } from '@bespunky/angular-zen/router-x';
 
 @Injectable({ providedIn: 'root' })
 class MyService extends RouteAwareService
