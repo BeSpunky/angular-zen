@@ -9,14 +9,14 @@ Use `RouterXModule.forChild()` when importing in child/feature modules.
 
 # Services
 
-| Name                                                                | Description                                                                                                                             | Works Without Module                                             |
-|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
-| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService) | Provides to reflect on urls and extract their different parts.                                                                          | ✔                                                               |
-| [RouterOutletComponentBus](/Modules/RouterXModule/RouterOutletComponentBus)                                    | Provides access to the instances of components activated by router outlets. Used together with [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
-| [RouteAwareService (abstract)](LINK)                                | Simplified the creation of services that work with routes.                                                                              | ✔                                                               |
+| Name                                                                        | Description                                                                                                                                                                     | Module Independent                                               |
+|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
+| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService)         | Provides to reflect on urls and extract their different parts.                                                                                                                  | ✔                                                               |
+| [RouterOutletComponentBus](/Modules/RouterXModule/RouterOutletComponentBus) | Provides access to the instances of components activated by router outlets. Used together with [`PublishComponentDirective`](/Modules/RouterXModule/PublishComponentDirective). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
+| [RouteAwareService (abstract)](LINK)                                        | Simplified the creation of services that work with routes.                                                                                                                      | ✔                                                               |
 
 # Directives
 
-| Name                              | Description                                                                                   |
-|-----------------------------------|-----------------------------------------------------------------------------------------------|
+| Name                                                                          | Description                                                                                                                                       |
+|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | [PublishComponentDirective](/Modules/RouterXModule/PublishComponentDirective) | Integrates with router outlets to publish activated components to [`RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus) . |
