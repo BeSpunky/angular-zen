@@ -121,7 +121,7 @@ export abstract class RouteAwareService extends Destroyable
      * The resolvers will be passed with the instance of the component for the currently activated route.
      * 
      * **Angular Universal:**
-     * In SSR, the server doesn't wait for async code to complete. The result is scapers and search engines receivng a page without resolved data,
+     * In SSR, the server doesn't wait for async code to complete. The result is scrapers and search engines receiving a page without resolved data,
      * which is bad in case you need them to read some resolved metadata tags for example.
      * 
      * Using `Zone` directly, this method creates a macro task and completes it when resolves are done or have errored.
