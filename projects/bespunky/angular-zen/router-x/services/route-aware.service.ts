@@ -1,5 +1,5 @@
 import { from, InteropObservable, Observable, of                     } from 'rxjs';
-import { concatAll, toArray                                          } from 'rxjs/operators';
+import { concatAll, finalize, toArray                                } from 'rxjs/operators';
 import { Injectable                                                  } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
 import { Destroyable                                                 } from '@bespunky/angular-zen/core';
@@ -87,33 +87,31 @@ export abstract class RouteAwareService extends Destroyable
     }
     
     /**
-     * Resolves the specified resolver(s) and passes the results as an array through the process function.
+     * Creates an observable that runs all the specified resolvers and concats their results as an array.
+     * The resolvers will be passed with the instance of the component for the currently activated route.
      * 
      * **Angular Universal:**
-     * The method creates a zone macro task and completes it when processing is done.
-     * In SSR mode, this makes the server wait until everything is resolved and processed
-     * before returning the rendered page.
+     * In SSR, the server doesn't wait for async code to complete. The result is scapers and search engines receivng a page without resolved data,
+     * which is bad in case you need them to read some resolved metadata tags for example.
      * 
-     * Make sure your resolves and process function are fast enough so that the server won't hang too much trying to render.
+     * Using `Zone` directly, this method creates a macro task and completes it when resolves are done or have errored.
+     * This makes the server block and wait until everything is resolved or errors before returning the rendered page.
+     * 
+     * > *ℹ Make sure your resolves and process function are fast enough so that the server won't hang too much trying to render.*
+     *
+     * See https://stackoverflow.com/a/50065783/4371525 for the discussion.
      *
      * @protected
-     * @param {(Resolver | Resolver[])} resolvers The resolver(s) to resolve and process.
-     * @param {(resolved: any) => void} process The process function to pass results array through.
-     * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers.
+     * @param {(Resolver | Resolver[])} resolvers The resolver(s) to concat.
+     * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers in addition to the component.
      */
-    protected resolveAndProcess(resolvers: Resolver | Resolver[], process: (resolved: any[]) => void, ...resolverArgs: any[]): void
+    protected resolveInMacroTask(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
-        // The server doesn't wait for async code to complete on SSR. The result is scapers and search engines receivng a page without metadata.
-        // Using `Zone` this specifically tells the server that it should wait for task completion when metadata is already on the page.
-        // See https://stackoverflow.com/a/50065783/4371525
         const macroTask = Zone.current.scheduleMacroTask('route-aware-resolver-' + Math.random(), () => { }, {}, () => { }, () => { });
 
-        this.resolve(resolvers, ...resolverArgs).subscribe(
-            process,
-            // Log errors to console
-            error => console.error(`Failed to resolve route data: ${error}`),
-            // Signal end of macro task on completion and allow server to return
-            () => macroTask.invoke()
+        return this.resolve(resolvers, ...resolverArgs)
+            // Signal end of macro task on completion or error and allow server to return
+            .pipe(finalize(() => macroTask.invoke())
         );
     }
 
