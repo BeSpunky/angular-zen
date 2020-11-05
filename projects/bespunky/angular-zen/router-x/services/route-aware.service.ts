@@ -87,7 +87,7 @@ export abstract class RouteAwareService extends Destroyable
     }
     
     /**
-     * Resolves the specified resolver(s) and passes each result through the process function.
+     * Resolves the specified resolver(s) and passes the results as an array through the process function.
      * 
      * **Angular Universal:**
      * The method creates a zone macro task and completes it when processing is done.
@@ -98,10 +98,10 @@ export abstract class RouteAwareService extends Destroyable
      *
      * @protected
      * @param {(Resolver | Resolver[])} resolvers The resolver(s) to resolve and process.
-     * @param {(resolved: any) => void} process The process function to pass results through.
+     * @param {(resolved: any) => void} process The process function to pass results array through.
      * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers.
      */
-    protected resolveAndProcess(resolvers: Resolver | Resolver[], process: (resolved: any) => void, ...resolverArgs: any[]): void
+    protected resolveAndProcess(resolvers: Resolver | Resolver[], process: (resolved: any[]) => void, ...resolverArgs: any[]): void
     {
         // The server doesn't wait for async code to complete on SSR. The result is scapers and search engines receivng a page without metadata.
         // Using `Zone` this specifically tells the server that it should wait for task completion when metadata is already on the page.
@@ -124,9 +124,9 @@ export abstract class RouteAwareService extends Destroyable
      * @protected
      * @param {(Resolver | Resolver[])} resolvers The resolver(s) to concat.
      * @param {...any[]} resolverArgs (Optional) Any arguments to pass into the resolvers in addition to the component.
-     * @returns {Observable<any>} An array with the concatenated results of the resolvers.
+     * @returns {Observable<any[]>} An array with the concatenated results of the resolvers.
      */
-    protected resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any>
+    protected resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
         if (!resolvers) return of([]);
 
