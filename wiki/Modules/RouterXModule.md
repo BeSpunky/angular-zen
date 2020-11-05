@@ -11,7 +11,7 @@ Use `RouterXModule.forRoot()` to import
 
 | Name                                                                | Description                                                                                                                             | Works Without Module                                  |
 |---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------:|
-| [RouterOutletComponentBus](LINK)                                    | Provides access to the instances of the components activated by router outlets. Used together with [`PublishComponentDirective`](LINK). | [❕](/Modules/RouterXModule/RouterOutletComponentBus) |
+| [RouterOutletComponentBus](LINK)                                    | Provides access to the instances of the components activated by router outlets. Used together with [`PublishComponentDirective`](LINK). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
 | [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService) | Provides to reflect on urls and extract their different parts.                                                                          | ✔                                                    |
 | [RouteAwareService (abstract)](LINK)                                | Simplified the creation of services that work with routes.                                                                              | ✔                                                    |
 
