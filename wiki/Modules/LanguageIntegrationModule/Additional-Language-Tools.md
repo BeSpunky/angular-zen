@@ -21,6 +21,9 @@ An example use case would be localization using sub-domains or host replacement 
 
 See the [`LanguageIntegrationProvider.urlLocalization`](LINK TO CODE) property for complete API and documentation.
 
+# LocalizedRouteAwareService (abstract)
+
+
 # See Also
 [LanguageIntegrationModule](/Modules/LanguageIntegrationModule)
 
