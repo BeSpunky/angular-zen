@@ -53,4 +53,4 @@ export interface UrlLocalizationConfig
  * An injection token for the provided url localization configuration.
  * `LanguageIntegrationModule.forRoot()` facilitates the injection of this token. No need to inject directly.
  */
-export const UrlLocalization = new InjectionToken<UrlLocalizationConfig>('LanguageIntegration.Config');
+export const UrlLocalization = new InjectionToken<UrlLocalizationConfig>('LanguageIntegration.UrlLocalizationConfig');
