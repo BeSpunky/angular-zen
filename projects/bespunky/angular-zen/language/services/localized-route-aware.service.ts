@@ -1,35 +1,52 @@
-// import { Injectable             } from '@angular/core';
-// import { ActivatedRoute, Router } from '@angular/router';
+import { Injectable             } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-// import { RouterOutletComponentService } from '../route-aware/router-outlet-component.service';
-// import { RouteAwareService            } from '../route-aware/route-aware.service';
-// import { LanguageIntegrationService   } from './language-integration.service';
+import { RouteAwareService, RouterOutletComponentBus } from '@bespunky/angular-zen/router-x';
+import { LanguageIntegrationService                  } from './language-integration.service';
 
-// @Injectable()
-// export abstract class LocalizedRouteAwareService extends RouteAwareService
-// {
-//     constructor(
-//         protected language       : LanguageIntegrationService,
-//                   router         : Router,
-//                   route          : ActivatedRoute,
-//                   outletComponent: RouterOutletComponentService
-//     )
-//     {
-//         super(router, route, outletComponent);
+/**
+ * Integrates with the `LanguageIntegrationService` and facilitates language related work in route-aware services.
+ *
+ * @export
+ * @abstract
+ * @class LocalizedRouteAwareService
+ * @extends {RouteAwareService}
+ */
+@Injectable()
+export abstract class LocalizedRouteAwareService extends RouteAwareService
+{
+    /**
+     * Creates an instance of LocalizedRouteAwareService.
+     * 
+     * @param {LanguageIntegrationService} language The instance of the language integration service.
+     * @param {Router} router The instance of Angular's router service.
+     * @param {ActivatedRoute} route The instance of Angular's activated route service.
+     * @param {RouterOutletComponentBus} [componentBus] (Optional) The component bus for router-x functionality.
+     * Provide this when you want your route-aware service to have access to the instance(s) of the activated component(s).
+     */
+    constructor(
+        protected language     : LanguageIntegrationService,
+                  router       : Router,
+                  route        : ActivatedRoute,
+                  componentBus?: RouterOutletComponentBus
+    )
+    {
+        super(router, route, componentBus);
         
-//         if (this.language.enabled) this.initLanguageSupport();
-//     }
+        if (this.language.enabled) this.initLanguageSupport();
+    }
 
-//     private initLanguageSupport(): void
-//     {
-//         this.subscribe(this.language.changed, this.onLanguageChanged.bind(this));
-//     }
+    private initLanguageSupport(): void
+    {
+        this.subscribe(this.language.changed, this.onLanguageChanged.bind(this));
+    }
 
-//     /**
-//      *
-//      * @virtual
-//      * @protected
-//      * @param {*} lang
-//      */
-//     protected onLanguageChanged(lang: string): void { }
-// }
+    /**
+     * Called when the current language used by the integrated app has changed. Override to implement.
+     * 
+     * @virtual
+     * @protected
+     * @param {*} lang The language code of the new language.
+     */
+    protected onLanguageChanged(lang: string): void { }
+}
