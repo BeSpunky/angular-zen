@@ -9,7 +9,7 @@ Recognize this line...?
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(this.onNavigationStart.bind(this));
 ```
 
-Well, say your goodbyes, as `RouteAwareService` automatically dispatches events to their appropriate handler method.
+Well no more... `RouteAwareService` automatically dispatches events to their appropriate handler method.
 Create a handler method named `on<EventType>` for any of [Angular's router events](https://angular.io/guide/router#router-events) and it will receive its calls .
 
 In the following example the service will intercept navigation start and end events, but will let go of any other events:
