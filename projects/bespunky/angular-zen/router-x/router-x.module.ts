@@ -5,10 +5,6 @@ import { RouterXConfig             } from './config/router-x-config';
 import { provideRouterXConfig      } from './config/router-x-config.provider';
 import { PublishComponentDirective } from './outlet/publish-component.directive';
 
-const exported = [
-    PublishComponentDirective
-];
-
 /**
  * Provides services for libraries requiring integration with their user's language services.
  *
@@ -17,8 +13,8 @@ const exported = [
  */
 @NgModule({
     imports     : [CoreModule],
-    declarations: exported,
-    exports     : exported
+    declarations: [PublishComponentDirective],
+    exports     : [PublishComponentDirective]
 })
 export class RouterXModule
 {
