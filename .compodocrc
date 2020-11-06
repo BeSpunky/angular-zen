@@ -5,6 +5,8 @@
 
     "output": "./dist/bespunky/angular-zen/api",
 
+    "includes": "./wiki",
+
     "theme": "material",
 
     "customLogo"   : "./projects/demo/src/assets/logo@0.75x.png",
