@@ -1,4 +1,5 @@
 import { of } from 'rxjs';
+
 import { LanguageIntegrationConfig } from '@bespunky/angular-zen/language';
 
 /** A dummy array of supported languages to use when testing. Includes 'en', 'fr' and 'he'. */
