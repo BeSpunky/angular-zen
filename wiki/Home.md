@@ -27,8 +27,7 @@ You know the feeling... It's late at night and you want to write a class method.
 
 You may use the library as you like, with any app, under the MIT license.
 
-# 📦 The Highlights
-
+# ✨ The Highlights
 
 | [🔲 `WindowRef`](/Modules/CoreModule/WindowRef) | [📄 `DocumentRef`](/Modules/CoreModule/DocumentRef) | [💥`Destroyable`](/Modules/CoreModule/Destroyable-(abstract)) | [😎 `HeadService`](/Modules/CoreModule/HeadService) |
 |:------------------------------------------------:|:----------------------------------------------------:|:--------------------------------------------------------------:|:----------------------------------------------------:|
