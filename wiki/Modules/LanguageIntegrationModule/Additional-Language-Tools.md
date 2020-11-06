@@ -41,7 +41,7 @@ class LocalizedRouteAwareMock extends LocalizedRouteAwareService
 }
 ```
 
-> Consider marking `onLanguageChanged()` as protected, as it is usually intended for internal class use.
+> Consider marking `onLanguageChanged()` as `protected`, as it is usually intended for internal class use.
 
 ## Route-aware and destroyable
 A `LocalizedRouteAwareService` is by definiton a [`RouteAwareService`](/Modules/RouterXModule/RouteAwareService-\(abstract\)), which is also [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)).
