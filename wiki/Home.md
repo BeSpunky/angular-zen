@@ -39,9 +39,9 @@ You may use the library as you like, with any app, under the MIT license.
 |:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
 | Programmatically load scripts and styles.                        | Prevent element rendering in Universal with directives.                             | Hook your library with your user's language services.                 | Break urls to their parts.                                                                                      |
 
-| [🚌 `RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus) | [🔀 `RouteAwareService`](/Modules/RouterXModule/RouteAwareService-\(abstract\)) |
-|:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
-| Access outlet activated components instantaniously.                               | Create route aware services with ease.                                           |
+| [🚌 `RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus) | [🔀 `RouteAwareService`](/Modules/RouterXModule/RouteAwareService-\(abstract\)) | [🗣 `LocalizedRouteAwareService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAwareService-\(abstract\)) |
+|:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
+| Access outlet activated components instantaneously.                               | Create route aware services with ease.                                           | Create route aware services with language integration.                                                                                  |
 
 # Versions
 The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10. 
