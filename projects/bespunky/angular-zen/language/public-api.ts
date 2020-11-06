@@ -5,7 +5,7 @@ export * from './config/language-integration-types';
 export * from './config/language-integration.provider';
 
 export * from './services/language-integration.service';
-// export * from './services/localized-route-aware.service';
+export * from './services/localized-route-aware.service';
 
 export * from './url-localization/config/url-localization-config';
 export * from './url-localization/config/url-localization.provider';
