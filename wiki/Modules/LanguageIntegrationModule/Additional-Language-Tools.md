@@ -22,7 +22,7 @@ An example use case would be localization using sub-domains or host replacement 
 See the [`LanguageIntegrationProvider.urlLocalization`](LINK TO CODE) property for complete API and documentation.
 
 # LocalizedRouteAwareService (abstract)
-Acting as a base class for services, facilitates boostrapping for services requiring both route-awareness and language-awareness.
+Acting as a base class for services, this class facilitates boostrapping for services requiring both route and language awareness.
 
 Extend this service and override the `onLanguageChanged()` method to get notified when the integrated app changes its current language:
 ```typescript
