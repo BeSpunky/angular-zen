@@ -19,7 +19,7 @@ There are 3 built-in localizers:
 You can also set a factory or class provider to implement your own localization strategy.
 An example use case would be localization using sub-domains or host replacement for different languages.
 
-See the [`LanguageIntegrationProvider.urlLocalization`](LINK TO CODE) property for complete API and documentation.
+See the [`UrlLocalizationConfig`](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Furl-localization%2Fconfig%2Furl-localization-config.ts&version=GBmaster&line=23&lineEnd=51&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents) property for complete API and documentation.
 
 # LocalizedRouteAwareService (abstract)
 Acting as a base class for services, this class facilitates boostrapping for services requiring both route and language awareness.
