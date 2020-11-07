@@ -1,4 +1,4 @@
-# [LanguageIntegrationService]
+# [LanguageIntegrationService](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Fservices%2Flanguage-integration.service.ts&version=GBmaster&line=8&lineEnd=219&lineStartColumn=1&lineEndColumn=2&lineStyle=plain&_a=contents)
 
 Your bridge to the language services of your user's app is the `LanguageIntegrationService`. Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
 
@@ -66,7 +66,7 @@ To force integration, the constructor in the above example could be changed as f
     }
 ```
 
-[See full API](LINK TO CODE)
+[See full API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Fservices%2Flanguage-integration.service.ts&version=GBmaster&line=8&lineEnd=219&lineStartColumn=1&lineEndColumn=2&lineStyle=plain&_a=contents)
 
 # Next Steps
 [Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
