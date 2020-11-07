@@ -2,8 +2,8 @@ import { from, InteropObservable, Observable, of                     } from 'rxj
 import { concatAll, finalize, toArray                                } from 'rxjs/operators';
 import { Injectable                                                  } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
-import { Destroyable                                                 } from '@bespunky/angular-zen/core';
 
+import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from '../outlet/router-outlet-component-bus.service';
 
 declare const Zone: any;

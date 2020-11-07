@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { CoreModule                } from '@bespunky/angular-zen/core';
-import { RouterXConfig        } from './config/router-x-config';
-import { provideRouterXConfig       } from './config/router-x-config.provider';
+import { RouterXConfig             } from './config/router-x-config';
+import { provideRouterXConfig      } from './config/router-x-config.provider';
 import { PublishComponentDirective } from './outlet/publish-component.directive';
 
 const exported = [

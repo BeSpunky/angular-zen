@@ -1,5 +1,5 @@
-import { Inject, Injectable, Optional     } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { ActivatedRoute, Router       } from '@angular/router';
 
 import { DocumentRef   } from '@bespunky/angular-zen/core';
 import { RouterXConfig } from '../config/router-x-config';
