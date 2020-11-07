@@ -21,7 +21,7 @@ export class CoolComponent
 }
 ```
 
-# Why the service?
+# `TLDR` Why the service?
 Before `@bespunky/angular-zen`, the way to check what platform the app is running on was to inject `PLATFORM_ID` and pass it to the `isPlatformXXX()` function:
 
 ```typescript
