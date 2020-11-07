@@ -53,7 +53,7 @@ In SSR, the server doesn't wait for async code to complete. The result is scrape
 
 Use `resolveInMacroTask()` to have your server block and wait for resolves before rendering.
 
-[More Info](API)
+[More Info](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Fservices%2Froute-aware.service.ts&version=GBmaster&line=119&lineEnd=140&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents)
 
 # Deep Route Scan
 Use `deepScanRoute()` to recursively run a function on the complete route tree.
