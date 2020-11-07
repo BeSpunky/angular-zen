@@ -19,7 +19,7 @@ The service is intended to be managed by the [`PublishComponentDirective`](/Modu
 
 3. Inject `RouterOutletComponentBus` into your service/component and use the `instance()` or `changes()` methods.
 
-[See complete API](API)
+[See complete API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Foutlet%2Frouter-outlet-component-bus.service.ts&version=GBmaster&_a=contents)
 
 # How does it work?
 Internally, `RouterOutletComponentBus` keeps a map of `outlet name -> component instance`.  
