@@ -1,5 +1,5 @@
 # Platform Directives
-When you need to control platform specific rendering in your tempalte, you can use the appropriate platform directive.
+When you need to control platform specific rendering in your template, you can use the appropriate platform directive.
 Platform directives provide you with an easy way of preventing rendering of specific elements, without injecting anything into your component.
 
 # Supported Platform Directives
