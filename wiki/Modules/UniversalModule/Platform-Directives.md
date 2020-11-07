@@ -17,12 +17,11 @@ Platform directives provide you with an easy way of preventing rendering of spec
 # Usage
 Import the `UniversalModule` and place the directives in your template.
 
-The supported directives may be added to any element or component in your template. For example:
+The supported directives may be added to any element or component in your template.  
+The following example will only render the `<div>` element on browser platforms:
 ```html
 <div class="heavy-data-list" *browserOnly>...</div>
 ```
-
-Will only render the `<div>` element on browser platforms.
 
 > Remember: These directives are structural directives. If you need to control the rendering of an element which already has an asterisk directive (*ngIf, *ngFor, etc.)  you will need to wrap your element with an `<ng-container>` and place the directive on the container:
 > ```html
