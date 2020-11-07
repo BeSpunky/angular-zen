@@ -22,7 +22,7 @@ export class CoolComponent
 ```
 
 # Why the service?
-Currently, the way to check it in Angular is to inject `PLATFORM_ID` and pass it to the `isPlatformXXX()` function, like so:
+Before `@bespunky/angular-zen`, the way to check what platform the app is running on was to inject `PLATFORM_ID` and pass it to the `isPlatformXXX()` function:
 
 ```typescript
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
