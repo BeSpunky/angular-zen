@@ -15,9 +15,9 @@
 <p align="center" style="font-size: medium">The Angular tools you always wished were there.</p>
 
 <p align="center" style="font-size: medium; margin: 20px auto">
-    ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/131/Getting-Started">Getting Started</a> |
+    ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=Getting-Started">Getting Started</a> |
     🙌 <a href="https://bs-angular-zen-demo.web.app/">Live Demo</a> |
-    🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/132/Modules">What's in the library?</a>
+    🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=Modules">What's in the library?</a>
 </p>
 
 You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
@@ -29,16 +29,16 @@ You may use the library as you like, with any app, under the MIT license.
 
 # ✨ The Highlights
 
-| [🔲 `WindowRef`](/Modules/CoreModule/WindowRef) | [📄 `DocumentRef`](/Modules/CoreModule/DocumentRef) | [💥`Destroyable`](/Modules/CoreModule/Destroyable-(abstract)) | [😎 `HeadService`](/Modules/CoreModule/HeadService) |
+| [🔲 `WindowRef`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/WindowRef) | [📄 `DocumentRef`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/DocumentRef) | [💥`Destroyable`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/Destroyable-(abstract)) | [😎 `HeadService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/HeadService) |
 |:------------------------------------------------:|:----------------------------------------------------:|:--------------------------------------------------------------:|:----------------------------------------------------:|
 | The safe way to access the `window` object.      | The safe way to access the `document` object         | No more manual `unsubscribe()` calls.                          | Cleanly access and manipulate the head element.      |
 
 
-| [⏳ `LazyLoaderService`](/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](/Modules/UniversalModule/Platform-Directives) | [⚙ `LanguageIntegrationService`](/Modules/LanguageIntegrationModule) | [🔗 `UrlReflectionService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
+| [⏳ `LazyLoaderService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/UniversalModule/Platform-Directives) | [⚙ `LanguageIntegrationService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule) | [🔗 `UrlReflectionService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
 |:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
 | Programmatically load scripts and styles.                        | Prevent element rendering in Universal with directives.                             | Hook your library with your user's language services.                 | Break urls to their parts.                                                                                      |
 
-| [🚌 `RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus) | [🔀 `RouteAwareService`](/Modules/RouterXModule/RouteAwareService-\(abstract\)) | [🗣 `LocalizedRouteAwareService`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAwareService-\(abstract\)) |
+| [🚌 `RouterOutletComponentBus`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/RouterXModule/RouterOutletComponentBus) | [🔀 `RouteAwareService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/RouterXModule/RouteAwareService-\(abstract\)) | [🗣 `LocalizedRouteAwareService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAwareService-\(abstract\)) |
 |:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
 | Access outlet activated components instantaneously.                               | Create route aware services with ease.                                           | Create route aware services with language integration.                                                                                  |
 

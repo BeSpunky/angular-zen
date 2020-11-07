@@ -12,31 +12,35 @@
 </p>
 
 <p align="center" style="font-size: x-large">@bespunky/angular-zen</p>
-<p align="center" style="font-size: medium">Helps you focus on what you really need to do.</p>
+<p align="center" style="font-size: medium">The Angular tools you always wished were there.</p>
 
 <p align="center" style="font-size: medium; margin: 20px auto">
-    ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/131/Getting-Started">Getting Started</a> |
+    ✨ <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=Getting-Started">Getting Started</a> |
     🙌 <a href="https://bs-angular-zen-demo.web.app/">Live Demo</a> |
-    🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen/132/Modules">What's in the library?</a>
+    🎁 <a href="https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=Modules">What's in the library?</a>
 </p>
 
-You probably know the feeling... It's late at night and you simply want to do something, say writing a class method, then you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
+You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
 
-`@bespunky/angular-zen` takes away the pain of common Angular related implementations many of us have already encountered, by providing a set of **🌳 tree-shakable** general purpose tools which, IMHO, should probably be incorporated into the framework itself... Well, at least some of them...
+# 🧘‍♂️ Enter Zen...
+`@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow. These tools are all **🌳 tree-shakable**.
 
 You may use the library as you like, with any app, under the MIT license.
 
-# 🧘‍♂️ Zen
-As the name implies, these are well meditated tools to help you keep focused and stay in control of your workflow.
+# ✨ The Highlights
 
-# 📦 Meet Our Friends
-`@bespunky/angular-zen` exports the following modules:
+| [🔲 `WindowRef`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/WindowRef) | [📄 `DocumentRef`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/DocumentRef) | [💥`Destroyable`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/Destroyable-(abstract)) | [😎 `HeadService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/CoreModule/HeadService) |
+|:------------------------------------------------:|:----------------------------------------------------:|:--------------------------------------------------------------:|:----------------------------------------------------:|
+| The safe way to access the `window` object.      | The safe way to access the `document` object         | No more manual `unsubscribe()` calls.                          | Cleanly access and manipulate the head element.      |
 
-| Name | Description |
-| ---  | ---         |
-| [`CoreModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FCoreModule&wikiVersion=GBmaster) | Contains general tools that normally serve for infrastructure code. |
-| [`AsyncModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FAsyncModule&wikiVersion=GBmaster) | Contains tools for handling dynamic and async situations on the page.    |
-| [`UniversalModule`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=%2FModules%2FUniversalModule&wikiVersion=GBmaster) | Contains tools for working easily with Angular Universal and SSR |
+
+| [⏳ `LazyLoaderService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/AsyncModule/LazyLoaderService) | [🌎 `Universal Platform Directives`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/UniversalModule/Platform-Directives) | [⚙ `LanguageIntegrationService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule) | [🔗 `UrlReflectionService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule/Additional-Language-Tools#UrlReflectionService) |
+|:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
+| Programmatically load scripts and styles.                        | Prevent element rendering in Universal with directives.                             | Hook your library with your user's language services.                 | Break urls to their parts.                                                                                      |
+
+| [🚌 `RouterOutletComponentBus`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/RouterXModule/RouterOutletComponentBus) | [🔀 `RouteAwareService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/RouterXModule/RouteAwareService-\(abstract\)) | [🗣 `LocalizedRouteAwareService`](https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen?pagePath=/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAwareService-\(abstract\)) |
+|:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
+| Access outlet activated components instantaneously.                               | Create route aware services with ease.                                           | Create route aware services with language integration.                                                                                  |
 
 # Versions
 The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10. 
@@ -47,12 +51,12 @@ Unfortunately, Azure DevOps doesn't support issue collection. I'm considering mo
 In the meantime, any issues or requests can be sent to [us@bespunky.io](mailto:us@bespunky.io?subject=@bespunky/angular-zen).
 
 # Other Packages by [`@bespunky`](https://www.npmjs.com/~bespunky)
-[`@bespunky/angular-google-maps`](https://www.npmjs.com/package/@bespunky/angular-google-maps)
 
-# Coming Soon
-🚧 `@bespunky/angular-zen-ux` will help you with simple UX tasks.
+📦 [`@bespunky/angular-google-maps`](https://www.npmjs.com/package/@bespunky/angular-google-maps)
 
-🚧 `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
+🚧 (soon) `@bespunky/angular-zen-ux` will help you with simple UX tasks.
+
+🚧 (soon) `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
 
 # References
 [Source Code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen)
