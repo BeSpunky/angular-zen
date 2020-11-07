@@ -49,3 +49,6 @@ I've always found this to be tedious to write and frustrating to read.
 ## Other considerations
 * The service also provides the same functionality for server/worker app/worker ui platforms.
 * The service is now scaleable and extendable.
+
+# See Also
+[ Platform Directives ](/Modules/UniversalModule/Platform-Directives)
