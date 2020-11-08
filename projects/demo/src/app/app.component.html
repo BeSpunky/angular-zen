@@ -3,9 +3,9 @@
         <span class="margin-top-10"><img [src]="'assets/' + project.name + '/logo-icon64x64.png'" width="30"/></span>
         <a mat-button [routerLink]="['/', project.name]" [matTooltip]="project.strongName + '\'s Homepage'">{{project.strongName}}</a>
         <span fxFlex></span>
-        <a mat-icon-button [href]="project.wikiUrl"    matTooltip="Go to wiki" target="_blank">Docs</a>
-        <a mat-icon-button [href]="project.repoUrl"    matTooltip="Go to repository" target="_blank"><mat-icon>code</mat-icon></a>
-        <a mat-icon-button [href]="project.packageUrl" matTooltip="Go to npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
+        <a mat-icon-button [href]="project.wikiUrl"    matTooltip="Wiki"        target="_blank">Docs</a>
+        <a mat-icon-button [href]="project.repoUrl"    matTooltip="Repository"  target="_blank"><mat-icon>code</mat-icon></a>
+        <a mat-icon-button [href]="project.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
     </ng-container>
 </mat-toolbar>
 <router-outlet></router-outlet>
