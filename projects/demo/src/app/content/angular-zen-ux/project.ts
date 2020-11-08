@@ -22,7 +22,6 @@ export const ZenUxProject: Project = {
     benefitsSlogan: 'Helps you focus on what you really need to do.',
     benefits      : ZenUxBenefits,
     examplesTopics: ZenUxTopics,
-    // linkedProjects: [ZenProject, ZenSeoProject],
     linkedProjects: [],
     wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen-seo',
     repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
