@@ -24,5 +24,6 @@ export const ZenProject: Project = {
     linkedProjects: [ZenUxProject, ZenSeoProject],
     wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen',
     repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
+    packageUrl    : 'https://www.npmjs.com/package/@bespunky/angular-zen',
     credits       : ZenCredits
 };

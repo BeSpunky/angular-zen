@@ -13,5 +13,6 @@ export interface Project
     linkedProjects: Project[];
     wikiUrl       : string;
     repoUrl       : string;
+    packageUrl    : string;
     credits       : Credit[];
 }
