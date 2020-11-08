@@ -15,4 +15,5 @@ export interface Project
     repoUrl       : string;
     packageUrl    : string;
     credits       : Credit[];
+    soon?         : boolean;
 }

@@ -11,8 +11,9 @@
 
     <div class="margin-top-30 text-center" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" *ngIf="project.linkedProjects.length">
         <a mat-raised-button *ngFor="let linkedProject of project.linkedProjects"
-                             [routerLink]="['/', linkedProject.name]"
                              class="project-link"
+                             [routerLink]="['/', linkedProject.name]"
+                             [class.soon]="linkedProject.soon"
         >
             <img [src]="'assets/' + linkedProject.name + '/logo64x64.png'"/>
         </a>

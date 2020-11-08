@@ -15,6 +15,14 @@
     padding: 10px 25px !important;
 }
 
+.project-link.soon::before {
+    content       : '🚧 Soon';
+    padding-top   : 0;
+    padding-bottom: 0;
+    top           : -12px;
+    right         : -15px;
+}
+
 .demos {
     background: rgba(0, 0, 0, 0.14);
 }
