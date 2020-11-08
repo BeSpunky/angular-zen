@@ -1,6 +1,4 @@
 import { Project      } from '../../types/project';
-import { ZenProject   } from '../angular-zen/project';
-import { ZenUxProject } from '../angular-zen-ux/project';
 import { ZenSeoTopics } from './examples/all';
 
 export const ZenSeoBenefits = [

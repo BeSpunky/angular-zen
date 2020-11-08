@@ -1,7 +1,5 @@
-import { Project       } from '../../types/project';
-import { ZenProject    } from '../angular-zen/project';
-import { ZenSeoProject } from '../angular-zen-seo/project';
-import { ZenUxTopics   } from './examples/all';
+import { Project     } from '../../types/project';
+import { ZenUxTopics } from './examples/all';
 
 export const ZenUxBenefits = [
     { title: 'Plug & Play',             emoji: '🔌', description: 'Easy to use. The intuitive library structure and its API provide for maximum power with minimum effort and learning curve.' },
