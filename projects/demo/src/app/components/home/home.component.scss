@@ -20,7 +20,9 @@
     padding-top   : 0;
     padding-bottom: 0;
     top           : -12px;
-    right         : -15px;
+    right         : initial;
+    left          : -10px;
+    transform     : rotate(-7deg);
 }
 
 .demos {
