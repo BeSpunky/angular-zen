@@ -78,7 +78,7 @@ export abstract class RouteAware extends Destroyable
 
         if (autoUnsubscribe) observable = observable.pipe(takeUntil(this.destroyed));
         
-        return observable.pipe(filter(event => (event as Object).constructor.prototype === eventType)) as Observable<TEvent>;
+        return observable.pipe(filter(event => (event as Object).constructor === eventType)) as Observable<TEvent>;
     }
 
     /**
