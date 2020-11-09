@@ -1,5 +1,5 @@
 import { Benefit } from '../types/benefit';
-import { Credit } from '../types/credit';
+import { Credit  } from '../types/credit';
 import { Topic   } from './topic';
 
 export interface Project
@@ -16,4 +16,11 @@ export interface Project
     packageUrl    : string;
     credits       : Credit[];
     soon?         : boolean;
+}
+
+export function isProject(value: Object): value is Project
+{
+    const expectedProps: (keyof Project)[] = ['name', 'strongName', 'slogan', 'benefits', 'benefitsSlogan'];
+
+    return expectedProps.every(name => name in value);
 }

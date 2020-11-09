@@ -1,29 +1,30 @@
-import { Observable                                                    } from 'rxjs';
-import { filter, map                                                   } from 'rxjs/operators';
-import { Component,                                                    } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
+import { Component         } from '@angular/core';
+import { NavigationEnd     } from '@angular/router';
+import { RouteAwareService } from '@bespunky/angular-zen/router-x';
 
-import { Project } from './types/project';
+import { isProject, Project } from './types/project';
 
 @Component({
     selector   : 'demo-root',
     templateUrl: './app.component.html',
     styleUrls  : ['./app.component.scss']
 })
-export class AppComponent
+export class AppComponent extends RouteAwareService
 {
-    public project$: Observable<Project>;
+    public project: Project;
 
-    constructor(private router: Router, private route: ActivatedRoute)
+    protected onNavigationEnd(event: NavigationEnd): void
     {
-        this.project$ = this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd),
-            map(_ => this.extractProject(this.route.snapshot))
-        );
+        this.extractProject();
     }
-
-    private extractProject(route: ActivatedRouteSnapshot): Project
+    
+    private extractProject(): void
     {
-        return Object.keys(route.data).length ? route.data as Project : this.extractProject(route.firstChild);
+        // The root '/' path will have the project as data
+        let projectRoute = this.route.snapshot.root.firstChild;
+        // If this is not the root path (i.e. this is a specific project route like /angular-zen-ux) dive one level deeper to extract the project
+        if (!isProject(projectRoute.data)) projectRoute = projectRoute.firstChild;
+
+        this.project = projectRoute.data as Project;
     }
 }
