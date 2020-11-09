@@ -1,14 +1,17 @@
 import { NgModule             } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
 import { ZenProjects   } from './content/all';
-import { ZenProject    } from './content/angular-zen/project';
-import { project       } from './utils/route-builders';
+import { project, childProject       } from './utils/route-builders';
+
+const [MainZenProject, ...ChildZenProjects] = ZenProjects;
 
 const routes: Routes = [
-    { path: '', component: HomeComponent, data: ZenProject },
-    ...ZenProjects.map(project),
+    // Main zen project at root path along with its topics as root paths (i.e. / + /Core Module + /Async Module ...)
+    ...project(MainZenProject),
+    // Child zen projects as project path (e.g. /angular-zen-ux...)
+    ...ChildZenProjects.map(childProject),
+    // Anything else go to main zen project homepage
     { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 

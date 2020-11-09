@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
-    <ng-container *ngIf="project">
+    <ng-container *ngIf="(project.current | async); let project">
         <span class="margin-top-10"><img [src]="'assets/' + project.name + '/logo-icon64x64.png'" width="30"/></span>
         <a mat-button [routerLink]="['/', project.name]" [matTooltip]="project.strongName + '\'s Homepage'">{{project.strongName}}</a>
         <span fxFlex></span>

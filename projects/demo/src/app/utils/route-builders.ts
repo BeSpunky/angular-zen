@@ -7,20 +7,28 @@ import { Topic            } from '../types/topic';
 import { Example          } from '../types/example';
 import { Project          } from '../types/project';
 
-export function project(data: Project): Route
+
+export function project(data: Project): Route[]
+{
+    // Will render the home page for root route (/)
+    // Will have sibling routes for all topics (/<topic name>)
+    return [
+        {
+            path: '',
+            component: HomeComponent,
+            data
+        },
+        ...data.examplesTopics.map(topic)
+    ];
+}
+
+export function childProject(data: Project): Route
 {
     // Every project will render the home page for its base route (/<project name>)
     // Every project will have child routes for all topics (/<project name>/<topic name>)
     return {
-        path: data.name,
-        children: [
-            {
-                path: '',
-                component: HomeComponent,
-                data
-            },
-            ...data.examplesTopics.map(topic)
-        ]
+        path    : data.name,
+        children: project(data)
     };
 }
 
