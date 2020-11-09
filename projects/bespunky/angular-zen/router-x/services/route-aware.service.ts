@@ -1,6 +1,6 @@
 import { from, InteropObservable, Observable, of                     } from 'rxjs';
-import { concatAll, finalize, toArray                                } from 'rxjs/operators';
-import { Injectable                                                  } from '@angular/core';
+import { concatAll, filter, finalize, takeUntil, toArray             } from 'rxjs/operators';
+import { Directive, Type                                             } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
@@ -12,7 +12,7 @@ declare const Zone: any;
 export type Resolver = (component: any, ...resolverArgs: any[]) => Observable<any> | InteropObservable<any> | Promise<any>;
 
 /**
- * The prefix of the id generated for zone macro tasks when calling `RouteAwareService.resolveInMacroTask()`.
+ * The prefix of the id generated for zone macro tasks when calling `RouteAware.resolveInMacroTask()`.
  * 
  * Generated ids will confrom to a `{prefix}-{random number}` format.
  */
@@ -23,14 +23,14 @@ export const ResolverMacroTaskIdPrefix = 'route-aware-resolver';
  *
  * @export
  * @abstract
- * @class RouteAwareService
+ * @class RouteAware
  * @extends {Destroyable}
  */
-@Injectable()
-export abstract class RouteAwareService extends Destroyable
+@Directive() // Decorated as directive so it can also be inherited by components. When using Injectable, angular fails to load an extending component.
+export abstract class RouteAware extends Destroyable
 {
     /**
-     * Creates an instance of RouteAwareService.
+     * Creates an instance of RouteAware.
      * 
      * @param {Router} router The instance of Angular's router service.
      * @param {ActivatedRoute} route The instance of Angular's active route service.
@@ -64,14 +64,34 @@ export abstract class RouteAwareService extends Destroyable
     }
 
     /**
+     * Creates an observable that emits only the specified router events and is automatically destroyed when the service/component is destroyed.
+     *
+     * @protected
+     * @template TEvent The type of router event to emit.
+     * @param {Type<TEvent>} eventType The type of router event to emit.
+     * @param {boolean} [autoUnsubscribe=true] (Optional) `true` to make the observable complete when the service/component is destroyed; otherwise `false`. Default is `true`.
+     * @returns {Observable<TEvent>}
+     */
+    protected observeRouterEvent<TEvent extends RouterEvent>(eventType: Type<TEvent>, autoUnsubscribe: boolean = true): Observable<TEvent>
+    {
+        let observable = this.router.events;
+
+        if (autoUnsubscribe) observable = observable.pipe(takeUntil(this.destroyed));
+        
+        return observable.pipe(filter(event => (event as Object).constructor.prototype === eventType)) as Observable<TEvent>;
+    }
+
+    /**
      * Recoursively runs a processing function on the route and its children.
      * Scan is done from parent to child, meaning the parent is the first to process.
      *
      * @protected
      * @param {ActivatedRouteSnapshot} route The top route on which to apply the processing function.
-     * @param {(route: ActivatedRouteSnapshot, component: any) => void} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
+     * @param {(route: ActivatedRouteSnapshot, component: any) => boolean | undefined} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
      * and a `component` argument which reflects the component that was loaded for the route's outlet.
      * If the corresponding outlet wasn't marked with the `publishComponent` directive, the `component` argument will be null.
+     * 
+     * Returning `true` from the process function is equal to saying 'work has completed' and will stop propogation to the route's children.
      * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree. By default, scans all levels of the route tree.
      * 
      * @example
@@ -83,14 +103,14 @@ export abstract class RouteAwareService extends Destroyable
      * this.deepScanRoute(route, process, 1);
      * ```
      */
-    protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => void, levels: number = -1): void
+    protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => boolean | undefined, levels: number = -1): void
     {
-        process(route, this.componentBus?.instance(route.outlet));
+        // Make sure the caller wants scan to proceed, then make sure level limit wasn't reached.
+        const processingConcluded = process(route, this.componentBus?.instance(route.outlet));
+        // Negative values will scan all, positives will scan until reaching zero.
+        const shouldScanChildren  = !processingConcluded && levels !== 0;
 
-        // Negative values will scan all, positives will scan until reaching zero
-        const shouldScanNextLevel = levels !== 0;
-
-        if (shouldScanNextLevel && route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process, levels - 1));
+        if (shouldScanChildren && route.children) route.children.forEach(childRoute => this.deepScanRoute(childRoute, process, levels - 1));
     }
     
     /**
