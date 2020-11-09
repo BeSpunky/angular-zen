@@ -1,3 +1,3 @@
 UrlReflectionService
 RouterOutletComponentBus
-RouteAwareService-(abstract)
+RouteAware-(abstract)

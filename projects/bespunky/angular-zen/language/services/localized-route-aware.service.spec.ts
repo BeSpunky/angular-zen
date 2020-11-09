@@ -3,13 +3,11 @@ import { TestBed             } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Injectable          } from '@angular/core';
 
-import { LanguageConfig             } from '@bespunky/angular-zen/language/testing';
-// import { LanguageIntegrationModule  } from '../language-integration.module';
-// import { LocalizedRouteAwareService } from './localized-route-aware.service';
+import { LanguageConfig            } from '@bespunky/angular-zen/language/testing';
+import { LanguageIntegrationModule } from '../language-integration.module';
+import { LocalizedRouteAware       } from './localized-route-aware.service';
 
-import { LanguageIntegrationModule, LocalizedRouteAwareService } from '@bespunky/angular-zen/language';
-
-describe('LocalizedRouteAwareService (abstract)', () =>
+describe('LocalizedRouteAware (abstract)', () =>
 {
     let service        : LocalizedRouteAwareMock;
     let languageChanged: Subject<string>;
@@ -57,7 +55,7 @@ describe('LocalizedRouteAwareService (abstract)', () =>
 });
 
 @Injectable({ providedIn: 'root' })
-class LocalizedRouteAwareMock extends LocalizedRouteAwareService
+class LocalizedRouteAwareMock extends LocalizedRouteAware
 {
     /**
      * For some reason, calling spyOn(service, 'onLanguageChanged') results in an unusable spy.

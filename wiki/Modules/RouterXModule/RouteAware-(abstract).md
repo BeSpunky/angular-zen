@@ -1,7 +1,7 @@
-Acting as a base class, this service creates a layer between the router and your app to help facilitate route related tasks.
+Acting as a base class for services services and components, this class creates a layer between the router and your app to help facilitate route related tasks.
 
 # Destroyable
-The service is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
+The class is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
 
 # Events Dispatcher
 Recognize this line...?
@@ -9,7 +9,7 @@ Recognize this line...?
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(this.onNavigationStart.bind(this));
 ```
 
-Well no more... `RouteAwareService` automatically dispatches events to their appropriate handler method.
+Well no more... `RouteAware` automatically dispatches events to their appropriate handler method.
 Create a handler method named `on<EventType>` for any of [Angular's router events](https://angular.io/guide/router#router-events) and it will receive its calls .
 
 In the following example the service will intercept navigation start and end events, but will let go of any other events:
@@ -17,10 +17,10 @@ In the following example the service will intercept navigation start and end eve
 ```typescript
 import { Injectable                     } from '@angular/core';
 import { NavigationStart, NavigationEnd } from '@angular/router';
-import { RouteAwareService              } from '@bespunky/angular-zen/router-x';
+import { RouteAware                     } from '@bespunky/angular-zen/router-x';
 
 @Injectable({ providedIn: 'root' })
-class MyService extends RouteAwareService
+class MyService extends RouteAware
 {
     // Bonus: No constructor. Will default to base constructor.
 
