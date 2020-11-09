@@ -1,11 +1,11 @@
 import { Route } from '@angular/router'
 
+import { HomeComponent    } from '../components/home/home.component';
 import { TopicComponent   } from '../components/topic/topic.component';
 import { ExampleComponent } from '../components/example/example.component';
 import { Topic            } from '../types/topic';
 import { Example          } from '../types/example';
-import { Project } from '../types/project';
-import { HomeComponent } from '../components/home/home.component';
+import { Project          } from '../types/project';
 
 export function project(data: Project): Route
 {
