@@ -60,7 +60,7 @@ export abstract class RouteAwareService extends Destroyable
         const type   = (event as Object).constructor.name;
         const handle = this[`on${type}`];
 
-        if (handle) handle(event);
+        if (handle) handle.call(this, event);
     }
 
     /**
