@@ -7,7 +7,7 @@ export const ZenBenefits = [
     { title: 'Fastar Scaffolding',         emoji: '🏗', description: 'Create services and components quicker.' },
     { title: 'Worry Less',                 emoji: '🥳', description: 'Well tested infrustructural tools give you deeper control with no need to dive deep yourself.' },
     { title: 'Angular Universal Tools',    emoji: '🌎', description: 'Services and directives facilitate with SSR.' },
-    { title: 'Router Extensions',          emoji: '🔀', description: 'Improved routing tools experience.' },
+    { title: 'Router Extensions',          emoji: '🔀', description: 'Improved experience when working with routes.' },
     { title: 'Language Integration Tools', emoji: '🗣', description: 'Quickly add and standardize language support to your libraries.' },
     { title: 'Open-source!',               emoji: '🤩', description: 'Learn how it works! Contribute! Fork it! Make it your own!' }
 ];
