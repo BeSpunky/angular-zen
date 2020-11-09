@@ -22,7 +22,7 @@ export class AppComponent extends RouteAwareService
     {
         // The root '/' path will have the project as data
         let projectRoute = this.route.snapshot.root.firstChild;
-        // If this is not the root path (i.e. this is a specific project route like /angular-zen-ux) dive one level deeper to extract the project
+        // If this is not the root path (i.e. this is a specific project route like '/angular-zen-ux...') dive one level deeper to extract the project
         if (!isProject(projectRoute.data)) projectRoute = projectRoute.firstChild;
 
         this.project = projectRoute.data as Project;
