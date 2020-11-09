@@ -1,6 +1,6 @@
 import { Component         } from '@angular/core';
 import { NavigationEnd     } from '@angular/router';
-import { RouteAwareService } from '@bespunky/angular-zen/router-x';
+import { RouteAware        } from '@bespunky/angular-zen/router-x';
 
 import { isProject, Project } from './types/project';
 
@@ -9,7 +9,7 @@ import { isProject, Project } from './types/project';
     templateUrl: './app.component.html',
     styleUrls  : ['./app.component.scss']
 })
-export class AppComponent extends RouteAwareService
+export class AppComponent extends RouteAware
 {
     public project: Project;
 
