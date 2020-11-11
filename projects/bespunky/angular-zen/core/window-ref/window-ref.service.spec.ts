@@ -81,7 +81,6 @@ describe('WindowRef', () =>
 
         beforeEach(() =>
         {
-
             TestBed.configureTestingModule({
                 providers: [
                     { provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID },
