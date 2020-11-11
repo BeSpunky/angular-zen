@@ -2,7 +2,7 @@
 `RouterXModule` integrates with Angular's router to extend its capacities.
 
 # Importing The Module
-Most of the services in the module are independent and will work even when the module is not imported. For better tree-shaking it is prefer importing `RouterXModule` only when specified in the docs.
+Some of the services in the module are independent and will work even when the module is not imported. For better tree-shaking it is prefer importing `RouterXModule` only when specified in the docs.
 
 Use `RouterXModule.forRoot()` when importing in `AppModule`.  
 Use `RouterXModule.forChild()` when importing in child/feature modules.
@@ -11,7 +11,7 @@ Use `RouterXModule.forChild()` when importing in child/feature modules.
 
 | Name                                                                        | Description                                                                                                                                                                     | Module Independent                                               |
 |-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
-| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService)         | Provides to reflect on urls and extract their different parts.                                                                                                                  | ✔                                                               |
+| [UrlReflectionService](/Modules/RouterXModule/UrlReflectionService)         | Provides to reflect on urls and extract their different parts.                                                                                                                  | ❌                                                               |
 | [RouterOutletComponentBus](/Modules/RouterXModule/RouterOutletComponentBus) | Provides access to the instances of components activated by router outlets. Used together with [`PublishComponentDirective`](/Modules/RouterXModule/RouterOutletComponentBus/PublishComponentDirective). | [❕](/Modules/RouterXModule/RouterOutletComponentBus#How-to-use) |
 | [RouteAwareService (abstract)](/Modules/RouterXModule/RouteAwareService-(abstract))                                        | Simplified the creation of services that work with routes.                                                                                                                      | ✔                                                               |
 
