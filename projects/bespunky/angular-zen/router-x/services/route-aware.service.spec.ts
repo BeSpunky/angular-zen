@@ -7,11 +7,11 @@ import { Router, ActivatedRoute, NavigationEnd, NavigationStart, ActivatedRouteS
 import { forceRoutingInsideAngularZone                                        } from '@bespunky/angular-zen/core/testing';
 import { createDeeplyNestedRoutes, DeepRouteSegments, DeepRouteSegmentsNoRoot } from '@bespunky/angular-zen/router-x/testing';
 import { RouterOutletComponentBus                                             } from '../outlet/router-outlet-component-bus.service';
-import { Resolver, ResolverMacroTaskIdPrefix, RouteAwareService               } from './route-aware.service';
+import { Resolver, ResolverMacroTaskIdPrefix, RouteAware                      } from './route-aware.service';
 
 declare const Zone: any;
 
-describe('RouteAwareService (abstract)', () =>
+describe('RouteAware (abstract)', () =>
 {
     let service: RouteAwareMock;
     let router : Router;
@@ -320,7 +320,7 @@ describe('RouteAwareService (abstract)', () =>
 });
 
 @Injectable({ providedIn: 'root' })
-class RouteAwareMock extends RouteAwareService
+class RouteAwareMock extends RouteAware
 {
     onNavigationStart(event: NavigationStart): void { }
     

@@ -1,4 +1,11 @@
-<h1>Angular-Zen Demo</h1>
-<zen-core-demo></zen-core-demo>
-<zen-async-demo></zen-async-demo>
-<zen-universal-demo></zen-universal-demo>
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+    <ng-container *ngIf="(project.current | async); let currentProject">
+        <span class="margin-top-10"><img [src]="'assets/' + currentProject.name + '/logo-icon64x64.png'" width="30"/></span>
+        <a mat-button [routerLink]="['/', currentProject.name]" [matTooltip]="currentProject.strongName + '\'s Homepage'">{{currentProject.strongName}}</a>
+        <span fxFlex></span>
+        <a mat-icon-button [href]="currentProject.wikiUrl"    matTooltip="Wiki"        target="_blank">Docs</a>
+        <a mat-icon-button [href]="currentProject.repoUrl"    matTooltip="Repository"  target="_blank"><mat-icon>code</mat-icon></a>
+        <a mat-icon-button [href]="currentProject.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
+    </ng-container>
+</mat-toolbar>
+<router-outlet></router-outlet>

@@ -1,22 +1,22 @@
 import { Injectable             } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { RouteAwareService, RouterOutletComponentBus } from '@bespunky/angular-zen/router-x';
-import { LanguageIntegrationService                  } from './language-integration.service';
+import { RouteAware, RouterOutletComponentBus } from '@bespunky/angular-zen/router-x';
+import { LanguageIntegrationService           } from './language-integration.service';
 
 /**
  * Integrates with the `LanguageIntegrationService` and facilitates language related work in route-aware services.
  *
  * @export
  * @abstract
- * @class LocalizedRouteAwareService
- * @extends {RouteAwareService}
+ * @class LocalizedRouteAware
+ * @extends {RouteAware}
  */
 @Injectable()
-export abstract class LocalizedRouteAwareService extends RouteAwareService
+export abstract class LocalizedRouteAware extends RouteAware
 {
     /**
-     * Creates an instance of LocalizedRouteAwareService.
+     * Creates an instance of LocalizedRouteAware.
      * 
      * @param {LanguageIntegrationService} language The instance of the language integration service.
      * @param {Router} router The instance of Angular's router service.
