@@ -326,7 +326,7 @@ class RouteAwareMock extends RouteAware
     
     onNavigationEnd(event: NavigationEnd): void { }
 
-    scanRouteSegments(process: (route: ActivatedRouteSnapshot, component: any) => void, levels?: number): void
+    scanRouteSegments(process: (route: ActivatedRouteSnapshot, component: any) => boolean, levels?: number): void
     {
         this.deepScanRoute(this.route.snapshot, process, levels);
     }
