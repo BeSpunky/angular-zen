@@ -103,6 +103,8 @@ export abstract class RouteAware extends Destroyable
      * this.deepScanRoute(route, process, 1);
      * ```
      */
+    protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => boolean  , levels?: number): void;
+    protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => undefined, levels?: number): void;
     protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => boolean | undefined, levels: number = -1): void
     {
         // Make sure the caller wants scan to proceed, then make sure level limit wasn't reached.
