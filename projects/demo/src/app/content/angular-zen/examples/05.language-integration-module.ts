@@ -3,10 +3,16 @@ import { Topic   } from '../../../types/topic';
 
 export const LanguageIntegrationModuleExamples: Example[] = [
     {
-        title      : 'LanguageIntegrationService',
-        description: 'Accessing your user\'s language services.',
-        icon       : 'translate',
-        embedUrl   : 'https://codesandbox.io/embed/loading-styles-3mtlg?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Fdemo.component.ts&theme=dark',soon:true
+        title      : 'Implementing in a Library',
+        description: 'Providing language support for your library users.',
+        icon       : 'handyman',
+        embedUrl   : 'https://codesandbox.io/embed/language-integration-module-wnc42?expanddevtools=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Flibrary1%2Flibrary1.service.ts&theme=dark'
+    },
+    {
+        title      : 'Providing From an App',
+        description: 'Integrating your app\'s language tools with supporting libraries.',
+        icon       : 'app_settings_alt',
+        embedUrl   : 'https://codesandbox.io/embed/language-integration-module-wnc42?expanddevtools=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Fapp%2Fdemo-app.module.ts&theme=dark'
     },
     {
         title      : 'Localized Route Awareness',
