@@ -61,6 +61,8 @@ To force integration, the constructor in the above example could be changed as f
 ```typescript
     constructor(private language: LanguageIntegrationService)
     {
+        super();
+
         // Throw if language integration is disabled
         this.language.ensureEnabled();
         // Code still running. No error. Go ahead and initialize...
