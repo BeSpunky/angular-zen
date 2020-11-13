@@ -31,6 +31,8 @@ export class SomeLibraryService extends Destroyable
 {
     constructor(private language: LanguageIntegrationService)
     {
+        super();
+
         if (this.language.enabled) this.initLanguageSupport();
     }
 
