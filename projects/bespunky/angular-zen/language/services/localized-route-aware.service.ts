@@ -1,4 +1,4 @@
-import { Injectable             } from '@angular/core';
+import { Directive              } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { RouteAware, RouterOutletComponentBus } from '@bespunky/angular-zen/router-x';
@@ -12,7 +12,7 @@ import { LanguageIntegrationService           } from './language-integration.ser
  * @class LocalizedRouteAware
  * @extends {RouteAware}
  */
-@Injectable()
+@Directive() // Decorated as directive so it can also be inherited by components. When using Injectable, angular fails to load an extending component.
 export abstract class LocalizedRouteAware extends RouteAware
 {
     /**
