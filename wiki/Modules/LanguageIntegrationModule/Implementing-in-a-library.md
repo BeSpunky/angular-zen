@@ -77,4 +77,6 @@ To force integration, the constructor in the above example could be changed as f
 # Next Steps
 [Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
 
-[Additional tools and configuration](/Modules/LanguageIntegrationModule/Additional-Language-Tools)
+[LocalizedRouteAware](/Modules/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
+
+[UrlLocalizationService](/Modules/LanguageIntegrationModule/UrlLocalizationService)
