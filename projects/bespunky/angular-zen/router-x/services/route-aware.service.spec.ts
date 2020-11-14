@@ -91,7 +91,16 @@ describe('RouteAware (abstract)', () =>
                 expect(scannedRoutesInSpy()).toEqual(DeepRouteSegments.slice(0, 4)); // Root + 3 child levels
             });
 
-            it('should stop propagation when the process functino returns `true`');
+            it('should stop propagation when the process function returns `true`', async () =>
+            {
+                process.and.returnValue(true);
+
+                await router.navigate(DeepRouteSegments);
+                
+                service.scanRouteSegments(process);
+                
+                expect(scannedRoutesInSpy()).toEqual(DeepRouteSegments.slice(0, 1)); // Root route only
+            });
         });
 
         /**
