@@ -5,6 +5,8 @@
 
     "output": "./dist/bespunky/angular-zen/api",
 
+    "name": "@bespunky/angular-zen Official Docs",
+    
     "includes": "./wiki",
     "includesName": "Complete Documentation",
 
