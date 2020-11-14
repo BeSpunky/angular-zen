@@ -36,7 +36,7 @@ class MyService extends RouteAware
 > Consider marking your handlers `protected` as they are usually intended for internal class use.
 
 # Component Bus
-Route aware services integrate seamlessly with [`RouterOutletComponentBus`](/Modules/RouterXModule/RouterOutletComponentBus). Different methods in the service take advantage of the bus to provide their caller with the instance of the activated component.
+Route aware services integrate seamlessly with [`RouterOutletComponentBus`](/RouterXModule/RouterOutletComponentBus). Different methods in the service take advantage of the bus to provide their caller with the instance of the activated component.
 
 # Resolves
 Angular resolves work pretty well, but they don't fit all scenarios. By definition, Angular processes resolves **before** a component is loaded.
@@ -61,4 +61,4 @@ Use `deepScanRoute()` to recursively run a function on the complete route tree.
 If you provide the `componentBus` param at construction time, you can use the `activatedRouteComponent` property to fetch the instance of the active component.
 
 # Destroyable
-The class is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
+The class is [`Destroyable`](/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.

@@ -6,7 +6,7 @@
 | [`CoreModule`](Modules/CoreModule) | Contains general tools that normally serve for infrastructure code. |
 | [`AsyncModule`](Modules/AsyncModule) | Contains tools for handling dynamic and async situations on the page.    |
 | [`UniversalModule`](Modules/UniversalModule) | Contains tools for working easily with Angular Universal and SSR. |
-| [`RouterXModule`](/Modules/RouterXModule) | Contains tools for routing related tasks. |
+| [`RouterXModule`](/RouterXModule) | Contains tools for routing related tasks. |
 | [`LanguageIntegrationModule`](Modules/LanguageIntegrationModule) | Contains tools for integrating your library with your user's language services. |
 
 # 🌳 Tree Shaking

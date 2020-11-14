@@ -20,8 +20,8 @@ An example use case would be localization using sub-domains or host replacement 
 See [`UrlLocalizationConfig`](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Furl-localization%2Fconfig%2Furl-localization-config.ts&version=GBmaster&line=23&lineEnd=51&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents).
 
 # See Also
-[LanguageIntegrationModule](/Modules/LanguageIntegrationModule)
+[LanguageIntegrationModule](/LanguageIntegrationModule)
 
-[Implementing integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
+[Implementing integration in a library](/LanguageIntegrationModule/Implementing-in-a-library)
 
-[Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
+[Providing integration from an app](/LanguageIntegrationModule/Providing-from-an-app)

@@ -49,8 +49,8 @@ export class AppModule { }
 ```
 
 # Next Steps
-[Implementing integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
+[Implementing integration in a library](/LanguageIntegrationModule/Implementing-in-a-library)
 
-[LocalizedRouteAware](/Modules/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
+[LocalizedRouteAware](/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
 
-[UrlLocalizationService](/Modules/LanguageIntegrationModule/UrlLocalizationService)
+[UrlLocalizationService](/LanguageIntegrationModule/UrlLocalizationService)

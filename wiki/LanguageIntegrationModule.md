@@ -16,6 +16,6 @@ There might be a way to use it with Angular's i18n engine but no attempt or rese
 
 # Next Steps
 
-[Implementing integration in a library](/Modules/LanguageIntegrationModule/Implementing-in-a-library)
+[Implementing integration in a library](/LanguageIntegrationModule/Implementing-in-a-library)
 
-[Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
+[Providing integration from an app](/LanguageIntegrationModule/Providing-from-an-app)

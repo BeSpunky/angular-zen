@@ -51,4 +51,4 @@ I've always found this to be tedious to write and frustrating to read.
 * The service is now scaleable and extendable.
 
 # See Also
-[ Platform Directives ](/Modules/UniversalModule/Platform-Directives)
+[ Platform Directives ](/UniversalModule/Platform-Directives)

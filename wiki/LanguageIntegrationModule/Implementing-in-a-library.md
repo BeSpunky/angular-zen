@@ -54,7 +54,7 @@ export class SomeLibraryService extends Destroyable
 }
 ```
 
-> The [`LocalizedRouteAware`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAware) class provides the above implementation out of the box along with other tools. Consider extending it.
+> The [`LocalizedRouteAware`](/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAware) class provides the above implementation out of the box along with other tools. Consider extending it.
 
 # Forcing Integration
 If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.
@@ -75,8 +75,8 @@ To force integration, the constructor in the above example could be changed as f
 [See full API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Fservices%2Flanguage-integration.service.ts&version=GBmaster&line=8&lineEnd=219&lineStartColumn=1&lineEndColumn=2&lineStyle=plain&_a=contents)
 
 # Next Steps
-[Providing integration from an app](/Modules/LanguageIntegrationModule/Providing-from-an-app)
+[Providing integration from an app](/LanguageIntegrationModule/Providing-from-an-app)
 
-[LocalizedRouteAware](/Modules/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
+[LocalizedRouteAware](/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
 
-[UrlLocalizationService](/Modules/LanguageIntegrationModule/UrlLocalizationService)
+[UrlLocalizationService](/LanguageIntegrationModule/UrlLocalizationService)
