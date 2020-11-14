@@ -38,8 +38,21 @@ export abstract class LocalizedRouteAware extends RouteAware
 
     private initLanguageSupport(): void
     {
+        this.subscribe(this.language.ready  , this.onLanguageServicesReady.bind(this));
         this.subscribe(this.language.changed, this.onLanguageChanged.bind(this));
     }
+    
+    /**
+     * Called when the app's language services have initialized and are ready for use.
+     * When language integration is disabled, or no ready observable have been provided by the app
+     * this will execute immediatelly on construction time.
+     * 
+     * Override to implement.
+     *
+     * @virtual
+     * @protected
+     */
+    protected onLanguageServicesReady(): void { }
 
     /**
      * Called when the current language used by the integrated app has changed. Override to implement.

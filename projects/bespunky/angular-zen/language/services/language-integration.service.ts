@@ -1,5 +1,5 @@
 import { get, set                     } from 'lodash-es';
-import { EMPTY, from, Observable, of  } from 'rxjs';
+import { from, of, Observable         } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { Destroyable                                    } from '@bespunky/angular-zen/core';
@@ -39,7 +39,9 @@ export class LanguageIntegrationService extends Destroyable
     {
         const ready = this.config?.ready;
 
-        this.$ready = ready ? from(ready) : EMPTY;
+        // Using of() instead of EMPTY as EMPTY only calls `complete` but not `next`.
+        // This allows users to subscribe more intuitively.
+        this.$ready = ready ? from(ready) : of();
     }
 
     private initMultiLanguageSupport(): void
