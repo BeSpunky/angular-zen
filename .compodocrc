@@ -6,8 +6,11 @@
     "output": "./dist/bespunky/angular-zen/api",
 
     "includes": "./wiki",
+    "includesName": "Complete Documentation",
 
     "theme": "material",
+
+    "templates": "./compodoc/templates",
 
     "customLogo"   : "./projects/demo/src/assets/angular-zen/logo@0.75x.png",
     "customFavicon": "./projects/demo/src/favicon.ico",
