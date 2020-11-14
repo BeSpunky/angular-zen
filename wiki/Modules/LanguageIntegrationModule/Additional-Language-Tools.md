@@ -22,9 +22,10 @@ An example use case would be localization using sub-domains or host replacement 
 See [`UrlLocalizationConfig`](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Furl-localization%2Fconfig%2Furl-localization-config.ts&version=GBmaster&line=23&lineEnd=51&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents).
 
 # LocalizedRouteAware (abstract)
-Acting as a base class for services and components, this class facilitates boostrapping for classes requiring both route and language awareness.
+Acting as a base class for services and components, this class facilitates bootstrapping for classes requiring both route and language awareness.
 
-Extend this class and override the `onLanguageChanged()` method to get notified when the integrated app changes its current language:
+Extend this class, then override `onLanguageServicesReady()` and `onLanguageChanged()` methods as needed:
+
 ```typescript
 import { Injectable          } from '@angular/core';
 import { LocalizedRouteAware } from '@bespunky/angular-zen/language';
@@ -34,6 +35,11 @@ class LocalizedRouteAwareMock extends LocalizedRouteAware
 {
     // Bonus: No constructor. Defaults to base constructor.
 
+    protected onLanguageServicesReady(): void
+    {
+        // Act on services ready...
+    }
+
     protected onLanguageChanged(lang: string) 
     {
         // Act on language change... (use `this.language` for language tools)
@@ -41,7 +47,7 @@ class LocalizedRouteAwareMock extends LocalizedRouteAware
 }
 ```
 
-> Consider marking `onLanguageChanged()` as `protected`, as it is usually intended for internal class use.
+> Consider marking `onLanguageServicesReady()` and `onLanguageChanged()` as `protected`, as they are usually intended for internal class use.
 
 ## Route-aware and destroyable
 A `LocalizedRouteAware` is by definiton a [`RouteAware`](/Modules/RouterXModule/RouteAware-\(abstract\)), which is also [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)).
