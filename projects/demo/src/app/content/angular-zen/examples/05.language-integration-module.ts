@@ -16,15 +16,15 @@ export const LanguageIntegrationModuleExamples: Example[] = [
     },
     {
         title      : 'Localized Route Awareness',
-        description: 'Creating route-aware components and services with language support.',
+        description: 'Creating route-aware components and services with language support using `LocalizedRouteAware`.',
         icon       : 'alt_route',
-        embedUrl   : 'https://codesandbox.io/embed/loading-scripts-vgf7t?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Fdemo.component.ts&theme=dark', soon: true
+        embedUrl   : 'https://codesandbox.io/embed/localized-route-aware-v49o1?expanddevtools=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Flibrary2%2Flibrary2.service.ts&theme=dark'
     },
     {
         title      : 'Url Localization',
         description: 'Define a strategy and transform urls to their localized version.',
         icon       : 'http',
-        embedUrl   : 'https://codesandbox.io/embed/loading-scripts-vgf7t?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Fdemo.component.ts&theme=dark', soon: true
+        embedUrl   : 'https://codesandbox.io/embed/url-localization-iwt0r?fontsize=14&hidenavigation=0&module=%2Fsrc%2Fapp%2Fdemo%2Fapp%2Furl-localization.ts&theme=dark'
     }
 ];
 
