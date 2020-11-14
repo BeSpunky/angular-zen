@@ -9,8 +9,10 @@ import { LocalizedRouteAware       } from './localized-route-aware.service';
 
 describe('LocalizedRouteAware (abstract)', () =>
 {
-    let service        : LocalizedRouteAwareMock;
-    let languageChanged: Subject<string>;
+    let service                 : LocalizedRouteAwareMock;
+    let languageChanged         : Subject<string>;
+    let languageServicesReadySpy: jasmine.Spy;;
+    let languageChangedSpy      : jasmine.Spy;;
 
     function setup(enableIntegration = true)
     {
@@ -26,6 +28,10 @@ describe('LocalizedRouteAware (abstract)', () =>
         }
 
         TestBed.configureTestingModule({ imports });
+        
+        // These methods are called in the construction, so spy befure construction time
+        languageServicesReadySpy = spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageServicesReady').and.callThrough();
+        languageChangedSpy       = spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageChanged'      ).and.callThrough();
 
         service = TestBed.inject(LocalizedRouteAwareMock);
     }
@@ -39,10 +45,14 @@ describe('LocalizedRouteAware (abstract)', () =>
         it('should notify `onLanguageChanged()` of language changes', () =>
         {
             languageChanged.next('he');
- 
-            // languageChangeSpy is a workaround. See the languageChangedSpy member for more details.
-            expect(service.languageChangedSpy).toHaveBeenCalledTimes(1);
-            expect(service.languageChangedSpy).toHaveBeenCalledWith('he');
+    
+            expect(languageChangedSpy).toHaveBeenCalledTimes(1);
+            expect(languageChangedSpy).toHaveBeenCalledWith('he');
+        });
+
+        it('should notify `onLanguageServicesReady()` of language services initialization', () =>
+        { 
+            expect(languageServicesReadySpy).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -57,19 +67,7 @@ describe('LocalizedRouteAware (abstract)', () =>
 @Injectable({ providedIn: 'root' })
 class LocalizedRouteAwareMock extends LocalizedRouteAware
 {
-    /**
-     * For some reason, calling spyOn(service, 'onLanguageChanged') results in an unusable spy.
-     * Maybe related with the fact that onLanguageChanged is an override to the virtual one, hence
-     * the spy is created on the base class??
-     * The overriding method actually gets called by the spy is never triggered.
-     * 
-     * Came up with the languageChangedSpy member solution, which partially proves the theory.
-     * Spy works now, no point in wasting time on further investigation.
-     */
-    public languageChangedSpy = jasmine.createSpy('languageChanged');
-
-    public onLanguageChanged(lang: string)
-    {
-        this.languageChangedSpy(lang);
-    }
+    public onLanguageServicesReady(): void { }
+    
+    public onLanguageChanged(lang: string): void { }
 }

@@ -1,5 +1,5 @@
-import { EMPTY, Observable } from 'rxjs';
-import { TestBed           } from '@angular/core/testing';
+import { Observable } from 'rxjs';
+import { TestBed    } from '@angular/core/testing';
 
 import { SupportedLanguages, DefaultLanguage, LanguageConfig } from '@bespunky/angular-zen/language/testing';
 import { LanguageIntegrationModule                           } from '../language-integration.module';
@@ -137,9 +137,9 @@ describe('LanguageIntegrationService', () =>
             expect(service.enabled).toBeFalsy();
         });
 
-        it('should return an empty observable for readyness', () =>
+        it('should return an observable for readyness', () =>
         {
-            expect(service.ready).toBe(EMPTY);
+            expect(service.ready).toBeInstanceOf(Observable);
         });
 
         it('should throw when getting the alternate languages for a language', () =>
