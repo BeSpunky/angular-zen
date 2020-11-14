@@ -38,11 +38,11 @@ export class SomeLibraryService extends Destroyable
 
     private initLanguageSupport(): void
     {
-        this.subscribe(this.language.ready  , this.onLanguageServicesInitialized.bind(this)); // Subscribe to the `ready` observable
+        this.subscribe(this.language.ready  , this.onLanguageServicesReady.bind(this)); // Subscribe to the `ready` observable
         this.subscribe(this.language.changed, this.onLanguageChanged.bind(this));
     }
 
-    protected onLanguageServicesInitialized(): void
+    protected onLanguageServicesReady(): void
     {
         // act on language services init...
     }
@@ -53,6 +53,8 @@ export class SomeLibraryService extends Destroyable
     }
 }
 ```
+
+> The [`LocalizedRouteAware`](/Modules/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAware) class provides the above implementation out of the box along with other tools. Consider extending it.
 
 # Forcing Integration
 If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.
