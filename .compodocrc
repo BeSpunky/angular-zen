@@ -9,7 +9,7 @@
 
     "theme": "material",
 
-    "customLogo"   : "./projects/demo/src/assets/logo@0.75x.png",
+    "customLogo"   : "./projects/demo/src/assets/angular-zen/logo@0.75x.png",
     "customFavicon": "./projects/demo/src/favicon.ico",
 
     "watch": true
