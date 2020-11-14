@@ -1,8 +1,5 @@
 Acting as a base class for services services and components, this class creates a layer between the router and your app to help facilitate route related tasks.
 
-# Destroyable
-The class is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
-
 # Events Dispatcher
 Recognize this line...?
 ```typescript
@@ -62,3 +59,6 @@ Use `deepScanRoute()` to recursively run a function on the complete route tree.
 
 # Activated Route Component
 If you provide the `componentBus` param at construction time, you can use the `activatedRouteComponent` property to fetch the instance of the active component.
+
+# Destroyable
+The class is [`Destroyable`](/Modules/CoreModule/Destroyable-\(abstract\)). You can take advantage of that when working with subscriptions.
