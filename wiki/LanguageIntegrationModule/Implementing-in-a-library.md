@@ -1,5 +1,7 @@
 Your bridge to the language services of your user's app is the `LanguageIntegrationService`. Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
 
+> Consider using [LocalizedRouteAware](LocalizedRouteAware-(abstract).html) for faster bootstrapping.
+
 ## Preparation
 ### `enabled` - Vefiying integration presence
 The service is always injectable. However it is up to the **app** developer using your library to import the language integration module.
