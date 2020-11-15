@@ -5,10 +5,10 @@
     </h3>
     {{/ifString}}
     {{#each methods}}
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm card-shadow">
         <tbody>
             <tr>
-                <td class="col-md-4">
+                <td class="col-md-4 bg-success">
                     <a name="{{name}}"></a>
                     <span class="name">
                         <b>
@@ -72,7 +72,7 @@
             {{#compare typeParameters.length ">" 0}}
             <tr>
                 <td class="col-md-4">
-                    <b>{{t "type-parameters" }} :</b>
+                    <b>{{t "type-parameters" }}:</b>
                     <ul class="type-parameters">
                         {{#each typeParameters}}
                         <li>{{this}}</li>
@@ -85,7 +85,7 @@
 
             {{#or jsdoctags returnType description}}
             <tr>
-                <td class="col-md-4">
+                <td class="col-md-4" style="padding: 10px 20px">
                     {{#if description}}
                     <div class="io-description">{{{parseDescription description ../depth}}}</div>
                     {{/if}}
@@ -94,8 +94,8 @@
                     {{#jsdoc-params-valid jsdoctags}}
                     <div class="io-description">
                         {{#jsdoc-params jsdoctags}}
-                        <b>{{t "parameters" }} :</b>
-                        <table class="params">
+                        <b>{{t "parameters" }}:</b>
+                        <table class="params table table-no-borders">
                             <thead>
                                 <tr>
                                     <td>{{t "name" }}</td>
@@ -168,7 +168,7 @@
                     {{/if}}
                     {{#if returnType}}
                     <div class="io-description">
-                        <b>{{t "returns" }} : </b>{{> link-type type=returnType }}
+                        <b>{{t "returns" }}: </b>{{> link-type type=returnType }}
                     </div>
                     {{#if jsdoctags}}
                     <div class="io-description">

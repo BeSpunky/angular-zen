@@ -1,0 +1,28 @@
+@import "./reset.css";
+@import "./bootstrap.min.css";
+@import "./bootstrap-card.css";
+@import "./prism.css";
+@import "./ionicons.min.css";
+@import "./compodoc.css";
+@import "./tablesort.css";
+
+.table.table-no-borders tr>td {
+    border: none !important;
+}
+
+.table.params {
+    border: 1px solid #ccc;
+}
+
+.table.params > thead > tr {
+    border: 1px solid #ccc;
+    background: #eee;
+}
+
+.table.params > tbody > tr {
+    border: .5px solid #ccc;
+}
+
+.card-shadow {
+    box-shadow: 0px 2px 4px 1px rgb(206 206 206 .6);
+}

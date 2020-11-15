@@ -12,6 +12,7 @@
     "includesName": "Complete Documentation",
 
     "theme": "material",
+    "extTheme": "./compodoc/styles",
 
     "templates": "./compodoc/templates",
 
