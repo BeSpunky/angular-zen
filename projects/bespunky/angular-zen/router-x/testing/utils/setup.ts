@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Route     } from '@angular/router';
+import { Component, NgModule } from '@angular/core';
+import { Route               } from '@angular/router';
 
 /**
  * Recoursively creates nested routes for the specified segments.
@@ -31,4 +31,19 @@ export function createDeeplyNestedRoutes(segments: string[]): Route
     return parent;
 }
 
-@Component({ selector: 'zen-router-x-noop', template: '<div>noop</div>' }) class NoopComponent { }
+/**
+ * A functionless component.
+ * Can be used for setting routes in which the component is not important, but required by the route object.
+ *
+ * @export
+ * @class NoopComponent
+ */
+@Component({ selector: 'zen-router-x-noop', template: '<div>noop</div>' }) export class NoopComponent { }
+
+/**
+ * A functionless module exporting the functionless `NoopComponent`.
+ *
+ * @export
+ * @class NoopModule
+ */
+@NgModule({ declarations: [NoopComponent], exports: [NoopComponent] }) export class NoopModule { }

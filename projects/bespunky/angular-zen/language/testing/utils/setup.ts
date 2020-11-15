@@ -1,10 +1,9 @@
-import { Component           } from '@angular/core';
 import { TestBed             } from '@angular/core/testing';
 import { Route, Router       } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { forceRoutingInsideAngularZone                                                                                   } from '@bespunky/angular-zen/core/testing';
-import { createDeeplyNestedRoutes, DeepRouteSegments                                                                     } from '@bespunky/angular-zen/router-x/testing';
+import { createDeeplyNestedRoutes, DeepRouteSegments, NoopModule, NoopComponent                                          } from '@bespunky/angular-zen/router-x/testing';
 import { UrlLocalizationStrategy, LanguageIntegrationModule, UrlLocalizer, UrlLocalizationService, UrlLocalizationConfig } from '@bespunky/angular-zen/language';
 import { UrlReflectionService                                                                                            } from '@bespunky/angular-zen/router-x';
 import { LanguageConfig                                                                                                  } from './language-integration-config';
@@ -27,6 +26,7 @@ export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy 
 
     TestBed.configureTestingModule({
         imports: [
+            NoopModule,
             RouterTestingModule.withRoutes([nestedRoutes]),
             LanguageIntegrationModule.forRoot({
                 useFactory     : () => LanguageConfig,
@@ -105,5 +105,3 @@ function isUrlLocalizationConfig(value: any): value is UrlLocalizationConfig
 {
     return !!value?.strategy;
 }
-
-@Component({ selector: 'zen-language-noop', template: '<div>noop</div>' }) class NoopComponent { }
