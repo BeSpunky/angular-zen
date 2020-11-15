@@ -43,14 +43,14 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
      * If `position` is negative, language lookup will be performed from the end of route.
      * If `position` points to an index out of bounds, the last/first element will be treated as the language.
      *
-     * @example
-     * Position 1 - /en/some/route - first segment from the left.
-     * Position 2 - /some/en/route - second segment from the left.
-     * Position 5 - /some/route/en - out of bounds. last segment from the left.
-     * 
-     * Position -1 - /some/route/en - first segment from the right.
-     * Position -2 - /some/en/route - second segment from the right.
-     * Position -5 - /en/some/route - out of bounds. last segment from the right.
+     * #### Example
+     * Position  1 - /en/some/route - first segment from the left.  
+     * Position  2 - /some/en/route - second segment from the left.  
+     * Position  5 - /some/route/en - out of bounds. last segment from the left.  
+     *   
+     * Position -1 - /some/route/en - first segment from the right.  
+     * Position -2 - /some/en/route - second segment from the right.  
+     * Position -5 - /en/some/route - out of bounds. last segment from the right.  
      * 
      * @param {string} lang
      * @returns {string} The currently navigated url localized to the specified language.
@@ -69,14 +69,14 @@ export class RoutePositionUrlLocalizer extends UrlLocalizer
      * If `position` points to an index out of bounds, the last/first element will be treated as the language.
      * If no language exists at the language position, returns the url unchanged.
      *
-     * @example
-     * Position 1 - /en/some/route - first segment from the left.
-     * Position 2 - /some/en/route - second segment from the left.
-     * Position 5 - /some/route/en - out of bounds. last segment from the left.
-     * 
-     * Position -1 - /some/route/en - first segment from the right.
-     * Position -2 - /some/en/route - second segment from the right.
-     * Position -5 - /en/some/route - out of bounds. last segment from the right.
+     * #### Example
+     * Position  1 - /en/some/route - first segment from the left.  
+     * Position  2 - /some/en/route - second segment from the left.  
+     * Position  5 - /some/route/en - out of bounds. last segment from the left.  
+     *   
+     * Position -1 - /some/route/en - first segment from the right.  
+     * Position -2 - /some/en/route - second segment from the right.  
+     * Position -5 - /en/some/route - out of bounds. last segment from the right.  
      * 
      * @returns {string} The delocalized currently navigated url.
      */

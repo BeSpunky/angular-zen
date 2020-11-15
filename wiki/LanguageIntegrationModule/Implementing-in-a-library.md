@@ -1,6 +1,6 @@
-Your bridge to the language services of your user's app is the `LanguageIntegrationService`. Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
+> Consider using this service with [LocalizedRouteAware](LocalizedRouteAware-(abstract).html) for faster bootstrapping.
 
-> Consider using [LocalizedRouteAware](LocalizedRouteAware-(abstract).html) for faster bootstrapping.
+Your bridge to the language services of your user's app is the [`LanguageIntegrationService`](/injectables/LanguageIntegrationService.html). Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
 
 ## Preparation
 ### `enabled` - Vefiying integration presence
@@ -52,7 +52,7 @@ export class SomeLibraryService extends Destroyable
 }
 ```
 
-> The [`LocalizedRouteAware`](LocalizedRouteAware-(abstract).html) class provides the above implementation out of the box along with other tools. Consider extending it.
+> The [`LocalizedRouteAware`](LocalizedRouteAware-(abstract).html) class provides the above implementation and more out of the box. Consider extending it.
 
 ## Forcing Integration
 If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.

@@ -86,48 +86,48 @@ export abstract class RouteAware extends Destroyable
      * Recoursively runs a processing function on the route and its children.
      * Scan is done from parent to child, meaning the parent is the first to process.
      *
+     * @ignore
      * @protected
      * @param {ActivatedRouteSnapshot} route The top route on which to apply the processing function.
-     * @param {(route: ActivatedRouteSnapshot, component: any) => boolean | undefined} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
+     * @param {(route: ActivatedRouteSnapshot, component: any) => boolean} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
      * and a `component` argument which reflects the component that was loaded for the route's outlet.
      * If the corresponding outlet wasn't marked with the `publishComponent` directive, the `component` argument will be null.
      * 
      * Returning `true` from the process function is equal to saying 'work has completed' and will stop propogation to the route's children.
-     * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree. By default, scans all levels of the route tree.
-     * 
-     * @example
-     * ```typescript
-     * const route   = ...; // Some route
-     * const process = (route, component) => ...; // Some processing function
-     * 
-     * // The following will process the route and its first-level children only.
-     * this.deepScanRoute(route, process, 1);
-     * ```
+     * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree.
+     * A value of 1 for example, will process the route and its first-level children only. By default, scans all levels of the route tree.
      */
     protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => boolean  , levels?: number): void;
     /**
      * Recoursively runs a processing function on the route and its children.
      * Scan is done from parent to child, meaning the parent is the first to process.
      *
+     * @ignore
      * @protected
      * @param {ActivatedRouteSnapshot} route The top route on which to apply the processing function.
-     * @param {(route: ActivatedRouteSnapshot, component: any) => boolean | undefined} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
+     * @param {(route: ActivatedRouteSnapshot, component: any) => void} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
      * and a `component` argument which reflects the component that was loaded for the route's outlet.
      * If the corresponding outlet wasn't marked with the `publishComponent` directive, the `component` argument will be null.
      * 
      * Returning `true` from the process function is equal to saying 'work has completed' and will stop propogation to the route's children.
-     * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree. By default, scans all levels of the route tree.
-     * 
-     * @example
-     * ```typescript
-     * const route   = ...; // Some route
-     * const process = (route, component) => ...; // Some processing function
-     * 
-     * // The following will process the route and its first-level children only.
-     * this.deepScanRoute(route, process, 1);
-     * ```
+     * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree.
+     * A value of 1 for example, will process the route and its first-level children only. By default, scans all levels of the route tree.
      */
     protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => void, levels?: number): void;
+    /**
+     * Recoursively runs a processing function on the route and its children.
+     * Scan is done from parent to child, meaning the parent is the first to process.
+     * 
+     * @protected
+     * @param {ActivatedRouteSnapshot} route The top route on which to apply the processing function.
+     * @param {(route: ActivatedRouteSnapshot, component: any) => boolean | void} process The function to run on the route and its children. The function receives a `route` argument which reflects the route being processed,
+     * and a `component` argument which reflects the component that was loaded for the route's outlet.
+     * If the corresponding outlet wasn't marked with the `publishComponent` directive, the `component` argument will be null.
+     * 
+     * Returning `true` from the process function is equal to saying 'work has completed' and will stop propogation to the route's children.
+     * @param {number} [levels=-1] (Optional) The number of levels (excluding the parent) to dive deeper into the route tree.
+     * A value of 1 for example, will process the route and its first-level children only. By default, scans all levels of the route tree.
+     */
     protected deepScanRoute(route: ActivatedRouteSnapshot, process: (route: ActivatedRouteSnapshot, component: any) => boolean | void, levels: number = -1): void
     {
         // Make sure the caller wants scan to proceed, then make sure level limit wasn't reached.

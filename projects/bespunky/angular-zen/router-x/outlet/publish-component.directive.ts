@@ -5,20 +5,16 @@ import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from './router-outlet-component-bus.service';
 
 /**
- * Hooks into a router outlet's events and publishes the current component to the `RouterOutletComponentBus` to create a mapping
+ * Hooks into a router outlet's events and publishes the current component to the [`RouterOutletComponentBus`](/injectables/RouterOutletComponentBus.html) to create a mapping
  * of component instances by outlet name.
  * 
- * How to use:
- * Use the `publishComponent` directive on your `<router-outlet>` element.
+ * Components instantiated by outlets marked with `publishComponent` will be accessible by outlet name in the bus service.
  * 
- * ```html
+ * @example
  * <!-- Component template -->
  * <router-outlet publishComponent name="header"></router-outlet>
  * <router-outlet publishComponent              ></router-outlet>
  * <router-outlet publishComponent name="footer"></router-outlet>
- * ```
- * 
- * The components instantiated by outlets marked with `publishComponent` will be accessible by outlet name in the bus service.
  * 
  * @See `RouterOutletComponentBus` for more details.
  * 
