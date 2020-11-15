@@ -9,21 +9,22 @@ export class UniversalService
     /**
      * `true` if the app is currently running on a browser; otherwise `false`.
      */
-    public isPlatformBrowser: boolean;
+    public readonly isPlatformBrowser: boolean;
      /**
      * `true` if the app is currently running on a server; otherwise `false`.
      */
-    public isPlatformServer: boolean;
+    public readonly isPlatformServer: boolean;
      /**
      * `true` if the app is currently running on a worker app; otherwise `false`.
      */
-    public isPlatformWorkerApp: boolean;
+    public readonly isPlatformWorkerApp: boolean;
      /**
      * `true` if the app is currently running on a worker UI; otherwise `false`.
      */
-    public isPlatformWorkerUi: boolean;
+    public readonly isPlatformWorkerUi: boolean;
 
     constructor(@Inject(PLATFORM_ID) public platformId: any)
+    constructor(@Inject(PLATFORM_ID) public readonly platformId: any)
     {
         this.isPlatformBrowser   = isPlatformBrowser(this.platformId);
         this.isPlatformServer    = isPlatformServer(this.platformId);
