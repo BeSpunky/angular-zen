@@ -10,7 +10,7 @@ export interface CardInfo
 }
 
 @Component({
-    selector   : 'demo-example-list',
+    selector   : 'app-example-list',
     templateUrl: './example-list.component.html',
     styleUrls  : ['./example-list.component.scss']
 })

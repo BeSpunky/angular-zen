@@ -5,7 +5,7 @@ import { Topic } from '../../types/topic';
 import { CardInfo } from '../example-list/example-list.component';
 
 @Component({
-    selector   : 'demo-topic',
+    selector   : 'app-topic',
     templateUrl: './topic.component.html',
     styleUrls  : ['./topic.component.scss']
 })

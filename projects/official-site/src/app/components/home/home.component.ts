@@ -5,7 +5,7 @@ import { CardInfo } from '../example-list/example-list.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector   : 'demo-home',
+    selector   : 'app-home',
     templateUrl: './home.component.html',
     styleUrls  : ['./home.component.scss']
 })

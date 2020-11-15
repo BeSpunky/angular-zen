@@ -5,7 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Example } from '../../types/example';
 
 @Component({
-    selector   : 'demo-example',
+    selector   : 'app-example',
     templateUrl: './example.component.html',
     styleUrls  : ['./example.component.scss']
 })

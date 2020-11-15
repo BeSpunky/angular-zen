@@ -24,7 +24,7 @@
     <h1 class="text-center">The Cool Benefits</h1>
     <h3 class="text-center">{{project.benefitsSlogan}}</h3>
 
-    <demo-library-benefits [benefits]="project.benefits"></demo-library-benefits>
+    <app-library-benefits [benefits]="project.benefits"></app-library-benefits>
 
     <div class="text-center">
         <a mat-raised-button color="primary" [href]="project.wikiUrl" target="_blank" class="margin-top-30">See The Docs</a>
@@ -36,13 +36,13 @@
     <h1 class="text-center">Demos</h1>
     <h3 class="text-center">⚡ All of the examples are served using StackBlitz. For tips and insights, look at their bottom section.</h3>
     
-    <demo-example-list [cards]="cards" class="padding-30"></demo-example-list>
+    <app-example-list [cards]="cards" class="padding-30"></app-example-list>
 
     <!-- <h3 class="text-center">🚧 More coming soon...</h3> -->
 </div>
 
 <div class="footer padding-30" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
-    <span>This demo site and the library are provided freely under the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT license</a>.</span>
+    <span>This site and the library are provided freely under the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT license</a>.</span>
     <span>Issues and requests can be sent to <a href="mailto:us@bespunky.io?subject=@bespunky/angular-google-maps" target="_blank">us@bespunky.io</a>.</span>
     <small *ngFor="let credit of project.credits"><a [href]="credit.url" target="_blank">{{credit.text}}</a></small>
 </div>
