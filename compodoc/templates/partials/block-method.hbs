@@ -65,16 +65,6 @@
                 </td>
             </tr>
             {{/if}}
-            <tr>
-                <td class="col-md-4">
-                    {{#if inheritance}}
-                        <div class="io-line">{{t "defined-in" }} {{> link-type type=inheritance.file withline=true }}</div>
-                    {{else}}
-                    <div class="io-line">{{t "defined-in" }} <a href="" data-line="{{{line}}}"
-                            class="link-to-prism">{{../file}}:{{{line}}}</a></div>
-                    {{/if}}
-                </td>
-            </tr>
             {{/isTabEnabled}}
             {{/if}}
 
@@ -188,6 +178,19 @@
                     {{/if}}
                 </td>
             </tr>
+            {{#if line}}
+            {{#isTabEnabled ../navTabs "source"}}
+                <tr class="text-right" style="font-size: x-small;">
+                    <td class="col-md-4">
+                    {{#if inheritance}}
+                        <div class="io-line">{{> link-type type=inheritance.file withline=true }}</div>
+                    {{else}}
+                        <div class="io-line"><a href="" data-line="{{{line}}}" class="link-to-prism">{{../file}}:{{{line}}}</a></div>
+                    {{/if}}
+                    </td>
+                </tr>
+            {{/isTabEnabled}}
+            {{/if}}
             {{/or}}
         </tbody>
     </table>
