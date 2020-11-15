@@ -1,4 +1,3 @@
-# LazyLoaderService
 This service loads a script/style file programmatically, while also keeping track of loaded files to avoid loading them multiple times.
 
 # How to use
@@ -49,17 +48,12 @@ This service loads a script/style file programmatically, while also keeping trac
             this.status = 'Loading async...';
 
             this.loader.loadScript(this.jQueryCDN, options)
-                    .subscribe(lazyScript => this.status = 'Loaded. Check <head> element.');
+                       .subscribe(lazyScript => this.status = 'Loaded. Check <head> element.');
         }
     }
     ```
 
-For more exensive examples, see:
-* [Service unit tests](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.spec.ts&version=GBmaster)
-* [Async Script Demo component](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-script-loader-demo&version=GBmaster)
-* [Async Style Demo component](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fdemo%2Fsrc%2Fapp%2Fmodules%2Fasync-demo%2Flazy-style-loader-demo&version=GBmaster)
-
 # See also
-[Service API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Fasync%2FLazyLoader%2Flazy-loader.service.ts&version=GBmaster)
+[Service API](/injectables/LazyLoaderService.html)
 
-[Providing options](LazyLoaderService/Options)
+[Providing options](/interfaces/LoadOptions.html)

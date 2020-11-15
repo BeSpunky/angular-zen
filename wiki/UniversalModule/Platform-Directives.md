@@ -1,18 +1,17 @@
-# Platform Directives
 When you need to control platform specific rendering in your template, you can use the appropriate platform directive.
 Platform directives provide you with an easy way of preventing rendering of specific elements, without injecting anything into your component.
 
 # Supported Platform Directives
 |Directive|Use|
 |---------|---|
-| `*browserOnly`      | Prevent element from rendering on non-browser platforms. |
-| `*serverOnly`       | Prevent element from rendering on non-server platforms. |
-| `*workerAppOnly`    | Prevent element from rendering on non-worker app platforms. |
-| `*workerUiOnly`     | Prevent element from rendering on non-worker ui platforms. |
-| `*nonBrowserOnly`   | Prevent element from rendering on browser platforms. |
-| `*nonServerOnly`    | Prevent element from rendering on server platforms. |
-| `*nonWorkerAppOnly` | Prevent element from rendering on worker app platforms. |
-| `*nonWorkerUiOnly`  | Prevent element from rendering on worker ui platforms. |
+| [`*browserOnly`     ](/directives/BrowserOnlyDirective.html) | Prevent element from rendering on non-browser platforms. |
+| [`*serverOnly`      ](/directives/ServerOnlyDirective.html) | Prevent element from rendering on non-server platforms. |
+| [`*workerAppOnly`   ](/directives/WorkerAppOnlyDirective.html) | Prevent element from rendering on non-worker app platforms. |
+| [`*workerUiOnly`    ](/directives/WorkerUiOnlyDirective.html) | Prevent element from rendering on non-worker ui platforms. |
+| [`*nonBrowserOnly`  ](/directives/NonBrowserOnlyDirective.html) | Prevent element from rendering on browser platforms. |
+| [`*nonServerOnly`   ](/directives/NonServerOnlyDirective.html) | Prevent element from rendering on server platforms. |
+| [`*nonWorkerAppOnly`](/directives/NonWorkerAppOnlyDirective.html) | Prevent element from rendering on worker app platforms. |
+| [`*nonWorkerUiOnly` ](/directives/NonWorkerUiOnlyDirective.html) | Prevent element from rendering on worker ui platforms. |
 
 # Usage
 Import the `UniversalModule` and place the directives in your template.
@@ -31,4 +30,4 @@ The following example will only render the `<div>` element on browser platforms:
 > ```
 
 # See Also
-[Universal Service](/UniversalModule/UniversalService)
+[Universal Service](UniversalService.html)

@@ -1,4 +1,3 @@
-# Getting Started
 To start using the tools provided by the library:
 
 1. Install the npm package:
@@ -33,4 +32,4 @@ To start using the tools provided by the library:
 
 | Topic              | Description                                            |
 |--------------------|--------------------------------------------------------|
-| [Modules](Modules) | Feature-specific documentation and usage instructions. |
+| [Modules-Overview](Modules-Overview.html) | A list of the library's modules and their purpose. |

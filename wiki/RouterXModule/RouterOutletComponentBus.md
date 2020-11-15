@@ -4,12 +4,10 @@ This service lets you:
 1. Gain access to the instances of router activated components from anywhere in your app.
 2. Observe changes to the active component in outlets.
 
-[Why the service?](/RouterXModule/RouterOutletComponentBus#%60tldr%60-why-do-i-need-a-service%3F)
-
 # How to use
-The service is intended to be managed by the [`PublishComponentDirective`](/RouterXModule/RouterOutletComponentBus/PublishComponentDirective), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
+The service is intended to be managed by the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
 
-1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](/RouterXModule/RouterOutletComponentBus/PublishComponentDirective).
+1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html).
 
 2. Mark your outlet with `publishComponent`:
     ```html
@@ -19,7 +17,7 @@ The service is intended to be managed by the [`PublishComponentDirective`](/Rout
 
 3. Inject `RouterOutletComponentBus` into your service/component and use the `instance()` or `changes()` methods.
 
-[See complete API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Foutlet%2Frouter-outlet-component-bus.service.ts&version=GBmaster&_a=contents)
+[See complete API](/injectables/RouterOutletComponentBus.html)
 
 # How does it work?
 Internally, `RouterOutletComponentBus` keeps a map of `outlet name -> component instance`.  

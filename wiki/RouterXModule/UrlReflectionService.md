@@ -6,7 +6,7 @@ This service provides:
 2. Properties for quick reflection on the currently navigated url.
 3. The regular expressions it uses as public members for manual match-work.
 
-[See full API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Fservices%2Furl-reflection.service.ts&version=GBmaster&_a=contents)
+[See full API](/injectables/UrlReflectionService.html)
 
 # Host Urls
 By default, the `hostUrl` and `fullUrl` properties use the current document's location to compose their values.

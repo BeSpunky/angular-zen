@@ -1,4 +1,3 @@
-# WindowRef Service
 The `window` object is necessary many times when working with the web, and normally we would summon it directly in our code. However, `window` doesn't always exist when working with angular. 
 
 ## Why?
@@ -68,6 +67,6 @@ This eventually gives you the ability to use the `WindowRef` service in your app
     ```
 
 # See also
-[Mocking and replacing implementation](WindowRef/Mocking)
+[Mocking and replacing implementation](WindowRef/Mocking.html)
 
-[`WindowRef` internals](WindowRef/Internals)
+[`WindowRef` internals](WindowRef/Internals.html)

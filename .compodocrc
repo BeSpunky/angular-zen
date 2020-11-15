@@ -4,6 +4,7 @@
     "tsconfig": "./projects/bespunky/angular-zen/tsconfig.lib.json",
 
     "output": "./dist/bespunky/angular-zen/api",
+    "assetsFolder": "./wiki/.attachments",
 
     "name": "@bespunky/angular-zen Official Docs",
     

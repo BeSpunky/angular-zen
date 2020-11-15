@@ -1,4 +1,3 @@
-# LocalizedRouteAware (abstract)
 Acting as a base class for services and components, this class facilitates bootstrapping for classes requiring both route and language awareness.
 
 Extend this class, then override `onLanguageServicesReady()` and `onLanguageChanged()` methods as needed:
@@ -27,12 +26,12 @@ class LocalizedRouteAwareMock extends LocalizedRouteAware
 > Consider marking `onLanguageServicesReady()` and `onLanguageChanged()` as `protected`, as they are usually intended for internal class use.
 
 ## Route-aware and destroyable
-A `LocalizedRouteAware` is by definiton a [`RouteAware`](/RouterXModule/RouteAware-\(abstract\)), which is also [`Destroyable`](/CoreModule/Destroyable-\(abstract\)).
+A `LocalizedRouteAware` is by definiton a [`RouteAware`](../RouterXModule/RouteAware-\(abstract\).html), which is also [`Destroyable`](../CoreModule/Destroyable-\(abstract\).html).
 Take advantage of the tools provided by the base class.
 
 # See Also
-[LanguageIntegrationModule](/LanguageIntegrationModule)
+[LanguageIntegrationModule](../LanguageIntegrationModule.html)
 
-[Implementing integration in a library](/LanguageIntegrationModule/Implementing-in-a-library)
+[Implementing integration in a library](Implementing-in-a-Library.html)
 
-[Providing integration from an app](/LanguageIntegrationModule/Providing-from-an-app)
+[Providing integration from an app](Providing-From-an-App.html)

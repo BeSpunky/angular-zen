@@ -1,8 +1,4 @@
-# [LanguageIntegrationService](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Fservices%2Flanguage-integration.service.ts&version=GBmaster&line=8&lineEnd=219&lineStartColumn=1&lineEndColumn=2&lineStyle=plain&_a=contents)
-
 Your bridge to the language services of your user's app is the `LanguageIntegrationService`. Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
-
-[[_TOC_]]
 
 # Preparation
 ## `enabled` - Vefiying integration presence
@@ -54,7 +50,7 @@ export class SomeLibraryService extends Destroyable
 }
 ```
 
-> The [`LocalizedRouteAware`](/LanguageIntegrationModule/Additional-Language-Tools#LocalizedRouteAware) class provides the above implementation out of the box along with other tools. Consider extending it.
+> The [`LocalizedRouteAware`](LocalizedRouteAware-(abstract).html) class provides the above implementation out of the box along with other tools. Consider extending it.
 
 # Forcing Integration
 If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.
@@ -72,11 +68,11 @@ To force integration, the constructor in the above example could be changed as f
     }
 ```
 
-[See full API](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Flanguage%2Fservices%2Flanguage-integration.service.ts&version=GBmaster&line=8&lineEnd=219&lineStartColumn=1&lineEndColumn=2&lineStyle=plain&_a=contents)
+[See full API](/injectables/LanguageIntegrationService.html)
 
 # Next Steps
-[Providing integration from an app](/LanguageIntegrationModule/Providing-from-an-app)
+[Providing integration from an app](Providing-From-an-App.html)
 
-[LocalizedRouteAware](/LanguageIntegrationModule/LocalizedRouteAware-\(abstract\))
+[LocalizedRouteAware](LocalizedRouteAware-\(abstract\).html)
 
-[UrlLocalizationService](/LanguageIntegrationModule/UrlLocalizationService)
+[UrlLocalizationService](UrlLocalizationService.html)

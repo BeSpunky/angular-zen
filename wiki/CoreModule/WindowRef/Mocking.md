@@ -1,4 +1,3 @@
-# Mocking and Replacing Implementation
 In certain cases, the default implementation provided by the service might not answer the needs of your code.
 One such case is testing.
 

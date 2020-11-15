@@ -1,7 +1,7 @@
-# WindowRef Internals
 The `WindowRef` service has some friends that accompany it and help it acheive its goal: **DI & Testability**.
 
 `CoreModule` exports the following elements as part of the `WindowRef` mechanism:
+
 | Name | Purpose | Default Implementation |
 | ---  | ---     | ---                    |
 | `WINDOW` | An injectable token allowing the definition or redefinition of what the `window` value is. | See `WindowProvider`.

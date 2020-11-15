@@ -1,7 +1,7 @@
-# DocumentRef Internals
 The `DocumentRef` service has some friends that accompany it and help it acheive its goal: **DI & Testability**.
 
 `CoreModule` exports the following elements as part of the `DocumentRef` mechanism:
+
 | Name | Purpose | Default Implementation |
 | ---  | ---     | ---                    |
 | `DOCUMENT` | An injectable token allowing the definition or redefinition of what the `document` value is. | See `DocumentProvider`.
