@@ -1,4 +1,4 @@
-import { Directive              } from '@angular/core';
+import { Directive, Injectable  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { RouteAware, RouterOutletComponentBus } from '@bespunky/angular-zen/router-x';
@@ -12,7 +12,8 @@ import { LanguageIntegrationService           } from './language-integration.ser
  * @class LocalizedRouteAware
  * @extends {RouteAware}
  */
-@Directive() // Decorated as directive so it can also be inherited by components. When using Injectable, angular fails to load an extending component.
+@Directive()  // Originally this was decorated with `Directive` only so angular accepts it as base for both services and components.
+@Injectable() // However, compodoc fails to collect abstract classes marked with `Directive` so I marked it as both. Tests pass, POC stackblitz doesn't show side effects.
 export abstract class LocalizedRouteAware extends RouteAware
 {
     /**

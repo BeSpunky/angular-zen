@@ -1,6 +1,6 @@
 import { from, InteropObservable, Observable, of                     } from 'rxjs';
 import { concatAll, filter, finalize, takeUntil, toArray             } from 'rxjs/operators';
-import { Directive, Type                                             } from '@angular/core';
+import { Directive, Type, Injectable                                 } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
@@ -26,7 +26,8 @@ export const ResolverMacroTaskIdPrefix = 'route-aware-resolver';
  * @class RouteAware
  * @extends {Destroyable}
  */
-@Directive() // Decorated as directive so it can also be inherited by components. When using Injectable, angular fails to load an extending component.
+@Directive()  // Originally this was decorated with `Directive` only so angular accepts it as base for both services and components.
+@Injectable() // However, compodoc fails to collect abstract classes marked with `Directive` so I marked it as both. Tests pass, POC stackblitz doesn't show side effects.
 export abstract class RouteAware extends Destroyable
 {
     /**
