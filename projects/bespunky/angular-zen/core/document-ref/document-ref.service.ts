@@ -20,6 +20,8 @@ export class DocumentRef
 {
     // Treating native document as `any` save users typecasting everytime and deducing if the object is of type `Document` or `object`.
     /**
+     * Creates an instance of `DocumentRef`.
+     * 
      * @param {*} nativeDocument The native document provided by the `DOCUMENT` token of `@bespunky/angular-zen/core`. See `DocumentRef` for details. 
      */
     constructor(@Inject(DOCUMENT) public readonly nativeDocument: any) { }

@@ -1,3 +1,9 @@
+/**
+ * Defines the options for a lazy loading operation.
+ *
+ * @export
+ * @interface LoadOptions
+ */
 export interface LoadOptions
 {
     /**

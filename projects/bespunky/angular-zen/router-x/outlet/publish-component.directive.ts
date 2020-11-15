@@ -32,6 +32,9 @@ export class PublishComponentDirective extends Destroyable implements OnInit
 
     constructor(private outlet: RouterOutlet, private element: ElementRef, private componentBus: RouterOutletComponentBus) { super(); }
 
+    /**
+     * Registers to outlet events to publish the activated and deactivated components to the bus.     *
+     */
     ngOnInit()
     {
         this.outletName = this.element.nativeElement.attributes.name?.value;
@@ -42,6 +45,9 @@ export class PublishComponentDirective extends Destroyable implements OnInit
         this.subscribe(this.outlet.deactivateEvents, () => this.updateComponentOnBus(null));
     }
 
+    /**
+     * Unpublishes the outlet from the bus.
+     */
     ngOnDestroy()
     {
         // An outlet might be kept alive while its component is switched. So when the outlet is completely destroyed,

@@ -20,6 +20,12 @@ const exported = [
     NonWorkerUiOnlyDirective
 ];
 
+/**
+ * Provides facilitating tools for work with Angular Universal.
+ *
+ * @export
+ * @class UniversalModule
+ */
 @NgModule({
     declarations: exported,
     exports     : exported

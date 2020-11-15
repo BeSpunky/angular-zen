@@ -5,6 +5,12 @@ import { DocumentRef   } from '@bespunky/angular-zen/core';
 import { RouterXConfig } from '../config/router-x-config';
 import { RouterX       } from '../config/router-x-config.provider';
 
+/**
+ * Provides tools for breaking the current and any url to their different parts.
+ *
+ * @export
+ * @class UrlReflectionService
+ */
 @Injectable({ providedIn: 'root'})
 export class UrlReflectionService
 {

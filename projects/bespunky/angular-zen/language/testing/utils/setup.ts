@@ -91,7 +91,7 @@ export function createLocalizedDeeplyNestedRoutes(segments: string[]): Route
 function localizeRoute(route: Route): void
 {
     route.children.forEach(child => localizeRoute(child));
- 
+
     const localizedRoute: Route = { path: 'en', component: NoopComponent };
 
     // Copy the children of the current route to the localized route as well to ensure a route can be
@@ -101,7 +101,15 @@ function localizeRoute(route: Route): void
     route.children.unshift(localizedRoute);
 }
 
+/**
+ * Checks whether the given value is a url localization config object.
+ *
+ * @param {*} value The value to test.
+ * @returns {value is UrlLocalizationConfig} `true` if the value is a `UrlLocalizationConfig` object; otherwise `false`.
+ */
 function isUrlLocalizationConfig(value: any): value is UrlLocalizationConfig
 {
-    return !!value?.strategy;
+    const strategy = value?.strategy;
+
+    return strategy && (typeof strategy === 'number' || typeof strategy === 'string' || strategy.useClass || strategy.useFactory);
 }
