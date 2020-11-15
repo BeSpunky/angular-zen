@@ -5,15 +5,37 @@ import { UrlLocalizer } from '../localizers/url-localizer';
 /** Represents a factory function for building a `UrlLocalizer` using dependency injection. */
 export type UrlLocalizerFactory = (...deps: any[]) => UrlLocalizer;
 
-/** A strongly-typed factory provider for creating a `UrlLocalizer` using dependency injection. */
+/**
+ * A strongly-typed factory provider for creating a `UrlLocalizer` using dependency injection.
+ *
+ * @export
+ * @interface UrlLocalizerFactoryProvider
+ * @extends {(Omit<FactoryProvider, 'provide' | 'multi'>)}
+ */
 export interface UrlLocalizerFactoryProvider extends Omit<FactoryProvider, 'provide' | 'multi'>
 {
+    /**
+     * The factory to use for instantiating a `UrlLocalizer` object.
+     *
+     * @type {UrlLocalizerFactory}
+     */
     useFactory: UrlLocalizerFactory;
 }
 
-/** A strongly-typed class provider for instantiating a `UrlLocalizer`. */
+/**
+ * A strongly-typed class provider for instantiating a `UrlLocalizer`.
+ *
+ * @export
+ * @interface UrlLocalizerClassProvider
+ * @extends {(Omit<ClassProvider, 'provide' | 'multi'>)}
+ */
 export interface UrlLocalizerClassProvider extends Omit<ClassProvider, 'provide' | 'multi'>
 {
+    /**
+     * The class to use as a url localizer.
+     *
+     * @type {Type<UrlLocalizer>}
+     */
     useClass: Type<UrlLocalizer>;
 }
 

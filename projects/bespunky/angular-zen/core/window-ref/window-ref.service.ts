@@ -18,6 +18,11 @@ export const WINDOW = new InjectionToken<Window>('WindowToken');
 export class WindowRef
 {
     // Treating native window as `any` save users typecasting everytime and deducing if the object is of type `Window` or `object`.
+    /**
+     * Creates an instance of WindowRef.
+     * 
+     * @param {*} nativeWindow The native window provided by the `WINDOW` token of `@bespunky/angular-zen/core`. See `WindowRef` for details. 
+     */
     constructor(@Inject(WINDOW) public readonly nativeWindow: any) { }
 }
 
