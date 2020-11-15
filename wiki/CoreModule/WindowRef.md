@@ -1,3 +1,6 @@
+> **TLDR Summary**  
+> Use `WindowRef` to **safely** access the `window` object and/or mock it with a simple to use class and syntax.
+
 The `window` object is necessary many times when working with the web, and normally we would summon it directly in our code. However, `window` doesn't always exist when working with angular. 
 
 ## Why?

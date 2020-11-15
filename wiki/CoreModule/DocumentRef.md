@@ -1,6 +1,5 @@
 > **TLDR Summary**  
-> Use the `DocumentRef` to **safely** access the document object and/or mock it with a simple to use class and syntax.
-
+> Use `DocumentRef` to **safely** access the `document` object and/or mock it with a simple to use class and syntax.
 
 The `document` object is necessary many times when working with the web, and normally we would summon it directly in out code. However, `document` doesn't always exist when working with angular. 
 
