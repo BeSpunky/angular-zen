@@ -1,9 +1,8 @@
-# HeadService
 Apart from the `Meta` and `Title` services, Angular doesn't provide a straight forward way of manipulating the `<head>` element.
 
 The `HeadService` provides tools for elements lookup, adding elements and removing them from `<head>`.
 
-> If you're looking for a way to lazy load a script or a style, see [`LazyLoaderService`](../AsyncModule/LazyLoaderService.md) instead.
+> If you're looking for a way to lazy load a script or a style, see [`LazyLoaderService`](../AsyncModule/LazyLoaderService.html) instead.
 
 # How to use
 1. Import `CoreModule` into your app:
@@ -77,7 +76,7 @@ Lookup is done using `AND` comparisons, meaning all provided arguments must matc
 
 
 # Mocking
-The service uses the [`DocumentRef`](DocumentRef.md) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](DocumentRef/Mocking.md).
+The service uses the [`DocumentRef`](DocumentRef.html) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](DocumentRef/Mocking.html).
 
 # See also
-[`LazyLoaderService`](../AsyncModule/LazyLoaderService.md)
+[`LazyLoaderService`](../AsyncModule/LazyLoaderService.html)

@@ -1,4 +1,3 @@
-# UniversalService
 When working with Angular Universal and doing Server Side Rendering, different dificulties always force us to check what platform we are running on and avoid executing certain parts of our code.
 
 `UniversalService` simplifies platform detection code and boostrapping:
@@ -51,4 +50,4 @@ I've always found this to be tedious to write and frustrating to read.
 * The service is now scaleable and extendable.
 
 # See Also
-[ Platform Directives ](/UniversalModule/Platform-Directives)
+[Platform Directives](Platform-Directives.html)

@@ -1,4 +1,3 @@
-# DocumentRef Service
 > **TLDR Summary**  
 > Use the `DocumentRef` to **safely** access the document object and/or mock it with a simple to use class and syntax.
 
@@ -75,6 +74,6 @@ export class DocumentRefDemoComponent implements OnInit
 ```
 
 # See also
-[Mocking and replacing implementation](DocumentRef/Mocking)
+[Mocking and replacing implementation](DocumentRef/Mocking.html)
 
-[`DocumentRef` internals](DocumentRef/Internals)
+[`DocumentRef` internals](DocumentRef/Internals.html)
