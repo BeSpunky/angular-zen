@@ -1,7 +1,7 @@
 When you need to control platform specific rendering in your template, you can use the appropriate platform directive.
 Platform directives provide you with an easy way of preventing rendering of specific elements, without injecting anything into your component.
 
-# Supported Platform Directives
+## Supported Platform Directives
 |Directive|Use|
 |---------|---|
 | [`*browserOnly`     ](/directives/BrowserOnlyDirective.html) | Prevent element from rendering on non-browser platforms. |
@@ -13,7 +13,7 @@ Platform directives provide you with an easy way of preventing rendering of spec
 | [`*nonWorkerAppOnly`](/directives/NonWorkerAppOnlyDirective.html) | Prevent element from rendering on worker app platforms. |
 | [`*nonWorkerUiOnly` ](/directives/NonWorkerUiOnlyDirective.html) | Prevent element from rendering on worker ui platforms. |
 
-# Usage
+## How to use
 Import the `UniversalModule` and place the directives in your template.
 
 The supported directives may be added to any element or component in your template.  
@@ -29,5 +29,5 @@ The following example will only render the `<div>` element on browser platforms:
 > </ng-container>
 > ```
 
-# See Also
+## See Also
 [Universal Service](UniversalService.html)

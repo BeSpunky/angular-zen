@@ -4,7 +4,7 @@ This service lets you:
 1. Gain access to the instances of router activated components from anywhere in your app.
 2. Observe changes to the active component in outlets.
 
-# How to use
+## How to use
 The service is intended to be managed by the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
 
 1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html).
@@ -19,14 +19,14 @@ The service is intended to be managed by the [`PublishComponentDirective`](Route
 
 [See complete API](/injectables/RouterOutletComponentBus.html)
 
-# How does it work?
+## How does it work?
 Internally, `RouterOutletComponentBus` keeps a map of `outlet name -> component instance`.  
 When an outlet has no name, the service uses Angular's `PRIMARY_OUTLET` constant as a name.
 
 When a component is published on the service, an observable is created and is mapped with the outlet's name.  
 When a component is unpublished, that observable is completed and removed.
 
-# `TLDR` Why do I need a service?
+## `TLDR` Why do I need a service?
 Before `@bespunky/angular-zen`, the common way of finding the activated component was to listen to the `activated` event on the relevant outlet:
 
 ```html

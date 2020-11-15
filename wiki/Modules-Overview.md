@@ -1,4 +1,3 @@
-# Modules
 `@bespunky/angular-zen` exports the following modules:
 
 | Name | Description |
@@ -9,12 +8,7 @@
 | [`RouterXModule`](RouterXModule.html) | Contains tools for routing related tasks. |
 | [`LanguageIntegrationModule`](LanguageIntegrationModule.html) | Contains tools for integrating your library with your user's language services. |
 
-# 🌳 Tree Shaking
-The library is tree-shakable, meaning the compiler will only include modules used in your app in your final build.
-
-Remember to import from the corresponding module (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.
-
-# Shared Module
+## Shared Module
 If you find yourself frequently importing the same modules, consider creating a shared module for them and import that module instead:
 
 1. Create the shared module:
@@ -25,8 +19,8 @@ If you find yourself frequently importing the same modules, consider creating a 
     import { NgModule } from '@angular/core';
 
     // 1. Import modules (notice the from clause)
-    import { CoreModule } from '@bespunky/angular-zen/core';
-    import { AsyncModule } from '@bespunky/angular-zen/async';
+    import { CoreModule      } from '@bespunky/angular-zen/core';
+    import { AsyncModule     } from '@bespunky/angular-zen/async';
     import { UniversalModule } from '@bespunky/angular-zen/universal';
 
     @NgModule({
@@ -43,12 +37,11 @@ If you find yourself frequently importing the same modules, consider creating a 
 3. Use the shared module in your app:
    ```typescript
     import { BrowserModule } from '@angular/platform-browser';
-    import { NgModule } from '@angular/core';
+    import { NgModule      } from '@angular/core';
 
     // 1. Import shared module
     import { SharedZenModule } from 'path/to/module/shared-zen.module';
-
-    import { AppComponent } from './app.component';
+    import { AppComponent    } from './app.component';
 
     @NgModule({
         declarations: [
@@ -63,3 +56,4 @@ If you find yourself frequently importing the same modules, consider creating a 
     })
     export class AppModule { }
    ```
+   

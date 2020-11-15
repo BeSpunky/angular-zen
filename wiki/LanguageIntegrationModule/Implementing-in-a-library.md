@@ -1,7 +1,7 @@
 Your bridge to the language services of your user's app is the `LanguageIntegrationService`. Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
 
-# Preparation
-## `enabled` - Vefiying integration presence
+## Preparation
+### `enabled` - Vefiying integration presence
 The service is always injectable. However it is up to the **app** developer using your library to import the language integration module.
 If the module hasn't been imported, the service is considered to be 'disabled'.
 
@@ -9,12 +9,12 @@ If the module hasn't been imported, the service is considered to be 'disabled'.
 
 To verify that the app has enabled language integration, use the `enabled` property.
 
-## `ready` - Vefiying  integration readiness
+### `ready` - Vefiying  integration readiness
 Some apps might take some time to load their translation files or initialize their language services. To hook into the initialization process and know when the app's language services are ready, use the `ready` property.
 
 > If the app didn't provide a ready promise or observable, the `ready` property will complete immediately.
 
-# Initialization
+## Initialization
 The following example verifies that integration has been enabled, then registers handlers for readiness and language changes.
 
 ```typescript
@@ -52,7 +52,7 @@ export class SomeLibraryService extends Destroyable
 
 > The [`LocalizedRouteAware`](LocalizedRouteAware-(abstract).html) class provides the above implementation out of the box along with other tools. Consider extending it.
 
-# Forcing Integration
+## Forcing Integration
 If your library requires the language integration tools and cannot provide a default behaviour without them, you can use the `ensureEnabled()` method to throw an explanatory error to the app's developer, telling him he must import the module. If integration has been enabled, the method will exit without an error.
 
 To force integration, the constructor in the above example could be changed as follows:
@@ -70,7 +70,7 @@ To force integration, the constructor in the above example could be changed as f
 
 [See full API](/injectables/LanguageIntegrationService.html)
 
-# Next Steps
+## Next Steps
 [Providing integration from an app](Providing-From-an-App.html)
 
 [LocalizedRouteAware](LocalizedRouteAware-\(abstract\).html)

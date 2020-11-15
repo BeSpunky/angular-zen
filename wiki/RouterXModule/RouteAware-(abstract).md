@@ -1,6 +1,6 @@
 Acting as a base class for services services and components, this class creates a layer between the router and your app to help facilitate route related tasks.
 
-# Events Dispatcher
+## Events Dispatcher
 Recognize this line...?
 ```typescript
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(this.onNavigationStart.bind(this));
@@ -35,10 +35,10 @@ class MyService extends RouteAware
 
 > Consider marking your handlers `protected` as they are usually intended for internal class use.
 
-# Component Bus
+## Component Bus
 Route aware services integrate seamlessly with [`RouterOutletComponentBus`](RouterOutletComponentBus.html). Different methods in the service take advantage of the bus to provide their caller with the instance of the activated component.
 
-# Resolves
+## Resolves
 Angular resolves work pretty well, but they don't fit all scenarios. By definition, Angular processes resolves **before** a component is loaded.
 
 Use `resolve()` to run resolves at any given moment.
@@ -52,13 +52,13 @@ Use `resolveInMacroTask()` to have your server block and wait for resolves befor
 
 [More Info](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Fservices%2Froute-aware.service.ts&version=GBdevelopment&line=163&lineEnd=184&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents)
 
-# Deep Route Scan
+## Deep Route Scan
 Use `deepScanRoute()` to recursively run a function on the complete route tree.
 
 > If you provide the `componentBus` param at construction time, your processing function will receive the instance of the component matching the route currently being scanned.
 
-# Activated Route Component
+## Activated Route Component
 If you provide the `componentBus` param at construction time, you can use the `activatedRouteComponent` property to fetch the instance of the active component.
 
-# Destroyable
+## Destroyable
 The class is [`Destroyable`](../CoreModule/Destroyable-\(abstract\).html). You can take advantage of that when working with subscriptions.

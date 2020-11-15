@@ -1,10 +1,10 @@
-# Services
+## Services
 
 | Name | Description |
 | ---  | ---         |
 | [UniversalService](UniversalModule/UniversalService.html) | Provides an injectable wrapper for accessing platform information. Takes away the pain of continually injecting the PLATFORM_ID value. |
 
-# Directives
+## Directives
 
 | Name | Description |
 | ---  | ---         |

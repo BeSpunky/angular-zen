@@ -5,7 +5,7 @@ There are different approaches out there to unsubscribe, but the end result is a
 
 `Destroyable` saves us time on implementing boilerplate code and lets you easily subscribe to an observable without any headaches.
 
-# How to Use
+## How to Use
 Once your class extends `Destroyable`, you will be able choose between:
 1. Piping `takeUntil(this.destroyed)`.
 2. Subscribe using `this.subscribe(...)`.

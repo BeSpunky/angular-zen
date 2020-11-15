@@ -18,7 +18,7 @@ An example use case would be localization using sub-domains or host replacement 
 
 See [`UrlLocalizationConfig`](/interfaces/UrlLocalizationConfig.html).
 
-# See Also
+## See Also
 [LanguageIntegrationModule](../LanguageIntegrationModule.html)
 
 [Implementing integration in a library](Implementing-in-a-Library.html)

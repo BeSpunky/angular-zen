@@ -8,7 +8,7 @@ This service provides:
 
 [See full API](/injectables/UrlReflectionService.html)
 
-# Host Urls
+## Host Urls
 By default, the `hostUrl` and `fullUrl` properties use the current document's location to compose their values.
 You can, however, specify a fixed value that will always replace the host part (e.g. 'https://www.example.com') by configuring `RouterXModule`:
 

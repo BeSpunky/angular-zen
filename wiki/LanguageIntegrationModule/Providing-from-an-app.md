@@ -48,7 +48,7 @@ export function createLanguageIntegrationConfig(translate: TranslateService): La
 export class AppModule { }
 ```
 
-# Next Steps
+## Next Steps
 [Implementing integration in a library](Implementing-in-a-library.html)
 
 [LocalizedRouteAware](LocalizedRouteAware-\(abstract\).html)

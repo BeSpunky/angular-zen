@@ -4,7 +4,7 @@ The `HeadService` provides tools for elements lookup, adding elements and removi
 
 > If you're looking for a way to lazy load a script or a style, see [`LazyLoaderService`](../AsyncModule/LazyLoaderService.html) instead.
 
-# How to use
+## How to use
 1. Import `CoreModule` into your app:
     ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -75,8 +75,8 @@ Lookup is done using `AND` comparisons, meaning all provided arguments must matc
 > ```
 
 
-# Mocking
+## Mocking
 The service uses the [`DocumentRef`](DocumentRef.html) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](DocumentRef/Mocking.html).
 
-# See also
+## See also
 [`LazyLoaderService`](../AsyncModule/LazyLoaderService.html)

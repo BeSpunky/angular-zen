@@ -22,7 +22,7 @@ The default implementation for `WindowRef` depends on the `WINDOW` token which p
 
 This eventually gives you the ability to use the `WindowRef` service in your apps and, when needed, mock or provide a different implementation for the service, the `WINDOW` token, or both.
 
-# How to use
+## How to use
 1. Import `CoreModule` into your app:
     ```typescript
     import { BrowserModule } from '@angular/platform-browser';
@@ -69,7 +69,7 @@ This eventually gives you the ability to use the `WindowRef` service in your app
     }
     ```
 
-# See also
+## See also
 [Mocking and replacing implementation](WindowRef/Mocking.html)
 
 [`WindowRef` internals](WindowRef/Internals.html)

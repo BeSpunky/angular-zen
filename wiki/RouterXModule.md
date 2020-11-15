@@ -1,13 +1,13 @@
-# X for eXtension
+## X for eXtension
 `RouterXModule` integrates with Angular's router to extend its capacities.
 
-# Importing The Module
+## Importing The Module
 Some of the services in the module are independent and will work even when the module is not imported. For better tree-shaking it is prefer importing `RouterXModule` only when specified in the docs.
 
 Use `RouterXModule.forRoot()` when importing in `AppModule`.  
 Use `RouterXModule.forChild()` when importing in child/feature modules.
 
-# Services
+## Services
 
 | Name                                                                        | Description                                                                                                                                                                     | Module Independent                                               |
 |-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------:|
@@ -15,7 +15,7 @@ Use `RouterXModule.forChild()` when importing in child/feature modules.
 | [RouterOutletComponentBus](RouterXModule/RouterOutletComponentBus.html) | Provides access to the instances of components activated by router outlets. Used together with [`PublishComponentDirective`](RouterXModule/RouterOutletComponentBus/PublishComponentDirective.html). | [❕](RouterXModule/RouterOutletComponentBus.html#How-to-use) |
 | [RouteAware (abstract)](RouterXModule/RouteAware-(abstract).html)                                        | Simplified the creation of services and components that work with routes.                                                                                                                      | ✔                                                               |
 
-# Directives
+## Directives
 
 | Name                                                                          | Description                                                                                                                                       |
 |-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|

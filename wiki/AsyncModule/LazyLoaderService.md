@@ -1,6 +1,6 @@
 This service loads a script/style file programmatically, while also keeping track of loaded files to avoid loading them multiple times.
 
-# How to use
+## How to use
 1. Import `AsyncModule` into your app:
     ```typescript
     import { NgModule } from '@angular/core';
@@ -53,7 +53,7 @@ This service loads a script/style file programmatically, while also keeping trac
     }
     ```
 
-# See also
+## See also
 [Service API](/injectables/LazyLoaderService.html)
 
 [Providing options](/interfaces/LoadOptions.html)

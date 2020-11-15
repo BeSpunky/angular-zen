@@ -1,35 +1,17 @@
-To start using the tools provided by the library:
+## Installing
+Use the following command:
 
-1. Install the npm package:
-   
-   `> npm install @bespunky/angular-zen`
+> `> npm install @bespunky/angular-zen`
 
-2. Include the module you need in your corresponding app/feature module:
-   
-   ```typescript
-    import { BrowserModule } from '@angular/platform-browser';
-    import { NgModule } from '@angular/core';
+## Import Modules Correctly
+Import modules from the corresponding module (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.
 
-    import { AsyncModule } from '@bespunky/angular-zen/async'; // 1. Import module
+🌳 The library is tree-shakable. By importing correctly you ensure the compiler will only include used modules in your final build.
 
-    import { AppComponent } from './app.component';
+<br/>
 
-    @NgModule({
-        declarations: [
-            AppComponent
-        ],
-        imports: [
-            BrowserModule,
-            AsyncModule // 2. Include module in your app
-        ],
-        providers: [], 
-        bootstrap: [AppComponent]
-    })
-    export class AppModule { }
-   ```
-
-# Next Steps
+## Next Steps
 
 | Topic              | Description                                            |
 |--------------------|--------------------------------------------------------|
-| [Modules-Overview](Modules-Overview.html) | A list of the library's modules and their purpose. |
+| [Modules Overview](Modules-Overview.html) | A list of the library's modules and their purpose. |
