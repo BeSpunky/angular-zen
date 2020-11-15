@@ -3,15 +3,15 @@
 
     "tsconfig": "./projects/bespunky/angular-zen/tsconfig.lib.json",
 
-    "output": "./dist/bespunky/angular-zen/api",
-    "assetsFolder": "./wiki/.attachments",
+    "output"      : "./dist/bespunky/angular-zen-site/docs",
+    "assetsFolder": "./wiki/angular-zen/.attachments",
 
     "name": "@bespunky/angular-zen Official Docs",
     
-    "includes": "./wiki",
+    "includes"    : "./wiki/angular-zen",
     "includesName": "Complete Documentation",
 
-    "theme": "material",
+    "theme"   : "material",
     "extTheme": "./compodoc/styles",
 
     "templates": "./compodoc/templates",
@@ -19,7 +19,7 @@
     "customLogo"   : "./projects/demo/src/assets/angular-zen/logo.svg",
     "customFavicon": "./projects/demo/src/favicon.ico",
 
-    "disablePrivate": true,
+    "disablePrivate" : true,
     "disableInternal": true,
     
     "watch": true
