@@ -19,7 +19,10 @@
     "vminor": "npm run lib-vminor && npm run app-vminor",
     "vpatch": "npm run lib-vpatch && npm run app-vpatch",
     "publish": "cd dist/bespunky/angular-zen && npm publish --access public",
-    "publish-demo": "firebase deploy --only hosting:bs-angular-zen-demo"
+    "publish-demo": "firebase deploy --only hosting:bs-angular-zen-demo",
+    "update-wiki-summary": "node generate-wiki-summary",
+    "generate-docs": "npm run update-wiki-summary && compodoc",
+    "serve-docs": "npm run update-wiki-summary && compodoc -s"
   },
   "private": false,
   "dependencies": {
@@ -47,6 +50,7 @@
     "@angular/cli": "^10.2.0",
     "@angular/compiler-cli": "^10.2.2",
     "@angular/language-service": "^10.2.2",
+    "@compodoc/compodoc": "^1.1.11",
     "@types/jasmine": "^3.5.14",
     "@types/jasminewd2": "^2.0.8",
     "@types/lodash": "^4.14.144",

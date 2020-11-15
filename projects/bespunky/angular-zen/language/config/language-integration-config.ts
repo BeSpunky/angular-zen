@@ -59,4 +59,8 @@ export interface LanguageIntegrationConfig
     translate: TranslationFn;
 }
 
+/**
+ * An injection token representing the the global language integration configuration provided by an app to its libraries.
+ * Provided by `LanguageIntegrationModule.forRoot()`.
+ */
 export const LanguageIntegration = new InjectionToken<LanguageIntegrationConfig>('LanguageIntegration.Config');

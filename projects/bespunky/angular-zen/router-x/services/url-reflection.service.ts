@@ -5,6 +5,12 @@ import { DocumentRef   } from '@bespunky/angular-zen/core';
 import { RouterXConfig } from '../config/router-x-config';
 import { RouterX       } from '../config/router-x-config.provider';
 
+/**
+ * Provides tools for breaking the current and any url to their different parts.
+ *
+ * @export
+ * @class UrlReflectionService
+ */
 @Injectable({ providedIn: 'root'})
 export class UrlReflectionService
 {
@@ -86,9 +92,7 @@ export class UrlReflectionService
      * Extracts the route portion of a given url.
      * 
      * @example
-     * ```typescript
      * routeOf('https://some.website.com/some/route?a=1&b=2&c=3') === '/some/route'
-     * ```
      *
      * @param {string} url The url for which to extract the route portion.
      * @returns {string} The route portion of the url.
@@ -102,10 +106,8 @@ export class UrlReflectionService
      * Extracts the route portion of a url as an array of route segments, not including the empty root segment.
      *
      * @example
-     * ```typescript
      * routeSegmentsOf('https://some.website.com/some/route?a=1&b=2&c=3') === ['some', 'route']
      * routeSegmentsOf('/some/route') === ['some', 'route']
-     * ```
      *
      * @param {string} routeOrUrl The route or complete url from which to extract the route segments.
      * @returns {string[]} The segments of the route.
@@ -120,9 +122,7 @@ export class UrlReflectionService
      * Extracts the query string of a specified url.
      *
      * @example
-     * ```typescript
      * queryStringOf('https://some.website.com/some/route?a=1&b=2&c=3') === '?a=1&b=2&c=3'
-     * ```
      *
      * @param {string} url The url from which to extract the query string.
      * @returns {string} The query string extracted from the url.
@@ -138,9 +138,7 @@ export class UrlReflectionService
      * Removes the query portion of a url.
      *
      * @example
-     * ```typescript
-     * stripQuery('https://some.website.com/some/route?a=1&b=2&c=3#fragment') === 'https://some.website.com/some/route#fragment''
-     * ```
+     * stripQuery('https://some.website.com/some/route?a=1&b=2&c=3#fragment') === 'https://some.website.com/some/route#fragment'
      *
      * @param {string} url The url from which to remove the query.
      * @returns {string} The specified url without the query portion.
@@ -154,9 +152,7 @@ export class UrlReflectionService
      * Extracts the fragment from a url.
      *
      * @example
-     * ```typescript
      * fragmentOf('https://some.website.com/some/route?a=1&b=2&c=3#fragment') === '#fragment'
-     * ```
      *
      * @param {string} url The url from which to extract the fragment.
      * @returns {string} The fragment extracted from the url.
@@ -172,10 +168,8 @@ export class UrlReflectionService
      * Removes the fragment portion of a url.
      *
      * @example
-     * ```typescript
      * stripFragment('https://some.website.com/some/route?a=1&b=2&c=3#fragment') === 'https://some.website.com/some/route?a=1&b=2&c=3'
-     * ```
-     *
+     * 
      * @param {string} url The url to remove the fragment.
      * @returns {string} The url without the fragment portion.
      */

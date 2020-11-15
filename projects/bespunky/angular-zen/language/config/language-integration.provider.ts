@@ -16,7 +16,17 @@ export type LanguageIntegrationConfigFactory = (...deps: any[]) => LanguageInteg
  */
 export interface LanguageIntegrationProvider extends Omit<FactoryProvider, 'provide' | 'multi'>
 {
+    /**
+     * The factory to use for creating the language integration configuration.
+     *
+     * @type {LanguageIntegrationConfigFactory}
+     */
     useFactory      : LanguageIntegrationConfigFactory;
+    /**
+     * (Optional) The configuration for the `UrlLocalizationService`.
+     *
+     * @type {UrlLocalizationConfig}
+     */
     urlLocalization?: UrlLocalizationConfig;
 }
 
@@ -25,7 +35,7 @@ export interface LanguageIntegrationProvider extends Omit<FactoryProvider, 'prov
  * Used by `LanguageIntegrationModule.forRoot()`.
  *
  * @export
- * @param {LanguageIntegrationProvider} config The language integration provider configuration.
+ * @param {LanguageIntegrationProvider} { useFactory, deps, urlLocalization } The language integration provider configuration.
  * @returns {Provider[]} An array of providers for language integration.
  */
 export function provideLanguageIntegration({ useFactory, deps, urlLocalization }: LanguageIntegrationProvider): Provider[]
