@@ -54,9 +54,10 @@ export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy 
  * 1. The segment name.
  * 2. An 'en' path.
  * 
- * **Example**  
- * Running the function on `['some', 'route']` will result in the following supported routes:
+ * #### Example
+ * Running the function on `['some', 'route']` will result in the following supported routes:  
  * /  
+ * 
  * /some  
  * /some/route  
  *   

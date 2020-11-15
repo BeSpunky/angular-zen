@@ -5,9 +5,10 @@ import { Route     } from '@angular/router';
  * Recoursively creates nested routes for the specified segments.
  * Each specified segment will be a child route of its previous segment.
  * 
- * **Example**  
+ * #### Example
  * Running the function on `['some', 'route']` will result in the following supported routes:  
  * /  
+ * 
  * /some  
  * /some/route  
  *

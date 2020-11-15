@@ -4,7 +4,7 @@
  * allow you full control of the promise from other parts of your code.
  *
  * @example
- * import { promiseLater } from '@bespunky/angular';
+ * import { promiseLater } from '@bespunky/angular-zen/core';
  * // Other imports...
  *
  * export class SomeDirective implements OnInit, OnChanges
