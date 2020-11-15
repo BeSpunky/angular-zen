@@ -15,7 +15,7 @@
 
     "templates": "./compodoc/templates",
 
-    "customLogo"   : "./projects/demo/src/assets/angular-zen/logo@0.75x.png",
+    "customLogo"   : "./projects/demo/src/assets/angular-zen/logo.svg",
     "customFavicon": "./projects/demo/src/favicon.ico",
 
     "disablePrivate": true,
