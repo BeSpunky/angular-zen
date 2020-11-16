@@ -50,32 +50,32 @@
         }
       }
     },
-    "demo": {
+    "official-site": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/demo",
-      "sourceRoot": "projects/demo/src",
+      "root": "projects/official-site",
+      "sourceRoot": "projects/official-site/src",
       "prefix": "zen",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo",
-            "index": "projects/demo/src/index.html",
-            "main": "projects/demo/src/main.ts",
-            "polyfills": "projects/demo/src/polyfills.ts",
-            "tsConfig": "projects/demo/tsconfig.app.json",
+            "outputPath": "dist/official-site",
+            "index": "projects/official-site/src/index.html",
+            "main": "projects/official-site/src/main.ts",
+            "polyfills": "projects/official-site/src/polyfills.ts",
+            "tsConfig": "projects/official-site/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/demo/src/favicon.ico",
-              "projects/demo/src/assets"
+              "projects/official-site/src/favicon.ico",
+              "projects/official-site/src/assets"
             ],
             "styles": [
-              "projects/demo/src/styles.scss"
+              "projects/official-site/src/styles.scss"
             ],
             "scripts": []
           },
@@ -83,8 +83,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/demo/src/environments/environment.ts",
-                  "with": "projects/demo/src/environments/environment.prod.ts"
+                  "replace": "projects/official-site/src/environments/environment.ts",
+                  "with": "projects/official-site/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -113,33 +113,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "official-site:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "demo:build:production"
+              "browserTarget": "official-site:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "official-site:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/demo/src/test.ts",
-            "polyfills": "projects/demo/src/polyfills.ts",
-            "tsConfig": "projects/demo/tsconfig.spec.json",
-            "karmaConfig": "projects/demo/karma.conf.js",
+            "main": "projects/official-site/src/test.ts",
+            "polyfills": "projects/official-site/src/polyfills.ts",
+            "tsConfig": "projects/official-site/tsconfig.spec.json",
+            "karmaConfig": "projects/official-site/karma.conf.js",
             "assets": [
-              "projects/demo/src/favicon.ico",
-              "projects/demo/src/assets"
+              "projects/official-site/src/favicon.ico",
+              "projects/official-site/src/assets"
             ],
             "styles": [
-              "projects/demo/src/styles.scss"
+              "projects/official-site/src/styles.scss"
             ],
             "scripts": []
           }
@@ -148,9 +148,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/demo/tsconfig.app.json",
-              "projects/demo/tsconfig.spec.json",
-              "projects/demo/e2e/tsconfig.json"
+              "projects/official-site/tsconfig.app.json",
+              "projects/official-site/tsconfig.spec.json",
+              "projects/official-site/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -160,12 +160,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/demo/e2e/protractor.conf.js",
-            "devServerTarget": "demo:serve"
+            "protractorConfig": "projects/official-site/e2e/protractor.conf.js",
+            "devServerTarget": "official-site:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "demo:serve:production"
+              "devServerTarget": "official-site:serve:production"
             }
           }
         }

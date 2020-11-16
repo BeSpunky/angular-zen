@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const wikiFolder = `./wiki`;
+const wikiFolder  = process.argv[2] || './wiki'; // [2] Should be the path to the wiki folder
 
 function log(message, level)
 {
@@ -73,9 +73,9 @@ function generateDirectorySummary(path, level)
                 });
 }
 
-log('------------------------------------------');
+log('---------------------------------------------');
 log('---- ⚙ Generating new summary.json file ----');
-log('------------------------------------------');
+log('---------------------------------------------');
 
 const summary     = generateDirectorySummary();
 const summaryFile = `${wikiFolder}/summary.json`;

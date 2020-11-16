@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "build-demo": "ng build --prod --project demo",
+    "build-site": "ng build --prod --project official-site && npm run generate-zen-docs",
     "test": "ng test --prod --code-coverage --browsers=ChromeHeadless --watch=false --reporters=junit,coverage-istanbul",
     "lint": "ng lint",
-    "e2e": "ng e2e --prod --protractor-config=projects/demo-e2e/protractor.conf.prod.js",
+    "e2e": "ng e2e --prod --protractor-config=projects/official-site/e2e/protractor.conf.js",
     "lib-vmajor": "git stash && cd projects/bespunky/angular-zen && (for /F %m in ('npm version major') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
     "lib-vminor": "git stash && cd projects/bespunky/angular-zen && (for /F %m in ('npm version minor') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
     "lib-vpatch": "git stash && cd projects/bespunky/angular-zen && (for /F %m in ('npm version patch') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
@@ -19,10 +19,10 @@
     "vminor": "npm run lib-vminor && npm run app-vminor",
     "vpatch": "npm run lib-vpatch && npm run app-vpatch",
     "publish": "cd dist/bespunky/angular-zen && npm publish --access public",
-    "publish-demo": "firebase deploy --only hosting:bs-angular-zen-demo",
+    "publish-site": "firebase deploy --only hosting:bs-angular-zen",
     "update-wiki-summary": "node generate-wiki-summary",
-    "generate-docs": "npm run update-wiki-summary && compodoc",
-    "serve-docs": "npm run update-wiki-summary && compodoc -s"
+    "generate-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd projects/bespunky/angular-zen && compodoc",
+    "serve-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd projects/bespunky/angular-zen && compodoc -s"
   },
   "private": false,
   "dependencies": {
