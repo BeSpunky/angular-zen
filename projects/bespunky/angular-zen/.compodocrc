@@ -3,8 +3,8 @@
 
     "tsconfig": "./projects/bespunky/angular-zen/tsconfig.lib.json",
 
-    "output"      : "./dist/bespunky/official-site/docs/zen",
     "assetsFolder": "./wiki/angular-zen/.attachments",
+    "output"      : "./dist/official-site/docs/zen",
 
     "name": "@bespunky/angular-zen Official Docs",
     
