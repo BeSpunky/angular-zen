@@ -65,7 +65,7 @@ Please follow the [contribution guidelines]().
 🚧 (soon) `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
 
 ## References
-[Source Code](https://www.github.com/BeSpunky/angular-zen)
+[Source Code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen)
 
 [NPM Package](https://www.npmjs.com/package/@bespunky/angular-zen)
 
