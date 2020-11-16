@@ -8,16 +8,16 @@
 ![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen.svg?style=flat-square)
 
 <p align="center">
-    <img src="/.attachments/logo.svg" width="200"/>
+    <img src="https://bs-angular-zen.web.app/docs/zen/.attachments/logo.svg" width="200"/>
 </p>
 
 <p align="center" style="font-size: x-large">@bespunky/angular-zen</p>
 <p align="center" style="font-size: medium">The Angular tools you always wished were there.</p>
 
 <p align="center" style="font-size: medium; margin: 20px auto">
-    ✨ <a href="getting-started.html">Getting Started</a> |
+    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/getting-started.html">Getting Started</a> |
     🙌 <a href="https://bs-angular-zen.web.app/">Official Site & Live Demos</a> |
-    🎁 <a href="modules-overview.html">What's in the library?</a>
+    🎁 <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/modules-overview.html">What's in the library?</a>
 </p>
 
 You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
@@ -29,20 +29,20 @@ You may use the library as you like, with any app, under the MIT license.
 
 ## ✨ The Highlights
 
-| [🔲 `WindowRef`](CoreModule/WindowRef.html) | [📄 `DocumentRef`](CoreModule/DocumentRef.html) | [💥`Destroyable`](CoreModule/Destroyable-(abstract).html) |
+| [🔲 `WindowRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/windowref.html) | [📄 `DocumentRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/documentref.html) | [💥`Destroyable`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/destroyable-(abstract).html) |
 |:------------------------------------------------:|:----------------------------------------------------:|:--------------------------------------------------------------:|
 | The safe way to access the `window` object. | The safe way to access the `document` object. | No more manual `unsubscribe()` calls. |
 
 
-| [😎 `HeadService`](CoreModule/HeadService.html) | [⏳ `LazyLoaderService`](AsyncModule/LazyLoaderService.html) | [🌎 `Universal Platform Directives`](UniversalModule/Platform-Directives.html) | 
+| [😎 `HeadService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/headservice.html) | [⏳ `LazyLoaderService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/asyncmodule/lazyloaderservice.html) | [🌎 `Universal Platform Directives`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/universalModule/platform-directives.html) | 
 |:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
 | Cleanly access and manipulate the head element. | Programmatically load scripts and styles. | Prevent element rendering in Universal with directives. |
 
-| [⚙ `LanguageIntegrationService`](LanguageIntegrationModule.html) | [🔗 `UrlReflectionService`](RouterXModule/UrlReflectionService.html) | [🚌 `RouterOutletComponentBus`](RouterXModule/RouterOutletComponentBus.html) |
+| [⚙ `LanguageIntegrationService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule.html) | [🔗 `UrlReflectionService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/urlreflectionservice.html) | [🚌 `RouterOutletComponentBus`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeroutletcomponentbus.html) |
 |:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
 | Hook your library with your user's language services. | Break urls to their parts. | Access outlet activated components instantaneously. |
 
-| [🔀 `RouteAware`](RouterXModule/RouteAware-\(abstract\).html) | [🗣 `LocalizedRouteAware`](LanguageIntegrationModule/LocalizedRouteAware-\(abstract\).html) |
+| [🔀 `RouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeaware-\(abstract\).html) | [🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) |
 |:------:|:-------:|
 | Create route aware services and components with ease. | Create route aware services and components with language integration. |
 
