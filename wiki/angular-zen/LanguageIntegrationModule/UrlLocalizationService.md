@@ -19,8 +19,8 @@ An example use case would be localization using sub-domains or host replacement 
 See [`UrlLocalizationConfig`](/interfaces/UrlLocalizationConfig.html).
 
 ## See Also
-[LanguageIntegrationModule](../LanguageIntegrationModule.html)
+[LanguageIntegrationModule](../languageintegrationmodule.html)
 
-[Implementing integration in a library](Implementing-in-a-Library.html)
+[Implementing integration in a library](implementing-in-a-library.html)
 
-[Providing integration from an app](Providing-From-an-App.html)
+[Providing integration from an app](providing-from-an-app.html)

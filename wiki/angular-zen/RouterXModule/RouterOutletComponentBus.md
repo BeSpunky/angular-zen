@@ -5,9 +5,9 @@ This service lets you:
 2. Observe changes to the active component in outlets.
 
 ## How to use
-The service is intended to be managed by the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
+The service is intended to be managed by the [`PublishComponentDirective`](routeroutletcomponentbus/publishcomponentdirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
 
-1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html).
+1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](routeroutletcomponentbus/publishcomponentdirective.html).
 
 2. Mark your outlet with `publishComponent`:
     ```html

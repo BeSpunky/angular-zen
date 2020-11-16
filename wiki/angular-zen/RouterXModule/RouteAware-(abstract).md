@@ -50,7 +50,7 @@ In SSR, the server doesn't wait for async code to complete. The result is scrape
 
 Use `resolveInMacroTask()` to have your server block and wait for resolves before rendering.
 
-[More Info](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen?path=%2Fprojects%2Fbespunky%2Fangular-zen%2Frouter-x%2Fservices%2Froute-aware.service.ts&version=GBdevelopment&line=163&lineEnd=184&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents)
+[More Info](/injectables/RouteAware.html#resolveInMacroTask)
 
 ## Deep Route Scan
 Use `deepScanRoute()` to recursively run a function on the complete route tree.
@@ -61,4 +61,4 @@ Use `deepScanRoute()` to recursively run a function on the complete route tree.
 If you provide the `componentBus` param at construction time, you can use the `activatedRouteComponent` property to fetch the instance of the active component.
 
 ## Destroyable
-The class is [`Destroyable`](../CoreModule/Destroyable-\(abstract\).html). You can take advantage of that when working with subscriptions.
+The class is [`Destroyable`](../coremodule/destroyable-\(abstract\).html). You can take advantage of that when working with subscriptions.

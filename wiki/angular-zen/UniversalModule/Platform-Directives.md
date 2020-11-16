@@ -30,4 +30,4 @@ The following example will only render the `<div>` element on browser platforms:
 > ```
 
 ## See Also
-[Universal Service](UniversalService.html)
+[Universal Service](universalservice.html)
