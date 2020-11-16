@@ -7,7 +7,7 @@ A multi-language app will only need to import the language integration module on
 
 <center>
 
-![Language Integration Diagram](/.attachments/Integration-diagram.png)
+![Language Integration Diagram](/docs/zen/.attachments/Integration-diagram.png)
 
 </center>
 

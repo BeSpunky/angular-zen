@@ -17,7 +17,7 @@ The service is intended to be managed by the [`PublishComponentDirective`](route
 
 3. Inject `RouterOutletComponentBus` into your service/component and use the `instance()` or `changes()` methods.
 
-[See complete API](/injectables/RouterOutletComponentBus.html)
+[See complete API](/docs/zen/injectables/RouterOutletComponentBus.html)
 
 ## How does it work?
 Internally, `RouterOutletComponentBus` keeps a map of `outlet name -> component instance`.  

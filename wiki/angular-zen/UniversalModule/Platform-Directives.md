@@ -4,14 +4,14 @@ Platform directives provide you with an easy way of preventing rendering of spec
 ## Supported Platform Directives
 |Directive|Use|
 |---------|---|
-| [`*browserOnly`     ](/directives/BrowserOnlyDirective.html) | Prevent element from rendering on non-browser platforms. |
-| [`*serverOnly`      ](/directives/ServerOnlyDirective.html) | Prevent element from rendering on non-server platforms. |
-| [`*workerAppOnly`   ](/directives/WorkerAppOnlyDirective.html) | Prevent element from rendering on non-worker app platforms. |
-| [`*workerUiOnly`    ](/directives/WorkerUiOnlyDirective.html) | Prevent element from rendering on non-worker ui platforms. |
-| [`*nonBrowserOnly`  ](/directives/NonBrowserOnlyDirective.html) | Prevent element from rendering on browser platforms. |
-| [`*nonServerOnly`   ](/directives/NonServerOnlyDirective.html) | Prevent element from rendering on server platforms. |
-| [`*nonWorkerAppOnly`](/directives/NonWorkerAppOnlyDirective.html) | Prevent element from rendering on worker app platforms. |
-| [`*nonWorkerUiOnly` ](/directives/NonWorkerUiOnlyDirective.html) | Prevent element from rendering on worker ui platforms. |
+| [`*browserOnly`     ](/docs/zen/directives/BrowserOnlyDirective.html) | Prevent element from rendering on non-browser platforms. |
+| [`*serverOnly`      ](/docs/zen/directives/ServerOnlyDirective.html) | Prevent element from rendering on non-server platforms. |
+| [`*workerAppOnly`   ](/docs/zen/directives/WorkerAppOnlyDirective.html) | Prevent element from rendering on non-worker app platforms. |
+| [`*workerUiOnly`    ](/docs/zen/directives/WorkerUiOnlyDirective.html) | Prevent element from rendering on non-worker ui platforms. |
+| [`*nonBrowserOnly`  ](/docs/zen/directives/NonBrowserOnlyDirective.html) | Prevent element from rendering on browser platforms. |
+| [`*nonServerOnly`   ](/docs/zen/directives/NonServerOnlyDirective.html) | Prevent element from rendering on server platforms. |
+| [`*nonWorkerAppOnly`](/docs/zen/directives/NonWorkerAppOnlyDirective.html) | Prevent element from rendering on worker app platforms. |
+| [`*nonWorkerUiOnly` ](/docs/zen/directives/NonWorkerUiOnlyDirective.html) | Prevent element from rendering on worker ui platforms. |
 
 ## How to use
 Import the `UniversalModule` and place the directives in your template.

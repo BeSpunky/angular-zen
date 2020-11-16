@@ -54,6 +54,6 @@ This service loads a script/style file programmatically, while also keeping trac
     ```
 
 ## See also
-[Service API](/injectables/LazyLoaderService.html)
+[Service API](/docs/zen/injectables/LazyLoaderService.html)
 
-[Providing options](/interfaces/LoadOptions.html)
+[Providing options](/docs/zen/interfaces/LoadOptions.html)

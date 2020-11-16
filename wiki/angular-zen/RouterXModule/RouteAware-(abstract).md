@@ -50,7 +50,7 @@ In SSR, the server doesn't wait for async code to complete. The result is scrape
 
 Use `resolveInMacroTask()` to have your server block and wait for resolves before rendering.
 
-[More Info](/injectables/RouteAware.html#resolveInMacroTask)
+[More Info](/docs/zen/injectables/RouteAware.html#resolveInMacroTask)
 
 ## Deep Route Scan
 Use `deepScanRoute()` to recursively run a function on the complete route tree.

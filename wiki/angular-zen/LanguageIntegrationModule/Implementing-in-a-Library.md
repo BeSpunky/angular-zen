@@ -1,6 +1,6 @@
 > Consider using this service with [LocalizedRouteAware](localizedrouteaware-(abstract).html) for faster bootstrapping.
 
-Your bridge to the language services of your user's app is the [`LanguageIntegrationService`](/injectables/LanguageIntegrationService.html). Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
+Your bridge to the language services of your user's app is the [`LanguageIntegrationService`](/docs/zen/injectables/LanguageIntegrationService.html). Inject it into your services and components and your library will be able to get the supported languages, perform translations and more.
 
 ## Preparation
 ### `enabled` - Vefiying integration presence
@@ -70,7 +70,7 @@ To force integration, the constructor in the above example could be changed as f
     }
 ```
 
-[See full API](/injectables/LanguageIntegrationService.html)
+[See full API](/docs/zen/injectables/LanguageIntegrationService.html)
 
 ## Next Steps
 [Providing integration from an app](providing-from-an-app.html)

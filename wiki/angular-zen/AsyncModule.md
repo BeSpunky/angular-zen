@@ -10,4 +10,4 @@ Use these functions simply by importing and calling them:
 
 | Function | Description |
 | ---      | ---         |
-| [`promiseLater()`](/miscellaneous/functions.html#promiseLater) | Creates a promise which doesn't have the actual async code to resolve, and extracts its `resolve()` and `reject()` methods for later use. |
+| [`promiseLater()`](/docs/zen/miscellaneous/functions.html#promiseLater) | Creates a promise which doesn't have the actual async code to resolve, and extracts its `resolve()` and `reject()` methods for later use. |
