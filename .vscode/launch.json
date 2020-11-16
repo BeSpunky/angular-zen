@@ -3,7 +3,17 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [{
+    "configurations": [
+        {
+            "name": "Generate wiki summary.json",
+            "program": "${workspaceFolder}/generate-wiki-summary.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "ng test",

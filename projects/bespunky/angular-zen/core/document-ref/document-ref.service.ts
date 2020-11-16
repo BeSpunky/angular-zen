@@ -1,48 +1,38 @@
-import { InjectionToken, PLATFORM_ID, FactoryProvider, Inject, Injectable } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { ExistingProvider, Inject, Injectable, InjectionToken } from '@angular/core';
+import { DOCUMENT as ANGULAR_DOCUMENT                         } from '@angular/common';
 
-/**
- * An injectable token that will allow us to replace the provider for the native document object when necessary (e.g. mocking the `document` object).
- */
+/** A token used to provide the native document implementation for `DocumentRef`. By default, `CoreModule` will provide angular's DOCUMENT token. */
 export const DOCUMENT = new InjectionToken<Document>('DocumentToken');
 
 /**
  * Provides an injectable wrapper for the `document` object.
- *
  * Inject this in your services/components and you will be able to easily mock or spy on the native `document` object in your tests.
- * You can replace the default `DOCUMENT` token provider, which allows you to mock the `document` object.
- *
+ * 
+ * By default, the `nativeDocument` property will point to angular's DOM adapter, thus facilitating DOM access and manipulation
+ * on the different platforms.
+ * To mock the native document, provide a value for the `DOCUMENT` token from `@bespunky/angular-zen/core`.
+ * You will safely mock it without trashing angular's `DOCUMENT` provider.
+ * 
  * @see document-ref.service.spec.ts for examples.
  */
 @Injectable({ providedIn: 'root' })
 export class DocumentRef
 {
     // Treating native document as `any` save users typecasting everytime and deducing if the object is of type `Document` or `object`.
-    constructor(@Inject(DOCUMENT) private native: any) { }
-    
-    get nativeDocument(): any
-    {
-        return this.native;
-    }
+    /**
+     * Creates an instance of `DocumentRef`.
+     * 
+     * @param {*} nativeDocument The native document provided by the `DOCUMENT` token of `@bespunky/angular-zen/core`. See `DocumentRef` for details. 
+     */
+    constructor(@Inject(DOCUMENT) public readonly nativeDocument: any) { }
 }
 
 /**
- * Provides a platform dependant implementation for retrieving the `document` object.
- *
- * @returns `document` for browser platforms and a new object for non-browser platforms.
+ * The default provider for the `DOCUMENT` token. Uses angular's DOM adapters which will be injected according to the platform.
  */
-export function documentFactory(platformId: any): Document | Object
-{
-    return isPlatformBrowser(platformId) ? document : new Object();
-}
-
-/**
- * The default provider for the `DOCUMENT` token. Provides `document` for browser platforms and a new object for non-browser platforms.
- */
-export const DocumentProvider: FactoryProvider = {
-    provide: DOCUMENT,
-    useFactory: documentFactory,
-    deps: [PLATFORM_ID]
+export const DocumentProvider: ExistingProvider = {
+    provide    : DOCUMENT,
+    useExisting: ANGULAR_DOCUMENT
 };
 
 /**

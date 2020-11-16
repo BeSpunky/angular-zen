@@ -1,7 +1,7 @@
 {
   "name": "@bespunky/angular-zen",
-  "version": "2.6.0",
-  "description": "Helps you focus on what you really need to do.",
+  "version": "3.0.0",
+  "description": "The Angular tools you always wished were there.",
   "private": false,
   "author": {
     "name": "BeSpunky",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen"
   },
-  "homepage": "https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen",
+  "homepage": "https://bs-angular-zen.web.app",
   "bugs": {
     "email": "us@bespunky.io"
   },

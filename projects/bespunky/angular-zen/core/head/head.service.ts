@@ -74,7 +74,7 @@ export class HeadService
     {
         return this.addElement<HTMLLinkElement>('link', link =>
         {
-            link.relList.add(Array.isArray(rel) ? rel : [rel] as any);
+            link.rel = Array.isArray(rel) ? rel.join(' ') : rel;
 
             this.applyConfiguration(link, config);
         });
@@ -215,7 +215,7 @@ export class HeadService
                 // ... Query only by attribute name
                 `[${attribute}]` :
                 // Otherwise, match the exact value
-                `[${attribute}=${lookup[attribute]}]`;
+                `[${attribute}="${lookup[attribute]}"]`;
         }).join('');
 
         return head.querySelectorAll(`${name}${attributes}`);

@@ -1,0 +1,24 @@
+{
+    "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+
+    "tsconfig": "./tsconfig.lib.json",
+    
+    "name": "@bespunky/angular-zen Official Docs",
+
+    "customLogo"   : "../../official-site/src/assets/angular-zen/logo.svg",
+    "customFavicon": "../../official-site/src/favicon.ico",
+
+    "extTheme"    : "../../../compodoc/styles",
+    "templates"   : "../../../compodoc/templates",
+    "assetsFolder": "../../../wiki/angular-zen/.attachments",
+    "includes"    : "../../../wiki/angular-zen",
+    "includesName": "Complete Documentation",
+
+    "theme"   : "material",
+    
+    "disablePrivate" : true,
+    "disableInternal": true,
+    
+    "output": "../../../dist/official-site/docs/zen",
+    "watch" : true
+}
