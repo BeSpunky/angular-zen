@@ -1,3 +1,21 @@
+# **v3.0.0** <small>2020-11-16</small>
+
+🐛 Fixed `HeadService` fails to add `<link>` elements in SSR.
+
+♻ Replaced document provider for `DOCUMENT`. Angular's `DOCUMENT` token will be used by default.
+
+➕ Added the [`language`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule.html) module for libraries requiring centralized language services.
+
+➕ Added the [`router-x`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule.html) module with sexy routing tools.
+
+✨ Implemented API reference and wiki using compodoc.
+
+✨ Created and launched [official @bespunky/angular-zen website](https://bs-angular-zen.web.app).
+
+📃 Improved docs and doc coverage.
+
+📦 Updated Angular to v10.2.2.
+
 # **v2.6.0** <small>2020-09-18</small>
 ➕ Added methods for quick `<link>` removal.
 
