@@ -5,9 +5,9 @@ This service lets you:
 2. Observe changes to the active component in outlets.
 
 ## How to use
-The service is intended to be managed by the [`PublishComponentDirective`](routeroutletcomponentbus/publishcomponentdirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
+The service is intended to be managed by the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html), but you can manage it yourself using the `publishComponent()` and `unpublishComponent()` methods. If you manage publication yourself, jump straight to step 3:
 
-1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](routeroutletcomponentbus/publishcomponentdirective.html).
+1. Import `RouterXModule` in your app to enable the use of the [`PublishComponentDirective`](RouterOutletComponentBus/PublishComponentDirective.html).
 
 2. Mark your outlet with `publishComponent`:
     ```html
@@ -17,7 +17,7 @@ The service is intended to be managed by the [`PublishComponentDirective`](route
 
 3. Inject `RouterOutletComponentBus` into your service/component and use the `instance()` or `changes()` methods.
 
-[See complete API](/injectables/routeroutletcomponentbus.html)
+[See complete API](/injectables/RouterOutletComponentBus.html)
 
 ## How does it work?
 Internally, `RouterOutletComponentBus` keeps a map of `outlet name -> component instance`.  

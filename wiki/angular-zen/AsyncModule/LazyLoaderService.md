@@ -54,6 +54,6 @@ This service loads a script/style file programmatically, while also keeping trac
     ```
 
 ## See also
-[Service API](/injectables/lazyloaderservice.html)
+[Service API](/injectables/LazyLoaderService.html)
 
-[Providing options](/interfaces/loadoptions.html)
+[Providing options](/interfaces/LoadOptions.html)

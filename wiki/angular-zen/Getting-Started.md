@@ -14,4 +14,4 @@ Import modules from the corresponding package (e.g. `@bespunky/angular-zen/async
 
 | Topic              | Description                                            |
 |--------------------|--------------------------------------------------------|
-| [Modules Overview](modules-overview.html) | A list of the library's modules and their purpose. |
+| [Modules Overview](Modules-Overview.html) | A list of the library's modules and their purpose. |

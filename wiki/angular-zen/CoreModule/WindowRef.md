@@ -70,6 +70,6 @@ This eventually gives you the ability to use the `WindowRef` service in your app
     ```
 
 ## See also
-[Mocking and replacing implementation](windowref/mocking.html)
+[Mocking and replacing implementation](WindowRef/Mocking.html)
 
-[`WindowRef` internals](windowref/internals.html)
+[`WindowRef` internals](WindowRef/Internals.html)

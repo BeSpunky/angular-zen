@@ -4,14 +4,14 @@ Platform directives provide you with an easy way of preventing rendering of spec
 ## Supported Platform Directives
 |Directive|Use|
 |---------|---|
-| [`*browserOnly`     ](/directives/browseronlydirective.html) | Prevent element from rendering on non-browser platforms. |
-| [`*serverOnly`      ](/directives/serveronlydirective.html) | Prevent element from rendering on non-server platforms. |
-| [`*workerAppOnly`   ](/directives/workerapponlydirective.html) | Prevent element from rendering on non-worker app platforms. |
-| [`*workerUiOnly`    ](/directives/workeruionlydirective.html) | Prevent element from rendering on non-worker ui platforms. |
-| [`*nonBrowserOnly`  ](/directives/nonbrowseronlydirective.html) | Prevent element from rendering on browser platforms. |
-| [`*nonServerOnly`   ](/directives/nonserveronlydirective.html) | Prevent element from rendering on server platforms. |
-| [`*nonWorkerAppOnly`](/directives/nonworkerapponlydirective.html) | Prevent element from rendering on worker app platforms. |
-| [`*nonWorkerUiOnly` ](/directives/nonworkeruionlydirective.html) | Prevent element from rendering on worker ui platforms. |
+| [`*browserOnly`     ](/directives/BrowserOnlyDirective.html) | Prevent element from rendering on non-browser platforms. |
+| [`*serverOnly`      ](/directives/ServerOnlyDirective.html) | Prevent element from rendering on non-server platforms. |
+| [`*workerAppOnly`   ](/directives/WorkerAppOnlyDirective.html) | Prevent element from rendering on non-worker app platforms. |
+| [`*workerUiOnly`    ](/directives/WorkerUiOnlyDirective.html) | Prevent element from rendering on non-worker ui platforms. |
+| [`*nonBrowserOnly`  ](/directives/NonBrowserOnlyDirective.html) | Prevent element from rendering on browser platforms. |
+| [`*nonServerOnly`   ](/directives/NonServerOnlyDirective.html) | Prevent element from rendering on server platforms. |
+| [`*nonWorkerAppOnly`](/directives/NonWorkerAppOnlyDirective.html) | Prevent element from rendering on worker app platforms. |
+| [`*nonWorkerUiOnly` ](/directives/NonWorkerUiOnlyDirective.html) | Prevent element from rendering on worker ui platforms. |
 
 ## How to use
 Import the `UniversalModule` and place the directives in your template.
@@ -30,4 +30,4 @@ The following example will only render the `<div>` element on browser platforms:
 > ```
 
 ## See Also
-[Universal Service](universalservice.html)
+[Universal Service](UniversalService.html)

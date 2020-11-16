@@ -2,7 +2,7 @@ Apart from the `Meta` and `Title` services, Angular doesn't provide a straight f
 
 The `HeadService` provides tools for elements lookup, adding elements and removing them from `<head>`.
 
-> If you're looking for a way to lazy load a script or a style, see [`LazyLoaderService`](../asyncmodule/lazyloaderservice.html) instead.
+> If you're looking for a way to lazy load a script or a style, see [`LazyLoaderService`](../AsyncModule/LazyLoaderService.html) instead.
 
 ## How to use
 1. Import `CoreModule` into your app:
@@ -76,7 +76,7 @@ Lookup is done using `AND` comparisons, meaning all provided arguments must matc
 
 
 ## Mocking
-The service uses the [`DocumentRef`](documentref.html) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](documentref/mocking.html).
+The service uses the [`DocumentRef`](DocumentRef.html) service internally. If you need to mock the document object or any of its children see [mocking DOCUMENT](DocumentRef/Mocking.html).
 
 ## See also
-[`LazyLoaderService`](../asyncmodule/lazyloaderservice.html)
+[`LazyLoaderService`](../AsyncModule/LazyLoaderService.html)

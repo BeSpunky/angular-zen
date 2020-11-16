@@ -3,6 +3,6 @@ The `WindowRef` service aims at two things: **DI & Testability**.
 
 | Name | Purpose | Default Implementation |
 | ---  | ---     | ---                    |
-| [`WINDOW`](/miscellaneous/variables.html#window) | An injectable token allowing the definition or redefinition of what the `window` value is. | See `WindowProvider`.
-| [`WindowProvider`](/miscellaneous/variables.html#windowprovider) | The default provider for `WINDOW`. A factory provider defining a platform dependant way of retrieving the `window` object. | Returns `window` or an empty object directly. |
-| [`WindowRefProviders`](/miscellaneous/variables.html#windowrefproviders) | A bundle of all providers defined by the `WindowRef` module allowing a quick import. | Currently only includes `WindowProvider`. |
+| [`WINDOW`](/miscellaneous/variables.html#WINDOW) | An injectable token allowing the definition or redefinition of what the `window` value is. | See `WindowProvider`.
+| [`WindowProvider`](/miscellaneous/variables.html#WindowProvider) | The default provider for `WINDOW`. A factory provider defining a platform dependant way of retrieving the `window` object. | Returns `window` or an empty object directly. |
+| [`WindowRefProviders`](/miscellaneous/variables.html#WindowRefProviders) | A bundle of all providers defined by the `WindowRef` module allowing a quick import. | Currently only includes `WindowProvider`. |
