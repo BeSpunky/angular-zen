@@ -25,7 +25,7 @@ export const ZenSeoProject: Project = {
     benefits      : ZenSeoBenefits,
     examplesTopics: ZenSeoTopics,
     linkedProjects: [],
-    wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen-seo',
+    wikiUrl       : 'https://bs-angular-zen.web.app/docs/zen-seo/index.html',
     repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
     packageUrl    : 'https://www.npmjs.com/package/@bespunky/angular-zen-seo',
     credits       : ZenSeoCredits,

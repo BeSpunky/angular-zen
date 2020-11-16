@@ -21,7 +21,7 @@ export const ZenUxProject: Project = {
     benefits      : ZenUxBenefits,
     examplesTopics: ZenUxTopics,
     linkedProjects: [],
-    wikiUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_wiki/wikis/angular-zen-seo',
+    wikiUrl       : 'https://bs-angular-zen.web.app/docs/zen-ux/index.html',
     repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
     packageUrl    : 'https://www.npmjs.com/package/@bespunky/angular-zen-ux',
     credits       : ZenUxCredits,
