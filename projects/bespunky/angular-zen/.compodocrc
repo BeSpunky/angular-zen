@@ -1,26 +1,24 @@
 {
     "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
 
-    "tsconfig": "./projects/bespunky/angular-zen/tsconfig.lib.json",
-
-    "assetsFolder": "./wiki/angular-zen/.attachments",
-    "output"      : "./dist/official-site/docs/zen",
-
-    "name": "@bespunky/angular-zen Official Docs",
+    "tsconfig": "./tsconfig.lib.json",
     
-    "includes"    : "./wiki/angular-zen",
+    "name": "@bespunky/angular-zen Official Docs",
+
+    "customLogo"   : "../../official-site/src/assets/angular-zen/logo.svg",
+    "customFavicon": "../../official-site/src/favicon.ico",
+
+    "extTheme"    : "../../../compodoc/styles",
+    "templates"   : "../../../compodoc/templates",
+    "assetsFolder": "../../../wiki/angular-zen/.attachments",
+    "includes"    : "../../../wiki/angular-zen",
     "includesName": "Complete Documentation",
 
     "theme"   : "material",
-    "extTheme": "./compodoc/styles",
-
-    "templates": "./compodoc/templates",
-
-    "customLogo"   : "./projects/official-site/src/assets/angular-zen/logo.svg",
-    "customFavicon": "./projects/official-site/src/favicon.ico",
-
+    
     "disablePrivate" : true,
     "disableInternal": true,
     
-    "watch": true
+    "output": "../../../dist/official-site/docs/zen",
+    "watch" : true
 }

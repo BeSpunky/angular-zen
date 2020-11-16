@@ -21,8 +21,8 @@
     "publish": "cd dist/bespunky/angular-zen && npm publish --access public",
     "publish-site": "firebase deploy --only hosting:bs-angular-zen",
     "update-wiki-summary": "node generate-wiki-summary",
-    "generate-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && compodoc -c ./projects/bespunky/angular-zen/.compodocrc",
-    "serve-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && compodoc -s -c ./projects/bespunky/angular-zen/.compodocrc"
+    "generate-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd projects/bespunky/angular-zen && compodoc",
+    "serve-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd projects/bespunky/angular-zen && compodoc -s"
   },
   "private": false,
   "dependencies": {
