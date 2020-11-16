@@ -6,7 +6,7 @@ This service provides:
 2. Properties for quick reflection on the currently navigated url.
 3. The regular expressions it uses as public members for manual match-work.
 
-[See full API](/injectables/UrlReflectionService.html)
+[See full API](/injectables/urlreflectionservice.html)
 
 ## Host Urls
 By default, the `hostUrl` and `fullUrl` properties use the current document's location to compose their values.

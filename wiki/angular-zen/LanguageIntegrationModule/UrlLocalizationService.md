@@ -9,18 +9,18 @@ There are 3 built-in localizers:
 
 | Localizer                   | Instantiated when strategy is... | Implementation                                                                         |
 |-----------------------------|-------------------------|----------------------------------------------------------------------------------------|
-| [`RoutePositionUrlLocalizer`](/injectables/RoutePositionUrlLocalizer.html) | a `number`              | The language is a segment in the route. The strategy is the position within the route. |
-| [`QueryParamsUrlLocalizer`](/injectables/QueryParamsUrlLocalizer.html)   | a `string`              | The language is a query param. The strategy is the param name.                         |
-| [`NoopUrlLocalizer`](/injectables/NoopUrlLocalizer.html)          | not provided            | Always returns an unchanged url.                                                       |
+| [`RoutePositionUrlLocalizer`](/injectables/routepositionurllocalizer.html) | a `number`              | The language is a segment in the route. The strategy is the position within the route. |
+| [`QueryParamsUrlLocalizer`](/injectables/queryparamsurllocalizer.html)   | a `string`              | The language is a query param. The strategy is the param name.                         |
+| [`NoopUrlLocalizer`](/injectables/noopurllocalizer.html)          | not provided            | Always returns an unchanged url.                                                       |
 
 You can also set a factory or class provider to implement your own localization strategy.
 An example use case would be localization using sub-domains or host replacement for different languages.
 
-See [`UrlLocalizationConfig`](/interfaces/UrlLocalizationConfig.html).
+See [`UrlLocalizationConfig`](/interfaces/urllocalizationconfig.html).
 
 ## See Also
-[LanguageIntegrationModule](../LanguageIntegrationModule.html)
+[LanguageIntegrationModule](../languageintegrationmodule.html)
 
-[Implementing integration in a library](Implementing-in-a-Library.html)
+[Implementing integration in a library](implementing-in-a-library.html)
 
-[Providing integration from an app](Providing-From-an-App.html)
+[Providing integration from an app](providing-from-an-app.html)

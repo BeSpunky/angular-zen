@@ -2,11 +2,11 @@
 
 | Name | Description |
 | ---  | ---         |
-| [`CoreModule`](CoreModule.html) | Contains general tools that normally serve for infrastructure code. |
-| [`AsyncModule`](AsyncModule.html) | Contains tools for handling dynamic and async situations on the page.    |
-| [`UniversalModule`](UniversalModule.html) | Contains tools for working easily with Angular Universal and SSR. |
-| [`RouterXModule`](RouterXModule.html) | Contains tools for routing related tasks. |
-| [`LanguageIntegrationModule`](LanguageIntegrationModule.html) | Contains tools for integrating your library with your user's language services. |
+| [`CoreModule`](coremodule.html) | Contains general tools that normally serve for infrastructure code. |
+| [`AsyncModule`](asyncmodule.html) | Contains tools for handling dynamic and async situations on the page.    |
+| [`UniversalModule`](universalmodule.html) | Contains tools for working easily with Angular Universal and SSR. |
+| [`RouterXModule`](routerxmodule.html) | Contains tools for routing related tasks. |
+| [`LanguageIntegrationModule`](languageintegrationmodule.html) | Contains tools for integrating your library with your user's language services. |
 
 ## Shared Module
 If you find yourself frequently importing the same modules, consider creating a shared module for them and import that module instead:

@@ -73,6 +73,6 @@ export class DocumentRefDemoComponent implements OnInit
 ```
 
 ## See also
-[Mocking and replacing implementation](DocumentRef/Mocking.html)
+[Mocking and replacing implementation](documentref/mocking.html)
 
-[`DocumentRef` internals](DocumentRef/Internals.html)
+[`DocumentRef` internals](documentref/internals.html)

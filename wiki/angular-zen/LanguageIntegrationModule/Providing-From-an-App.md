@@ -49,8 +49,8 @@ export class AppModule { }
 ```
 
 ## Next Steps
-[Implementing integration in a library](Implementing-in-a-library.html)
+[Implementing integration in a library](implementing-in-a-library.html)
 
-[LocalizedRouteAware](LocalizedRouteAware-\(abstract\).html)
+[LocalizedRouteAware](localizedrouteaware-\(abstract\).html)
 
-[UrlLocalizationService](UrlLocalizationService.html)
+[UrlLocalizationService](urllocalizationservice.html)
