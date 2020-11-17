@@ -13,7 +13,7 @@ assignees: BeSpunky
       Conceptually, the library aims to facilitate tasks that most applications implement by providing a single package with tools.
 -->
 
-**[What] Is the Feature**
+***What* Is the Feature**
 A clear and concise description of what you want to happen.
 
 > Examples:
@@ -21,7 +21,7 @@ A clear and concise description of what you want to happen.
 > "Add a method to ... service that will..."
 > "Allow the ... method to receive a param for..."
 
-**[Why] Is The Feature Needed**
+***Why* Is The Feature Needed**
 A clear and concise description of what the problem is, and what the use cases are.
 
 > **Examples**
