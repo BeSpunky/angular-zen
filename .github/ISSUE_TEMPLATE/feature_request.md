@@ -7,6 +7,12 @@ assignees: BeSpunky
 
 ---
 
+<!--
+    ❕ Before writing your feature request, ask yourself: "Is this something most applications implement and could've been a part of Angular?".
+      @bespunky/angular-zen is a place for "The Angular tools you always wished were there".
+      Conceptually, the library aims to facilitate tasks that most applications implement by providing a single package with tools.
+-->
+
 **[What] Is the Feature**
 A clear and concise description of what you want to happen.
 
