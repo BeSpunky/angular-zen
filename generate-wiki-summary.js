@@ -56,7 +56,7 @@ function generateDirectorySummary(path, level)
                     const fileName = doc.substring(0, doc.length - 3);
 
                     const description = {
-                        title: fileName.replace('-', ' '),
+                        title: fileName.replace(/-/g, ' '),
                         file : `${path}/${doc}`
                     };
 
