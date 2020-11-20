@@ -19,6 +19,9 @@
     "disablePrivate" : true,
     "disableInternal": true,
     
+    "gaID"  : "G-0KLD6H6WSR",
+    "gaSite": "angular-zen",
+
     "output": "../../../dist/official-site/docs/zen",
     "watch" : true
 }
