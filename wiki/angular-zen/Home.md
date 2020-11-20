@@ -56,13 +56,13 @@ Please follow the [contribution guidelines]().
 
 ## Other Packages by [`@bespunky`](https://www.npmjs.com/~bespunky)
 
-📦 [`@bespunky/angular-google-maps`](https://bs-angular-ggl-maps.web.app)
+📦 [`@bespunky/angular-google-maps`](https://bs-angular-zen.web.app)
 
 🚧 (soon) `@bespunky/angular-zen-ux` will help you with simple UX tasks.
 
 🚧 (soon) `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
 
 ## References
-[Source Code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen)
+[Source Code](https://github.com/bespunky/angular-zen)
 
 [NPM Package](https://www.npmjs.com/package/@bespunky/angular-zen)
