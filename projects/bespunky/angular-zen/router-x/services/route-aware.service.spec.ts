@@ -1,7 +1,7 @@
 import { Observable, of, PartialObserver                                                } from 'rxjs';
 import { TestBed                                                                        } from '@angular/core/testing';
 import { RouterTestingModule                                                            } from '@angular/router/testing';
-import { Injectable                                                                     } from '@angular/core';
+import { Injectable, Type                                                                     } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart, ActivatedRouteSnapshot } from '@angular/router';
 
 import { forceRoutingInsideAngularZone                                        } from '@bespunky/angular-zen/core/testing';
@@ -54,6 +54,54 @@ describe('RouteAware (abstract)', () =>
         });
     });
     
+    describe('calling `observeRouterEvent`', () =>
+    {
+        beforeEach(() => setup());
+
+        it('should return an observable for router events of the specified type only', async (done: DoneFn) =>
+        {
+            // Using NavigationEnd as it is the last fired event for a navigation. If only NavigationEnd fires, this proves
+            // the observable filtered correctly.
+            const navigationEnd = service.observeRouterEvent(NavigationEnd);
+
+            navigationEnd.subscribe(event =>
+            {
+                expect(event).toBeInstanceOf(NavigationEnd);
+                done();
+            });
+
+            await router.navigate(DeepRouteSegments);
+        });
+
+        function testAutoUnsubscribe(auto: boolean, done: DoneFn)
+        {
+            const navigationEnd = service.observeRouterEvent(NavigationEnd, auto);
+            const complete      = jasmine.createSpy('destroyed').and.stub();
+
+            navigationEnd.subscribe({ complete });
+
+            service.ngOnDestroy();
+
+            // Let event-loop finish its work so the observable gets a chance to complete, then run expectation.
+            setTimeout(() =>
+            {
+                auto ? expect(complete).toHaveBeenCalledTimes(1) : expect(complete).not.toHaveBeenCalled();
+
+                done();
+            }, 0);
+        }
+
+        it('should self unsubscribe on destroy when `autoUnsubscribe` is `true`', (done: DoneFn) =>
+        {
+            testAutoUnsubscribe(true, done);
+        });
+
+        it('should stay subscribed on destroy when `autoUnsubscribe` is `false`', (done: DoneFn) =>
+        {
+            testAutoUnsubscribe(false, done);
+        });
+    });
+
     describe('calling `deepScanRoute`', () =>
     {
         function scannedRoutesInSpy(): string[]
@@ -350,6 +398,12 @@ class RouteAwareMock extends RouteAware
     resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
         return super.resolve(resolvers, ...resolverArgs);
+    }
+
+    // Using any to simplify testing. For some reason typescript is not happy with the same signature as the one from the base class
+    observeRouterEvent(eventType: Type<any>, autoUnsubscribe: boolean = true): Observable<any>
+    {
+        return super.observeRouterEvent(eventType, autoUnsubscribe);
     }
 
     get activatedRouteComponent() { return super.activatedRouteComponent; }
