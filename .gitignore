@@ -54,4 +54,4 @@ projects/bespunky/angular-zen/debug.log
 
 debug.log
 
-wiki/summary.json
+wiki/**/summary.json

@@ -1,11 +1,9 @@
-[![Build status](https://dev.azure.com/BeSpunky/Libraries/_apis/build/status/angular-zen/Build%20angular-zen)](https://dev.azure.com/BeSpunky/Libraries/_build/latest?definitionId=29)
-![Azure DevOps builds](https://img.shields.io/azure-devops/build/bespunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
-![Azure DevOps tests](https://img.shields.io/azure-devops/tests/BeSpunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
-![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/BeSpunky/bebdc696-fbbf-4816-9247-9d1311da59bc/29?style=flat-square)
-
-![npm bundle size](https://img.shields.io/bundlephobia/min/@bespunky/angular-zen.svg?style=flat-square)
-![npm downloads](https://img.shields.io/npm/dm/@bespunky/angular-zen.svg?style=flat-square)
-![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen.svg?style=flat-square)
+![npm (scoped)](https://img.shields.io/npm/v/@bespunky/angular-zen?style=flat-square&label=version)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@bespunky/angular-zen?style=flat-square)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/bespunky/angular-zen/@angular/core?style=flat-square)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg?style=flat-square)](https://github.com/BeSpunky/angular-zen/blob/master/code_of_conduct.md)
+![GitHub](https://img.shields.io/github/license/bespunky/angular-zen?style=flat-square)
+![npm](https://img.shields.io/npm/dt/@bespunky/angular-zen?style=flat-square)
 
 <p align="center">
     <img src="https://bs-angular-zen.web.app/docs/zen/.attachments/logo.svg" width="200"/>
@@ -58,14 +56,14 @@ Please follow the [contribution guidelines]().
 
 ## Other Packages by [`@bespunky`](https://www.npmjs.com/~bespunky)
 
-📦 [`@bespunky/angular-google-maps`](https://bs-angular-ggl-maps.web.app)
+📦 [`@bespunky/angular-google-maps`](https://bs-angular-g-maps.web.app)
 
 🚧 (soon) `@bespunky/angular-zen-ux` will help you with simple UX tasks.
 
 🚧 (soon) `@bespunky/angular-zen-seo` will help you with metadata and SEO related tasks.
 
 ## References
-[Source Code](https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen)
+[Source Code](https://github.com/bespunky/angular-zen)
 
 [NPM Package](https://www.npmjs.com/package/@bespunky/angular-zen)
 

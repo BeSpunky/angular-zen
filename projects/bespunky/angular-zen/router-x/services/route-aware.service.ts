@@ -1,12 +1,36 @@
-import { from, InteropObservable, Observable, of                     } from 'rxjs';
-import { concatAll, filter, finalize, takeUntil, toArray             } from 'rxjs/operators';
-import { Directive, Type, Injectable                                 } from '@angular/core';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterEvent } from '@angular/router';
+import { from, InteropObservable, Observable, of         } from 'rxjs';
+import { concatAll, filter, finalize, takeUntil, toArray } from 'rxjs/operators';
+import { Directive, Type, Injectable                     } from '@angular/core';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, Event, ActivationEnd, ActivationStart, ChildActivationEnd, ChildActivationStart, GuardsCheckEnd, GuardsCheckStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, ResolveEnd, ResolveStart, RouteConfigLoadEnd, RouteConfigLoadStart, RoutesRecognized, Scroll } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from '../outlet/router-outlet-component-bus.service';
 
 declare const Zone: any;
+
+/**
+ * Hard-codes event names as strings.
+ * When AOT compilation is run and constructor names change, the dispatcher will still be able to get a hold
+ * of the correct event name using this map.
+ */
+const EventMap = {
+    [NavigationStart     .prototype.constructor.name]: 'NavigationStart',
+    [RouteConfigLoadStart.prototype.constructor.name]: 'RouteConfigLoadStart',
+    [RouteConfigLoadEnd  .prototype.constructor.name]: 'RouteConfigLoadEnd',
+    [RoutesRecognized    .prototype.constructor.name]: 'RoutesRecognized',
+    [GuardsCheckStart    .prototype.constructor.name]: 'GuardsCheckStart',
+    [ChildActivationStart.prototype.constructor.name]: 'ChildActivationStart',
+    [ActivationStart     .prototype.constructor.name]: 'ActivationStart',
+    [GuardsCheckEnd      .prototype.constructor.name]: 'GuardsCheckEnd',
+    [ResolveStart        .prototype.constructor.name]: 'ResolveStart',
+    [ResolveEnd          .prototype.constructor.name]: 'ResolveEnd',
+    [ChildActivationEnd  .prototype.constructor.name]: 'ChildActivationEnd',
+    [ActivationEnd       .prototype.constructor.name]: 'ActivationEnd',
+    [NavigationEnd       .prototype.constructor.name]: 'NavigationEnd',
+    [NavigationCancel    .prototype.constructor.name]: 'NavigationCancel',
+    [NavigationError     .prototype.constructor.name]: 'NavigationError',
+    [Scroll              .prototype.constructor.name]: 'Scroll'
+};
 
 /** Represents a function that creates an async task to be run (normally on a component). */
 export type Resolver = (component: any, ...resolverArgs: any[]) => Observable<any> | InteropObservable<any> | Promise<any>;
@@ -54,12 +78,14 @@ export abstract class RouteAware extends Destroyable
      * Handler methods should comply with `onEventType` naming (lowercase 'on', first-upper event type).
      * 
      * @private
-     * @param {RouterEvent} event The event data received from the router.
+     * @param {Event} event The event data received from the router.
      */
-    private dispatchRouterEvent(event: RouterEvent): void
+    private dispatchRouterEvent(event: Event): void
     {
-        const type   = (event as Object).constructor.name;
-        const handle = this[`on${type}`];
+        // AOT compilation changes class names, causing the dispacher to look for a handler methods with
+        // wrong names (e.g. `onJ`). The EventMap is used to restore the original names.
+        const typeName  = (event as Object).constructor.name;
+        const handle    = this[`on${EventMap[typeName]}`];
 
         if (handle) handle.call(this, event);
     }
@@ -73,7 +99,7 @@ export abstract class RouteAware extends Destroyable
      * @param {boolean} [autoUnsubscribe=true] (Optional) `true` to make the observable complete when the service/component is destroyed; otherwise `false`. Default is `true`.
      * @returns {Observable<TEvent>}
      */
-    protected observeRouterEvent<TEvent extends RouterEvent>(eventType: Type<TEvent>, autoUnsubscribe: boolean = true): Observable<TEvent>
+    protected observeRouterEvent<TEvent extends Event>(eventType: Type<TEvent>, autoUnsubscribe: boolean = true): Observable<TEvent>
     {
         let observable = this.router.events;
 

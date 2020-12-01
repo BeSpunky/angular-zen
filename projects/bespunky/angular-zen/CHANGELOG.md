@@ -1,3 +1,6 @@
+# **v3.0.1** <small>2020-12-01</small>
+🐛 Fixed `RouteAware` doesn't dispatch events to handler methods after AOT compilation.
+
 # **v3.0.0** <small>2020-11-16</small>
 
 🐛 Fixed `HeadService` fails to add `<link>` elements in SSR.

@@ -22,7 +22,7 @@ export const ZenUxProject: Project = {
     examplesTopics: ZenUxTopics,
     linkedProjects: [],
     wikiUrl       : 'https://bs-angular-zen.web.app/docs/zen-ux/index.html',
-    repoUrl       : 'https://dev.azure.com/BeSpunky/Libraries/_git/angular-zen',
+    repoUrl       : 'https://github.com/BeSpunky/angular-zen/tree/master/projects/bespunky/angular-zen-ux',
     packageUrl    : 'https://www.npmjs.com/package/@bespunky/angular-zen-ux',
     credits       : ZenUxCredits,
     soon          : true
