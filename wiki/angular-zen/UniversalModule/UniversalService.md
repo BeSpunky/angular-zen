@@ -16,9 +16,15 @@ export class CoolComponent
         {
             // Run browser-only code
         }
+        
+        // Or...
+        this.universal.onBrowser(() => /* Run browser-only code */);
     }
 }
 ```
+
+## Conditional Platform Dependent Execution
+Use the `onXXX()` methods to condition execution of a section of your code to a specific platform.
 
 ## `TLDR` Why the service?
 Before `@bespunky/angular-zen`, the way to check what platform the app is running on was to inject `PLATFORM_ID` and pass it to the `isPlatformXXX()` function:

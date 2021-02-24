@@ -18,31 +18,34 @@
     🎁 <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/modules-overview.html">What's in the library?</a>
 </p>
 
-You know the feeling... It's late at night and you want to write a class method. Suddenly you find yourself spending hours on some infrastructural piece just so you can start implementing the method. 😪
-
-## 🧘‍♂️ Enter Zen...
+## 🧘‍♂️ Zen...
 `@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow. These tools are all **🌳 tree-shakable**.
 
 You may use the library as you like, with any app, under the MIT license.
 
 ## ✨ The Highlights
 
-| [🔲 `WindowRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/windowref.html) | [📄 `DocumentRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/documentref.html) | [💥`Destroyable`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/destroyable-(abstract).html) |
-|:------------------------------------------------:|:----------------------------------------------------:|:--------------------------------------------------------------:|
-| The safe way to access the `window` object. | The safe way to access the `document` object. | No more manual `unsubscribe()` calls. |
+[💥`Destroyable`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/destroyable-(abstract).html) - No more manual `unsubscribe()` calls.
 
+[🔀 `RouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeaware-\(abstract\).html) - React to `Router` events and handle routing with less code.
 
-| [😎 `HeadService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/headservice.html) | [⏳ `LazyLoaderService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/asyncmodule/lazyloaderservice.html) | [🌎 `Universal Platform Directives`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/universalModule/platform-directives.html) | 
-|:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-| Cleanly access and manipulate the head element. | Programmatically load scripts and styles. | Prevent element rendering in Universal with directives. |
+[🚌 `RouterOutletComponentBus`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeroutletcomponentbus.html) - Access outlet activated components instantaneously.
 
-| [⚙ `LanguageIntegrationService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule.html) | [🔗 `UrlReflectionService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/urlreflectionservice.html) | [🚌 `RouterOutletComponentBus`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeroutletcomponentbus.html) |
-|:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
-| Hook your library with your user's language services. | Break urls to their parts. | Access outlet activated components instantaneously. |
+[🔗 `UrlReflectionService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/urlreflectionservice.html) - Break and analyze urls and their parts.
 
-| [🔀 `RouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/routeaware-\(abstract\).html) | [🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) |
-|:------:|:-------:|
-| Create route aware services and components with ease. | Create route aware services and components with language integration. |
+[🔲 `WindowRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/windowref.html) - The safe way to access the `window` object.
+
+[📄 `DocumentRef`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/documentref.html) - The safe way to access the `document` object.
+
+[😎 `HeadService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/headservice.html) - Cleanly access and manipulate the head element.
+
+[⏳ `LazyLoaderService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/asyncmodule/lazyloaderservice.html) - Programmatically load scripts and styles.
+
+[🌎 `Universal Platform Directives`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/universalModule/platform-directives.html) - Prevent element rendering in Universal with directives.
+
+[⚙ `LanguageIntegrationService`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule.html) - Hook your library with your user's language services.
+
+[🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) - Create route aware services and components with language integration.
 
 ## Versions
 The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10. 
