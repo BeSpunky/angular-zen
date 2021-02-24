@@ -1,3 +1,8 @@
+# **v3.1.0** <small>2021-02-25</small>
+➕ Added conditional platform dependent execution methods to `UniversalService`.
+
+📃 Improved readme readability.
+
 # **v3.0.1** <small>2020-12-01</small>
 🐛 Fixed `RouteAware` doesn't dispatch events to handler methods after AOT compilation.
 
