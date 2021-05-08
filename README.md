@@ -53,6 +53,11 @@ Compatibility with older versions is possible but not guaranteed.
 
 [Full change log](https://bs-angular-zen.web.app/docs/zen/changelog.html)
 
+## Supporting The Project
+If you like this project, find it useful and want to donate, you're welcome to buy me a coffee 😊. If you can't, no worries. A simple 'hello' or 'thank you' always warms my heart. 💗
+
+<a href="https://www.buymeacoffee.com/bespunky"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=bespunky&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
+
 ## Issues & Requests
 Feedback, bugs reports and pull requests are welcome.
 Please follow the [contribution guidelines]().
