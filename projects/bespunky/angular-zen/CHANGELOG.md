@@ -1,4 +1,4 @@
-# **v3.1.1-buy-me-a-coffee.0** <small>2021-02-25</small>
+# **v3.1.1-buy-me-a-coffee.0** <small>2021-05-08</small>
 📃 Added "Buy Me a Coffee" links to readmes.
 
 # **v3.1.0** <small>2021-02-25</small>
