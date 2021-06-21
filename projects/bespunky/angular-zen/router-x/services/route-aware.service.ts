@@ -70,6 +70,7 @@ export abstract class RouteAware extends Destroyable
     {
         super();
 
+        // TODO: Scan class and only subscribe if handlers were defined
         this.subscribe(this.router.events, this.dispatchRouterEvent.bind(this));
     }
     
