@@ -57,14 +57,14 @@ export class LanguageIntegrationService extends Destroyable
     {
         const defaultLang = this.config.default;
     
-        return typeof defaultLang === 'string' ? of(defaultLang) : from(defaultLang);
+        return typeof defaultLang === 'string' ? of(defaultLang) : from(defaultLang());
     }
 
     private loadSupportedLanguages(): Observable<string[]>
     {
         const supported = this.config.supported;
         
-        return Array.isArray(supported) ? of(supported) : from(supported); 
+        return Array.isArray(supported) ? of(supported) : from(supported());
     }
 
     /**
