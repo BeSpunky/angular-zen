@@ -90,6 +90,7 @@ export function createLocalizedDeeplyNestedRoutes(segments: string[]): Route
  */
 function localizeRoute(route: Route): void
 {
+    route.children ||= [];
     route.children.forEach(child => localizeRoute(child));
 
     const localizedRoute: Route = { path: 'en', component: NoopComponent };
