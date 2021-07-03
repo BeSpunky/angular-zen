@@ -1,1 +1,1 @@
-export * from './lib/angular-zen.module';
+export * from './public-api';
