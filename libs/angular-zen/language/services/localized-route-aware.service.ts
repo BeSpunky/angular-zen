@@ -14,6 +14,7 @@ import { LanguageIntegrationService           } from './language-integration.ser
  */
 @Directive()  // Originally this was decorated with `Directive` only so angular accepts it as base for both services and components.
 @Injectable() // However, compodoc fails to collect abstract classes marked with `Directive` so I marked it as both. Tests pass, POC stackblitz doesn't show side effects.
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class LocalizedRouteAware extends RouteAware
 {
     /**
@@ -39,8 +40,9 @@ export abstract class LocalizedRouteAware extends RouteAware
 
     private initLanguageSupport(): void
     {
-        this.subscribe(this.language.ready  , this.onLanguageServicesReady.bind(this));
-        this.subscribe(this.language.changed, this.onLanguageChanged.bind(this));
+        this.subscribe(this.language.ready   , this.onLanguageServicesReady.bind(this));
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.subscribe(this.language.changed!, this.onLanguageChanged.bind(this));
     }
     
     /**
