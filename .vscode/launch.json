@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [{
+      "name": "Generate wiki summary.json",
+      "program": "${workspaceFolder}/tools/generators/generate-wiki-summary.js",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "pwa-node"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "ng test",
+      "url": "http://localhost:9876/debug.html",
+      "webRoot": "${workspaceFolder}/libs/angular-zen",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "ng://@bespunky/angular-zen/*": "${webRoot}/*",
+        "./*": "${webRoot}/*",
+      },
+      "runtimeArgs": [
+        "--headless",
+        "--user-data-dir=${workspaceFolder}/chrome-debugging-profile",
+        "--remote-debugging-port=9223"
+      ],
+      "port": 9223
+    }
+  ]
+}
