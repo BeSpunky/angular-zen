@@ -18,7 +18,7 @@ import { Route               } from '@angular/router';
  */
 export function createDeeplyNestedRoutes(segments: string[]): Route
 {
-    const parent: Route = { path: segments[0], component: NoopComponent, children: [] };
+    const parent: Route & { children: Route[] } = { path: segments[0], component: NoopComponent, children: [] };
 
     if (segments.length > 1)
     {
