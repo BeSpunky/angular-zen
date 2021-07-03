@@ -89,7 +89,7 @@ export class LazyLoaderService
      *          The observable will complete immediately in case the script was already previously loaded.
      *          If the script was already loaded outside of the service, the observable will stream `undefined`.
      */
-    public loadScript(url: string, options: ScriptLoadOptions = this.defaultScriptOptions): Observable<LazyLoadedFile>
+    public loadScript(url: string, options: ScriptLoadOptions = this.defaultScriptOptions): Observable<LazyLoadedFile | null>
     {
         // Set default options if not specified by caller
         options.async         = options.async         === undefined ? this.defaultScriptOptions.async : options.async;
@@ -97,7 +97,7 @@ export class LazyLoaderService
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultScriptOptions.alreadyLoaded : options.alreadyLoaded;
         options.force         = options.force         === undefined ? this.defaultScriptOptions.force : options.force;          
 
-        return this.loadFile(url, 'script', options, this.createScriptElement.bind(this));
+        return this.loadFile(url, 'script', options as Required<ScriptLoadOptions>, this.createScriptElement.bind(this));
     }
 
     /**
@@ -109,16 +109,16 @@ export class LazyLoaderService
      *          The observable will complete immediately in case the style was already previously loaded.
      *          If the style was already loaded outside of the service, the observable will stream `undefined`.
      */
-    public loadStyle(url: string, options: LoadOptions = this.defaultStyleOptions): Observable<LazyLoadedFile>
+    public loadStyle(url: string, options: LoadOptions = this.defaultStyleOptions): Observable<LazyLoadedFile | null>
     {
         // Set default options if not specified by caller
         options.alreadyLoaded = options.alreadyLoaded === undefined ? this.defaultStyleOptions.alreadyLoaded : options.alreadyLoaded;
         options.force         = options.force         === undefined ? this.defaultStyleOptions.force : options.force;
 
-        return this.loadFile(url, 'style', options, this.createLinkElement.bind(this));
+        return this.loadFile(url, 'style', options as Required<LoadOptions>, this.createLinkElement.bind(this));
     }
 
-    private loadFile(url: string, type: 'script' | 'style', options: LoadOptions, createElement: ElementCreator): Observable<LazyLoadedFile>
+    private loadFile(url: string, type: 'script' | 'style', options: Required<LoadOptions>, createElement: ElementCreator): Observable<LazyLoadedFile | null>
     {
         if (!this.universal.isPlatformBrowser) return of(null);
 

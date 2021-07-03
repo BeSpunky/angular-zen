@@ -23,5 +23,5 @@ export interface LazyLoadedFile
     /**
      * The `<script>` or `<link>` element added to the document.
      */
-    element: ElementRef;
+    element: ElementRef | null;
 }
