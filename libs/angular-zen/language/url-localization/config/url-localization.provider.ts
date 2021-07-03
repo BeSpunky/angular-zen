@@ -34,9 +34,9 @@ export function provideUrlLocalizer(config: UrlLocalizationConfig): ClassProvide
 
     const strategies: { [type: string]: () => Partial<Provider>; } = {
         // Use route position strategy for numbers
-        number   : () => ({ useFactory: (urlReflect, language) => new RoutePositionUrlLocalizer(config, urlReflect, language), deps: [UrlReflectionService, LanguageIntegrationService] }),
+        number   : () => ({ useFactory: (urlReflect: UrlReflectionService, language: LanguageIntegrationService) => new RoutePositionUrlLocalizer(config, urlReflect, language), deps: [UrlReflectionService, LanguageIntegrationService] }),
         // Use query params strategy for strings
-        string   : () => ({ useFactory: (urlReflect) => new QueryParamsUrlLocalizer(config, urlReflect), deps: [UrlReflectionService] }),
+        string   : () => ({ useFactory: (urlReflect: UrlReflectionService) => new QueryParamsUrlLocalizer(config, urlReflect), deps: [UrlReflectionService] }),
         // Use the user's factory or class provider
         object   : () => strategy,
         // Use the noop localizer when nothing provided (in case url localization config is not present)
