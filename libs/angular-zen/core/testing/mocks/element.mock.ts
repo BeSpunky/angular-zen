@@ -1,10 +1,10 @@
 export class MockElement
 {
-    public parentElement: MockElement;
+    public parentElement?: MockElement;
     public children     : any[] = [];
 
-    public dir: 'ltr' | 'rtl';
-    public className: string;
+    public dir?      : 'ltr' | 'rtl';
+    public className?: string;
 
     constructor(public tagName?: string) { }
 
@@ -56,7 +56,7 @@ export class MockElement
     {
         // Searches for [key="value"] and [key] groups and extracts the attribute and value from each
         const regex = /(?:(\[(?<attr>\w+)(?:="(?<value>[^\]]+)")?)\]*)/g;
-        let match: RegExpExecArray;
+        let match: RegExpExecArray | null;
         
         const attributes = [];
         
@@ -65,7 +65,7 @@ export class MockElement
             // This is necessary to avoid infinite loops with zero-width matches
             if (match.index === regex.lastIndex) regex.lastIndex++;
 
-            attributes.push({ name: match.groups.attr, value: match.groups.value || '**' });
+            attributes.push({ name: match.groups?.attr, value: match.groups?.value || '**' });
         }
 
         return attributes;

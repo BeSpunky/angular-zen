@@ -31,22 +31,20 @@ import { MockElement          } from '../mocks/element.mock';
  * ({ mockHeadElement, mockDocument } = setupDocumentRefMock()); // mockDocument is also a jasmine.Spy
  */
 export function setupDocumentRefMock(): { mockHeadElement: MockHeadElement, mockDocument: any }
-{        
-    // Mock for the DocumentRef.nativeDocument object
-    // Create the document object allowing to spy on its createElement() function
-    let mockDocument = jasmine.createSpyObj('document', ['createElement']);
-    // When an element should be created, substitute it for the appropriate mock
-    mockDocument.createElement.and.callFake((tagName: string) =>
+{
+    const createElement = jest.fn((tagName: string) =>
     {
         return tagName === 'script' ? new MockScriptElement() :
-               tagName === 'link'   ? new MockLinkElement()  :
-               new MockElement(tagName);
+               tagName === 'link' ? new MockLinkElement() :
+                new MockElement(tagName);
     });
-
+    
     // Create a stub for the head element
-    let mockHeadElement = new MockHeadElement();
-    // Create hierarchy
-    mockDocument.head = mockHeadElement;
+    const mockHeadElement = new MockHeadElement();
+    // Mock for the DocumentRef.nativeDocument object
+    // Create the document object allowing to spy on its createElement() function.
+    // When an element should be created, substitute it for the appropriate mock
+    const mockDocument = { createElement, head: mockHeadElement };
 
     TestBed.configureTestingModule({
         imports  : [CoreModule],
@@ -72,7 +70,11 @@ export function forceRoutingInsideAngularZone(router: Router): void
     const navigate      = router.navigate.bind(router);
     const navigateByUrl = router.navigateByUrl.bind(router);
 
+    type NavigateArgs      = Parameters<typeof navigate>;
+    type NavigateByUrlArgs = Parameters<typeof navigateByUrl>;
+
     // Fix for angular's warning of running navigation outside angular's zone
-    spyOn(router, 'navigate'     ).and.callFake((...args: any[]) => zone.run(() => navigate     (...args)));
-    spyOn(router, 'navigateByUrl').and.callFake((...args: any[]) => zone.run(() => navigateByUrl(...args)));
+    jest.spyOn(router, 'navigate'     ).mockImplementation((...args: NavigateArgs)      => zone.run(() => navigate     (...args)));
+    jest.spyOn(router, 'navigateByUrl').mockImplementation((...args: NavigateByUrlArgs) => zone.run(() => navigateByUrl(...args)));
 }
+
