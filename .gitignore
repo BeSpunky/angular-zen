@@ -37,3 +37,13 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+\.firebase/
+
+chrome-debugging-profile/
+
+projects/bespunky/angular-zen/debug.log
+
+debug.log
+
+wiki/**/summary.json

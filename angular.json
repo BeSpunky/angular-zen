@@ -150,8 +150,8 @@
     "angular-zen": {
       "projectType": "library",
       "root": "libs/angular-zen",
-      "sourceRoot": "libs/angular-zen/src",
-      "prefix": "bespunky",
+      "sourceRoot": "libs/angular-zen",
+      "prefix": "bs",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
@@ -169,8 +169,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/angular-zen/src/**/*.ts",
-              "libs/angular-zen/src/**/*.html"
+              "libs/angular-zen/**/*.ts",
+              "libs/angular-zen/**/*.html"
             ]
           }
         },

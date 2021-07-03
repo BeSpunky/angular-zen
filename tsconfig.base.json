@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bespunky/angular-zen": ["libs/angular-zen/src/index.ts"]
+        "@bespunky/angular-zen"  : ["libs/angular-zen"],
+        "@bespunky/angular-zen/*": ["libs/angular-zen/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
