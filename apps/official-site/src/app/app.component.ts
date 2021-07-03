@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
+import { ProjectService } from './services/project.service';
+
 @Component({
-  selector: 'bespunky-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector   : 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls  : ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'official-site';
+export class AppComponent
+{
+    constructor(public project: ProjectService) { }
 }
