@@ -36,13 +36,13 @@ export class UrlReflectionService
      * `this/is/the/route#someFragment`
      * `this/is/the/route?debug=true#fragment`
      **/
-    public readonly RouteRegex         = /^(?:http[s]?:\/\/[^\/]+)?(?<route>[^?#]+)(?=[?#]|$)/;
+    public readonly RouteRegex         = /^(?:http[s]?:\/\/[^/]+)?(?<route>[^?#]+)(?=[?#]|$)/;
     /**
      * A regular expression to match all segments of a route.
      * Looks for `/<segment>/` parts and extract them without the slashes.
      * The extracted groups will be named 'segment'.
      */
-    public readonly RouteSegmentsRegex = /(?!\/)(?<segment>[^\/]+)/g;
+    public readonly RouteSegmentsRegex = /(?!\/)(?<segment>[^/]+)/g;
     /**
      * A regular expression to match the question mark and everything that follows in a url.
      * The extracted group will be named 'queryString'.
@@ -65,7 +65,7 @@ export class UrlReflectionService
      * /some/route?a=1&b=2&c=3#fragment
      * some/route?a=1&b=2&c=3#fragment
      */
-    public readonly FragmentRegex      = /(?<fragment>\#.*)$/;
+    public readonly FragmentRegex      = /(?<fragment>#.*)$/;
 
     /**
      * The complete host portion (e.g. https://www.example.com) of the currently navigated url as fetched from the `document.location` object.
