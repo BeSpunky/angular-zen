@@ -147,10 +147,10 @@ export class HeadService
      * @private
      * @template TElement The type of html element being configured.
      * @param {TElement} element The element to configure.
-     * @param {ElementConfigurator<TElement>} [config] The configurator for the element. If an object was specified, the element's properties will be overwritten by the
+     * @param {ElementConfigurator<TElement>} [config] (Optional) The configurator for the element. If an object was specified, the element's properties will be overwritten by the
      * configurator's properties. If a function was specified, the function is run on the element without any other intervention.
      */
-    private applyConfiguration<TElement extends HTMLElement>(element: TElement, config: ElementConfigurator<TElement>): void
+    private applyConfiguration<TElement extends HTMLElement>(element: TElement, config?: ElementConfigurator<TElement>): void
     {
         config instanceof Function ? config(element) : Object.assign(element, config);
     }
@@ -206,16 +206,17 @@ export class HeadService
         const document = this.document.nativeDocument as Document;
         const head     = document.head;
         
-        const attributes = Object.keys(lookup).map(attribute =>
+        const attributes = Object.keys(lookup).map(key =>
         {
-            const value = lookup[attribute];
+            const attribute = key as keyof ElementConfig<TElement>;
+            const value     = lookup[attribute];
 
             // If a wildcard was specified for the attribute...
             return value === '**' ?
                 // ... Query only by attribute name
                 `[${attribute}]` :
                 // Otherwise, match the exact value
-                `[${attribute}="${lookup[attribute]}"]`;
+                `[${attribute}="${value}"]`;
         }).join('');
 
         return head.querySelectorAll(`${name}${attributes}`);
