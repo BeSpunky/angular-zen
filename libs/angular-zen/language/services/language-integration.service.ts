@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { get, set                     } from 'lodash-es';
 import { from, of, Observable         } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
@@ -16,10 +17,10 @@ import { LanguageIntegrationConfig, LanguageIntegration } from '../config/langua
 @Injectable({ providedIn: 'root' })
 export class LanguageIntegrationService extends Destroyable
 {
-    private $ready        : Observable<void>;
-    private defaultLang   : string;
-    private supportedLangs: string[];
-    private currentLang   : string;
+    private $ready!        : Observable<void>;
+    private defaultLang?   : string;
+    private supportedLangs?: string[];
+    private currentLang?   : string;
 
     /**
      * Creates an instance of LanguageIntegrationService.
@@ -46,7 +47,7 @@ export class LanguageIntegrationService extends Destroyable
 
     private initMultiLanguageSupport(): void
     {
-        this.subscribe(this.config.changed, lang => this.currentLang = lang);
+        this.subscribe(this.config!.changed, lang => this.currentLang = lang);
 
         // User's responsability to provide a completing observables.
         this.loadDefaultLanguage   ().subscribe(defaultLang => this.defaultLang    = defaultLang);
@@ -55,14 +56,14 @@ export class LanguageIntegrationService extends Destroyable
 
     private loadDefaultLanguage(): Observable<string>
     {
-        const defaultLang = this.config.default;
+        const defaultLang = this.config!.default;
     
         return typeof defaultLang === 'string' ? of(defaultLang) : from(defaultLang());
     }
 
     private loadSupportedLanguages(): Observable<string[]>
     {
-        const supported = this.config.supported;
+        const supported = this.config!.supported;
         
         return Array.isArray(supported) ? of(supported) : from(supported());
     }
@@ -74,9 +75,9 @@ export class LanguageIntegrationService extends Destroyable
      * This will be `undefined` if the language integration module hasn't been imported by the app.
      * 
      * @readonly
-     * @type {Observable<string>}
+     * @type {Observable<string> | undefined}
      */
-    public get changed(): Observable<string>
+    public get changed(): Observable<string> | undefined
     {
         return this.config?.changed;
     }
@@ -89,9 +90,9 @@ export class LanguageIntegrationService extends Destroyable
      * 2. The default language hasn't resolved yet.
      * 
      * @readonly
-     * @type {string}
+     * @type {string | undefined}
      */
-    public get default(): string
+    public get default(): string | undefined
     {
         return this.defaultLang;
     }
@@ -104,9 +105,9 @@ export class LanguageIntegrationService extends Destroyable
      * 2. Supported languages haven't resolved yet.
      *
      * @readonly
-     * @type {string[]}
+     * @type {string[] | undefined}
      */
-    public get supported(): string[]
+    public get supported(): string[] | undefined
     {
         return this.supportedLangs;
     }
@@ -119,9 +120,9 @@ export class LanguageIntegrationService extends Destroyable
      * 2. The `changed` event hasn't emitted yet.
      *
      * @readonly
-     * @type {string}
+     * @type {string | undefined}
      */
-    public get current(): string
+    public get current(): string | undefined
     {
         return this.currentLang;
     }
@@ -133,7 +134,7 @@ export class LanguageIntegrationService extends Destroyable
      * @readonly
      * @type {boolean}
      */
-    public get enabled(): boolean
+    public get enabled()
     {
         return !!(this.config);
     }
@@ -163,7 +164,7 @@ export class LanguageIntegrationService extends Destroyable
     {
         this.ensureEnabled();
         
-        return this.supported.filter(supportedLocale => supportedLocale !== lang);
+        return this.supported!.filter(supportedLocale => supportedLocale !== lang);
     }
     
     /**
@@ -178,7 +179,7 @@ export class LanguageIntegrationService extends Destroyable
     {
         this.ensureEnabled();
 
-        return this.config.translate(value, params);
+        return this.config!.translate(value, params);
     }
 
     /**
@@ -207,11 +208,13 @@ export class LanguageIntegrationService extends Destroyable
     }
     
     /**
+     * Ensures that the language integration module has been imported and a configuration object has been provided.
+     * 
      * @throws {Error} The language integration module hasn't been imported by the app.
      */
-    public ensureEnabled(): void
+    public ensureEnabled(): this is { config: LanguageIntegrationConfig }
     {
-        if (this.enabled) return;
+        if (this.enabled) return true;
 
         throw new Error(`
             Language integration hasn't been enabled.
