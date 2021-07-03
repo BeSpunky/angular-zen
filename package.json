@@ -36,13 +36,13 @@
     "vmajor": "npm run lib-vmajor && npm run app-vmajor",
     "vminor": "npm run lib-vminor && npm run app-vminor",
     "vpatch": "npm run lib-vpatch && npm run app-vpatch",
-    "publish": "cd dist/bespunky/angular-zen && npm publish --access public",
+    "publish": "cd dist/libs/bespunky/angular-zen && npm publish --access public",
     "publish-site": "firebase deploy --only hosting:bs-angular-zen",
     "update-wiki-summary": "node tools/generators/generate-wiki-summary",
     "generate-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd libs/angular-zen && compodoc",
     "serve-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd libs/angular-zen && compodoc -s"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^11.2.0",
     "@angular/common": "^11.2.0",
