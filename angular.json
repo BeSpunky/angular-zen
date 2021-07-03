@@ -25,7 +25,8 @@
     "@nrwl/angular:library": {
       "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": true
     },
     "@nrwl/angular:component": {
       "style": "scss"
@@ -142,6 +143,43 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/official-site-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "angular-zen": {
+      "projectType": "library",
+      "root": "libs/angular-zen",
+      "sourceRoot": "libs/angular-zen/src",
+      "prefix": "bespunky",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/angular-zen/tsconfig.lib.json",
+            "project": "libs/angular-zen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/angular-zen/src/**/*.ts",
+              "libs/angular-zen/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/angular-zen"],
+          "options": {
+            "jestConfig": "libs/angular-zen/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
