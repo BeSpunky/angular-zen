@@ -11,6 +11,7 @@
       "parserOptions": { "project": ["libs/angular-zen/tsconfig.*?.json"] },
       "rules": {
         "max-len": "off",
+        "@typescript-eslint/no-empty-function": "warn",
         "@angular-eslint/directive-selector": [
           "error",
           { "type": "attribute", "prefix": "bs-zen", "style": "camelCase" }
