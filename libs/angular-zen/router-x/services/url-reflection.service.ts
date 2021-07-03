@@ -99,7 +99,7 @@ export class UrlReflectionService
      */
     public routeOf(url: string): string
     {
-        return url.match(this.RouteRegex).groups?.route;
+        return url.match(this.RouteRegex)?.groups?.route || '';
     }
     
     /**
