@@ -10,13 +10,14 @@
       ],
       "parserOptions": { "project": ["libs/angular-zen/tsconfig.*?.json"] },
       "rules": {
+        "max-len": "off",
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "bespunky", "style": "camelCase" }
+          { "type": "attribute", "prefix": "bs-zen", "style": "camelCase" }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "bespunky", "style": "kebab-case" }
+          { "type": "element", "prefix": "bs-zen", "style": "kebab-case" }
         ]
       }
     },
