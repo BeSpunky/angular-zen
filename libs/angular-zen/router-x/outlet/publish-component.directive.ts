@@ -24,11 +24,12 @@ import { RouterOutletComponentBus } from './router-outlet-component-bus.service'
  * @implements {OnInit}
  */
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'router-outlet[publishComponent]'
 })
 export class PublishComponentDirective extends Destroyable implements OnInit
 {
-    private outletName: string;
+    private outletName!: string;
 
     constructor(private outlet: RouterOutlet, private element: ElementRef, private componentBus: RouterOutletComponentBus) { super(); }
 

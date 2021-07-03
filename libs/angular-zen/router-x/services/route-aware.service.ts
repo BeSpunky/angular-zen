@@ -52,8 +52,9 @@ export const ResolverMacroTaskIdPrefix = 'route-aware-resolver';
  */
 @Directive()  // Originally this was decorated with `Directive` only so angular accepts it as base for both services and components.
 @Injectable() // However, compodoc fails to collect abstract classes marked with `Directive` so I marked it as both. Tests pass, POC stackblitz doesn't show side effects.
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class RouteAware extends Destroyable
-{
+{    
     /**
      * Creates an instance of RouteAware.
      * 
@@ -85,8 +86,9 @@ export abstract class RouteAware extends Destroyable
     {
         // AOT compilation changes class names, causing the dispacher to look for a handler methods with
         // wrong names (e.g. `onJ`). The EventMap is used to restore the original names.
-        const typeName  = (event as Object).constructor.name;
-        const handle    = this[`on${EventMap[typeName]}`];
+        const typeName    = event.constructor.name;
+        const handlerName = `on${EventMap[typeName]}`;
+        const handle      = (this as any)[handlerName];
 
         if (handle) handle.call(this, event);
     }
@@ -106,7 +108,7 @@ export abstract class RouteAware extends Destroyable
 
         if (autoUnsubscribe) observable = observable.pipe(takeUntil(this.destroyed));
         
-        return observable.pipe(filter(event => (event as Object).constructor === eventType)) as Observable<TEvent>;
+        return observable.pipe(filter(event => event.constructor === eventType)) as Observable<TEvent>;
     }
 
     /**
@@ -211,6 +213,7 @@ export abstract class RouteAware extends Destroyable
      */
     protected resolveInMacroTask(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const macroTask = Zone.current.scheduleMacroTask(`${ResolverMacroTaskIdPrefix}-${Math.random()}`, () => { }, {}, () => { }, () => { });
 
         return this.resolve(resolvers, ...resolverArgs)
