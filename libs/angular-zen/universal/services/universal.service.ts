@@ -49,7 +49,7 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on browser platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onBrowser<T>(execute: () => T): T
+    public onBrowser<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(this.isPlatformBrowser, execute);
     }
@@ -61,7 +61,7 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on server platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onServer<T>(execute: () => T): T
+    public onServer<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(this.isPlatformServer, execute);
     }
@@ -74,7 +74,7 @@ export class UniversalService
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
     
-    public onWorkerApp<T>(execute: () => T): T
+    public onWorkerApp<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(this.isPlatformWorkerApp, execute);
     }
@@ -86,7 +86,7 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on worker UI platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onWorkerUi<T>(execute: () => T): T
+    public onWorkerUi<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(this.isPlatformWorkerUi, execute);
     }
@@ -98,7 +98,7 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on browser platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onNonBrowser<T>(execute: () => T): T
+    public onNonBrowser<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(!this.isPlatformBrowser, execute);
     }
@@ -110,7 +110,7 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on server platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onNonServer<T>(execute: () => T): T
+    public onNonServer<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(!this.isPlatformServer, execute);
     }
@@ -123,7 +123,7 @@ export class UniversalService
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
     
-    public onNonWorkerApp<T>(execute: () => T): T
+    public onNonWorkerApp<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(!this.isPlatformWorkerApp, execute);
     }
@@ -135,12 +135,12 @@ export class UniversalService
      * @param {() => T} execute The function to execute only on worker UI platforms.
      * @returns {T} The value returned by the `execute()` function. If the funtion was not executed, this will be `undefined`.
      */
-    public onNonWorkerUi<T>(execute: () => T): T
+    public onNonWorkerUi<T>(execute: () => T): T | undefined
     {
         return this.onPlatform(!this.isPlatformWorkerUi, execute);
     }
     
-    private onPlatform<T>(isPlatform: boolean, execute: () => T): T
+    private onPlatform<T>(isPlatform: boolean, execute: () => T): T | undefined
     {
         return isPlatform ? execute() : undefined;
     }
