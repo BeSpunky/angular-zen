@@ -1,3 +1,26 @@
+# **v4.0.0** <small>2021-04-07</small>
+## Breaking Changes
+🚛 Migrated to NX. Recreated entire workspace as an NX monorepo.
+
+🚛 Migrated to Jest. All tests and testing suites now work with Jest instead of Jasmine. Watch for changes in spies returned by the testing suite.
+
+🚛 Migrated to ESLint. Strong typing has been improved all over the codebase. Compilation might break as it now requires stricter types.
+
+📦 Updated Angular to v11.
+
+## Other Changes
+🎨 Removed redundant escape chars from regular expressions in `UrlReflectionService`.
+
+🐛 Fixed `UrlReflectionService.routeOf()` returns `undefined` instead of empty string when no route is present.
+
+🐛 Fixed language service fails to extract supported languages and default language from factories.
+
+🐛 Fixed `RoutePositionUrlLocalizer` breaks if the language service isn't enabled.
+
+🧹 Removed redundant tests covered by TypeScript.
+
+📃 Updated readmes.
+
 # **v3.1.1-buy-me-a-coffee.0** <small>2021-05-08</small>
 📃 Added "Buy Me a Coffee" links to readmes.
 
