@@ -53,9 +53,9 @@ export class UrlLocalizationService
      * Generates a localized version of the currently navigate url for each of the specified languages using the configured localization strategy.
      * 
      * @param {string[]} langs The languages for which to generate the localized urls.
-     * @returns {({})[]} An array of { [lang]: url } containing an object for each language and its corresponding localized url.
+     * @returns {{ [lang: string]: string }[]} An array of { [lang]: url } containing an object for each language and its corresponding localized url.
      */
-    public generateLocalizedUrls(langs: string[]): ({})[]
+    public generateLocalizedUrls(langs: string[]): { [lang: string]: string }[]
     {
         return langs.map(lang => ({ [lang]: this.localizer.localize(lang) }));
     }
