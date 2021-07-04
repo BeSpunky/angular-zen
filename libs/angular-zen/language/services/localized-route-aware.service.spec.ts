@@ -7,12 +7,22 @@ import { LanguageConfig            } from '@bespunky/angular-zen/language/testin
 import { LanguageIntegrationModule } from '../language-integration.module';
 import { LocalizedRouteAware       } from './localized-route-aware.service';
 
+@Injectable({ providedIn: 'root' })
+class LocalizedRouteAwareMock extends LocalizedRouteAware
+{
+    public onLanguageServicesReady(): void { }
+    
+    public onLanguageChanged(lang: string): void { }
+}
+
 describe('LocalizedRouteAware (abstract)', () =>
 {
-    let service                 : LocalizedRouteAwareMock;
-    let languageChanged         : Subject<string>;
-    let languageServicesReadySpy: jasmine.Spy;;
-    let languageChangedSpy      : jasmine.Spy;;
+    let service        : LocalizedRouteAwareMock;
+    let languageChanged: Subject<string>;
+    
+    // These methods are called in the construction, so spy befure construction time
+    const languageServicesReadySpy = jest.spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageServicesReady');
+    const languageChangedSpy       = jest.spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageChanged'      );
 
     function setup(enableIntegration = true)
     {
@@ -29,9 +39,9 @@ describe('LocalizedRouteAware (abstract)', () =>
 
         TestBed.configureTestingModule({ imports });
         
-        // These methods are called in the construction, so spy befure construction time
-        languageServicesReadySpy = spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageServicesReady').and.callThrough();
-        languageChangedSpy       = spyOn(LocalizedRouteAwareMock.prototype, 'onLanguageChanged'      ).and.callThrough();
+        // These spies are global, so reset their call records before each test
+        languageServicesReadySpy.mockReset();
+        languageChangedSpy      .mockReset();
 
         service = TestBed.inject(LocalizedRouteAwareMock);
     }
@@ -63,11 +73,3 @@ describe('LocalizedRouteAware (abstract)', () =>
         it('should be created without failure', () => expect(service).toBeDefined());
     });
 });
-
-@Injectable({ providedIn: 'root' })
-class LocalizedRouteAwareMock extends LocalizedRouteAware
-{
-    public onLanguageServicesReady(): void { }
-    
-    public onLanguageChanged(lang: string): void { }
-}

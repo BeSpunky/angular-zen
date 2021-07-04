@@ -75,12 +75,15 @@ describe('RoutePositionUrlLocalizer', () =>
         if (!config.expectedLangSegmentAt) return;
 
         // Create the expectation for the language segment's value
-        let expectSegment = expect(modifiedSegments[config.expectedLangSegmentAt]);
+        const expectSegment = expect(modifiedSegments[config.expectedLangSegmentAt]);
         
+        const expectedLang = config.language || 'en';
+
         // When delocalizing, the language segment is expected NOT to be present
-        if (config.call === 'delocalize') expectSegment = expectSegment.not;
-        
-        expectSegment.toEqual(config.language || 'en');
+        if (config.call === 'delocalize')
+            expectSegment.not.toEqual(expectedLang);
+        else
+            expectSegment.toEqual(expectedLang);
     }
 
     async function testNoChange(config: SimpleTestConfig)

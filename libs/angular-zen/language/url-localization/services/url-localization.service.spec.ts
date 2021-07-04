@@ -7,15 +7,15 @@ describe('UrlLocalizationService', () =>
     let localizer      : UrlLocalizer;
     let urlLocalization: UrlLocalizationService;
     let urlReflection  : UrlReflectionService;
-    let localize       : jasmine.Spy;
-    let delocalize     : jasmine.Spy;
+    let localize       : jest.SpyInstance;
+    let delocalize     : jest.SpyInstance;
 
     function setup(config: UrlLocalizationStrategy | UrlLocalizationConfig)
     {
         ({ localizer, urlLocalization, urlReflection } = setupUrlLocalizerTest(config));
   
-        localize   = spyOn(localizer, 'localize'  ).and.callThrough();
-        delocalize = spyOn(localizer, 'delocalize').and.callThrough();
+        localize   = jest.spyOn(localizer, 'localize'  );
+        delocalize = jest.spyOn(localizer, 'delocalize');
     }
 
     describe('basically', () =>
@@ -28,7 +28,7 @@ describe('UrlLocalizationService', () =>
 
             expect(localize).toHaveBeenCalledTimes(1);
             expect(localize).toHaveBeenCalledWith('en');
-            expect(localize.calls.first().returnValue).toBe(url);
+            expect(localize.mock.results[0].value).toBe(url);
         });
 
         it('should use the localizer service to delocalize urls', () =>
@@ -36,7 +36,7 @@ describe('UrlLocalizationService', () =>
             const url = localizer.delocalize();
 
             expect(delocalize).toHaveBeenCalledTimes(1);
-            expect(delocalize.calls.first().returnValue).toBe(url);
+            expect(delocalize.mock.results[0].value).toBe(url);
         });
 
         it('generate localized urls for all specified languages using `generateLocalizedUrls()`', () =>
@@ -57,14 +57,14 @@ describe('UrlLocalizationService', () =>
         {
             const url = urlLocalization.localize('en');
 
-            expect(url.startsWith('https://')).toBeTrue();
+            expect(url.startsWith('https://')).toBe(true);
         });
 
         it('should replace http with https on delocalization', () =>
         {
             const url = urlLocalization.delocalize();
 
-            expect(url.startsWith('https://')).toBeTrue();
+            expect(url.startsWith('https://')).toBe(true);
         });
     });
     
@@ -76,14 +76,14 @@ describe('UrlLocalizationService', () =>
         {
             const url = urlLocalization.localize('en');
 
-            expect(url.startsWith('http://')).toBeTrue();
+            expect(url.startsWith('http://')).toBe(true);
         });
 
         it('should not replace http with https on delocalization', () =>
         {
             const url = urlLocalization.delocalize();
 
-            expect(url.startsWith('http://')).toBeTrue();
+            expect(url.startsWith('http://')).toBe(true);
         });
     });
 });

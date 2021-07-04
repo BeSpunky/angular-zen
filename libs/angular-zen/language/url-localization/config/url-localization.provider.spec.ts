@@ -65,7 +65,7 @@ describe('provideUrlLocalizer()', () =>
 @Injectable()
 class MockLocalizer extends UrlLocalizer
 {
-    localize() { return null; }
+    localize() { return 'null'; }
 
-    delocalize() { return null; }
+    delocalize() { return 'null'; }
 }

@@ -53,7 +53,7 @@ export class QueryParamsUrlLocalizer extends UrlLocalizer
      */
     delocalize(): string
     {
-        return this.localize(undefined);
+        return this.localize('');
     }
 
     /**
@@ -97,7 +97,7 @@ export class QueryParamsUrlLocalizer extends UrlLocalizer
      * @param {Object} newParams The new query params object to set to the url tree.
      * @returns {UrlTree} The updated url tree object.
      */
-    protected replaceQueryParamsInUrlTree(url: UrlTree, newParams: Object): UrlTree
+    protected replaceQueryParamsInUrlTree(url: UrlTree, newParams: { [k: string]: any }): UrlTree
     {
         return Object.assign(url, { queryParams: newParams });
     }

@@ -11,7 +11,7 @@ describe('NoopUrlLocalizer', () =>
     let urlReflection: UrlReflectionService;
     let router       : Router;
 
-    beforeEach(() => ({ localizer, urlReflection, router } = setupUrlLocalizerTest(undefined)));
+    beforeEach(() => ({ localizer, urlReflection, router } = setupUrlLocalizerTest()));
 
     it('should return the current unchanged complete url when localizing', () =>
     {
