@@ -1,96 +1,71 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "@bespunky/angular-zen": {
-      "root": "projects/bespunky/angular-zen",
-      "sourceRoot": "projects/bespunky/angular-zen",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/bespunky/angular-zen/tsconfig.lib.json",
-            "project": "projects/bespunky/angular-zen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/bespunky/angular-zen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/bespunky/angular-zen/test.ts",
-            "tsConfig": "projects/bespunky/angular-zen/tsconfig.spec.json",
-            "karmaConfig": "projects/bespunky/angular-zen/karma.conf.js",
-            "codeCoverage": true
-          },
-          "configurations": {
-            "production": {
-              "browsers": "ChromeHeadless",
-              "watch": false
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/bespunky/angular-zen/tsconfig.lib.json",
-              "projects/bespunky/angular-zen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "official-site",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
       }
     },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "strict": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
     "official-site": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/official-site",
-      "sourceRoot": "projects/official-site/src",
-      "prefix": "zen",
+      "root": "apps/official-site",
+      "sourceRoot": "apps/official-site/src",
+      "prefix": "bespunky",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/official-site",
-            "index": "projects/official-site/src/index.html",
-            "main": "projects/official-site/src/main.ts",
-            "polyfills": "projects/official-site/src/polyfills.ts",
-            "tsConfig": "projects/official-site/tsconfig.app.json",
+            "outputPath": "dist/apps/official-site",
+            "index": "apps/official-site/src/index.html",
+            "main": "apps/official-site/src/main.ts",
+            "polyfills": "apps/official-site/src/polyfills.ts",
+            "tsConfig": "apps/official-site/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/official-site/src/favicon.ico",
-              "projects/official-site/src/assets"
+              "apps/official-site/src/favicon.ico",
+              "apps/official-site/src/assets"
             ],
-            "styles": [
-              "projects/official-site/src/styles.scss"
-            ],
+            "styles": ["apps/official-site/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/official-site/src/environments/environment.ts",
-                  "with": "projects/official-site/src/environments/environment.prod.ts"
+                  "replace": "apps/official-site/src/environments/environment.ts",
+                  "with": "apps/official-site/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -127,40 +102,35 @@
             "browserTarget": "official-site:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/official-site/src/test.ts",
-            "polyfills": "projects/official-site/src/polyfills.ts",
-            "tsConfig": "projects/official-site/tsconfig.spec.json",
-            "karmaConfig": "projects/official-site/karma.conf.js",
-            "assets": [
-              "projects/official-site/src/favicon.ico",
-              "projects/official-site/src/assets"
-            ],
-            "styles": [
-              "projects/official-site/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "projects/official-site/tsconfig.app.json",
-              "projects/official-site/tsconfig.spec.json",
-              "projects/official-site/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "apps/official-site/src/**/*.ts",
+              "apps/official-site/src/**/*.html"
             ]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/official-site"],
           "options": {
-            "protractorConfig": "projects/official-site/e2e/protractor.conf.js",
+            "jestConfig": "apps/official-site/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "official-site-e2e": {
+      "root": "apps/official-site-e2e",
+      "sourceRoot": "apps/official-site-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/official-site-e2e/cypress.json",
+            "tsConfig": "apps/official-site-e2e/tsconfig.e2e.json",
             "devServerTarget": "official-site:serve"
           },
           "configurations": {
@@ -168,9 +138,51 @@
               "devServerTarget": "official-site:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/official-site-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "angular-zen": {
+      "projectType": "library",
+      "root": "libs/angular-zen",
+      "sourceRoot": "libs/angular-zen",
+      "prefix": "bs",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/angular-zen/tsconfig.lib.json",
+            "project": "libs/angular-zen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/angular-zen/**/*.ts",
+              "libs/angular-zen/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/angular-zen"],
+          "options": {
+            "jestConfig": "libs/angular-zen/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     }
-  },
-  "defaultProject": "@bespunky/angular-zen"
+  }
 }

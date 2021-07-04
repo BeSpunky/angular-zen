@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [{
       "name": "Generate wiki summary.json",
-      "program": "${workspaceFolder}/generate-wiki-summary.js",
+      "program": "${workspaceFolder}/tools/generators/generate-wiki-summary.js",
       "request": "launch",
       "skipFiles": [
         "<node_internals>/**"
@@ -17,7 +17,7 @@
       "request": "launch",
       "name": "ng test",
       "url": "http://localhost:9876/debug.html",
-      "webRoot": "${workspaceFolder}/projects/bespunky/angular-zen",
+      "webRoot": "${workspaceFolder}/libs/angular-zen",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
         "ng://@bespunky/angular-zen/*": "${webRoot}/*",
