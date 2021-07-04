@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "bs-angular-zen",
-    "public": "./dist/official-site",
+    "public": "./dist/apps/official-site",
     "ignore": [
       "firebase.json",
       "**/.*",
