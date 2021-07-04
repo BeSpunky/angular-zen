@@ -48,7 +48,7 @@ You may use the library as you like, with any app, under the MIT license.
 [🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) - Create route aware services and components with language integration.
 
 ## Versions
-The library was generated using Angular 7 and has been gradually updated and tested up to Angular 10. 
+The library was generated using Angular 7 and has been gradually updated and tested up to Angular 11. 
 Compatibility with older versions is possible but not guaranteed.
 
 [Full change log](https://bs-angular-zen.web.app/docs/zen/changelog.html)
@@ -64,7 +64,7 @@ Please follow the [contribution guidelines]().
 
 ## Other Packages by [`@bespunky`](https://www.npmjs.com/~bespunky)
 
-📦 [`@bespunky/angular-google-maps`](https://bs-angular-zen.web.app)
+📦 [`@bespunky/angular-google-maps`](https://bs-angular-g-maps.web.app)
 
 🚧 (soon) `@bespunky/angular-zen-ux` will help you with simple UX tasks.
 
