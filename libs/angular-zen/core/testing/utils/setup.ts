@@ -28,7 +28,7 @@ import { MockElement          } from '../mocks/element.mock';
  * @example
  * let mockHeadElement: MockHeadElement;
  * let mockDocument   : any; 
- * ({ mockHeadElement, mockDocument } = setupDocumentRefMock()); // mockDocument is also a jasmine.Spy
+ * ({ mockHeadElement, mockDocument } = setupDocumentRefMock()); // mockDocument is also a jest.SpyInstance
  */
 export function setupDocumentRefMock(): { mockHeadElement: MockHeadElement, mockDocument: any }
 {

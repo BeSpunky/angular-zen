@@ -40,7 +40,7 @@ export class MockElement
     {
         throw new Error(`
             Providing a general implementation for querySelectorAll() to support all cases is to complex.
-            Use spyOn() and fake this to provide an implementation for the specific use case.
+            Use jest.spyOn() and fake this to provide an implementation for the specific use case.
             See MockElement.extractXXXFromSelector() methods for utils.
         `);
     }
