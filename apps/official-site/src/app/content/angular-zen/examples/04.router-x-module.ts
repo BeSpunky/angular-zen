@@ -36,7 +36,7 @@ export const RouterXModuleExamples: Example[] = [
 
 export const RouterXModuleTopic: Topic = {
     title      : 'RouterX Module',
-    description: 'Learn new ways if working with routes.',
+    description: 'Learn new ways of working with routes.',
     icon       : 'alt_route',
     examples   : RouterXModuleExamples
 };
