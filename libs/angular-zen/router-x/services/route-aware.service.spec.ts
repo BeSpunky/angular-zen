@@ -237,16 +237,6 @@ describe('RouteAware (abstract)', () =>
             expect(resolve([])).toBeInstanceOf(Observable);
         });
 
-        it('should still return an observable when supplied with `undefined` for resolvers', () =>
-        {
-            expect(resolve(undefined)).toBeInstanceOf(Observable);
-        });
-
-        it('should still return an observable when supplied with `null` for resolvers', () =>
-        {
-            expect(resolve(null)).toBeInstanceOf(Observable);
-        });
-
         it('should pass the activated component then resolverArgs to the resolvers', () =>
         {
             const resolverArgs       = ['dummyArg1', 2];

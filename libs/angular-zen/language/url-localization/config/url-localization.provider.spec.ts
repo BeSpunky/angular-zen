@@ -55,11 +55,6 @@ describe('provideUrlLocalizer()', () =>
   
         expectLocalizerProvider('class', localizerClass, MockLocalizer);
     });
-
-    it('should return a NoopUrlLocalizer class provider when strategy is undefined', () =>
-    { 
-        expectLocalizerProvider('class', undefined, NoopUrlLocalizer);
-    });
 });
 
 @Injectable()
