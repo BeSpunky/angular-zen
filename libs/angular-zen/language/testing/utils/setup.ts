@@ -19,7 +19,7 @@ import { LanguageConfig                                                         
  * @param {(UrlLocalizationStrategy | UrlLocalizationConfig)} strategyOrConfig The url localization strategy or full config.
  * @returns A deconstructable object with ready to use language tools. See intellisense.
  */
-export function setupUrlLocalizerTest(strategyOrConfig: UrlLocalizationStrategy | UrlLocalizationConfig)
+export function setupUrlLocalizerTest(strategyOrConfig?: UrlLocalizationStrategy | UrlLocalizationConfig)
 {
     const nestedRoutes = createLocalizedDeeplyNestedRoutes(DeepRouteSegments);
     const config       = isUrlLocalizationConfig(strategyOrConfig) ? strategyOrConfig : { strategy: strategyOrConfig } as UrlLocalizationConfig;
