@@ -13,14 +13,14 @@ describe('HeadService', () =>
     {
         ({ mockHeadElement } = setupDocumentRefMock());
         
-        spyOn(mockHeadElement as any, 'querySelectorAll').and.callFake((selector: string) =>
+        jest.spyOn(mockHeadElement, 'querySelectorAll').mockImplementation((selector: string) =>
         {
-            const tagEnd = selector.indexOf('[');
-            const tag    = selector.substring(0, tagEnd >= 0 ? tagEnd : undefined);
+            const tagEnd   = selector.indexOf('[');
+            const tag      = selector.substring(0, tagEnd >= 0 ? tagEnd : undefined);
 
             const attributes = mockHeadElement.extractAttributesFromSelector(selector);
 
-            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every(attr =>
+            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every((attr: { value: string; name: string | number; }) =>
             {
                 return attr.value === '**' ? child[attr.name] : child[attr.name] == attr.value;
             }));
@@ -206,7 +206,7 @@ describe('HeadService', () =>
     {
         function testFind(tag: string, attributes: any, expectedResultCount: number)
         {
-            let results = service.findElements(tag, attributes);
+            const results = service.findElements(tag, attributes);
 
             expect(results.length).toBe(expectedResultCount);
         }

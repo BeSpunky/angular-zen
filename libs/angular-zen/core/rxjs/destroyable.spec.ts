@@ -49,18 +49,18 @@ describe('Destroyable (abstract)', () =>
 });
 
 @Component({
-    selector: 'destroyable-test',
+    selector: 'bs-zen-destroyable-test',
     template: ''
 })
 class TestComponent extends Destroyable
 {
-    public subscribeToSelfDestroyingInterval(observer: PartialObserver<any>): void
+    public subscribeToSelfDestroyingInterval(observer: PartialObserver<any>): Subscription
     {
-        interval(1000).pipe(takeUntil(this.destroyed)).subscribe(observer);
+        return interval(1000).pipe(takeUntil(this.destroyed)).subscribe(observer);
     }
 
-    public subscribeToSubscribedInterval(observer: PartialObserver<any>): void
+    public subscribeToSubscribedInterval(observer: PartialObserver<any>): Subscription
     {
-        this.subscribe(interval(1000), observer);
+        return this.subscribe(interval(1000), observer);
     }
 }
