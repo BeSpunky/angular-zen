@@ -1,8 +1,4 @@
-import { TestBed } from '@angular/core/testing';
-
 import { UniversalService } from './universal.service';
-import { UniversalModule } from '../universal.module';
-import { PLATFORM_ID } from '@angular/core';
 import { ɵPLATFORM_BROWSER_ID, ɵPLATFORM_SERVER_ID, ɵPLATFORM_WORKER_APP_ID, ɵPLATFORM_WORKER_UI_ID } from '@angular/common';
 
 describe('UniversalService', () =>
@@ -32,7 +28,7 @@ describe('UniversalService', () =>
     describe('platform ifs', () =>
     {
         const platforms = [ɵPLATFORM_BROWSER_ID, ɵPLATFORM_SERVER_ID, ɵPLATFORM_WORKER_APP_ID, ɵPLATFORM_WORKER_UI_ID];
-        const nonPlatforms = platforms.reduce((tests, platform) => ({ ...tests, [platform]: platforms.filter(p => p !== platform) }), {});
+        const nonPlatforms = platforms.reduce((tests, platform) => ({ ...tests, [platform]: platforms.filter(p => p !== platform) }), {} as { [platform: string]: string[] });
 
         const testedPlaforms: { name: keyof UniversalService, platform: string }[] = [
             { name: 'onBrowser', platform: ɵPLATFORM_BROWSER_ID },
