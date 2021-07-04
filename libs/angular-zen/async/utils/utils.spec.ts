@@ -11,7 +11,7 @@ describe('promiseLater()', () =>
         expect(later.reject instanceof Function).toBeTruthy();
     });
 
-    it('should return a `resolve()` method that acts on the returned promise', (done: DoneFn) =>
+    it('should return a `resolve()` method that acts on the returned promise', done =>
     {
         const later = promiseLater();
 
@@ -24,7 +24,7 @@ describe('promiseLater()', () =>
         later.resolve('resolved');
     });
 
-    it('should return a `reject()` method that acts on the returned promise', (done: DoneFn) =>
+    it('should return a `reject()` method that acts on the returned promise', done =>
     {
         const later = promiseLater();
 

@@ -19,14 +19,14 @@ describe('LazyLoaderService', () =>
     {
         ({ mockDocument, mockHeadElement } = setupDocumentRefMock());
 
-        spyOn(mockHeadElement, 'querySelectorAll').and.callFake(selector =>
+        jest.spyOn(mockHeadElement, 'querySelectorAll').mockImplementation(selector =>
         {
             const tagEnd = selector.indexOf('[');
             const tag    = selector.substring(0, tagEnd >= 0 ? tagEnd : undefined);
     
             const attributes = mockHeadElement.extractAttributesFromSelector(selector);
             
-            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every(attr => child[attr.name] == attr.value));
+            return mockHeadElement.children.filter(child => child.tagName === tag && attributes.every((attr: { name: string | number; value: any; }) => child[attr.name] == attr.value));
         });
 
         service = TestBed.inject(LazyLoaderService);
@@ -71,16 +71,16 @@ describe('LazyLoaderService', () =>
 
     describe('Calling `loadScript()`', () =>
     {
-        it('should create a `<script>` tag inside `<head>`', (done: DoneFn) =>
+        it('should create a `<script>` tag inside `<head>`', done =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
-                const script: MockScriptElement = lazyScript.element.nativeElement;
+                const script: MockScriptElement = lazyScript?.element?.nativeElement;
 
-                expect(script.src).toEqual(testUrl);
-                expect(script.type).toEqual('text/javascript');
-                expect(script.async).toBeTruthy();
-                expect(script.defer).toBeTruthy();
+                expect(script?.src).toEqual(testUrl);
+                expect(script?.type).toEqual('text/javascript');
+                expect(script?.async).toBeTruthy();
+                expect(script?.defer).toBeTruthy();
 
                 done();
             });
@@ -103,7 +103,7 @@ describe('LazyLoaderService', () =>
             expect(mockDocument.createElement).toHaveBeenCalledTimes(1);
         });
 
-        it('should return an observable streaming `undefined` if script was already present in <head>', (done: DoneFn) =>
+        it('should return an observable streaming `undefined` if script was already present in <head>', done =>
         {
             head.addScriptElement('text/javascript', testUrl);
 
@@ -114,7 +114,7 @@ describe('LazyLoaderService', () =>
             });
         });
 
-        it('should return same script object if script was previously loaded', (done: DoneFn) =>
+        it('should return same script object if script was previously loaded', done =>
         {
             service.loadScript(testUrl).subscribe(lazyScript =>
             {
@@ -128,11 +128,11 @@ describe('LazyLoaderService', () =>
 
         describe('Providing options', () =>
         {
-            it('should change `<script>` tag attributes', (done: DoneFn) =>
+            it('should change `<script>` tag attributes', done =>
             {
                 service.loadScript(testUrl, { async: false, defer: false }).subscribe(lazyScript =>
                 {
-                    const script: MockScriptElement = lazyScript.element.nativeElement;
+                    const script: MockScriptElement = lazyScript?.element?.nativeElement;
 
                     expect(script.async).toBeFalsy();
                     expect(script.defer).toBeFalsy();
@@ -165,11 +165,11 @@ describe('LazyLoaderService', () =>
 
     describe('Calling `loadStyle()`', () =>
     {
-        it('should create a `<link>` tag inside `<head>`', (done: DoneFn) =>
+        it('should create a `<link>` tag inside `<head>`', done =>
         {
             service.loadStyle(testUrl).subscribe(lazyStyle =>
             {
-                const link: MockLinkElement = lazyStyle.element.nativeElement;
+                const link: MockLinkElement = lazyStyle?.element?.nativeElement;
 
                 expect(link.href).toEqual(testUrl);
                 expect(link.rel).toEqual('stylesheet');
@@ -196,7 +196,7 @@ describe('LazyLoaderService', () =>
             expect(mockDocument.createElement).toHaveBeenCalledTimes(1);
         });
 
-        it('should return an observable streaming `undefined` if style was already present in <head>', (done: DoneFn) =>
+        it('should return an observable streaming `undefined` if style was already present in <head>', done =>
         {
             head.addLinkElement('stylesheet', { href: testUrl });
             
@@ -207,7 +207,7 @@ describe('LazyLoaderService', () =>
             });
         });
 
-        it('should return same link object if link was previously loaded', (done: DoneFn) =>
+        it('should return same link object if link was previously loaded', done =>
         {
             service.loadStyle(testUrl).subscribe(lazyLink =>
             {
