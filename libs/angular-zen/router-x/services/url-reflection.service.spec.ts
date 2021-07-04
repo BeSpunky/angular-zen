@@ -37,12 +37,12 @@ describe('UrlReflectionService', () =>
 
     function testRegex(url: string, regex: RegExp, groupName: string, expected: string)
     {
-        expect(url.match(regex).groups[groupName]).toEqual(expected);
+        expect(url.match(regex)?.groups?.[groupName]).toEqual(expected);
     }
 
     function testRegexArray(url: string, regex: RegExp, groupName: string, expected: string[])
     {
-        let match: RegExpExecArray;
+        let match: RegExpExecArray | null;
         let expectedIndex = 0;
 
         while ((match = regex.exec(url)) !== null)
@@ -50,7 +50,7 @@ describe('UrlReflectionService', () =>
             // This is necessary to avoid infinite loops with zero-width matches
             if (match.index === regex.lastIndex) regex.lastIndex++;
 
-            expect(match.groups[groupName]).toEqual(expected[expectedIndex++]);
+            expect(match.groups?.[groupName]).toEqual(expected[expectedIndex++]);
         }
     }
 
@@ -73,7 +73,7 @@ describe('UrlReflectionService', () =>
         {
             setup(undefined);
 
-            expect(urlReflection.hostUrl.startsWith('http://localhost:')).toBeTrue();
+            expect(urlReflection.hostUrl.startsWith('http://localhost')).toBe(true);
         });
 
         it('should expose the provided host url that is specified in config', () =>
@@ -160,7 +160,7 @@ describe('UrlReflectionService', () =>
 
         it('should use the `hostUrl` which depends on configuration to compose `fullUrl`', async () =>
         {
-            expect(urlReflection.fullUrl.startsWith(hostUrl)).toBeTrue();
+            expect(urlReflection.fullUrl.startsWith(hostUrl)).toBe(true);
         });
 
         it('should return the activated route as a fully qualified url using `fullUrl`', async () =>

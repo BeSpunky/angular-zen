@@ -1,7 +1,7 @@
 import { Observable, of, PartialObserver                                                } from 'rxjs';
 import { TestBed                                                                        } from '@angular/core/testing';
 import { RouterTestingModule                                                            } from '@angular/router/testing';
-import { Injectable, Type                                                                     } from '@angular/core';
+import { Injectable, Type                                                               } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart, ActivatedRouteSnapshot } from '@angular/router';
 
 import { forceRoutingInsideAngularZone                                        } from '@bespunky/angular-zen/core/testing';
@@ -16,7 +16,7 @@ describe('RouteAware (abstract)', () =>
     let service: RouteAwareMock;
     let router : Router;
     let bus    : RouterOutletComponentBus;
-    let process: jasmine.Spy;
+    let process: jest.SpyInstance<boolean, [ActivatedRouteSnapshot, any]>;
 
     function setup(config?: { withBus: boolean })
     {
@@ -31,7 +31,7 @@ describe('RouteAware (abstract)', () =>
         service = TestBed.inject(config.withBus ? RouteAwareMock : RouteAwareMockNoBus);
         router  = TestBed.inject(Router);
         bus     = TestBed.inject(RouterOutletComponentBus);
-        process = jasmine.createSpy('processRoute');
+        process = jest.fn<boolean, [ActivatedRouteSnapshot, any]>();
 
         forceRoutingInsideAngularZone(router);
     }
@@ -44,8 +44,8 @@ describe('RouteAware (abstract)', () =>
         // events with no handlers don't fail.
         it('should dispatch events to their correct handler method', async () =>
         {
-            spyOn(service, 'onNavigationStart').and.stub();
-            spyOn(service, 'onNavigationEnd'  ).and.stub();
+            jest.spyOn(service, 'onNavigationStart').mockImplementation();
+            jest.spyOn(service, 'onNavigationEnd'  ).mockImplementation();
 
             await router.navigate(DeepRouteSegments);
 
@@ -58,7 +58,7 @@ describe('RouteAware (abstract)', () =>
     {
         beforeEach(() => setup());
 
-        it('should return an observable for router events of the specified type only', async (done: DoneFn) =>
+        it('should return an observable for router events of the specified type only', async done =>
         {
             // Using NavigationEnd as it is the last fired event for a navigation. If only NavigationEnd fires, this proves
             // the observable filtered correctly.
@@ -73,10 +73,10 @@ describe('RouteAware (abstract)', () =>
             await router.navigate(DeepRouteSegments);
         });
 
-        function testAutoUnsubscribe(auto: boolean, done: DoneFn)
+        function testAutoUnsubscribe(auto: boolean, done: jest.DoneCallback)
         {
             const navigationEnd = service.observeRouterEvent(NavigationEnd, auto);
-            const complete      = jasmine.createSpy('destroyed').and.stub();
+            const complete      = jest.fn().mockImplementation();
 
             navigationEnd.subscribe({ complete });
 
@@ -91,12 +91,12 @@ describe('RouteAware (abstract)', () =>
             }, 0);
         }
 
-        it('should self unsubscribe on destroy when `autoUnsubscribe` is `true`', (done: DoneFn) =>
+        it('should self unsubscribe on destroy when `autoUnsubscribe` is `true`', done =>
         {
             testAutoUnsubscribe(true, done);
         });
 
-        it('should stay subscribed on destroy when `autoUnsubscribe` is `false`', (done: DoneFn) =>
+        it('should stay subscribed on destroy when `autoUnsubscribe` is `false`', done =>
         {
             testAutoUnsubscribe(false, done);
         });
@@ -106,15 +106,13 @@ describe('RouteAware (abstract)', () =>
     {
         function scannedRoutesInSpy(): string[]
         {
-            return process.calls.allArgs()
-                                .map(callArgs => callArgs[0] as ActivatedRouteSnapshot)
-                                .map(route    => route.url.toString());
+            return process.mock.calls.map(callArgs => callArgs[0] as ActivatedRouteSnapshot)
+                                     .map(route    => route.url.toString());
         }
 
         function scannedComponentsInSpy(): any[]
         {
-            return process.calls.allArgs()
-                                .map(callArgs => callArgs[1]);
+            return process.mock.calls.map(callArgs => callArgs[1]);
         }
 
         describe('basically', () =>
@@ -125,7 +123,7 @@ describe('RouteAware (abstract)', () =>
             {
                 await router.navigate(DeepRouteSegments);
                 
-                service.scanRouteSegments(process);
+                service.scanRouteSegments(process as jest.Mock);
                 
                 expect(scannedRoutesInSpy()).toEqual(DeepRouteSegments);
             });
@@ -134,18 +132,18 @@ describe('RouteAware (abstract)', () =>
             {
                 await router.navigate(DeepRouteSegments);
                 
-                service.scanRouteSegments(process, 3);
+                service.scanRouteSegments(process as jest.Mock, 3);
                 
                 expect(scannedRoutesInSpy()).toEqual(DeepRouteSegments.slice(0, 4)); // Root + 3 child levels
             });
 
             it('should stop propagation when the process function returns `true`', async () =>
             {
-                process.and.returnValue(true);
+                process.mockReturnValue(true);
 
                 await router.navigate(DeepRouteSegments);
                 
-                service.scanRouteSegments(process);
+                service.scanRouteSegments(process as jest.Mock);
                 
                 expect(scannedRoutesInSpy()).toEqual(DeepRouteSegments.slice(0, 1)); // Root route only
             });
@@ -185,7 +183,7 @@ describe('RouteAware (abstract)', () =>
             await router.navigate([{ outlets: { [SECONDARY_OUTLET]: [secondarySegment] } }]);
 
             // Launch the scan and have the spy collect the arguments
-            service.scanRouteSegments(process, 1);
+            service.scanRouteSegments(process as jest.Mock, 1);
 
             return { component1, component2 };
         }
@@ -230,8 +228,8 @@ describe('RouteAware (abstract)', () =>
         const promiseValue    = 'resolved promise';
         const resolvedValues  = [observableValue, promiseValue];
         const resolvers       = [
-            jasmine.createSpy('promise resolver'   ).and.returnValue(of(observableValue)),
-            jasmine.createSpy('observable resolver').and.returnValue(Promise.resolve(promiseValue)),
+            jest.fn().mockReturnValue(of(observableValue)),
+            jest.fn().mockReturnValue(Promise.resolve(promiseValue))
         ];
 
         it('should still return an observable when no resolvers were supplied', () =>
@@ -260,11 +258,11 @@ describe('RouteAware (abstract)', () =>
             resolve(resolvers, ...resolverArgs).subscribe();
 
             // First arg is always the component, so cut it out
-            expect(resolvers[0].calls.mostRecent().args).toEqual(expectedArgs);
-            expect(resolvers[1].calls.mostRecent().args).toEqual(expectedArgs);
+            expect(resolvers[0].mock.calls[0]).toEqual(expectedArgs);
+            expect(resolvers[1].mock.calls[0]).toEqual(expectedArgs);
         });
 
-        it('should pass an array of resolved values to subscribers', (done: DoneFn) =>
+        it('should pass an array of resolved values to subscribers', done =>
         {
             resolve(resolvers).subscribe(resolved =>
             {
@@ -292,34 +290,34 @@ describe('RouteAware (abstract)', () =>
         // Spys on the current zone's `scheduleMacroTask` and, when called by the library, spies on the `invoke` method of the
         // created task as well. As the spy for `invoke` is only created when `scheduleMacroTask` is called, this function
         // cannot return a spy object for it.
-        // The `spies` parameter is there to allow the `spyOnMacroTaskCreation` function to fill-in the `invoke` spy even after it returned.
-        function spyOnMacroTaskCreation(spies: { scheduleMacroTask?: jasmine.Spy, macroTaskInvoke?: jasmine.Spy })
+        // The `spies` parameter is there to allow the `jest.spyOnMacroTaskCreation` function to fill-in the `invoke` spy even after it returned.
+        function spyOnMacroTaskCreation(spies: { scheduleMacroTask?: jest.SpyInstance, macroTaskInvoke?: jest.SpyInstance })
         {
             const originalScheduleMacroTask = Zone.current.scheduleMacroTask.bind(Zone.current);
             
             // Spy on the schedule function and when it is called, spy on the invoke function of the scheduled task
-            spies.scheduleMacroTask = spyOn(Zone.current, 'scheduleMacroTask').and.callFake((...args: any[]) =>
+            spies.scheduleMacroTask = jest.spyOn(Zone.current, 'scheduleMacroTask').mockImplementation((...args: any[]) =>
             {
                 const macroTask = originalScheduleMacroTask(...args);
                 
-                // jasmine, setTimeout, and others might also create macro tasks, so only replace the `invoke` method if
+                // jest, setTimeout, and others might also create macro tasks, so only replace the `invoke` method if
                 // the task was created by the library. This ensures that the `spies.macroTaskInvoke` is only set for
                 // the appropriate call.
                 if (macroTaskCallMadeByLibrary(args[0]))
-                    spies.macroTaskInvoke = spyOn(macroTask, 'invoke').and.callThrough();
+                    spies.macroTaskInvoke = jest.spyOn(macroTask, 'invoke');
 
                 return macroTask;
             });
         }
 
-        function callsToMacroTaskMadeByLibrary(spy: jasmine.Spy)
+        function callsToMacroTaskMadeByLibrary(spy: jest.SpyInstance)
         {
-            return spy.calls.all().filter(call => macroTaskCallMadeByLibrary(call.args[0] || ''));
+            return spy.mock.calls.filter(callArgs => macroTaskCallMadeByLibrary(callArgs[0] || ''));
         }
 
-        function testMacroTaskResolve(resolver: Resolver, expectOn: 'complete' | 'error', done: DoneFn)
+        function testMacroTaskResolve(resolver: Resolver, expectOn: 'complete' | 'error', done: jest.DoneCallback)
         {
-            const spies: { scheduleMacroTask: jasmine.Spy, macroTaskInvoke: jasmine.Spy } = {} as any;
+            const spies: { scheduleMacroTask: jest.SpyInstance, macroTaskInvoke: jest.SpyInstance } = {} as any;
 
             // Spy on `scheduleMacroTask` and fill-in the spies object when spies are created.
             // `spies.macroTaskInvoke` will be undefined until the task is created. By the time calles to `invoke` should
@@ -330,12 +328,15 @@ describe('RouteAware (abstract)', () =>
             {
                 setTimeout(() =>
                 {
-                    // jasmine, setTimeout, and others might also create macro tasks, so only count tasks created by the library
+                    // jest, setTimeout, and others might also create macro tasks, so only count tasks created by the library
                     const relevantCallsToScheduler = callsToMacroTaskMadeByLibrary(spies.scheduleMacroTask);
 
                     expect(relevantCallsToScheduler.length).toBe(1);
                     expect(spies.macroTaskInvoke).toHaveBeenCalledTimes(1);
                 
+                    // As `Zone` is global, restore its original scheduling implementation to avoid affecting other tests.
+                    spies.scheduleMacroTask.mockRestore();
+
                     done();
                 }, 0);
             }

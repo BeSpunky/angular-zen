@@ -25,11 +25,11 @@ describe('RouterOutletComponentBus', () =>
 
         function testIsComponentPublished(outletName?: string)
         {
-            expect(bus.isComponentPublished(outletName)).toBeFalse();
+            expect(bus.isComponentPublished(outletName)).toBe(false);
             
             bus.publishComponent(DummyComponent, outletName);
             
-            expect(bus.isComponentPublished(outletName)).toBeTrue();    
+            expect(bus.isComponentPublished(outletName)).toBe(true);    
         }
 
         it('should detect if a named outlet has published', () => testIsComponentPublished(SecondaryOutletName));
@@ -44,16 +44,20 @@ describe('RouterOutletComponentBus', () =>
     {
         function producePublishTestSpecs(outletName?: string)
         {
-            let nextChange    : jasmine.Spy;
-            let publishedEvent: jasmine.Spy;
+            let nextChange    : jest.SpyInstance;
+            let publishedEvent: jest.SpyInstance;
 
             beforeEach(() =>
             {
                 // Do the first publish to create the observable
                 bus.publishComponent(DummyComponent, outletName);
 
-                nextChange     = spyOn(bus.changes(outletName), 'next').and.callThrough();
-                publishedEvent = spyOn(bus.componentPublished, 'emit').and.callThrough();
+                const changes = bus.changes(outletName);
+
+                if (!changes) throw new Error(`bus.changes('${outletName}') should've returned an observable. Received ${changes}.`);
+
+                nextChange     = jest.spyOn(changes, 'next');
+                publishedEvent = jest.spyOn(bus.componentPublished, 'emit');
 
                 // Do another publish to trigger spies
                 bus.publishComponent(DummyComponent, outletName);
@@ -68,14 +72,14 @@ describe('RouterOutletComponentBus', () =>
             {
                 expect(nextChange).toHaveBeenCalledTimes(1);
 
-                const component = nextChange.calls.mostRecent().args[0];
+                const component = nextChange.mock.calls[0][0];
 
                 expect(component).toBe(DummyComponent);
             });
 
             it('should notify subscribers of the `componentPublished` event', () =>
             {
-                const event = publishedEvent.calls.mostRecent().args[0] as ComponentPublishEventData;
+                const event = publishedEvent.mock.calls[0][0] as ComponentPublishEventData;
 
                 expect(event.outletName       ).toBe(outletName || PRIMARY_OUTLET);
                 expect(event.changes          ).toBe(bus.changes (outletName));
@@ -92,15 +96,19 @@ describe('RouterOutletComponentBus', () =>
     {
         function produceUnpublishTestSpecs(outletName?: string)
         {
-            let completeChanges : jasmine.Spy;
-            let unpublishedEvent: jasmine.Spy;
+            let completeChanges : jest.SpyInstance;
+            let unpublishedEvent: jest.SpyInstance;
 
             beforeEach(() =>
             {
                 bus.publishComponent(DummyComponent, outletName);
 
-                completeChanges  = spyOn(bus.changes(outletName), 'complete').and.callThrough();
-                unpublishedEvent = spyOn(bus.componentUnpublished, 'emit').and.callThrough();
+                const changes = bus.changes(outletName);
+
+                if (!changes) throw new Error(`bus.changes('${outletName}') should've returned an observable. Received ${changes}.`);
+
+                completeChanges  = jest.spyOn(changes, 'complete');
+                unpublishedEvent = jest.spyOn(bus.componentUnpublished, 'emit');
 
                 bus.unpublishComponent(outletName);
             });
@@ -113,14 +121,14 @@ describe('RouterOutletComponentBus', () =>
             it('should remove the outlet completely from the service', () =>
             {
                 expect(bus.changes(outletName)).toBeNull();
-                expect(bus.isComponentPublished(outletName)).toBeFalse();
+                expect(bus.isComponentPublished(outletName)).toBe(false);
             });
 
             it('should notify subscribers of the `componentUnpublished` event', () =>
             {
                 expect(unpublishedEvent).toHaveBeenCalledTimes(1);
 
-                const event = unpublishedEvent.calls.mostRecent().args[0] as RouterOutletEventData;
+                const event = unpublishedEvent.mock.calls[0][0] as RouterOutletEventData;
 
                 expect(event.outletName).toBe(outletName || PRIMARY_OUTLET);
             });

@@ -8,11 +8,13 @@ import { forceRoutingInsideAngularZone } from '@bespunky/angular-zen/core/testin
 import { RouterXModule                 } from '../router-x.module';
 import { RouterOutletComponentBus      } from './router-outlet-component-bus.service';
 
-@Component({ selector: 'zen-router-x-main'  , template: '<div>main</div>'   }) class MainComponent   { }
-@Component({ selector: 'zen-router-x-header', template: '<div>header</div>' }) class HeaderComponent { }
-@Component({ selector: 'zen-router-x-footer', template: '<div>footer</div>' }) class FooterComponent { }
+@Component({ selector: 'bs-zen-router-x-main'  , template: '<div>main</div>'   }) class MainComponent   { }
+@Component({ selector: 'bs-zen-router-x-header', template: '<div>header</div>' }) class HeaderComponent { }
+@Component({ selector: 'bs-zen-router-x-footer', template: '<div>footer</div>' }) class FooterComponent { }
 
-const outletMap = {
+type OutletTestPath = 'outletInit' | 'outletUpdate' | 'outletRemoval';
+
+const outletMap: Record<OutletTestPath, { header: string[] | null, footer: string[] | null }> = {
     outletInit   : { header: ['outletInit']  , footer: ['outletInit']   },
     outletUpdate : { header: ['outletUpdate'], footer: ['outletUpdate'] },
     outletRemoval: { header: null, footer: null },
@@ -25,7 +27,7 @@ describe('PublishComponentDirective', () =>
     let componentBus: RouterOutletComponentBus;
     let router      : Router;
 
-    async function navigate(route: string)
+    async function navigate(route: OutletTestPath)
     {
         // For some reason the router doesn't recognize the route if outlets are specified on the same navigation call
         await router.navigate([route]);
@@ -33,7 +35,7 @@ describe('PublishComponentDirective', () =>
         return router.navigate([{ outlets: outletMap[route] }]);
     }
 
-    async function setup(route: 'outletInit' | 'outletUpdate' | 'outletRemoval')
+    async function setup(route: OutletTestPath)
     {
         const routes: Routes = [
             // For outlet init testing: Route should create three outlets
@@ -41,11 +43,11 @@ describe('PublishComponentDirective', () =>
             { path: 'outletInit', component: HeaderComponent, outlet: 'header' },
             { path: 'outletInit', component: FooterComponent, outlet: 'footer' },
             // For outlet update testing: Route should create three outlets and switch between header and footer.
-            { path: 'outletUpdate', component: MainComponent, outlet: null },
+            { path: 'outletUpdate', component: MainComponent, outlet: undefined },
             { path: 'outletUpdate', component: FooterComponent, outlet: 'header' },
             { path: 'outletUpdate', component: HeaderComponent, outlet: 'footer' },
             // For outlet removal testing: Route should remove the named outlets
-            { path: 'outletRemoval', component: MainComponent, outlet: null },
+            { path: 'outletRemoval', component: MainComponent, outlet: undefined },
             { path: 'outletRemoval', component: HeaderComponent, outlet: 'header' },
             { path: 'outletRemoval', component: FooterComponent, outlet: 'footer' },
         ];
@@ -126,7 +128,7 @@ describe('PublishComponentDirective', () =>
 });
 
 @Component({
-    selector: 'zen-router-x-test',
+    selector: 'bs-zen-router-x-test',
     template: `
         <router-outlet publishComponent name="header"                   ></router-outlet>
         <router-outlet publishComponent                                 ></router-outlet>
