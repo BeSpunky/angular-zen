@@ -13,6 +13,8 @@ import { TopicComponent           } from './components/topic/topic.component';
 import { ExampleListComponent     } from './components/example-list/example-list.component';
 import { ExampleComponent         } from './components/example/example.component';
 
+import { CoreModule } from '@bespunky/angular-zen/core';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -28,7 +30,7 @@ import { ExampleComponent         } from './components/example/example.component
         CommonModule,
         AppRoutingModule,
         AppMaterialModule,
-        FlexLayoutModule
+        FlexLayoutModule, CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]
