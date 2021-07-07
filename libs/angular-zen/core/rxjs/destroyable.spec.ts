@@ -1,9 +1,9 @@
 import { interval, PartialObserver, Subscription    } from 'rxjs';
 import { takeUntil                                  } from 'rxjs/operators';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component                                  } from '@angular/core';
 
-import { Destroyable } from '@bespunky/angular-zen/core';
-import { Component } from '@angular/core';
+import { Destroyable } from './destroyable';
 
 describe('Destroyable (abstract)', () =>
 {
