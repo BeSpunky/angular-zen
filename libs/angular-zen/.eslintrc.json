@@ -12,7 +12,7 @@
         "max-len": "off",
         "@typescript-eslint/no-empty-function": "warn",
         "@angular-eslint/directive-selector": [
-          "error",
+          "warn",
           {
             "type": "attribute",
             "prefix": "bs-zen",
@@ -20,7 +20,7 @@
           }
         ],
         "@angular-eslint/component-selector": [
-          "error",
+          "warn",
           {
             "type": "element",
             "prefix": "bs-zen",
