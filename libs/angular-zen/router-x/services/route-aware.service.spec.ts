@@ -3,6 +3,7 @@ import { TestBed                                                                
 import { RouterTestingModule                                                            } from '@angular/router/testing';
 import { Injectable, Type                                                               } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart, ActivatedRouteSnapshot } from '@angular/router';
+import { subscribeSpyTo                                                                 } from '@hirez_io/observer-spy';
 
 import { forceRoutingInsideAngularZone                                        } from '@bespunky/angular-zen/core/testing';
 import { createDeeplyNestedRoutes, DeepRouteSegments, DeepRouteSegmentsNoRoot } from '@bespunky/angular-zen/router-x/testing';
@@ -58,19 +59,18 @@ describe('RouteAware (abstract)', () =>
     {
         beforeEach(() => setup());
 
-        it('should return an observable for router events of the specified type only', async done =>
+        it('should return an observable for router events of the specified type only', async () =>
         {
             // Using NavigationEnd as it is the last fired event for a navigation. If only NavigationEnd fires, this proves
             // the observable filtered correctly.
-            const navigationEnd = service.observeRouterEvent(NavigationEnd);
-
-            navigationEnd.subscribe(event =>
-            {
-                expect(event).toBeInstanceOf(NavigationEnd);
-                done();
-            });
+            const navigationEnd    = service.observeRouterEvent(NavigationEnd);
+            const navigationEndSpy = subscribeSpyTo(navigationEnd);
 
             await router.navigate(DeepRouteSegments);
+            
+            expect(navigationEndSpy.getFirstValue()).toBeInstanceOf(NavigationEnd);
+
+            navigationEndSpy.unsubscribe();
         });
 
         function testAutoUnsubscribe(auto: boolean, done: jest.DoneCallback)

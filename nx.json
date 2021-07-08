@@ -1,13 +1,18 @@
 {
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "npmScope": "bespunky",
   "tasksRunnerOptions": {
     "default": {
@@ -21,11 +26,23 @@
     }
   },
   "projects": {
-    "official-site": { "tags": [] },
+    "angular-zen": {
+      "tags": []
+    },
+    "official-site": {
+      "tags": []
+    },
     "official-site-e2e": {
       "tags": [],
       "implicitDependencies": ["official-site"]
-    },
-    "angular-zen": { "tags": [] }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
