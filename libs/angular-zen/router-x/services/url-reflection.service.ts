@@ -252,7 +252,7 @@ export class UrlReflectionService
      */
     public get fragment(): string
     {
-        return this.route.snapshot.fragment;
+        return this.route.snapshot.fragment!;
     }
 
     /**

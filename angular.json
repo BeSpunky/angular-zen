@@ -33,6 +33,45 @@
     }
   },
   "projects": {
+    "angular-zen": {
+      "projectType": "library",
+      "root": "libs/angular-zen",
+      "sourceRoot": "libs/angular-zen",
+      "prefix": "bs",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/angular-zen/tsconfig.lib.json",
+            "project": "libs/angular-zen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/angular-zen/**/*.ts",
+              "libs/angular-zen/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/angular-zen"
+          ],
+          "options": {
+            "jestConfig": "libs/angular-zen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "official-site": {
       "projectType": "application",
       "root": "apps/official-site",
@@ -47,13 +86,20 @@
             "main": "apps/official-site/src/main.ts",
             "polyfills": "apps/official-site/src/polyfills.ts",
             "tsConfig": "apps/official-site/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/official-site/src/favicon.ico",
               "apps/official-site/src/assets"
             ],
-            "styles": ["apps/official-site/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/official-site/src/styles.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -113,7 +159,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/official-site"],
+          "outputs": [
+            "coverage/apps/official-site"
+          ],
           "options": {
             "jestConfig": "apps/official-site/jest.config.js",
             "passWithNoTests": true
@@ -142,44 +190,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/official-site-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    },
-    "angular-zen": {
-      "projectType": "library",
-      "root": "libs/angular-zen",
-      "sourceRoot": "libs/angular-zen",
-      "prefix": "bs",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/angular-zen/tsconfig.lib.json",
-            "project": "libs/angular-zen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
             "lintFilePatterns": [
-              "libs/angular-zen/**/*.ts",
-              "libs/angular-zen/**/*.html"
+              "apps/official-site-e2e/**/*.{js,ts}"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/angular-zen"],
-          "options": {
-            "jestConfig": "libs/angular-zen/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

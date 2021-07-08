@@ -8,17 +8,24 @@
         "plugin:@nrwl/nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
-      "parserOptions": { "project": ["libs/angular-zen/tsconfig.*?.json"] },
       "rules": {
         "max-len": "off",
         "@typescript-eslint/no-empty-function": "warn",
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "bs-zen", "style": "camelCase" }
+          {
+            "type": "attribute",
+            "prefix": "bs-zen",
+            "style": "camelCase"
+          }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "bs-zen", "style": "kebab-case" }
+          {
+            "type": "element",
+            "prefix": "bs-zen",
+            "style": "kebab-case"
+          }
         ]
       }
     },
