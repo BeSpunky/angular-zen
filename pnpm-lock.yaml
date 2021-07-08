@@ -12,7 +12,7 @@ specifiers:
   '@angular/compiler': 12.0.0
   '@angular/compiler-cli': 12.0.0
   '@angular/core': 12.0.0
-  '@angular/flex-layout': ^11.0.0-beta.33
+  '@angular/flex-layout': 12.0.0-beta.34
   '@angular/forms': 12.0.0
   '@angular/language-service': 12.0.0
   '@angular/material': 12.0.0
@@ -57,7 +57,7 @@ dependencies:
   '@angular/common': 12.0.0_@angular+core@12.0.0+rxjs@6.6.7
   '@angular/compiler': 12.0.0
   '@angular/core': 12.0.0_rxjs@6.6.7+zone.js@0.11.4
-  '@angular/flex-layout': 11.0.0-beta.33_706ac402b3536f0a63c464bd418570ff
+  '@angular/flex-layout': 12.0.0-beta.34_706ac402b3536f0a63c464bd418570ff
   '@angular/forms': 12.0.0_ec6f1dd00b5eff5e77cd16622d78872d
   '@angular/material': 12.0.0_4df7eb31d06cc682bf64206eb307b48d
   '@angular/platform-browser': 12.0.0_d560c8b2e673011d8d48c1b58ea89c8b
@@ -434,13 +434,13 @@ packages:
       zone.js: 0.11.4
     dev: false
 
-  /@angular/flex-layout/11.0.0-beta.33_706ac402b3536f0a63c464bd418570ff:
-    resolution: {integrity: sha512-unfhw3abZuKtdwQicRStHCYGbANPTHYg4WNRQk/RC5Mxq+4WOp4Q8HI7GqRHCGUYDCGUP7w1sU/oDt8f09nM8w==}
+  /@angular/flex-layout/12.0.0-beta.34_706ac402b3536f0a63c464bd418570ff:
+    resolution: {integrity: sha512-nLwKovXpyG+/U3Lbmfwt+q4ARupxtbPmFTZD0Y8oItFAV6/Oh9l+QQsNQa2VhOHAOrVagyDwcEM+SePtB5EmrQ==}
     peerDependencies:
-      '@angular/cdk': ^11.0.0
-      '@angular/common': '>=11.0.0'
-      '@angular/core': '>=11.0.0'
-      '@angular/platform-browser': '>=11.0.0'
+      '@angular/cdk': ^12.0.0
+      '@angular/common': '>=12.0.0'
+      '@angular/core': '>=12.0.0'
+      '@angular/platform-browser': '>=12.0.0'
       rxjs: ^6.0.0
     dependencies:
       '@angular/cdk': 12.0.0_ec0af7ebdb789ce2d2695f37a5414704
