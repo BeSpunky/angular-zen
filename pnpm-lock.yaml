@@ -14,7 +14,7 @@ specifiers:
   '@angular/flex-layout': ^11.0.0-beta.33
   '@angular/forms': 12.0.0
   '@angular/language-service': 12.0.0
-  '@angular/material': ^11.2.13
+  '@angular/material': 12.0.0
   '@angular/platform-browser': 12.0.0
   '@angular/platform-browser-dynamic': 12.0.0
   '@angular/router': 12.0.0
@@ -48,7 +48,7 @@ specifiers:
   ts-node: ~9.1.1
   tslib: ^2.0.0
   typescript: 4.2.4
-  zone.js: 0.11.4
+  zone.js: ~0.11.4
 
 dependencies:
   '@angular/animations': 12.0.0_@angular+core@12.0.0
@@ -57,7 +57,7 @@ dependencies:
   '@angular/core': 12.0.0_rxjs@6.6.7+zone.js@0.11.4
   '@angular/flex-layout': 11.0.0-beta.33_ec6f1dd00b5eff5e77cd16622d78872d
   '@angular/forms': 12.0.0_ec6f1dd00b5eff5e77cd16622d78872d
-  '@angular/material': 11.2.13_58f4dcbecd7c390750eff8f5b622c74b
+  '@angular/material': 12.0.0_3036f09de6c8cdedec32e2873ac1683c
   '@angular/platform-browser': 12.0.0_d560c8b2e673011d8d48c1b58ea89c8b
   '@angular/platform-browser-dynamic': 12.0.0_e6080ad2ba5a711c6d1ab49fa8a3810c
   '@angular/router': 12.0.0_ec6f1dd00b5eff5e77cd16622d78872d
@@ -454,19 +454,21 @@ packages:
     engines: {node: ^12.14.1 || ^14.0.0}
     dev: true
 
-  /@angular/material/11.2.13_58f4dcbecd7c390750eff8f5b622c74b:
-    resolution: {integrity: sha512-FqFdGSkOtqsmeLyTSousodDGUy2NqbtxCIKv2rwbsIRwHNKB0KpR/UQhA2gMRuGa5hxhMJ0DW0Tf9neMRuLCTg==}
+  /@angular/material/12.0.0_3036f09de6c8cdedec32e2873ac1683c:
+    resolution: {integrity: sha512-ToWfr4ge2ZINLBtUQOseGm7mzscLMsrKLWYM0HzfVL9lkm6EtfTlReZV84DEzDf6/htky41t9nY5SBPWs2dtug==}
     peerDependencies:
-      '@angular/animations': ^11.0.0 || ^12.0.0-0
-      '@angular/cdk': 11.2.13
-      '@angular/common': ^11.0.0 || ^12.0.0-0
-      '@angular/core': ^11.0.0 || ^12.0.0-0
-      '@angular/forms': ^11.0.0 || ^12.0.0-0
+      '@angular/animations': ^12.0.0 || ^13.0.0-0
+      '@angular/cdk': 12.0.0
+      '@angular/common': ^12.0.0 || ^13.0.0-0
+      '@angular/core': ^12.0.0 || ^13.0.0-0
+      '@angular/forms': ^12.0.0 || ^13.0.0-0
+      rxjs: ^6.5.3
     dependencies:
       '@angular/animations': 12.0.0_@angular+core@12.0.0
       '@angular/common': 12.0.0_@angular+core@12.0.0+rxjs@6.6.7
       '@angular/core': 12.0.0_rxjs@6.6.7+zone.js@0.11.4
       '@angular/forms': 12.0.0_ec6f1dd00b5eff5e77cd16622d78872d
+      rxjs: 6.6.7
       tslib: 2.3.0
     dev: false
 
