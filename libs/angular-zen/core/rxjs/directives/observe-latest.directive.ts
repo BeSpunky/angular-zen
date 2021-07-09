@@ -7,21 +7,21 @@ type ResolvedObservableMap<T> = {
     [key in keyof T]: T[key] extends Observable<infer TResolved> ? TResolved : never
 };
 
+/**
+ * Seems like for template typechecking to work with a generic type holding `any`, the generic type must be flattened
+ * and not represented by a new type. When I tried creating an ObservableMap = { ...key: Observable<any> } and use it
+ * as T extends ObservableMap, the type system failed to infer the inner types of the observables.
+ * T extends { ...key: Observable<any> } works fine.
+ */
 @Directive({
     selector: '[observeLatest]',
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    // inputs: ['observe: observeLatest']
 })
-export class ObserveLatestDirective<T = unknown> //extends ObserveMapDirective<T>
+export class ObserveLatestDirective<T extends { [key: string]: Observable<any> }>
 {
-    @Input() public set observeLatest(value: T) { /* this.input.next(value) */ }
+    @Input() public set observeLatest(value: T) { }
     
     static ngTemplateGuard_observeLatest: 'binding';
-    static ngTemplateContextGuard<T>(directive: ObserveLatestDirective<T>, context: unknown): context is ObserveMapContext<ResolvedObservableMap<T>> { return true; }
 
-    protected observeInput(input: T): Observable<T>
-    {
-        // return observeAsArray(input, observables => combineLatest(observables));
-        return EMPTY;
-    }
+    static ngTemplateContextGuard<T extends { [key: string]: Observable<any> }>(directive: ObserveLatestDirective<T>, context: unknown)
+        : context is ObserveMapContext<ResolvedObservableMap<T>> { return true; }
 }
