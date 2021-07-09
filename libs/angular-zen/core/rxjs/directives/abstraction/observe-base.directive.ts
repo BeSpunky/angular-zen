@@ -15,8 +15,6 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends O
     
     protected readonly input: BehaviorSubject<TInput | null> = new BehaviorSubject(null as TInput | null);
     
-    public set observe(value: TInput) { this.input.next(value); }
-
     constructor(private template: TemplateRef<TContext>, private viewContainer: ViewContainerRef)
     {
         super();

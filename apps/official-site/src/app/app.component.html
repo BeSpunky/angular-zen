@@ -9,17 +9,7 @@
     </ng-container>
 </mat-toolbar>
 <div *observe="x as f; let r">Observed: {{r}}</div>
-
-
-
-
-
 <div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
-
-
-
-
-
 <div *observeJoin="{x: x, y: y}; let r">Observed Join: {{r?.x}} {{r?.y}}</div>
 <div *observeMerge="[x, y]; let r">Observed Merge: {{r}}</div>
 <div *observeConcat="[x, y]; let r">Observed Concat: {{r}}</div>
