@@ -16,12 +16,10 @@ type ResolvedObservableMap<T> = {
 @Directive({
     selector: '[observeLatest]',
 })
-export class ObserveLatestDirective<T extends { [key: string]: Observable<any> }>
+export class ObserveLatestDirective<T extends { [key: string]: Observable<unknown> }>
 {
     @Input() public set observeLatest(value: T) { }
     
     static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveLatestDirective<T>, context: unknown)
-
-    static ngTemplateContextGuard<T extends { [key: string]: Observable<any> }>(directive: ObserveLatestDirective<T>, context: unknown)
         : context is ObserveMapContext<ResolvedObservableMap<T>> { return true; }
 }
