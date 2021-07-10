@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+<!-- <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
     <ng-container *ngIf="(project.current | async); let currentProject">
         <span class="margin-top-10"><img [src]="'assets/' + currentProject.name + '/logo-icon64x64.png'" width="30"/></span>
         <a mat-button [routerLink]="['/', currentProject.name]" [matTooltip]="currentProject.strongName + '\'s Homepage'">{{currentProject.strongName}}</a>
@@ -7,10 +7,10 @@
         <a mat-icon-button [href]="currentProject.wikiUrl"    matTooltip="wiki" target="_blank">Docs</a>
         <a mat-icon-button [href]="currentProject.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
     </ng-container>
-</mat-toolbar>
-<div *observe="x as f; let r">Observed: {{r}}</div>
-<div *observeLatest="{x: x, y: y} as F; let r">Observed Latest: {{r?.fas}} {{r?.y}}</div>
+</mat-toolbar> -->
+<div *observe="x; let r">Observed: {{r}}</div>
+<div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
 <div *observeJoin="{x: x, y: y}; let r">Observed Join: {{r?.x}} {{r?.y}}</div>
 <div *observeMerge="[x, y]; let r">Observed Merge: {{r}}</div>
 <div *observeConcat="[x, y]; let r">Observed Concat: {{r}}</div>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
