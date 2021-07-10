@@ -2,9 +2,8 @@ import { BehaviorSubject, EMPTY, Observable                                } fro
 import { map, switchMap                                                    } from 'rxjs/operators';
 import { OnInit, Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { Destroyable } from '../../destroyable';
-
-export type ObserveContext<TResolved> = { $implicit: TResolved };
+import { Destroyable    } from '../../destroyable/destroyable';
+import { ObserveContext } from './types/general';
 
 @Directive()
 export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends ObserveContext<TResolved>>
@@ -40,5 +39,5 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends O
         return { $implicit: value } as TContext;
     }
 
-    protected abstract observeInput(input: TInput): Observable<TResolved>;    
+    protected abstract observeInput(input: TInput): Observable<TResolved>;
 }

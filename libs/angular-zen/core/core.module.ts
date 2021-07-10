@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { DocumentRefProviders   } from './document-ref/document-ref.service';
 import { WindowRefProviders     } from './window-ref/window-ref.service';
-import { ObserveDirective       } from './rxjs/directives/observe.directive';
-import { ObserveLatestDirective } from './rxjs/directives/observe-latest.directive';
-import { ObserveConcatDirective } from './rxjs/directives/observe-concat.directive';
-import { ObserveJoinDirective   } from './rxjs/directives/observe-join.directive';
-import { ObserveMergeDirective  } from './rxjs/directives/observe-merge.directive';
+import { ObserveDirective       } from './rxjs/observe/directives/observe.directive';
+import { ObserveLatestDirective } from './rxjs/observe/directives/observe-latest.directive';
+import { ObserveConcatDirective } from './rxjs/observe/directives/observe-concat.directive';
+import { ObserveJoinDirective   } from './rxjs/observe/directives/observe-join.directive';
+import { ObserveMergeDirective  } from './rxjs/observe/directives/observe-merge.directive';
 
 @NgModule({
     providers: [
@@ -25,6 +25,7 @@ import { ObserveMergeDirective  } from './rxjs/directives/observe-merge.directiv
         ObserveLatestDirective,
         ObserveJoinDirective,
         ObserveMergeDirective,
-        ObserveConcatDirective,    ]
+        ObserveConcatDirective,
+    ]
 })
 export class CoreModule { }

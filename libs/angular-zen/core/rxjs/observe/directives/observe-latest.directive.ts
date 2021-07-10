@@ -1,7 +1,9 @@
-import { Observable, combineLatest, EMPTY, of } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Directive, Input          } from '@angular/core';
 
-import { ObserveMapDirective, Map, ObservableMapOf, observeAsArray, ObserveMapContext, ObservableMap, EmittedTypesOf } from './abstraction/observe-map-base.directive';
+import { ObserveMapDirective             } from '../abstraction/observe-map-base.directive';
+import { ObserveMapContext, EmittedMapOf } from '../abstraction/types/maps';
+import { observeAsArray                  } from '../_utils/_observe-as-array';
 
 /**
  * Seems like for template typechecking to work with a generic type holding `any`, the generic type must be flattened
@@ -19,7 +21,7 @@ export class ObserveLatestDirective<T extends { [key: string]: Observable<unknow
     
     static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveLatestDirective<T>, context: unknown): context is ObserveMapContext<T> { return true; }
     
-    protected observeInput(input: T): Observable<EmittedTypesOf<T>>
+    protected observeInput(input: T): Observable<EmittedMapOf<T>>
     {
         return observeAsArray(input, observables => combineLatest(observables));
     }
