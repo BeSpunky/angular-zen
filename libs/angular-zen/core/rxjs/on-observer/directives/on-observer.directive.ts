@@ -78,11 +78,11 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
         of(value).pipe(
             delay(renderDelay),
             tap(value => this.renderOrUpdateView(value)),
-            switchMap(() => iif(() => !!this.onObserverKeepFor, this.triggerAutoDestroy(), EMPTY))
+            switchMap(() => iif(() => !!this.onObserverKeepFor, this.autoDestroy(), EMPTY))
         ).subscribe();
     }
 
-    private triggerAutoDestroy(): Observable<unknown>
+    private autoDestroy(): Observable<unknown>
     {
         const destroyDelay = this.durationToMs(this.onObserverKeepFor ?? 0);
 
@@ -90,7 +90,6 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
             first(),
             tap(() => this.destroyView())
         );
-
     }
     
     private renderOrUpdateView<TValue>(value?: TValue): void
