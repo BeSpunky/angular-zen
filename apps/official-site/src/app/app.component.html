@@ -8,16 +8,15 @@
         <a mat-icon-button [href]="currentProject.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
     </ng-container>
 </mat-toolbar> -->
-<div *observe="x; let r; let source = source">
-    Observed: {{r}}
-
-    <div *onObserver="source hasState ['resolving', 'completed']">⏳ Loading... Please wait...</div>
-    <div *onObserver="source hasState 'completed' delayFor 2000 keepFor 5000 let ms = keepingForMs">👍 Completed ({{ms}})!</div>
-    <div *onObserver="source hasState 'error' let error">💀 Fucking error! {{ error }}</div>
-    <!-- <ng-template [onObserver]="source" resolving>Loading... Please wait...</ng-template>
-    <ng-template [onObserver]="source" completed>Done!</ng-template>
-    <ng-template [onObserver]="source" error let-error>{{error}}</ng-template> -->
-</div>
+<!-- <div *observe="x; let r; let source = source"> -->
+<ng-template [observe]="x" let-r let-source="source" (nextTriggered)="dododo($event)" (errorTriggered)="dododo($event)" (completeTriggered)="dododo($event)">
+    <div>
+        Observed: {{r}}
+        <div *onObserver="source hasState ['resolving', 'completed']">⏳ Loading... Please wait...</div>
+        <div *onObserver="source hasState 'completed' keepFor 5000 let ms = keepingForMs">👍 Completed ({{ms}})!</div>
+        <div *onObserver="source hasState 'error' let error">💀 Fucking error! {{ error }}</div>
+    </div>
+</ng-template>
 <!-- <div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
 <div *observeJoin="{x: x, y: y}; let r">Observed Join: {{r?.x}} {{r?.y}}</div>
 <div *observeMerge="[x, y]; let r">Observed Merge: {{r}}</div>

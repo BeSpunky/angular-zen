@@ -15,5 +15,10 @@ export class AppComponent
     // public x = interval(1000).pipe(take(10), map(i => { if (i === 3) throw new Error('Hate number 3'); return i }));
     public y = interval(2500).pipe(take(5 ), map(i => String.fromCharCode(i + 65)));
 
+    public dododo(v: any): void
+    {
+        console.log(v);
+    }
+
     constructor(public project: ProjectService) { }
 }
