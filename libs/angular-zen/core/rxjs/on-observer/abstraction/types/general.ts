@@ -4,10 +4,9 @@ export type DurationUnit       = 'ms' | 's' | 'm';
 export type DurationAnnotation = number | `${ number }${ DurationUnit }`;
 
 export type OnObserverBaseContext<T> = {
-    $implicit     : T;
-    state         : ObserverState;
-    keepingForSec?: number;
-    keepingForMs? : number;
+    $implicit    : T;
+    state        : ObserverState;
+    keepingForMs?: number;
 };
 
 export type OnObserverResolvingContext<T>  = OnObserverBaseContext<T>;

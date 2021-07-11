@@ -1,5 +1,5 @@
-import { Observable, Subject, of, iif, timer, EMPTY                               } from 'rxjs';
-import { delay, first, map, materialize, switchMap, tap                           } from 'rxjs/operators';
+import { Observable, Subject, of, iif, timer, EMPTY, interval, forkJoin           } from 'rxjs';
+import { delay, first, map, materialize, switchMap, takeWhile, tap                } from 'rxjs/operators';
 import { Directive, EmbeddedViewRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 
 import { Destroyable                                                        } from '../../destroyable/destroyable';
@@ -10,6 +10,8 @@ const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverState> = {
     E: 'error',
     C: 'completed'
 };
+
+const DurationMultipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
 
 @Directive({
     selector: '[onObserver]'
@@ -75,21 +77,35 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
     {
         const renderDelay = this.durationToMs(this.onObserverDelayFor);
 
-        of(value).pipe(
+        const render = of(value).pipe(
             delay(renderDelay),
             tap(value => this.renderOrUpdateView(value)),
             switchMap(() => iif(() => !!this.onObserverKeepFor, this.autoDestroy(), EMPTY))
-        ).subscribe();
+        );
+
+        this.subscribe(render);
     }
 
     private autoDestroy(): Observable<unknown>
     {
-        const destroyDelay = this.durationToMs(this.onObserverKeepFor ?? 0);
+        const destroyDelayMs = this.durationToMs(this.onObserverKeepFor ?? 0);
 
-        return timer(destroyDelay).pipe(
+        const destroy = timer(destroyDelayMs).pipe(
             first(),
             tap(() => this.destroyView())
         );
+
+        const startTime = Date.now();
+
+        const keepingFor = interval(200).pipe(
+            map(() => Date.now() - startTime),
+            map(timePassedMs => destroyDelayMs - timePassedMs),
+            map(timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
+            tap(timeLeftMs => this.updateContextKeepingFor(timeLeftMs)),
+            takeWhile(timeLeftMs => timeLeftMs > 0)
+        );
+
+        return forkJoin([destroy, keepingFor]);
     }
     
     private renderOrUpdateView<TValue>(value?: TValue): void
@@ -100,6 +116,12 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
             this.view.context = context;
         else
             this.view = this.viewContainer.createEmbeddedView(this.template, context);
+    }
+
+    private updateContextKeepingFor(keepingForMs: number): void
+    {
+        if (this.view)
+            this.view.context.keepingForMs = keepingForMs;
     }
 
     private destroyView(): void
@@ -120,11 +142,10 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
     {
         if (typeof duration === 'number') return duration;
 
-        const multipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
         const regex = /(?<value>\d+)(?<units>\w+)/;
         
         const { value, units } = duration.match(regex)?.groups as { value: string, units: DurationUnit };
 
-        return parseInt(value) * (multipliers[units] || 1);
+        return parseInt(value) * (DurationMultipliers[units] || 1);
     }
 }
