@@ -8,9 +8,17 @@
         <a mat-icon-button [href]="currentProject.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
     </ng-container>
 </mat-toolbar> -->
-<div *observe="x; let r">Observed: {{r}}</div>
-<div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
+<!-- <div *observe="x; let r; let source = source"> -->
+<ng-template [observe]="x" let-r let-source="source" (nextTriggered)="dododo($event)" (errorTriggered)="dododo($event)" (completeTriggered)="dododo($event)">
+    <div>
+        Observed: {{r}}
+        <div *onObserver="source hasState ['resolving', 'completed']">⏳ Loading... Please wait...</div>
+        <div *onObserver="source hasState 'completed' keepFor 5000 let ms = keepingForMs">👍 Completed ({{ms}})!</div>
+        <div *onObserver="source hasState 'error' let error">💀 Fucking error! {{ error }}</div>
+    </div>
+</ng-template>
+<!-- <div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
 <div *observeJoin="{x: x, y: y}; let r">Observed Join: {{r?.x}} {{r?.y}}</div>
 <div *observeMerge="[x, y]; let r">Observed Merge: {{r}}</div>
-<div *observeConcat="[x, y]; let r">Observed Concat: {{r}}</div>
+<div *observeConcat="[x, y]; let r">Observed Concat: {{r}}</div> -->
 <!-- <router-outlet></router-outlet> -->
