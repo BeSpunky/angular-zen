@@ -1,5 +1,5 @@
-import { BehaviorSubject, EMPTY, Observable                                } from 'rxjs';
-import { map, switchMap                                                    } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, of             } from 'rxjs';
+import { map, share, switchMap                                             } from 'rxjs/operators';
 import { OnInit, Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef } from '@angular/core';
 
 import { Destroyable    } from '../../destroyable/destroyable';
@@ -13,30 +13,41 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends O
     private view!: EmbeddedViewRef<TContext>;
     
     protected readonly input: BehaviorSubject<TInput | null> = new BehaviorSubject(null as TInput | null);
-    
-    constructor(private template: TemplateRef<TContext>, private viewContainer: ViewContainerRef)
+
+    constructor(private readonly template: TemplateRef<TContext>, private readonly viewContainer: ViewContainerRef)
     {
         super();
     }
 
     ngOnInit()
     {
-        this.view = this.viewContainer.createEmbeddedView(this.template);
-        
-        this.subscribe(this.contextFeed(), context => this.view.context = context);
+        this.renderView();
+
+        this.subscribe(this.contextFeed(), context => this.updateViewContext(context));
     }
-    
+
     private contextFeed(): Observable<TContext>
     {
         return this.input.pipe(
-            switchMap(input => input ? this.observeInput(input) : EMPTY),
-            map      (value => this.createViewContext(value))
+            map      (input             => input ? this.observeInput(input).pipe(share()) : EMPTY),
+            switchMap(input             => combineLatest([input, of(input)])),
+            map      (([value, source]) => this.createViewContext(value, source)),
         );
     }
-    
-    protected createViewContext(value: TResolved): TContext
+
+    private renderView(): void
     {
-        return { $implicit: value } as TContext;
+        this.view = this.viewContainer.createEmbeddedView(this.template);
+    }
+
+    private updateViewContext(context: TContext): void
+    {    
+        this.view.context = context;
+    }
+
+    protected createViewContext(value: TResolved, source: Observable<TResolved>): TContext
+    {
+        return { $implicit: value, source } as TContext;
     }
 
     protected abstract observeInput(input: TInput): Observable<TResolved>;
