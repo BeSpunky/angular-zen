@@ -13,7 +13,7 @@
 
     <div *onObserver="source hasState ['resolving', 'completed']">⏳ Loading... Please wait...</div>
     <div *onObserver="source hasState 'completed' delayFor 2000 keepFor 5000 let ms = keepingForMs">👍 Completed ({{ms}})!</div>
-    <div *onObserver="source hasState 'error'">💀 Fucking error!</div>
+    <div *onObserver="source hasState 'error' let error">💀 Fucking error! {{ error }}</div>
     <!-- <ng-template [onObserver]="source" resolving>Loading... Please wait...</ng-template>
     <ng-template [onObserver]="source" completed>Done!</ng-template>
     <ng-template [onObserver]="source" error let-error>{{error}}</ng-template> -->

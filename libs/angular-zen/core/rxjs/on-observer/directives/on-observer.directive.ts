@@ -52,7 +52,7 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
     {
         return input.pipe(
             materialize(),
-            map(({ kind, value }) => [StateNotificationMap[kind], value] as [ObserverState, unknown]),
+            map(({ kind, value, error }) => [StateNotificationMap[kind], error || value] as [ObserverState, unknown]),
             tap(([state]        ) => this.state = state),
             tap(([state, value] ) => this.onStateChange(state, value))
         )
