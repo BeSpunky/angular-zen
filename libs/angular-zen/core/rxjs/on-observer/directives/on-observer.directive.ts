@@ -1,7 +1,8 @@
+import { Observable, Subject, of, iif, timer, EMPTY                               } from 'rxjs';
+import { delay, first, map, materialize, switchMap, tap                           } from 'rxjs/operators';
 import { Directive, EmbeddedViewRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Observable, Subject, Notification, of, iif, timer, EMPTY } from 'rxjs';
-import { delay, delayWhen, first, map, materialize, switchMap, take, tap } from 'rxjs/operators';
-import { Destroyable } from '../../destroyable/destroyable';
+
+import { Destroyable                                                        } from '../../destroyable/destroyable';
 import { ObserverState, DurationAnnotation, OnObserverContext, DurationUnit } from '../abstraction/types/general';
 
 const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverState> = {
