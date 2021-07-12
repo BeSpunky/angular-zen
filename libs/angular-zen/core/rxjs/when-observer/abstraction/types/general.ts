@@ -5,10 +5,12 @@ export type ObserverHandler = Exclude<keyof PartialObserver<unknown>, 'closed'>;
 export type DurationUnit       = 'ms' | 's' | 'm';
 export type DurationAnnotation = number | `${ number }${ DurationUnit }`;
 
+export type TimeBreakdown = Record<DurationUnit, number>;
+
 export type WhenObserverBaseContext<T> = {
-    $implicit    : T;
-    lastCall     : ObserverHandler;
-    showingForMs?: number;
+    $implicit  : T;
+    lastCall   : ObserverHandler;
+    showingFor?: TimeBreakdown;
 };
 
 export type WhenObserverResolvingContext<T>  = WhenObserverBaseContext<T>;
