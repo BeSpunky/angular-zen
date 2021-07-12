@@ -3,29 +3,30 @@ import { delay, first, map, materialize, switchMap, takeWhile, tap              
 import { Directive, EmbeddedViewRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 
 import { Destroyable                                                          } from '../../destroyable/destroyable';
-import { ObserverState, DurationAnnotation, WhenObserverContext, DurationUnit } from '../abstraction/types/general';
+import { ObserverHandler, DurationAnnotation, WhenObserverContext, DurationUnit } from '../abstraction/types/general';
 
-const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverState> = {
-    N: 'resolving',
+const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverHandler> = {
+    N: 'next',
     E: 'error',
-    C: 'completed'
+    C: 'complete'
 };
 
 const DurationMultipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[whenObserver]'
 })
 export class WhenObserverDirective<T> extends Destroyable implements OnInit
 {
     @Input() public set whenObserver(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public whenObserverHasState: ObserverState | ObserverState[] = 'resolving';
-    @Input() public whenObserverDelayFor: DurationAnnotation = 0;
-    @Input() public whenObserverKeepFor?: DurationAnnotation;
+    @Input() public whenObserverCalls    : ObserverHandler | ObserverHandler[] = 'next';
+    @Input() public whenObserverShowAfter: DurationAnnotation = 0;
+    @Input() public whenObserverShowFor? : DurationAnnotation;
     
-    private view : EmbeddedViewRef<WhenObserverContext<unknown>> | null = null;
-    private state: ObserverState                                        = 'resolving';
+    private view    : EmbeddedViewRef<WhenObserverContext<unknown>> | null = null;
+    private lastCall: ObserverHandler                                      = 'next';
     
     private readonly input: Subject<Observable<T>> = new Subject();
     
@@ -36,7 +37,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     ngOnInit()
     {
-        this.onStateChange('resolving');
+        this.onHandlerCalled('next');
 
         this.subscribe(this.sourceFeed());
     }
@@ -52,35 +53,32 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
     {
         return input.pipe(
             materialize(),
-            map(({ kind, value, error }) => [StateNotificationMap[kind], error || value] as [ObserverState, unknown]),
-            tap(([state]        ) => this.state = state),
-            tap(([state, value] ) => this.onStateChange(state, value))
+            map(({ kind, value, error }) => [StateNotificationMap[kind], error || value] as [ObserverHandler, unknown]),
+            tap(([state]        ) => this.lastCall = state),
+            tap(([state, value] ) => this.onHandlerCalled(state, value))
         )
     }
 
-    private onStateChange<TValue>(state: ObserverState, value?: TValue): void
+    private onHandlerCalled<TValue>(handler: ObserverHandler, value?: TValue): void
     {
-        if (this.shouldRender(state))
-            this.triggerRender(value);
-        else
-            this.destroyView();
+        this.shouldRender(handler) ? this.triggerRender(value) : this.destroyView();
     }
 
-    private shouldRender(state: ObserverState): boolean
+    private shouldRender(handler: ObserverHandler): boolean
     {
-        const observeOn = Array.isArray(this.whenObserverHasState) ? this.whenObserverHasState : [this.whenObserverHasState];
+        const observeOn = Array.isArray(this.whenObserverCalls) ? this.whenObserverCalls : [this.whenObserverCalls];
 
-        return observeOn.includes(state);
+        return observeOn.includes(handler);
     }
 
     private triggerRender<TValue>(value: TValue): void
     {
-        const renderDelay = this.durationToMs(this.whenObserverDelayFor);
+        const renderDelay = this.durationToMs(this.whenObserverShowAfter);
 
         const render = of(value).pipe(
             delay(renderDelay),
             tap(value => this.renderOrUpdateView(value)),
-            switchMap(() => iif(() => !!this.whenObserverKeepFor, this.autoDestroy(), EMPTY))
+            switchMap(() => iif(() => !!this.whenObserverShowFor, this.autoDestroy(), EMPTY))
         );
 
         this.subscribe(render);
@@ -88,7 +86,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     private autoDestroy(): Observable<unknown>
     {
-        const destroyDelayMs = this.durationToMs(this.whenObserverKeepFor ?? 0);
+        const destroyDelayMs = this.durationToMs(this.whenObserverShowFor ?? 0);
 
         const destroy = timer(destroyDelayMs).pipe(
             first(),
@@ -101,7 +99,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
             map(() => Date.now() - startTime),
             map(timePassedMs => destroyDelayMs - timePassedMs),
             map(timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
-            tap(timeLeftMs => this.updateContextKeepingFor(timeLeftMs)),
+            tap(timeLeftMs => this.updateContextShowFor(timeLeftMs)),
             takeWhile(timeLeftMs => timeLeftMs > 0)
         );
 
@@ -118,10 +116,10 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
             this.view = this.viewContainer.createEmbeddedView(this.template, context);
     }
 
-    private updateContextKeepingFor(keepingForMs: number): void
+    private updateContextShowFor(showingForMs: number): void
     {
         if (this.view)
-            this.view.context.keepingForMs = keepingForMs;
+            this.view.context.showingForMs = showingForMs;
     }
 
     private destroyView(): void
@@ -135,7 +133,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     private createViewContext<TValue>(value: TValue): WhenObserverContext<TValue>
     {
-        return { $implicit: value, state: this.state };
+        return { $implicit: value, lastCall: this.lastCall };
     }
 
     private durationToMs(duration: DurationAnnotation): number

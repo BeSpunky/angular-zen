@@ -1,12 +1,14 @@
-export type ObserverState = 'resolving' | 'completed' | 'error';
+import { PartialObserver } from 'rxjs';
+
+export type ObserverHandler = Exclude<keyof PartialObserver<unknown>, 'closed'>;
 
 export type DurationUnit       = 'ms' | 's' | 'm';
 export type DurationAnnotation = number | `${ number }${ DurationUnit }`;
 
 export type WhenObserverBaseContext<T> = {
     $implicit    : T;
-    state        : ObserverState;
-    keepingForMs?: number;
+    lastCall     : ObserverHandler;
+    showingForMs?: number;
 };
 
 export type WhenObserverResolvingContext<T>  = WhenObserverBaseContext<T>;
