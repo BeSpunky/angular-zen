@@ -12,8 +12,8 @@
 <ng-template [observe]="x" let-r let-source="source" (nextCalled)="dododo($event)" (errorCalled)="dododo($event)" (completeCalled)="dododo($event)">
     <div>
         Observed: {{r}}
-        <div *whenObserver="source calls 'next' showAfter 3000">⏳ Loading... Please wait... {{r}}</div>
-        <div *whenObserver="source calls 'complete' showFor 5000 let ms = showingForMs">👍 Completed ({{ms}})!</div>
+        <div *whenObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
+        <div *whenObserver="source calls 'complete' showFor '10s' let remaining = showingFor">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
         <div *whenObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div>
     </div>
 </ng-template>
