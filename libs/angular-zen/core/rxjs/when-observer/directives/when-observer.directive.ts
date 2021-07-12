@@ -72,8 +72,8 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
         return input.pipe(
             materialize(),
             map(({ kind, value, error }) => [StateNotificationMap[kind], error || value] as [ObserverHandler, unknown]),
-            tap(([state]        ) => this.lastCall = state),
-            tap(([state, value] ) => this.onHandlerCalled(state, value))
+            tap(([handler]        ) => this.lastCall = handler),
+            tap(([handler, value] ) => this.onHandlerCalled(handler, value))
         )
     }
 
