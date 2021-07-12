@@ -2,8 +2,8 @@ import { Observable, Subject, of, iif, timer, EMPTY, interval, forkJoin         
 import { delay, first, map, materialize, switchMap, takeWhile, tap                } from 'rxjs/operators';
 import { Directive, EmbeddedViewRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { Destroyable                                                        } from '../../destroyable/destroyable';
-import { ObserverState, DurationAnnotation, OnObserverContext, DurationUnit } from '../abstraction/types/general';
+import { Destroyable                                                          } from '../../destroyable/destroyable';
+import { ObserverState, DurationAnnotation, WhenObserverContext, DurationUnit } from '../abstraction/types/general';
 
 const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverState> = {
     N: 'resolving',
@@ -14,22 +14,22 @@ const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverState> = {
 const DurationMultipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
 
 @Directive({
-    selector: '[onObserver]'
+    selector: '[whenObserver]'
 })
-export class OnObserverDirective<T> extends Destroyable implements OnInit
+export class WhenObserverDirective<T> extends Destroyable implements OnInit
 {
-    @Input() public set onObserver(value: Observable<T>) { this.input.next(value); }
+    @Input() public set whenObserver(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public onObserverHasState: ObserverState | ObserverState[] = 'resolving';
-    @Input() public onObserverDelayFor: DurationAnnotation = 0;
-    @Input() public onObserverKeepFor?: DurationAnnotation;
+    @Input() public whenObserverHasState: ObserverState | ObserverState[] = 'resolving';
+    @Input() public whenObserverDelayFor: DurationAnnotation = 0;
+    @Input() public whenObserverKeepFor?: DurationAnnotation;
     
-    private view : EmbeddedViewRef<OnObserverContext<unknown>> | null = null;
-    private state: ObserverState                                      = 'resolving';
+    private view : EmbeddedViewRef<WhenObserverContext<unknown>> | null = null;
+    private state: ObserverState                                        = 'resolving';
     
     private readonly input: Subject<Observable<T>> = new Subject();
     
-    constructor(private readonly template: TemplateRef<OnObserverContext<unknown>>, private readonly viewContainer: ViewContainerRef)
+    constructor(private readonly template: TemplateRef<WhenObserverContext<unknown>>, private readonly viewContainer: ViewContainerRef)
     {
         super();
     }
@@ -68,19 +68,19 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
 
     private shouldRender(state: ObserverState): boolean
     {
-        const observeOn = Array.isArray(this.onObserverHasState) ? this.onObserverHasState : [this.onObserverHasState];
+        const observeOn = Array.isArray(this.whenObserverHasState) ? this.whenObserverHasState : [this.whenObserverHasState];
 
         return observeOn.includes(state);
     }
 
     private triggerRender<TValue>(value: TValue): void
     {
-        const renderDelay = this.durationToMs(this.onObserverDelayFor);
+        const renderDelay = this.durationToMs(this.whenObserverDelayFor);
 
         const render = of(value).pipe(
             delay(renderDelay),
             tap(value => this.renderOrUpdateView(value)),
-            switchMap(() => iif(() => !!this.onObserverKeepFor, this.autoDestroy(), EMPTY))
+            switchMap(() => iif(() => !!this.whenObserverKeepFor, this.autoDestroy(), EMPTY))
         );
 
         this.subscribe(render);
@@ -88,7 +88,7 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
 
     private autoDestroy(): Observable<unknown>
     {
-        const destroyDelayMs = this.durationToMs(this.onObserverKeepFor ?? 0);
+        const destroyDelayMs = this.durationToMs(this.whenObserverKeepFor ?? 0);
 
         const destroy = timer(destroyDelayMs).pipe(
             first(),
@@ -133,7 +133,7 @@ export class OnObserverDirective<T> extends Destroyable implements OnInit
         }
     }
 
-    private createViewContext<TValue>(value: TValue): OnObserverContext<TValue>
+    private createViewContext<TValue>(value: TValue): WhenObserverContext<TValue>
     {
         return { $implicit: value, state: this.state };
     }
