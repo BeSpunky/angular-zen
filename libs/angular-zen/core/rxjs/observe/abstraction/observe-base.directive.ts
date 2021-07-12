@@ -10,9 +10,9 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends O
               extends Destroyable
            implements OnInit
 {
-    @Output() public nextTriggered    : EventEmitter<TResolved> = new EventEmitter();
-    @Output() public errorTriggered   : EventEmitter<unknown>   = new EventEmitter();
-    @Output() public completeTriggered: EventEmitter<void>      = new EventEmitter();
+    @Output() public nextCalled    : EventEmitter<TResolved> = new EventEmitter();
+    @Output() public errorCalled   : EventEmitter<unknown>   = new EventEmitter();
+    @Output() public completeCalled: EventEmitter<void>      = new EventEmitter();
 
     private view!: EmbeddedViewRef<TContext>;
     
@@ -48,10 +48,10 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends O
 
                 this.updateViewContext(context);
 
-                this.nextTriggered.emit(value);
+                this.nextCalled.emit(value);
             },
-            error   : error => this.errorTriggered.emit(error),
-            complete: () => this.completeTriggered.emit()
+            error   : error => this.errorCalled.emit(error),
+            complete: () => this.completeCalled.emit()
         });
     }
 
