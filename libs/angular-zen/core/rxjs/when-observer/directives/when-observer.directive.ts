@@ -94,9 +94,9 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
         const renderDelay = this.durationToMs(this.whenObserverShowAfter);
 
         const render = of(value).pipe(
-            delay(renderDelay),
-            tap(value => this.renderOrUpdateView(value)),
-            switchMap(() => iif(() => !!this.whenObserverShowFor, this.autoDestroy(), EMPTY))
+            delay    (renderDelay),
+            tap      (value => this.renderOrUpdateView(value)),
+            switchMap(()    => this.whenObserverShowFor ? this.autoDestroy() : EMPTY)
         );
 
         this.subscribe(render);
