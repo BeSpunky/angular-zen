@@ -10,6 +10,6 @@ export abstract class ObserveMapDirective<TInput extends ObservableMap, TContext
 {
     protected createViewContext(value: EmittedMapOf<TInput>, source: Observable<EmittedMapOf<TInput>>): TContext
     {
-        return { $implicit: value, ...value, source } as TContext;
+        return { ...super.createViewContext(value, source),  ...value };
     }
 }

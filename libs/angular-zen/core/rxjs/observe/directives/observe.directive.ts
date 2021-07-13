@@ -14,6 +14,8 @@ type ObserveContext<T extends Observable<unknown>> = ResolvedObserveContext<Emit
 export class ObserveDirective<T extends Observable<unknown>>
      extends ObserveBaseDirective<T, EmittedTypeOf<T>, ObserveContext<T>>
 {
+    protected selector = 'observe';
+
     @Input() public set observe(value: T) { this.input.next(value); }
     
     static ngTemplateContextGuard<T extends Observable<unknown>>(directive: ObserveDirective<T>, context: unknown): context is ObserveContext<T> { return true; }

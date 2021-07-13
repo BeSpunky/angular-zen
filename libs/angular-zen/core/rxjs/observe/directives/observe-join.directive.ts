@@ -15,6 +15,8 @@ type ObserveJoinContext<T extends ObservableMap> = ObserveMapContext<T> & {
 export class ObserveJoinDirective<T extends { [key: string]: Observable<unknown> }>
      extends ObserveMapDirective<T, ObserveJoinContext<T>>
 {
+    protected selector = 'observeJoin';
+
     @Input() public set observeJoin(value: T) { this.input.next(value); }
     
     static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveJoinDirective<T>, context: unknown): context is ObserveJoinContext<T> { return true; }

@@ -21,6 +21,8 @@ type ObserveLatestContext<T extends ObservableMap> = ObserveMapContext<T> & {
 export class ObserveLatestDirective<T extends { [key: string]: Observable<unknown> }>
      extends ObserveMapDirective<T, ObserveLatestContext<T>>
 {
+    protected selector = 'observeLatest';
+
     @Input() public set observeLatest(value: T) { this.input.next(value); }
     
     static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveLatestDirective<T>, context: unknown): context is ObserveLatestContext<T> { return true; }

@@ -15,6 +15,8 @@ type ObserveConcatContext<TInput extends Observable<unknown>[]> = ResolvedObserv
 export class ObserveConcatDirective<T extends Observable<unknown>[]>
      extends ObserveArrayDirective<T, EmittedArrayTypesOf<T>, ObserveConcatContext<T>>
 {
+    protected selector = 'observeConcat';
+
     @Input() public set observeConcat(value: T) { this.input.next(value); }
 
     static ngTemplateContextGuard<T extends Observable<unknown>[]>(directive: ObserveConcatDirective<T>, context: unknown): context is ObserveConcatContext<T> { return true; }

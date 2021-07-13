@@ -16,9 +16,13 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
 
     private view!: EmbeddedViewRef<TContext>;
     
+    protected abstract readonly selector: string;
     protected readonly input: BehaviorSubject<TInput | null> = new BehaviorSubject(null as TInput | null);
 
-    constructor(private readonly template: TemplateRef<TContext>, private readonly viewContainer: ViewContainerRef)
+    constructor(
+        private readonly template     : TemplateRef<TContext>,
+        private readonly viewContainer: ViewContainerRef
+    )
     {
         super();
     }
@@ -67,7 +71,7 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
 
     protected createViewContext(value: TResolved, source: Observable<TResolved>): TContext
     {
-        return { $implicit: value, source } as TContext;
+        return { $implicit: value, [this.selector]: value, source } as TContext;
     }
 
     protected abstract observeInput(input: TInput): Observable<TResolved>;

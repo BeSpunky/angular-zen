@@ -15,6 +15,8 @@ type ObserveMergeContext<T extends ObservableArray> = ResolvedObserveContext<Emi
 export class ObserveMergeDirective<T extends Observable<unknown>[]>
      extends ObserveArrayDirective<T, EmittedArrayTypesOf<T>, ObserveMergeContext<T>>
 {
+    protected selector = 'observeMerge';
+
     @Input() public set observeMerge(value: T) { this.input.next(value); }
     
     static ngTemplateContextGuard<T extends Observable<unknown>[]>(directive: ObserveMergeDirective<T>, context: unknown): context is ObserveMergeContext<T> { return true; }
