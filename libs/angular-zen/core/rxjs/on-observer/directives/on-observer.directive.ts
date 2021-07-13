@@ -2,8 +2,8 @@ import { Observable, Subject, of, timer, EMPTY, forkJoin, combineLatest         
 import { delay, first, map, materialize, switchMap, takeWhile, tap                } from 'rxjs/operators';
 import { Directive, EmbeddedViewRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { Destroyable                                                            } from '../../destroyable/destroyable';
-import { ObserverHandler, DurationAnnotation, WhenObserverContext, DurationUnit } from '../abstraction/types/general';
+import { Destroyable                                                          } from '../../destroyable/destroyable';
+import { ObserverHandler, DurationAnnotation, OnObserverContext, DurationUnit } from '../abstraction/types/general';
 
 const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverHandler> = {
     N: 'next',
@@ -17,23 +17,23 @@ const DefaultDurationIntervalDivisor = 30;
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[whenObserver]'
+    selector: '[onObserver]'
 })
-export class WhenObserverDirective<T> extends Destroyable implements OnInit
+export class OnObserverDirective<T> extends Destroyable implements OnInit
 {
-    @Input() public set whenObserver(value: Observable<T>) { this.input.next(value); }
+    @Input() public set onObserver(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public whenObserverCalls              : ObserverHandler | ObserverHandler[] = 'next';
-    @Input() public whenObserverShowAfter          : DurationAnnotation = 0;
-    @Input() public whenObserverShowFor?           : DurationAnnotation;
-    @Input() public whenObserverCountdownPrecision?: DurationAnnotation;
+    @Input() public onObserverCalls              : ObserverHandler | ObserverHandler[] = 'next';
+    @Input() public onObserverShowAfter          : DurationAnnotation = 0;
+    @Input() public onObserverShowFor?           : DurationAnnotation;
+    @Input() public onObserverCountdownPrecision?: DurationAnnotation;
     
-    private view    : EmbeddedViewRef<WhenObserverContext<unknown>> | null = null;
+    private view    : EmbeddedViewRef<OnObserverContext<unknown>> | null = null;
     private lastCall: ObserverHandler                                      = 'next';
     
     private readonly input: Subject<Observable<T>> = new Subject();
     
-    constructor(private readonly template: TemplateRef<WhenObserverContext<unknown>>, private readonly viewContainer: ViewContainerRef)
+    constructor(private readonly template: TemplateRef<OnObserverContext<unknown>>, private readonly viewContainer: ViewContainerRef)
     {
         super();
     }
@@ -48,14 +48,14 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
     private defineCountdownPrecisionInterval(): number
     {
         // If the view should persist, or it should auto-destroy but percision has been manually specified, do nothing
-        if (!this.whenObserverShowFor) throw new Error(`
+        if (!this.onObserverShowFor) throw new Error(`
             Auto-destroy countdown seems to have been initiated when 'showFor' hasn't been set. This shouldn't have happend.
             Please consider filing an issue and providing a stack trace here: https://github.com/BeSpunky/angular-zen/issues/new?assignees=BeSpunky&labels=%F0%9F%90%9B+Bug&template=bug_report.md&title=%F0%9F%90%9B+
         `);
         
-        if (this.whenObserverCountdownPrecision) return this.durationToMs(this.whenObserverCountdownPrecision);
+        if (this.onObserverCountdownPrecision) return this.durationToMs(this.onObserverCountdownPrecision);
 
-        const showForMs = this.durationToMs(this.whenObserverShowFor);
+        const showForMs = this.durationToMs(this.onObserverShowFor);
 
         return showForMs / DefaultDurationIntervalDivisor;
     }
@@ -84,19 +84,19 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     private shouldRender(handler: ObserverHandler): boolean
     {
-        const observeOn = Array.isArray(this.whenObserverCalls) ? this.whenObserverCalls : [this.whenObserverCalls];
+        const observeOn = Array.isArray(this.onObserverCalls) ? this.onObserverCalls : [this.onObserverCalls];
 
         return observeOn.includes(handler);
     }
 
     private triggerRender<TValue>(value: TValue): void
     {
-        const renderDelay = this.durationToMs(this.whenObserverShowAfter);
+        const renderDelay = this.durationToMs(this.onObserverShowAfter);
 
         const render = of(value).pipe(
             delay    (renderDelay),
             tap      (value => this.renderOrUpdateView(value)),
-            switchMap(()    => this.whenObserverShowFor ? this.autoDestroy() : EMPTY)
+            switchMap(()    => this.onObserverShowFor ? this.autoDestroy() : EMPTY)
         );
 
         this.subscribe(render);
@@ -104,7 +104,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     private autoDestroy(): Observable<unknown>
     {
-        const showForMs            = this.durationToMs(this.whenObserverShowFor ?? 0);
+        const showForMs            = this.durationToMs(this.onObserverShowFor ?? 0);
         const countdownPrecisionMs = this.defineCountdownPrecisionInterval();
 
         const destroy = timer(showForMs).pipe(
@@ -161,9 +161,9 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
         }
     }
 
-    private createViewContext<TValue>(value: TValue): WhenObserverContext<TValue>
+    private createViewContext<TValue>(value: TValue): OnObserverContext<TValue>
     {
-        return { $implicit: value, whenObserver: value, lastCall: this.lastCall };
+        return { $implicit: value, onObserver: value, lastCall: this.lastCall };
     }
 
     private durationToMs(duration: DurationAnnotation): number

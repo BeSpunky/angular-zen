@@ -7,7 +7,7 @@ import { ObserveLatestDirective } from './rxjs/observe/directives/observe-latest
 import { ObserveConcatDirective } from './rxjs/observe/directives/observe-concat.directive';
 import { ObserveJoinDirective   } from './rxjs/observe/directives/observe-join.directive';
 import { ObserveMergeDirective  } from './rxjs/observe/directives/observe-merge.directive';
-import { WhenObserverDirective  } from './rxjs/when-observer/directives/when-observer.directive';
+import { OnObserverDirective    } from './rxjs/on-observer/directives/on-observer.directive';
 
 @NgModule({
     providers: [
@@ -20,7 +20,7 @@ import { WhenObserverDirective  } from './rxjs/when-observer/directives/when-obs
         ObserveJoinDirective,
         ObserveMergeDirective,
         ObserveConcatDirective,
-        WhenObserverDirective,
+        OnObserverDirective,
     ],
     exports: [
         ObserveDirective,
@@ -28,7 +28,7 @@ import { WhenObserverDirective  } from './rxjs/when-observer/directives/when-obs
         ObserveJoinDirective,
         ObserveMergeDirective,
         ObserveConcatDirective,
-        WhenObserverDirective,
+        OnObserverDirective,
     ]
 })
 export class CoreModule { }
