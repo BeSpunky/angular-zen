@@ -163,7 +163,7 @@ export class WhenObserverDirective<T> extends Destroyable implements OnInit
 
     private createViewContext<TValue>(value: TValue): WhenObserverContext<TValue>
     {
-        return { $implicit: value, lastCall: this.lastCall };
+        return { $implicit: value, whenObserver: value, lastCall: this.lastCall };
     }
 
     private durationToMs(duration: DurationAnnotation): number

@@ -8,9 +8,10 @@ export type DurationAnnotation = number | `${ number }${ DurationUnit }`;
 export type TimeBreakdown = Record<DurationUnit, number>;
 
 export type WhenObserverBaseContext<T> = {
-    $implicit  : T;
-    lastCall   : ObserverHandler;
-    showingFor?: TimeBreakdown;
+    $implicit   : T;
+    whenObserver: T;
+    lastCall    : ObserverHandler;
+    showingFor? : TimeBreakdown;
 };
 
 export type WhenObserverResolvingContext<T>  = WhenObserverBaseContext<T>;

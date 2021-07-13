@@ -1,12 +1,12 @@
 import { Directive  } from '@angular/core';
 
-import { ObserveBaseDirective } from './observe-base.directive';
-import { ObserveContext       } from './types/general';
-import { ObservableArray      } from './types/arrays';
+import { ObserveBaseDirective   } from './observe-base.directive';
+import { ResolvedObserveContext } from './types/general';
+import { ObservableArray        } from './types/arrays';
 
 @Directive()
-export abstract class ObserveArrayDirective<T extends ObservableArray, TResolved>
-              extends ObserveBaseDirective<T, TResolved, ObserveContext<TResolved>>
+export abstract class ObserveArrayDirective<TInput extends ObservableArray, TResolved, TContext extends ResolvedObserveContext<TResolved> = ResolvedObserveContext<TResolved>>
+              extends ObserveBaseDirective<TInput, TResolved, TContext>
 {
 
 }

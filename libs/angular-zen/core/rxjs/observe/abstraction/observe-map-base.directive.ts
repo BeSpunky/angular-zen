@@ -5,11 +5,11 @@ import { ObserveBaseDirective                           } from './observe-base.d
 import { ObservableMap, EmittedMapOf, ObserveMapContext } from './types/maps';
 
 @Directive()
-export abstract class ObserveMapDirective<T extends ObservableMap>
-              extends ObserveBaseDirective<T, EmittedMapOf<T>, ObserveMapContext<T>>
+export abstract class ObserveMapDirective<TInput extends ObservableMap, TContext extends ObserveMapContext<TInput>>
+              extends ObserveBaseDirective<TInput, EmittedMapOf<TInput>, TContext>
 {
-    protected createViewContext(value: EmittedMapOf<T>, source: Observable<EmittedMapOf<T>>): ObserveMapContext<T>
+    protected createViewContext(value: EmittedMapOf<TInput>, source: Observable<EmittedMapOf<TInput>>): TContext
     {
-        return { $implicit: value, ...value, source };
+        return { $implicit: value, ...value, source } as TContext;
     }
 }

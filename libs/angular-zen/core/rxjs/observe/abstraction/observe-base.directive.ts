@@ -2,11 +2,11 @@ import { BehaviorSubject, combineLatest, EMPTY, Observable, of, Notification    
 import { map, materialize, share, switchMap, tap                                                 } from 'rxjs/operators';
 import { OnInit, Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 
-import { Destroyable    } from '../../destroyable/destroyable';
-import { ObserveContext } from './types/general';
+import { Destroyable            } from '../../destroyable/destroyable';
+import { ResolvedObserveContext } from './types/general';
 
 @Directive()
-export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends ObserveContext<TResolved>>
+export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends ResolvedObserveContext<TResolved>>
               extends Destroyable
            implements OnInit
 {

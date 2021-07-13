@@ -1,9 +1,13 @@
 import { Observable, combineLatest } from 'rxjs';
 import { Directive, Input          } from '@angular/core';
 
-import { ObserveMapDirective             } from '../abstraction/observe-map-base.directive';
-import { ObserveMapContext, EmittedMapOf } from '../abstraction/types/maps';
-import { observeAsArray                  } from '../_utils/_observe-as-array';
+import { ObserveMapDirective                            } from '../abstraction/observe-map-base.directive';
+import { ObserveMapContext, EmittedMapOf, ObservableMap } from '../abstraction/types/maps';
+import { observeAsArray                                 } from '../_utils/_observe-as-array';
+
+type ObserveLatestContext<T extends ObservableMap> = ObserveMapContext<T> & {
+    observeLatest: EmittedMapOf<T>
+};
 
 /**
  * Seems like for template typechecking to work with a generic type holding `any`, the generic type must be flattened
@@ -15,11 +19,11 @@ import { observeAsArray                  } from '../_utils/_observe-as-array';
     selector: '[observeLatest]'
 })
 export class ObserveLatestDirective<T extends { [key: string]: Observable<unknown> }>
-     extends ObserveMapDirective<T>
+     extends ObserveMapDirective<T, ObserveLatestContext<T>>
 {
     @Input() public set observeLatest(value: T) { this.input.next(value); }
     
-    static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveLatestDirective<T>, context: unknown): context is ObserveMapContext<T> { return true; }
+    static ngTemplateContextGuard<T extends { [key: string]: Observable<unknown> }>(directive: ObserveLatestDirective<T>, context: unknown): context is ObserveLatestContext<T> { return true; }
     
     protected observeInput(input: T): Observable<EmittedMapOf<T>>
     {

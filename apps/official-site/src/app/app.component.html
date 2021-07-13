@@ -13,12 +13,12 @@
     <div>
         Observed: {{r}}
         <div *whenObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
-        <div *whenObserver="source calls 'complete' showFor '10s' let remaining = showingFor">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
+        <div *whenObserver="source; calls: 'complete'; showFor: 300; showAfter: '1s'; let remaining = showingFor; countdownPrecision: '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
         <div *whenObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div>
     </div>
 </ng-template>
-<!-- <div *observeLatest="{x: x, y: y}; let r">Observed Latest: {{r?.x}} {{r?.y}}</div>
-<div *observeJoin="{x: x, y: y}; let r">Observed Join: {{r?.x}} {{r?.y}}</div>
-<div *observeMerge="[x, y]; let r">Observed Merge: {{r}}</div>
-<div *observeConcat="[x, y]; let r">Observed Concat: {{r}}</div> -->
+<div *observeLatest="{x: x, y: y} as r">Observed Latest: {{r?.x}} {{r?.y}}</div>
+<div *observeJoin="{x: x, y: y} as r">Observed Join: {{r?.x}} {{r?.y}}</div>
+<div *observeMerge="[x, y] as r">Observed Merge: {{r}}</div>
+<div *observeConcat="[x, y] as r">Observed Concat: {{r}}</div> -->
 <!-- <router-outlet></router-outlet> -->

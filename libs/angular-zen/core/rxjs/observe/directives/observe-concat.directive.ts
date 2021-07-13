@@ -1,17 +1,19 @@
 import { Observable, concat } from 'rxjs';
 import { Directive, Input   } from '@angular/core';
 
-import { ObserveArrayDirective } from '../abstraction/observe-array-base.directive';
-import { ObserveContext        } from '../abstraction/types/general';
-import { EmittedArrayTypesOf   } from '../abstraction/types/arrays';
+import { ObserveArrayDirective  } from '../abstraction/observe-array-base.directive';
+import { ResolvedObserveContext } from '../abstraction/types/general';
+import { EmittedArrayTypesOf    } from '../abstraction/types/arrays';
 
-type ObserveConcatContext<TInput extends Observable<unknown>[]> = ObserveContext<EmittedArrayTypesOf<TInput>>;
+type ObserveConcatContext<TInput extends Observable<unknown>[]> = ResolvedObserveContext<EmittedArrayTypesOf<TInput>> & {
+    observeConcat: EmittedArrayTypesOf<TInput>
+};
 
 @Directive({
     selector: '[observeConcat]'
 })
 export class ObserveConcatDirective<T extends Observable<unknown>[]>
-     extends ObserveArrayDirective<T, EmittedArrayTypesOf<T>>
+     extends ObserveArrayDirective<T, EmittedArrayTypesOf<T>, ObserveConcatContext<T>>
 {
     @Input() public set observeConcat(value: T) { this.input.next(value); }
 
