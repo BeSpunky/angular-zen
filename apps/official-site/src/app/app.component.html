@@ -8,17 +8,30 @@
         <a mat-icon-button [href]="currentProject.packageUrl" matTooltip="npm package" target="_blank"><img src="https://raw.githubusercontent.com/npm/logos/master/npm%20logo/classic/npm-2009.svg" width="40"/></a>
     </ng-container>
 </mat-toolbar> -->
-<!-- <div *observe="x; let r; let source = source"> -->
-<ng-template [observe]="x" let-r let-source="source" (nextCalled)="dododo($event)" (errorCalled)="dododo($event)" (completeCalled)="dododo($event)">
+<div *observe="x as r; let source = source">
+<!-- <ng-template [observe]="x" let-r let-source="source" (nextCalled)="dododo($event)" (errorCalled)="dododo($event)" (completeCalled)="dododo($event)"> -->
     <div>
         Observed: {{r}}
-        <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
+        
+        <div *onObserverActive="source">▶ Active: {{r}}</div>
+        <div *onObserverFinalized="source showFor 3000">🛑 Finalized</div>
+        
+        <div *onObserverResolving="source showAfter 4000">⏳ Resolving... Please wait...</div>
+        <div *onObserverNext="source showAfter 3000">🤟 Received value: {{r}}</div>
+
+        <div *onObserverComplete="source showFor 3000 let remaining = showingFor countdownPrecision '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
+        <div *onObserverError="source let error">💀 Fucking error! {{ error }}</div>
+        <!-- <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
         <div *onObserver="source calls 'complete' showFor 3000 showAfter '1s' let remaining = showingFor; countdownPrecision: '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
-        <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div>
+        <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div> -->
     </div>
-</ng-template>
-<div *observeLatest="{x: x, y: y} as r">Observed Latest: {{r?.x}} {{r?.y}}</div>
+<!-- </ng-template> -->
+</div>
+
+<button (click)="restart()">Restart</button>
+<button (click)="error()">Error</button>
+<!-- <div *observeLatest="{x: x, y: y} as r">Observed Latest: {{r?.x}} {{r?.y}}</div>
 <div *observeJoin="{x: x, y: y} as r">Observed Join: {{r?.x}} {{r?.y}}</div>
 <div *observeMerge="[x, y] as r">Observed Merge: {{r}}</div>
-<div *observeConcat="[x, y] as r">Observed Concat: {{r}}</div>
+<div *observeConcat="[x, y] as r">Observed Concat: {{r}}</div> -->
 <!-- <router-outlet></router-outlet> -->

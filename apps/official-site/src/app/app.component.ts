@@ -1,6 +1,6 @@
+import { timer, Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Component } from '@angular/core';
-import { interval } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 
 import { ProjectService } from './services/project.service';
 
@@ -11,14 +11,25 @@ import { ProjectService } from './services/project.service';
 })
 export class AppComponent
 {
-    public x = interval(1000).pipe(take(3));
-    // public x = interval(1000).pipe(take(10), map(i => { if (i === 3) throw new Error('Hate number 3'); return i }));
-    public y = interval(2500).pipe(take(5 ), map(i => String.fromCharCode(i + 65)));
+    public x!: Observable<number>;
+    public y!: Observable<string>;
 
     public dododo(v: any): void
     {
         console.log(v);
     }
 
-    constructor(public project: ProjectService) { }
+    public restart()
+    {
+        this.x = timer(3000, 1000).pipe(take(3));
+        this.y = timer(3000, 1000).pipe(take(5), map(i => String.fromCharCode(i + 65)));
+    }
+
+    public error()
+    {
+        this.x = timer(3000, 1000).pipe(take(5), map(i => { if (i === 3) throw new Error('Hate number 3'); return i }));
+        this.y = timer(3000, 2500).pipe(take(5), map(i => String.fromCharCode(i + 65)));
+    }
+
+    constructor(public project: ProjectService) { this.restart(); }
 }
