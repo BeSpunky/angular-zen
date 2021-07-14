@@ -8,8 +8,8 @@ import { ObservableMap, EmittedMapOf, ObserveMapContext } from './types/maps';
 export abstract class ObserveMapDirective<TInput extends ObservableMap, TContext extends ObserveMapContext<TInput>>
               extends ObserveBaseDirective<TInput, EmittedMapOf<TInput>, TContext>
 {
-    protected createViewContext(value: EmittedMapOf<TInput>, source: Observable<EmittedMapOf<TInput>>): TContext
+    protected createViewContext(data: { value?: EmittedMapOf<TInput> | null , source?: Observable<EmittedMapOf<TInput>> }): TContext
     {
-        return { ...super.createViewContext(value, source),  ...value };
+        return { ...super.createViewContext(data),  ...data.value };
     }
 }

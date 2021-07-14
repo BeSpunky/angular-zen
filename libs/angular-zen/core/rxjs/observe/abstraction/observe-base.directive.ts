@@ -1,6 +1,6 @@
-import { BehaviorSubject, combineLatest, EMPTY, Observable, of, Notification                     } from 'rxjs';
+import { EMPTY, Observable, Notification, Subject                     } from 'rxjs';
 import { map, materialize, share, switchMap, tap                                                 } from 'rxjs/operators';
-import { OnInit, Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, EventEmitter, Output } from '@angular/core';
+import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 
 import { Destroyable            } from '../../destroyable/destroyable';
 import { ResolvedObserveContext } from './types/general';
@@ -8,7 +8,6 @@ import { ResolvedObserveContext } from './types/general';
 @Directive()
 export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends ResolvedObserveContext<TResolved>>
               extends Destroyable
-           implements OnInit
 {
     @Output() public nextCalled    : EventEmitter<TResolved> = new EventEmitter();
     @Output() public errorCalled   : EventEmitter<unknown>   = new EventEmitter();
@@ -17,7 +16,7 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
     private view!: EmbeddedViewRef<TContext>;
     
     protected abstract readonly selector: string;
-    protected readonly input: BehaviorSubject<TInput | null> = new BehaviorSubject(null as TInput | null);
+    protected readonly input: Subject<TInput> = new Subject();
 
     constructor(
         private readonly template     : TemplateRef<TContext>,
@@ -25,32 +24,34 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
     )
     {
         super();
-    }
-
-    ngOnInit()
-    {
+        
         this.renderView();
 
         this.subscribe(this.contextFeed());
     }
 
-    private contextFeed(): Observable<[Notification<TResolved>, Observable<TResolved>]>
+    private contextFeed(): Observable<Notification<TResolved>>
     {
         return this.input.pipe(
-            map      (input            => input ? this.observeInput(input).pipe(share()) : EMPTY),
-            switchMap(input            => combineLatest([input.pipe(materialize()), of(input)])),
-            tap      (([meta, source]) => this.onStateChange(meta, source))
+            tap(() => console.log(`👓 observe: new input. sharing...`)),
+
+            map      (input  => input ? this.observeInput(input).pipe(share()) : EMPTY),
+            tap((s) => console.log(`👓 observe: updating context with new source`, s)),
+            tap      (source => this.updateViewContext({ source })),
+            tap(() => console.log(`👓 observe: switching to materialized source`)),
+            switchMap(source => source.pipe(materialize())),
+            tap      (meta   => this.onStateChange(meta))
         );
     }
 
-    private onStateChange(meta: Notification<TResolved>, source: Observable<TResolved>): void
+    private onStateChange(meta: Notification<TResolved>): void
     {
+        console.log(`👓 observe: notification`, meta);
+
         return meta.observe({
             next: value =>
             {
-                const context = this.createViewContext(value, source);
-
-                this.updateViewContext(context);
+                this.updateViewContext({ value });
 
                 this.nextCalled.emit(value);
             },
@@ -61,16 +62,21 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
 
     private renderView(): void
     {
-        this.view = this.viewContainer.createEmbeddedView(this.template);
+        const context = this.createViewContext({});
+
+        this.view = this.viewContainer.createEmbeddedView(this.template, context);
     }
 
-    private updateViewContext(context: TContext): void
+    private updateViewContext(data: { value?: TResolved | null , source?: Observable<TResolved> }): void
     {    
-        this.view.context = context;
+        this.view.context = this.createViewContext(data);
     }
 
-    protected createViewContext(value: TResolved, source: Observable<TResolved>): TContext
+    protected createViewContext({ value, source }: { value?: TResolved | null , source?: Observable<TResolved> }): TContext
     {
+        value  ??= this.view?.context.$implicit || null;
+        source ??= this.view?.context.source    || EMPTY;
+
         return { $implicit: value, [this.selector]: value, source } as TContext;
     }
 
