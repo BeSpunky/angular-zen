@@ -1,13 +1,13 @@
-import { EMPTY, Observable, Notification, Subject                     } from 'rxjs';
+import { EMPTY, Observable, Notification, Subject, BehaviorSubject                     } from 'rxjs';
 import { map, materialize, share, switchMap, tap                                                 } from 'rxjs/operators';
-import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, EventEmitter, Output } from '@angular/core';
+import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, EventEmitter, Output, OnInit } from '@angular/core';
 
 import { Destroyable            } from '../../destroyable/destroyable';
 import { ResolvedObserveContext } from './types/general';
 
 @Directive()
 export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends ResolvedObserveContext<TResolved>>
-              extends Destroyable
+              extends Destroyable implements OnInit
 {
     @Output() public nextCalled    : EventEmitter<TResolved> = new EventEmitter();
     @Output() public errorCalled   : EventEmitter<unknown>   = new EventEmitter();
@@ -16,7 +16,18 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
     private view!: EmbeddedViewRef<TContext>;
     
     protected abstract readonly selector: string;
-    protected readonly input: Subject<TInput> = new Subject();
+    /**
+     * ### Why BehaviorSubject<{@link TInput s} | null> and not Subject<{@link TInput}>
+     * `input` is set from @Input properties. For some reason, Angular passes-in the first value BEFORE
+     * ngOnInit, even though other @Input properties (e.g. showAfter, showFor) are passed AFTER ngOnInit.
+     * If subscription occurs in the constructor, `input` will emit the first observable too fast, which
+     * might lead to pipes breaking or misbehaving if they rely on properties to be instantiated first.
+     * 
+     * This leads to subscribing in ngOnInit, to allow Angular time to initialize those.
+     * BUT, if `input` is a Subject, as the first value was already emitted BEFORE ngOnInit, it will not be
+     * captured by our subscription to `input`. Hence the BehaviorSubject - To allow capturing that first observable.
+     */
+    protected readonly input: BehaviorSubject<TInput | null> = new BehaviorSubject(null as TInput | null);
 
     constructor(
         private readonly template     : TemplateRef<TContext>,
@@ -26,19 +37,19 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
         super();
         
         this.renderView();
-
+    }
+    
+    ngOnInit()
+    {
+        // See `this.input` documentation for why subscription is done in ngOnInit.
         this.subscribe(this.contextFeed());
     }
 
     private contextFeed(): Observable<Notification<TResolved>>
     {
         return this.input.pipe(
-            tap(() => console.log(`👓 observe: new input. sharing...`)),
-
             map      (input  => input ? this.observeInput(input).pipe(share()) : EMPTY),
-            tap((s) => console.log(`👓 observe: updating context with new source`, s)),
             tap      (source => this.updateViewContext({ source })),
-            tap(() => console.log(`👓 observe: switching to materialized source`)),
             switchMap(source => source.pipe(materialize())),
             tap      (meta   => this.onStateChange(meta))
         );
@@ -46,8 +57,6 @@ export abstract class ObserveBaseDirective<TInput, TResolved, TContext extends R
 
     private onStateChange(meta: Notification<TResolved>): void
     {
-        console.log(`👓 observe: notification`, meta);
-
         return meta.observe({
             next: value =>
             {

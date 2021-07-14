@@ -10,8 +10,8 @@ import { OnObserverBaseDirective           } from '../abstraction/on-observer-ba
 })
 export class OnObserverCompleteDirective<T> extends OnObserverBaseDirective<T>
 {
-    protected selector             = 'onObserverComplete';
-    protected calls: ObserverState = 'complete';
+    protected selector                       = 'onObserverComplete';
+    protected renderOnCallsTo: ObserverState = 'complete';
     
     @Input() public set onObserverComplete(value: Observable<T>) { this.input.next(value); }
 

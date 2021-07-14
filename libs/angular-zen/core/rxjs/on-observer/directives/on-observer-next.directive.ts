@@ -10,8 +10,8 @@ import { OnObserverBaseDirective           } from '../abstraction/on-observer-ba
 })
 export class OnObserverNextDirective<T> extends OnObserverBaseDirective<T>
 {
-    protected selector             = 'onObserverNext';
-    protected calls: ObserverState = 'next';
+    protected selector                       = 'onObserverNext';
+    protected renderOnCallsTo: ObserverState = 'next';
     
     @Input() public set onObserverNext(value: Observable<T>) { this.input.next(value); }
 

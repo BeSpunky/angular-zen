@@ -1,10 +1,8 @@
 import { PartialObserver } from 'rxjs';
 
-export type ObserverCall = Exclude<keyof PartialObserver<unknown>, 'closed'>;
-
-export type ObserverState = ObserverCall | 'resolving';
+export type ObserverState = 'resolving' | Exclude<keyof PartialObserver<unknown>, 'closed'>;
 
 export type DurationUnit       = 'ms' | 's' | 'm';
 export type DurationAnnotation = number | `${ number }${ DurationUnit }`;
 
-export type TimeBreakdown = Record<DurationUnit, number>;
+export type TimeBreakdown = Record<DurationUnit, number> & Record<`total${ 'Milliseconds' | 'Seconds' | 'Minutes' }`, number>;

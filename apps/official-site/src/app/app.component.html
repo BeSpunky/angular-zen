@@ -13,14 +13,14 @@
     <div>
         Observed: {{r}}
         
-        <div *onObserverActive="source">▶ Active: {{r}}</div>
-        <div *onObserverFinalized="source showFor 3000">🛑 Finalized</div>
+        <!-- <div *onObserverActive="source showFor 101000">▶ Active: {{r}}</div> -->
+        <!-- <div *onObserverFinalized="source">🛑 Finalized</div> -->
         
-        <div *onObserverResolving="source showAfter 4000">⏳ Resolving... Please wait...</div>
-        <div *onObserverNext="source showAfter 3000">🤟 Received value: {{r}}</div>
+        <div *onObserverResolving="source showAfter 5000 showFor 20000 countdownPrecision 100">⏳ Resolving... Please wait...</div>
+        <!-- <div *onObserverNext="source showFor 11000">🤟 Received value: {{r}}</div> -->
 
-        <div *onObserverComplete="source showFor 3000 let remaining = showingFor countdownPrecision '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
-        <div *onObserverError="source let error">💀 Fucking error! {{ error }}</div>
+        <!-- <div *onObserverComplete="source showFor 3000 let remaining = showingFor countdownPrecision '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div> -->
+        <!-- <div *onObserverError="source let error">💀 Fucking error! {{ error }}</div> -->
         <!-- <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
         <div *onObserver="source calls 'complete' showFor 3000 showAfter '1s' let remaining = showingFor; countdownPrecision: '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
         <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div> -->

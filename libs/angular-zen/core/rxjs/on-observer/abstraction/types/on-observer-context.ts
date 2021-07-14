@@ -4,13 +4,13 @@ export class OnObserverContext<TResolved>
 {
     [key: string]: unknown;
 
-    public readonly $implicit: TResolved;
+    public readonly $implicit?: TResolved;
 
     constructor(
-               value      : TResolved,
-               selector   : string,
-        public lastState  : ObserverState,
-        public showingFor?: TimeBreakdown
+                        selector   : string,
+        public readonly lastState  : ObserverState,
+                        value?     : TResolved,
+        public readonly showingFor?: TimeBreakdown
     )
     {
         this.$implicit = this[selector] = value;
