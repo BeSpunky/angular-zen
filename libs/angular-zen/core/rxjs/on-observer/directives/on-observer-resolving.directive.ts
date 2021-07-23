@@ -1,7 +1,7 @@
 import { Observable       } from 'rxjs';
 import { Directive, Input } from '@angular/core';
 
-import { DurationAnnotation, ObserverState } from '../abstraction/types/general';
+import { DurationAnnotation, ObserverName } from '../abstraction/types/general';
 import { OnObserverBaseDirective           } from '../abstraction/on-observer-base.directive';
 
 @Directive({
@@ -10,8 +10,8 @@ import { OnObserverBaseDirective           } from '../abstraction/on-observer-ba
 })
 export class OnObserverResolvingDirective<T> extends OnObserverBaseDirective<T>
 {
-    protected selector                       = 'onObserverResolving';
-    protected renderOnCallsTo: ObserverState = 'resolving';
+    protected selector                      = 'onObserverResolving';
+    protected renderOnCallsTo: ObserverName = 'resolving';
     
     @Input() public set onObserverResolving(value: Observable<T>) { this.input.next(value); }
 

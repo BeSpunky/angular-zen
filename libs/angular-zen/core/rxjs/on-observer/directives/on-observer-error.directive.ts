@@ -1,7 +1,7 @@
 import { Observable       } from 'rxjs';
 import { Directive, Input } from '@angular/core';
 
-import { DurationAnnotation, ObserverState } from '../abstraction/types/general';
+import { DurationAnnotation, ObserverName } from '../abstraction/types/general';
 import { OnObserverBaseDirective           } from '../abstraction/on-observer-base.directive';
 
 @Directive({
@@ -11,7 +11,7 @@ import { OnObserverBaseDirective           } from '../abstraction/on-observer-ba
 export class OnObserverErrorDirective<T> extends OnObserverBaseDirective<T>
 {
     protected selector                       = 'onObserverError';
-    protected renderOnCallsTo: ObserverState = 'error';
+    protected renderOnCallsTo: ObserverName = 'error';
     
     @Input() public set onObserverError(value: Observable<T>) { this.input.next(value); }
 

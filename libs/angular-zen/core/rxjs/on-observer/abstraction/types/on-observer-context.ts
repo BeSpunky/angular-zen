@@ -1,4 +1,4 @@
-import { ObserverState, TimeBreakdown } from './general';
+import { ObserverName, TimeBreakdown } from './general';
 
 export class OnObserverContext<TResolved>
 {
@@ -8,7 +8,7 @@ export class OnObserverContext<TResolved>
 
     constructor(
                         selector   : string,
-        public readonly lastState  : ObserverState,
+        public readonly lastCall   : ObserverName,
                         value?     : TResolved,
         public readonly showingFor?: TimeBreakdown
     )
