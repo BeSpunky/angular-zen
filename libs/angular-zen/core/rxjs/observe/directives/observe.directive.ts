@@ -1,5 +1,5 @@
-import { Observable        } from 'rxjs';
-import { Directive, Input  } from '@angular/core';
+import { Observable       } from 'rxjs';
+import { Directive, Input } from '@angular/core';
 
 import { ObserveBaseDirective                  } from '../abstraction/observe-base.directive';
 import { EmittedTypeOf, ResolvedObserveContext } from '../abstraction/types/general';
