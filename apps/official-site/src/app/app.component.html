@@ -16,7 +16,7 @@
         <!-- <div *onObserverActive="source showFor 101000">▶ Active: {{r}}</div> -->
         <!-- <div *onObserverFinalized="source">🛑 Finalized</div> -->
         
-        <div *onObserverResolving="source showAfter 3000 showFor 10000 countdownPrecision 100">⏳ Resolving... Please wait...</div>
+        <div *onObserverNext="source showAfter 1000 showFor 10000 countdownPrecision 1000 viewMode 'multiple'">⏳ Resolving... Please wait...</div>
         <!-- <div *onObserverNext="source showFor 11000">🤟 Received value: {{r}}</div> -->
 
         <!-- <div *onObserverComplete="source showFor 3000 let remaining = showingFor countdownPrecision '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div> -->

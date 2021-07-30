@@ -2,7 +2,7 @@ import { Observable       } from 'rxjs';
 import { Directive, Input } from '@angular/core';
 
 import { DurationAnnotation, ObserverName } from '../abstraction/types/general';
-import { OnObserverBaseDirective           } from '../abstraction/on-observer-base.directive';
+import { OnObserverBaseDirective, ViewMode           } from '../abstraction/on-observer-base.directive';
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
@@ -15,6 +15,7 @@ export class OnObserverResolvingDirective<T> extends OnObserverBaseDirective<T>
     
     @Input() public set onObserverResolving(value: Observable<T>) { this.input.next(value); }
 
+    @Input() public set onObserverResolvingViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
     @Input() public set onObserverResolvingShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
     @Input() public set onObserverResolvingShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
     @Input() public set onObserverResolvingCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };

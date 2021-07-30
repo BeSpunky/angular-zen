@@ -81,7 +81,7 @@ type RenderedView<T> = EmbeddedViewRef<OnObserverContext<T>>;
 
 type ViewStateMap<T> = { [commitmentId in number | 'main']: ViewRenderState<T> };
 
-type ViewMode = 'multiple' | 'single';
+export type ViewMode = 'multiple' | 'single';
 
 @Directive()
 export abstract class OnObserverBaseDirective<T> extends Destroyable implements OnInit
