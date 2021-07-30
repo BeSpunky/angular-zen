@@ -1,92 +1,22 @@
-import { Observable, Notification, of, timer, forkJoin, combineLatest, queueScheduler, BehaviorSubject, EMPTY } from 'rxjs';
-import { delay, finalize, map, mapTo, materialize, switchMap, takeWhile, tap, startWith, filter     } from 'rxjs/operators';
-import { Directive, EmbeddedViewRef, OnInit, TemplateRef, ViewContainerRef              } from '@angular/core';
+import { Observable, of, timer, forkJoin, BehaviorSubject, EMPTY                                } from 'rxjs';
+import { delay, finalize, map, mapTo, materialize, switchMap, takeWhile, tap, startWith, filter } from 'rxjs/operators';
+import { Directive, OnInit, TemplateRef, ViewContainerRef                                       } from '@angular/core';
 
-import { Destroyable                                     } from '../../destroyable/destroyable';
-import { ObserverName, DurationAnnotation, DurationUnit, TimeBreakdown } from '../abstraction/types/general';
-import { OnObserverContext                               } from './types/on-observer-context';
-
-const StateNotificationMap: Record<'N' | 'E' | 'C', ObserverName> = {
-    N: 'next',
-    E: 'error',
-    C: 'complete'
-};
-
-const DurationMultipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
+import { Destroyable                                                                            } from '../../destroyable/destroyable';
+import { ObserverName, DurationAnnotation, ViewStateMap, ViewMode, RenderedView                 } from '../abstraction/types/general';
+import { OnObserverContext                                                                      } from './types/on-observer-context';
+import { ObserverCall                                                                           } from './types/observer-call';
+import { ViewRenderState                                                                        } from './types/view-render-state';
+import { breakdownTime, durationToMs                                                            } from '../utils/time-utils';
 
 const DefaultDurationIntervalDivisor = 30;
-
-function durationToMs(duration: DurationAnnotation): number
-{
-    if (typeof duration === 'number') return duration;
-
-    const regex = /(?<value>\d+(.\d+)?)(?<units>\w+)/;
-    
-    const { value, units } = duration.match(regex)?.groups as { value: string, units: DurationUnit };
-
-    return parseInt(value) * (DurationMultipliers[units] || 1);
-}
-
-class ObserverCall<T>
-{
-    public readonly timestamp = Date.now();
-    
-    constructor(
-        public readonly name  : ObserverName,
-        public readonly value?: T,
-    ) { }
-    
-    public static resolving<T>(): ObserverCall<T>
-    {
-        return new ObserverCall<T>('resolving');
-    }
-    
-    public static fromNotification<T>({ kind, value, error }: Notification<T>): ObserverCall<T>
-    {
-        return new ObserverCall(StateNotificationMap[kind], error || value);
-    }
-}
-
-export class ViewRenderState<T>
-{
-    constructor(
-        public readonly commitmentId         : number,
-        public readonly call                 : ObserverCall<T>,
-        public readonly view                 : RenderedView<T> | null,
-        public readonly delayStartTimestamp  : number,
-        public readonly countdownEndTimestamp: number,
-    ) { }
-
-    public get isRendered(): boolean { return !!this.view; }
-
-    static create<T>(call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderState<T>
-    {
-        const now = Date.now();
-        
-        return new ViewRenderState(now, call, null, now, now + showAfter + showFor);
-    }
-
-    static update<T>(state: ViewRenderState<T>, call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderState<T>
-    {
-        return new ViewRenderState(state.commitmentId, call, state.view, state.delayStartTimestamp, state.delayStartTimestamp + showAfter + showFor);
-    }
-    
-    static rendered<T>(state: ViewRenderState<T>, view: RenderedView<T>): ViewRenderState<T>
-    {
-        return new ViewRenderState(state.commitmentId, state.call, view, state.delayStartTimestamp, state.countdownEndTimestamp);
-    }
-}
-
-type RenderedView<T> = EmbeddedViewRef<OnObserverContext<T>>;
-
-type ViewStateMap<T> = Map<string, ViewRenderState<T>>;
-
-export type ViewMode = 'multiple' | 'single';
 
 @Directive()
 export abstract class OnObserverBaseDirective<T> extends Destroyable implements OnInit
 {
     private states: ViewStateMap<T> = new Map();
+
+    private get mainState(): ViewRenderState<T> { return this.states.values().next().value };
 
     protected abstract readonly selector: string;
     protected abstract renderOnCallsTo  : ObserverName | ObserverName[];
@@ -115,56 +45,28 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     constructor(private readonly template: TemplateRef<OnObserverContext<T>>, private readonly viewContainer: ViewContainerRef)
     {
         super();
-
     }
     
-    ngOnInit(): void
+    ngOnInit()
     {
         // See `this.input` documentation for why subscription is done in ngOnInit.
-        this.subscribe(this.stateFeed());
+        this.subscribe(this.renderFeed());
     }
 
     private destroyAll(): void
     {
-        this.states.forEach(({ view }) =>
-        {
-            if (view) this.destroyView(view);
-        });
+        this.states.forEach(({ view }) => view?.destroy());
     }
 
-    private stateFeed(): Observable<void[]>
+    private renderFeed(): Observable<void[]>
     {
         return this.input.pipe(
             tap      (()     => this.destroyAll()),
+            finalize (()     => this.destroyAll()),
             switchMap(input  => input ? this.observeInput(input) : EMPTY),
             map      (call   => this.shouldRender(call) ? this.aggregateStates(call) : this.deaggregateStates()),
             switchMap(states => this.onStatesChanged(states)),
-            // When the component is destroyed this observable will unsubscribe, make sure all views are destroyed
-            finalize (()     => this.destroyAll())
         );
-    }
-
-    private deaggregateStates(): ViewStateMap<T>
-    {
-        return this.showFor ? new Map(this.states) : new Map();
-    }
-
-    private aggregateStates(call: ObserverCall<T>): ViewStateMap<T>
-    {
-        const showAfter = durationToMs(this.showAfter);
-        const showFor   = durationToMs(this.showFor || 0);
-
-        const states   = this.states;
-        const newState = this.isSingleView && this.alreadyRendered
-            ? ViewRenderState.update(this.mainState, call, showAfter, showFor)
-            : ViewRenderState.create(call, showAfter, showFor);
-
-        return new Map({ ...states, [newState.commitmentId]: newState });
-    }
-
-    private get mainState(): ViewRenderState<T>
-    {
-        return this.states.values().next().value;
     }
 
     private observeInput(input: Observable<T>): Observable<ObserverCall<T>>
@@ -176,18 +78,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         );
     }
 
-    private onStatesChanged(states: ViewStateMap<T>): Observable<void[]>
-    {
-        if (!Object.keys(states).length) this.destroyAll();
-
-        this.states = states;
-
-        const renderCommitments = Array.from(states.keys())
-                                       .map(commitmentId => this.commitToRender(states, commitmentId));
-            
-        return forkJoin(renderCommitments);
-    }
-
     private shouldRender({ name }: ObserverCall<T>): boolean
     {
         const observeOn = Array.isArray(this.renderOnCallsTo) ? this.renderOnCallsTo : [this.renderOnCallsTo];
@@ -197,13 +87,40 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
 
     private get alreadyRendered(): boolean
     {
-        return Object.keys(this.states).some(commitmentId => this.states.get(commitmentId)?.isRendered);
+        return Array.from(this.states.values()).some(state => state.isRendered);
+    }
+    
+    private aggregateStates(call: ObserverCall<T>): ViewStateMap<T>
+    {
+        const states   = this.states;
+        const newState = this.isSingleView && this.alreadyRendered
+        ? ViewRenderState.update(this.mainState, call)
+        : ViewRenderState.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
+        
+        return new Map(states.set(newState.commitmentId, newState));
     }
 
+    private deaggregateStates(): ViewStateMap<T>
+    {
+        return this.showFor ? new Map(this.states) : new Map();
+    }
+    
+    private onStatesChanged(states: ViewStateMap<T>): Observable<void[]>
+    {
+        if (!states.size) this.destroyAll();
+
+        this.states = states;
+
+        const commitments = Array.from(states.keys())
+                                 .map(commitmentId => this.commitToRender(states, commitmentId));
+            
+        return forkJoin(commitments);
+    }
+    
     private commitToRender(states: ViewStateMap<T>, commitmentId: string): Observable<void>
     {
         if (!states.has(commitmentId)) throw new Error(`
-            *${this.selector } has encountered an inconsistency issue. Tried to commit to rendering state with ID ${ commitmentId}, but no state object exists with that ID.
+            *${ this.selector } has encountered an inconsistency issue. Tried to commit to rendering state with ID ${ commitmentId }, but no state object exists with that ID.
             Please consider filing an issue and providing a stack trace here: https://github.com/BeSpunky/angular-zen/issues/new?assignees=BeSpunky&labels=%F0%9F%90%9B+Bug&template=bug_report.md&title=%F0%9F%90%9B+
         `);
 
@@ -219,52 +136,32 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
 
     private delayRender(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
     {
-        const renderDelay = durationToMs(this.showAfter);
-        const delayPassed = Date.now() - state.delayStartTimestamp;
-        const delayLeft   = renderDelay > delayPassed ? renderDelay - delayPassed : 0; // Avoid negative delay
-        
         return of(state).pipe(
-            // Because by default delay() runs on asyncScheduler, concurrency issues happen between render and destroy
-            // causing the view to stay rendered. Executing delay() on queueScheduler causes the timer not to wait
-            // for the next event loop, thus keeping synchronous code execution order and logic.
-            delay(delayLeft, queueScheduler),
+            delay(new Date(state.renderAt)),
             mapTo(state)
         );
     }
 
     private renderState(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
     {    
-        return of(OnObserverContext.fromRenderState(this.selector, state)).pipe(            
+        return of(OnObserverContext.fromState<T>(this.selector, state)).pipe(            
             map(context => this.renderOrUpdateView(state, context)),
         );
     }
 
-    private autoDestroy({ view, countdownEndTimestamp: countdownStartTimestamp }: ViewRenderState<T>)
+    private autoDestroy({ destroyAt: countdownEndTimestamp, showFor, view }: ViewRenderState<T>)
     {
-        if (!this.showFor) return EMPTY;
-        
-        if (!view)
-        {
-            console.warn(`[autoDestroy] Trying to auto destroy non rendered view: ${ view }`);
+        if (!(showFor && view)) return EMPTY;
 
-            return EMPTY;
-        }
-        
-        const showForMs            = durationToMs(this.showFor);
         const countdownPrecisionMs = this.defineCountdownPrecisionInterval();
         
-        // Enclosing Date.now() in an observable ensures it is called when the observable is
-        // actually subscribed to and not during the setup stage inside autoDestroy().
-        const startTime = of(void 0).pipe(map(() => countdownStartTimestamp));
-
-        return combineLatest([startTime, timer(0, countdownPrecisionMs)]).pipe(
-            map(([startTime]) => Date.now() - startTime),
-            map(timePassedMs => showForMs - timePassedMs),
-            map(timeLeftMs       => timeLeftMs < 0 ? 0 : timeLeftMs),
-            tap(timeLeftMs       => this.updateViewContextShowFor(view, timeLeftMs)),
+        return timer(0, countdownPrecisionMs).pipe(
+            map      (()         => countdownEndTimestamp - Date.now()),
+            map      (timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
+            tap      (timeLeftMs => this.updateViewContextShowFor(view, timeLeftMs)),
             takeWhile(timeLeftMs => timeLeftMs > 0, true),
-            filter(timeLeftMs    => timeLeftMs <= 0),
-            map(() => this.destroyView(view))
+            filter   (timeLeftMs => timeLeftMs <= 0),
+            map      (()         => view.destroy())
         );
     }
 
@@ -272,40 +169,21 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {
         if (state.view)
         {
-            this.updateViewContext(state.view, context);
+            state.view.context = context;
             
-            return state;
+            return ViewRenderState.rendered(state, state.view);
         }
         
         return ViewRenderState.rendered(state, this.viewContainer.createEmbeddedView(this.template, context));
     }
 
-    private destroyView(view: RenderedView<T>): void
-    {
-        view.destroy();
-    }
-
-    private updateViewContext(view: RenderedView<T>, context: OnObserverContext<T>): void
-    {
-        view.context = context;
-    }
-
     private updateViewContextShowFor(view: RenderedView<T>, showingForMs: number): void
     {    
-        const dummyDate = new Date(showingForMs);
-
-        const showingFor: TimeBreakdown = {
-            m                : dummyDate.getMinutes(),
-            s                : dummyDate.getSeconds(),
-            ms               : dummyDate.getMilliseconds(),
-            totalMinutes     : showingForMs / DurationMultipliers.m,
-            totalSeconds     : showingForMs / DurationMultipliers.s,
-            totalMilliseconds: showingForMs,
-        };
+        const showingFor = breakdownTime(showingForMs);
 
         const { $implicit, lastCall } = view.context;
 
-        this.updateViewContext(view, new OnObserverContext(this.selector, lastCall, $implicit, showingFor));
+        view.context = new OnObserverContext(this.selector, lastCall, $implicit, showingFor);
     }
 
     private defineCountdownPrecisionInterval(): number

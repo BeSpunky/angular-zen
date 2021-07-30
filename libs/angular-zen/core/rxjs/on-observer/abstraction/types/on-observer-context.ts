@@ -1,5 +1,5 @@
-import { ViewRenderState } from '../on-observer-base.directive';
 import { ObserverName, TimeBreakdown } from './general';
+import { ViewRenderState             } from './view-render-state';
 
 export class OnObserverContext<TResolved>
 {
@@ -17,7 +17,7 @@ export class OnObserverContext<TResolved>
         this.$implicit = this[selector] = value;
     }
 
-    static fromRenderState<T>(onObserverSelector: string, { call: { name, value } }: ViewRenderState<T>): OnObserverContext<T>
+    static fromState<T>(onObserverSelector: string, { call: { name, value } }: ViewRenderState<T>): OnObserverContext<T>
     {
         return new OnObserverContext(onObserverSelector, name, value);
     }

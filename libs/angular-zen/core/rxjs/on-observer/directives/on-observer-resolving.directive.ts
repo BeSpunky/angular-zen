@@ -1,8 +1,8 @@
 import { Observable       } from 'rxjs';
 import { Directive, Input } from '@angular/core';
 
-import { DurationAnnotation, ObserverName } from '../abstraction/types/general';
-import { OnObserverBaseDirective, ViewMode           } from '../abstraction/on-observer-base.directive';
+import { DurationAnnotation, ObserverName, ViewMode } from '../abstraction/types/general';
+import { OnObserverBaseDirective                    } from '../abstraction/on-observer-base.directive';
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
