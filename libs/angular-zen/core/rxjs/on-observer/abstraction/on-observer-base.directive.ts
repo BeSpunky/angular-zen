@@ -20,7 +20,7 @@ function durationToMs(duration: DurationAnnotation): number
 {
     if (typeof duration === 'number') return duration;
 
-    const regex = /(?<value>\d+)(?<units>\w+)/;
+    const regex = /(?<value>\d+(.\d+)?)(?<units>\w+)/;
     
     const { value, units } = duration.match(regex)?.groups as { value: string, units: DurationUnit };
 
