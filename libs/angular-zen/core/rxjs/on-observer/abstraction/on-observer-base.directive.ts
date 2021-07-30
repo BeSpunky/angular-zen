@@ -1,4 +1,4 @@
-import { Observable, Subject, Notification, of, timer, forkJoin, combineLatest, queueScheduler, BehaviorSubject, EMPTY, concat } from 'rxjs';
+import { Observable, merge, Subject, Notification, of, timer, forkJoin, combineLatest, queueScheduler, BehaviorSubject, EMPTY, concat } from 'rxjs';
 import { delay, first, map, mapTo, materialize, switchMap, takeWhile, tap, scan, startWith, filter, withLatestFrom, share, mergeMap, mergeScan     } from 'rxjs/operators';
 import { Directive, EmbeddedViewRef, OnInit, TemplateRef, ViewContainerRef              } from '@angular/core';
 
@@ -50,21 +50,43 @@ class ObserverCall<T>
 class ViewRenderState<T>
 {
     constructor(
-        public readonly call                   : ObserverCall<T>,
-        public readonly view                   : RenderedView<T>,
-        public readonly delayStartTimestamp    : number,
-        public readonly countdownStartTimestamp: number,
+        public readonly commitmentId         : number,
+        public readonly call                 : ObserverCall<T>,
+        public readonly view                 : RenderedView<T> | null,
+        public readonly delayStartTimestamp  : number,
+        public readonly countdownEndTimestamp: number,
     ) { }
+
+    public get isRendered(): boolean { return !!this.view; }
+
+    static create<T>(call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderState<T>
+    {
+        const now = Date.now();
+        
+        return new ViewRenderState(now, call, null, now, now + showAfter + showFor);
+    }
+
+    static update<T>(state: ViewRenderState<T>, call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderState<T>
+    {
+        return new ViewRenderState(state.commitmentId, call, state.view, state.delayStartTimestamp, state.delayStartTimestamp + showAfter + showFor);
+    }
+    
+    static rendered<T>(state: ViewRenderState<T>, view: RenderedView<T>): ViewRenderState<T>
+    {
+        return new ViewRenderState(state.commitmentId, state.call, view, state.delayStartTimestamp, state.delayStartTimestamp);
+    }
 }
 
 type RenderedView<T> = EmbeddedViewRef<OnObserverContext<T>>;
+
+type ViewStateMap<T> = { [commitmentId in number | 'main']: ViewRenderState<T> };
 
 type ViewMode = 'multiple' | 'single';
 
 @Directive()
 export abstract class OnObserverBaseDirective<T> extends Destroyable implements OnInit
 {
-    private views: RenderedView<T>[] = [];
+    private states: ViewStateMap<T> = { } as ViewStateMap<T>;
 
     protected abstract readonly selector: string;
     protected abstract renderOnCallsTo  : ObserverName | ObserverName[];
@@ -87,7 +109,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      */
     protected readonly input: BehaviorSubject<Observable<T> | null> = new BehaviorSubject(null as Observable<T> | null);
 
-
     public get isSingleView(): boolean { return this.viewMode === 'single'  ; }
     public get isMultiView (): boolean { return this.viewMode === 'multiple'; }
 
@@ -102,33 +123,64 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         this.subscribe(this.stateFeed());
     }
 
-    private reset(): void
+    private destroyAll(states: ViewStateMap<T>): void
     {
-        // this.renderedStates.forEach(state => this.destroyView(state.view!));
-        // this.renderedStates = [];
+        Object.keys(states).forEach(commitmentId =>
+        {
+            const { view } = states[commitmentId as number | 'main'];
+
+            if (view) this.destroyView(view);
+        });
     }
 
     private stateFeed()//: Observable<void>
     {
         return this.input.pipe(
             // tap      (()         => console.log(`New input detected. Performing cleanup...`)),
-            tap(() => this.reset()),
+            tap(() => this.destroyAll(this.states)),
             switchMap(input => input ? this.observeInput(input) : EMPTY),
-            mergeScan((renderStates, call) =>
+            map(call =>
             {
-                const shouldRender = this.shouldRender(call);
+                console.log(`[--------Flow---------] Received call: ${ call.name } - ${ call.value }`);
 
-                if (shouldRender)
+                if (this.shouldRender(call))
                 {
-                    const delayStartTimestamp = Date.now();
-                    const countdownStartTimestamp = delayStartTimestamp + durationToMs(this.showAfter);
+                    console.log(`[--------Flow---------] Should render. Should this be a single view?`);
 
-                    return of([...renderStates, new ViewRenderState(call, null, delayStartTimestamp, countdownStartTimestamp)]);
+                    const showAfter = durationToMs(this.showAfter);
+                    const showFor   = durationToMs(this.showFor || 0);
+
+                    if (this.isSingleView)
+                    {
+                        console.log(`[--------Flow---------] Yes. ${this.alreadyRendered ? 'Already rendered. Updating state...' : 'Nothing rendered. Creating new state...'}`);
+
+                        const newState = this.alreadyRendered
+                            ? ViewRenderState.update(this.states.main, call, showAfter, showFor)
+                            : ViewRenderState.create(call, showAfter, showFor);
+                        
+                        return { main: newState };
+                    }
+                    else
+                    {
+                        console.log(`[--------Flow---------] No. Generating new state...`);
+
+                        const newState = ViewRenderState.create(call, showAfter, showFor);
+
+                        console.log(`[--------Flow---------] Adding new state. This will be #${ Object.keys(this.states).length + 1 }`);
+
+                        return { ...this.states, [newState.commitmentId]: newState };
+                    }
                 }
-    
-                return of([]);
-            }, [] as ViewRenderState<T>[])
-            // tap(views => this.views = views)
+                else
+                {
+                    console.log(`[--------Flow---------] Shouldn't render. Using existing ${ Object.keys(this.states).length } states`);
+
+                    if (this.showFor) return this.states;
+
+                    return {} as ViewStateMap<T>;
+                }
+            }),
+            switchMap(states => this.onStatesChanged(states)),
         );
     }
 
@@ -141,9 +193,25 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         );
     }
 
-    private handleRendering(renderStates: ViewRenderState<T>[]): Observable<void[]>
+    private onStatesChanged(states: ViewStateMap<T>): Observable<void[]>
     {
-        const renderCommitments = renderStates.map(state => this.commitToRender(state));
+        this.states = states;
+
+        console.log(`[onStateChanged] Committing to render ${ Object.keys(states).length } states...`);
+
+        const commitToRender = (id: 'main' | number) =>
+        {
+            const state = states[id];
+
+            return this.delayRender(state).pipe(
+                switchMap(state         => this.renderState(state)),
+                tap      (renderedState => states[id] = renderedState),
+                switchMap(renderedState => this.autoDestroy(renderedState)),
+                tap      (()            => delete states[id])
+            );
+        };
+            
+        const renderCommitments = Object.keys(states).map(commitmentId => commitToRender(commitmentId as 'main' | number));
             
         return forkJoin(renderCommitments);
     }
@@ -155,13 +223,16 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         return observeOn.includes(name);
     }
 
-    private commitToRender(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
+    private get alreadyRendered(): boolean
     {
-    
+        return Object.keys(this.states).some(commitmentId => this.states[commitmentId as number | 'main'].isRendered);
+    }
 
+    private commitToRender(state: ViewRenderState<T>): Observable<void>
+    {
         return this.delayRender(state).pipe(
-            switchMap(state => this.render(state)),
-            switchMap(state => this.autoDestroy(state))
+            switchMap(state         => this.renderState(state)),
+            switchMap(renderedState => this.autoDestroy(renderedState)),
         );
     }
 
@@ -180,42 +251,56 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         );
     }
 
-    private render(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
-    {
-        return of(this.createViewContext(state)).pipe(
-            map(context => this.renderView(context)),
-            map(view    => new ViewRenderState(state.call, view, state.delayStartTimestamp, state.countdownStartTimestamp)),
+    private renderState(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
+    {    
+        return of(this.createViewContext(state)).pipe(            
+            map(context => this.renderOrUpdateView(state, context)),
         );
     }
 
-    private autoDestroy(view: RenderedView<T>): Observable<void>
+    private autoDestroy({ view, countdownEndTimestamp: countdownStartTimestamp }: ViewRenderState<T>)
     {
-        const showForMs = view.context.showingFor
-                            ? view.context.showingFor.totalMilliseconds ?? 0
-                            : durationToMs(this.showFor ?? 0);
+        if (!view)
+        {
+            console.warn(`[autoDestroy] Trying to auto destroy non rendered view: ${ view }`);
 
+            return EMPTY;
+        }
+
+        const showForMs            = durationToMs(this.showFor || 0);
         const countdownPrecisionMs = this.defineCountdownPrecisionInterval();
         
         // Enclosing Date.now() in an observable ensures it is called when the observable is
         // actually subscribed to and not during the setup stage inside autoDestroy().
-        const startTime = of(void 0).pipe(map(() => Date.now()));
+        const startTime = of(void 0).pipe(map(() => countdownStartTimestamp));
 
         return combineLatest([startTime, timer(0, countdownPrecisionMs)]).pipe(
-            map(([startTime])    => Date.now() - startTime),
-            map(timePassedMs     => showForMs - timePassedMs),
+            map(([startTime]) => Date.now() - startTime),
+            map(timePassedMs => showForMs - timePassedMs),
             map(timeLeftMs       => timeLeftMs < 0 ? 0 : timeLeftMs),
             tap(timeLeftMs       => console.log(`[autoDestroy] Time left to destroy: ${timeLeftMs}ms. Updating countdown...`)),
             tap(timeLeftMs       => this.updateViewContextShowFor(view, timeLeftMs)),
             takeWhile(timeLeftMs => timeLeftMs > 0, true),
             filter(timeLeftMs    => timeLeftMs <= 0),
             tap(() => console.log(`[autoDestroy] destroying...`)),
-            map(() => this.destroyView())
+            map(() => this.destroyView(view))
         );
     }
 
-    private renderView(context: OnObserverContext<T>): RenderedView<T>
+    private renderOrUpdateView(state: ViewRenderState<T>, context: OnObserverContext<T>): ViewRenderState<T>
     {
-        return this.viewContainer.createEmbeddedView(this.template, context);
+        console.log(`[renderOrUpdateView] ${ state.view ? 'View renderd. Updating context...' : 'Rendering view...' }`);
+
+        if (state.view)
+        {
+            state.view.context = context;
+            
+            return state;
+        }
+        
+        const view = this.viewContainer.createEmbeddedView(this.template, context);
+
+        return ViewRenderState.rendered(state, view);
     }
 
     private destroyView(view: RenderedView<T>): void
