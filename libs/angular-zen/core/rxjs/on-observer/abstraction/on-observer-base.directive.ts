@@ -112,12 +112,12 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         this.states = states;
 
         const commitments = Array.from(states.keys())
-                                 .map(commitmentId => this.commitToRender(states, commitmentId));
+                                 .map((commitmentId, index) => this.commitToRender(states, commitmentId, index));
             
         return forkJoin(commitments);
     }
     
-    private commitToRender(states: ViewStateMap<T>, commitmentId: string): Observable<void>
+    private commitToRender(states: ViewStateMap<T>, commitmentId: string, index: number): Observable<void>
     {
         if (!states.has(commitmentId)) throw new Error(`
             *${ this.selector } has encountered an inconsistency issue. Tried to commit to rendering state with ID ${ commitmentId }, but no state object exists with that ID.
@@ -127,7 +127,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return of(states.get(commitmentId)!).pipe(
             switchMap(state         => this.delayRender(state)),
-            switchMap(state         => this.renderState(state)),
+            switchMap(state         => this.renderState(state, index)),
             tap      (renderedState => states.set(commitmentId, renderedState)),
             switchMap(renderedState => this.autoDestroy(renderedState)),
             tap      (()            => states.delete(commitmentId))
@@ -142,21 +142,21 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         );
     }
 
-    private renderState(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
+    private renderState(state: ViewRenderState<T>, index: number): Observable<ViewRenderState<T>>
     {    
-        return of(OnObserverContext.fromState<T>(this.selector, state)).pipe(            
+        return of(OnObserverContext.fromState<T>(this.selector, index, state)).pipe(            
             map(context => this.renderOrUpdateView(state, context)),
         );
     }
 
-    private autoDestroy({ destroyAt: countdownEndTimestamp, showFor, view }: ViewRenderState<T>)
+    private autoDestroy({ destroyAt, showFor, view }: ViewRenderState<T>)
     {
         if (!(showFor && view)) return EMPTY;
 
-        const countdownPrecisionMs = this.defineCountdownPrecisionInterval();
+        const countdownPrecisionMs = this.defineCountdownPrecision();
         
         return timer(0, countdownPrecisionMs).pipe(
-            map      (()         => countdownEndTimestamp - Date.now()),
+            map      (()         => destroyAt - Date.now()),
             map      (timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
             tap      (timeLeftMs => this.updateViewContextShowFor(view, timeLeftMs)),
             takeWhile(timeLeftMs => timeLeftMs > 0, true),
@@ -181,12 +181,12 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {    
         const showingFor = breakdownTime(showingForMs);
 
-        const { $implicit, lastCall } = view.context;
+        const { $implicit, lastCall, index } = view.context;
 
-        view.context = new OnObserverContext(this.selector, lastCall, $implicit, showingFor);
+        view.context = new OnObserverContext(this.selector, index, lastCall, $implicit, showingFor);
     }
 
-    private defineCountdownPrecisionInterval(): number
+    private defineCountdownPrecision(): number
     {
         // If the view should persist, or it should auto-destroy but percision has been manually specified, do nothing
         if (!this.showFor) throw new Error(`
