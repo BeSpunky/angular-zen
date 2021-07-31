@@ -28,7 +28,7 @@ export class AppComponent
     public error()
     {
         this.x = timer(3000, 1000).pipe(take(5), map(i => { if (i === 3) throw new Error('Hate number 3'); return i }));
-        this.y = timer(3000, 2500).pipe(take(5), map(i => String.fromCharCode(i + 65)));
+        this.y = timer(3000, 2500).pipe(take(5), map(i => { if (i === 3) throw new Error('Hate the letter D'); return String.fromCharCode(i + 65) }));
     }
 
     constructor(public project: ProjectService) { this.restart(); }
