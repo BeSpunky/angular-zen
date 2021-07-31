@@ -11,6 +11,7 @@ export * from './rxjs/observe/directives/observe-latest.directive';
 export * from './rxjs/observe/directives/observe-join.directive';
 export * from './rxjs/observe/directives/observe-merge.directive';
 export * from './rxjs/observe/directives/observe-concat.directive';
+export * from './rxjs/on-observer/directives/on-observer.directive';
 export * from './rxjs/on-observer/directives/on-observer-resolving.directive';
 export * from './rxjs/on-observer/directives/on-observer-next.directive';
 export * from './rxjs/on-observer/directives/on-observer-error.directive';
