@@ -7,6 +7,7 @@ import { ObserveLatestDirective       } from './rxjs/observe/directives/observe-
 import { ObserveConcatDirective       } from './rxjs/observe/directives/observe-concat.directive';
 import { ObserveJoinDirective         } from './rxjs/observe/directives/observe-join.directive';
 import { ObserveMergeDirective        } from './rxjs/observe/directives/observe-merge.directive';
+import { OnObserverDirective          } from './rxjs/on-observer/directives/on-observer.directive';
 import { OnObserverResolvingDirective } from './rxjs/on-observer/directives/on-observer-resolving.directive';
 import { OnObserverNextDirective      } from './rxjs/on-observer/directives/on-observer-next.directive';
 import { OnObserverErrorDirective     } from './rxjs/on-observer/directives/on-observer-error.directive';
@@ -25,6 +26,7 @@ import { OnObserverFinalizedDirective } from './rxjs/on-observer/directives/on-o
         ObserveJoinDirective,
         ObserveMergeDirective,
         ObserveConcatDirective,
+        OnObserverDirective,
         OnObserverResolvingDirective,
         OnObserverNextDirective,
         OnObserverErrorDirective,
@@ -38,6 +40,7 @@ import { OnObserverFinalizedDirective } from './rxjs/on-observer/directives/on-o
         ObserveJoinDirective,
         ObserveMergeDirective,
         ObserveConcatDirective,
+        OnObserverDirective,
         OnObserverResolvingDirective,
         OnObserverNextDirective,
         OnObserverErrorDirective,

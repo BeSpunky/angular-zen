@@ -3,6 +3,7 @@ import { Directive, Input } from '@angular/core';
 
 import { DurationAnnotation, ObserverName, ViewMode } from '../abstraction/types/general';
 import { OnObserverBaseDirective                    } from '../abstraction/on-observer-base.directive';
+import { OnObserverContext } from '../abstraction/types/on-observer-context';
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
@@ -19,4 +20,6 @@ export class OnObserverCompleteDirective<T> extends OnObserverBaseDirective<T>
     @Input() public set onObserverCompleteShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
     @Input() public set onObserverCompleteShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
     @Input() public set onObserverCompleteCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+
+    static ngTemplateContextGuard<T>(directive: OnObserverCompleteDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }
