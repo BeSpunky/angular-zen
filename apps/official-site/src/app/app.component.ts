@@ -22,7 +22,7 @@ export class AppComponent
     public restart()
     {
         this.x = timer(3000, 1000).pipe(take(5));
-        this.y = timer(3000, 1000).pipe(take(5), map(i => String.fromCharCode(i + 65)));
+        this.y = timer(3000, 2300).pipe(take(5), map(i => String.fromCharCode(i + 65)));
     }
 
     public error()
