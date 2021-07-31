@@ -94,9 +94,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {
         const states   = this.states;
         const newState = this.isSingleView && this.alreadyRendered
-        ? ViewRenderState.update(this.mainState, call)
-        : ViewRenderState.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
-        
+            ? ViewRenderState.update(this.mainState, call)
+            : ViewRenderState.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
+
         return new Map(states.set(newState.commitmentId, newState));
     }
 
