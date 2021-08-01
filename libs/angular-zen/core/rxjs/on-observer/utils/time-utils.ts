@@ -1,4 +1,4 @@
-import { DurationAnnotation, DurationUnit, TimeBreakdown } from '../abstraction/types/general';
+import { DurationAnnotation, DurationUnit, DurationBreakdown } from '../abstraction/types/general';
 
 const DurationMultipliers: Record<DurationUnit, number> = { ms: 1, s: 1000, m: 60000 };
 
@@ -17,7 +17,7 @@ export function breakdownTime(showingForMs: number)
 {
     const dummyDate = new Date(showingForMs);
 
-    const showingFor: TimeBreakdown = {
+    const showingFor: DurationBreakdown = {
         m: dummyDate.getMinutes(),
         s: dummyDate.getSeconds(),
         ms: dummyDate.getMilliseconds(),
@@ -25,5 +25,6 @@ export function breakdownTime(showingForMs: number)
         totalSeconds: showingForMs / DurationMultipliers.s,
         totalMilliseconds: showingForMs,
     };
+    
     return showingFor;
 }

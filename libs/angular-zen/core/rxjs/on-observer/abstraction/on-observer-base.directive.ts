@@ -516,9 +516,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {    
         const showingFor = breakdownTime(timeLeftMs);
 
-        const { $implicit, lastCall, index } = view.context;
+        const { $implicit, call, index } = view.context;
 
-        view.context = new OnObserverContext(this.selector, index, lastCall, $implicit, showingFor);
+        view.context = new OnObserverContext(this.selector, index, call, $implicit, showingFor);
     }
 
     /**
