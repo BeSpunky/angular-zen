@@ -16,10 +16,10 @@ export class OnObserverFinalizedDirective<T> extends OnObserverBaseDirective<T>
     
     @Input() public set onObserverFinalized(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public set onObserverFinalizedViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
-    @Input() public set onObserverFinalizedShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
-    @Input() public set onObserverFinalizedShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
-    @Input() public set onObserverFinalizedCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+    @Input() public set onObserverFinalizedViewMode         (viewMode: ViewMode          ) { this.viewMode          = viewMode; }
+    @Input() public set onObserverFinalizedShowAfter        (duration: DurationAnnotation) { this.showAfter         = duration; }
+    @Input() public set onObserverFinalizedShowFor          (duration: DurationAnnotation) { this.showFor           = duration; };
+    @Input() public set onObserverFinalizedCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverFinalizedDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }

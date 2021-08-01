@@ -16,10 +16,10 @@ export class OnObserverResolvingDirective<T> extends OnObserverBaseDirective<T>
     
     @Input() public set onObserverResolving(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public set onObserverResolvingViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
-    @Input() public set onObserverResolvingShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
-    @Input() public set onObserverResolvingShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
-    @Input() public set onObserverResolvingCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+    @Input() public set onObserverResolvingViewMode         (viewMode: ViewMode          ) { this.viewMode          = viewMode; }
+    @Input() public set onObserverResolvingShowAfter        (duration: DurationAnnotation) { this.showAfter         = duration; }
+    @Input() public set onObserverResolvingShowFor          (duration: DurationAnnotation) { this.showFor           = duration; };
+    @Input() public set onObserverResolvingCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverResolvingDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }

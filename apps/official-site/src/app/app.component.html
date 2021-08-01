@@ -19,11 +19,11 @@
         <div *onObserverResolving="source">⏳ Resolving... Please wait...</div>
         <div *onObserverNext="source as x showFor 4000 viewMode 'multiple' let index = index" style="position: absolute; left: 120px" [style.top.px]="index * 30">{{index}} 🤟 Received: {{x}}</div>
 
-        <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownPrecision '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
-        <!-- <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownPrecision '30ms'">{{remaining?.totalMinutes}}<br/>{{remaining?.totalSeconds}}<br/>{{remaining?.totalMilliseconds}}</div> -->
+        <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownInterval '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
+        <!-- <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownInterval '30ms'">{{remaining?.totalMinutes}}<br/>{{remaining?.totalSeconds}}<br/>{{remaining?.totalMilliseconds}}</div> -->
         <div *onObserverError="source as error">💀 Fucking error! {{ error }}</div>
         <!-- <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
-        <div *onObserver="source calls 'complete' showFor 3000 showAfter '1s' countdownPrecision: '30ms' let remaining = showingFor">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
+        <div *onObserver="source calls 'complete' showFor 3000 showAfter '1s' countdownInterval: '30ms' let remaining = showingFor">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
         <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div> -->
     </div>
 <!-- </ng-template> -->

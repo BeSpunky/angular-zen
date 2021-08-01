@@ -16,10 +16,10 @@ export class OnObserverNextDirective<T> extends OnObserverBaseDirective<T>
     
     @Input() public set onObserverNext(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public set onObserverNextViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
-    @Input() public set onObserverNextShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
-    @Input() public set onObserverNextShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
-    @Input() public set onObserverNextCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+    @Input() public set onObserverNextViewMode         (viewMode: ViewMode          ) { this.viewMode          = viewMode; }
+    @Input() public set onObserverNextShowAfter        (duration: DurationAnnotation) { this.showAfter         = duration; }
+    @Input() public set onObserverNextShowFor          (duration: DurationAnnotation) { this.showFor           = duration; };
+    @Input() public set onObserverNextCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverNextDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }

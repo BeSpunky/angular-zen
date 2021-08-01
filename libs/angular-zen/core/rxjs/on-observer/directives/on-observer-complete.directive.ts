@@ -16,10 +16,10 @@ export class OnObserverCompleteDirective<T> extends OnObserverBaseDirective<T>
     
     @Input() public set onObserverComplete(value: Observable<T>) { this.input.next(value); }
 
-    @Input() public set onObserverCompleteViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
-    @Input() public set onObserverCompleteShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
-    @Input() public set onObserverCompleteShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
-    @Input() public set onObserverCompleteCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+    @Input() public set onObserverCompleteViewMode         (viewMode: ViewMode          ) { this.viewMode          = viewMode; }
+    @Input() public set onObserverCompleteShowAfter        (duration: DurationAnnotation) { this.showAfter         = duration; }
+    @Input() public set onObserverCompleteShowFor          (duration: DurationAnnotation) { this.showFor           = duration; };
+    @Input() public set onObserverCompleteCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverCompleteDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }

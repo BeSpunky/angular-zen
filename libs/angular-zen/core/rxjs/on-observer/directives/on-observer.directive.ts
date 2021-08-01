@@ -18,10 +18,10 @@ export class OnObserverDirective<T> extends OnObserverBaseDirective<T>
 
     @Input() public set onObserverCalls(calls: ObserverName | ObserverName[]) { this.renderOnCallsTo = calls; }
 
-    @Input() public set onObserverViewMode          (viewMode: ViewMode          ) { this.viewMode           = viewMode; }
-    @Input() public set onObserverShowAfter         (duration: DurationAnnotation) { this.showAfter          = duration; }
-    @Input() public set onObserverShowFor           (duration: DurationAnnotation) { this.showFor            = duration; };
-    @Input() public set onObserverCountdownPrecision(duration: DurationAnnotation) { this.countdownPrecision = duration; };
+    @Input() public set onObserverViewMode         (viewMode: ViewMode          ) { this.viewMode          = viewMode; }
+    @Input() public set onObserverShowAfter        (duration: DurationAnnotation) { this.showAfter         = duration; }
+    @Input() public set onObserverShowFor          (duration: DurationAnnotation) { this.showFor           = duration; };
+    @Input() public set onObserverCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }
