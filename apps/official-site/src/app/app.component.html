@@ -22,9 +22,9 @@
         <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownInterval '30ms'">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
         <!-- <div *onObserverComplete="source showFor 30000 let remaining = showingFor countdownInterval '30ms'">{{remaining?.totalMinutes}}<br/>{{remaining?.totalSeconds}}<br/>{{remaining?.totalMilliseconds}}</div> -->
         <div *onObserverError="source as error">💀 Fucking error! {{ error }}</div>
-        <!-- <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
+        <div *onObserver="source calls 'next'">⏳ Loading... Please wait... {{r}}</div>
         <div *onObserver="source calls 'complete' showFor 3000 showAfter '1s' countdownInterval: '30ms' let remaining = showingFor">👍 Completed ({{remaining?.m}}:{{remaining?.s}}:{{remaining?.ms}})!</div>
-        <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div> -->
+        <div *onObserver="source calls 'error' let error">💀 Fucking error! {{ error }}</div>
     </div>
 <!-- </ng-template> -->
 </div>

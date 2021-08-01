@@ -24,6 +24,10 @@ const DefaultCountdownUpdateCount = 30;
  * 
  * ## Features
  * 
+ * #### View Context
+ * Use the microsyntax `as` keyword to assign resolved values to a variable.
+ * Use the microsyntax `let` keyword to assign the {@link OnObserverContext full context object} to a variable (e.g. `let context`).
+ *  
  * #### Delayed rendering
  * Specify a value for {@link OnObserverBaseDirective.showAfter `showAfter`} to delay rendering.
  * 
@@ -34,6 +38,9 @@ const DefaultCountdownUpdateCount = 30;
  * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated in fixed intervals with the
  * amount of time left until the view is destroyed. This allows giving the user feedback in a progress bar, a spinner, a textual timer
  * or any other UI component. 
+ * 
+ * Countdown is provided by the {@link OnObserverContext.showingFor `showingFor`} property. Access it by assigning a variable using `let`, like so:
+ * `let remaining = showingFor`
  * 
  * #### Multi view mode
  * Specify {@link OnObserverBaseDirective.viewMode `viewMode = 'multiple'`} to enable rendering a new view for each intercepted call
