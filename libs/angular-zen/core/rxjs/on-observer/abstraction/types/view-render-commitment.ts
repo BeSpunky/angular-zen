@@ -14,7 +14,7 @@ import { ObserverCall } from './observer-call';
  * @class ViewRenderState
  * @template T The type of value emitted by the observable.
  */
-export class ViewRenderState<T>
+export class ViewRenderCommitment<T>
 {
     /**
      *  Creates an instance of ViewRenderState.
@@ -62,13 +62,13 @@ export class ViewRenderState<T>
      * @param {ObserverCall<T>} call The intercepted call which triggered this state.
      * @param {number} showAfter The duration (in milliseconds) to wait before rendering the view.
      * @param {number} showFor The duration (in milliseconds) to wait before destroying the view.
-     * @return {ViewRenderState<T>} A new state representing fresh commitment to render.
+     * @return {ViewRenderCommitment<T>} A new state representing fresh commitment to render.
      */
-    static create<T>(call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderState<T>
+    static create<T>(call: ObserverCall<T>, showAfter: number, showFor: number): ViewRenderCommitment<T>
     {
         const now = Date.now();
 
-        return new ViewRenderState(now.toString(), call, showAfter, showFor, now + showAfter);
+        return new ViewRenderCommitment(now.toString(), call, showAfter, showFor, now + showAfter);
     }
 
     /**
@@ -78,13 +78,13 @@ export class ViewRenderState<T>
      *
      * @static
      * @template T The type of value emitted by the observable.
-     * @param {ViewRenderState<T>} state The state to clone.
+     * @param {ViewRenderCommitment<T>} state The state to clone.
      * @param {ObserverCall<T>} call The intercepted call which triggered this state.
-     * @return {ViewRenderState<T>} A new state representing an updated commitment to render.
+     * @return {ViewRenderCommitment<T>} A new state representing an updated commitment to render.
      */
-    static update<T>(state: ViewRenderState<T>, call: ObserverCall<T>): ViewRenderState<T>
+    static update<T>(state: ViewRenderCommitment<T>, call: ObserverCall<T>): ViewRenderCommitment<T>
     {
-        return new ViewRenderState(state.commitmentId, call, state.showAfter, state.showFor, state.renderAt, state.view);
+        return new ViewRenderCommitment(state.commitmentId, call, state.showAfter, state.showFor, state.renderAt, state.view);
     }
 
     /**
@@ -93,12 +93,12 @@ export class ViewRenderState<T>
      *
      * @static
      * @template T The type of value emitted by the observable.
-     * @param {ViewRenderState<T>} state The state to clone.
+     * @param {ViewRenderCommitment<T>} state The state to clone.
      * @param {RenderedView<T>} view The rendered view to store in the state.
-     * @return {ViewRenderState<T>} A new state with the rendered view.
+     * @return {ViewRenderCommitment<T>} A new state with the rendered view.
      */
-    static rendered<T>(state: ViewRenderState<T>, view: RenderedView<T>): ViewRenderState<T>
+    static rendered<T>(state: ViewRenderCommitment<T>, view: RenderedView<T>): ViewRenderCommitment<T>
     {
-        return new ViewRenderState(state.commitmentId, state.call, state.showAfter, state.showFor, state.renderAt, view);
+        return new ViewRenderCommitment(state.commitmentId, state.call, state.showAfter, state.showFor, state.renderAt, view);
     }
 }

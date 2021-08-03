@@ -1,5 +1,5 @@
 import { ObserverName, DurationBreakdown } from './general';
-import { ViewRenderState                 } from './view-render-state';
+import { ViewRenderCommitment            } from './view-render-commitment';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { OnObserverBaseDirective } from '../on-observer-base.directive';
@@ -51,16 +51,16 @@ export class OnObserverContext<TResolved>
     }
 
     /**
-     * Creates a context object for the specified view render state.
+     * Creates a context object for the specified view render commitment.
      *
      * @static
      * @template T The type of value emitted by the observable.
      * @param {string} onObserverSelector The selector of the directive which is creating this context.
      * @param {number} index The index of the view rendered by the directive.
-     * @param {ViewRenderState<T>} state The view render state from which to create the context.
-     * @return {OnObserverContext<T>} A context object for the specified view render state.
+     * @param {ViewRenderCommitment<T>} commitment The view render commitment from which to create the context.
+     * @return {OnObserverContext<T>} A context object for the specified view render commitment.
      */
-    static fromState<T>(onObserverSelector: string, index: number, { call: { name, value } }: ViewRenderState<T>): OnObserverContext<T>
+    static fromCommitment<T>(onObserverSelector: string, index: number, { call: { name, value } }: ViewRenderCommitment<T>): OnObserverContext<T>
     {
         return new OnObserverContext(onObserverSelector, index, name, value);
     }

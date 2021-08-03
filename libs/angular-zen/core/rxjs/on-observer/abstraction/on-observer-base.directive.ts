@@ -3,11 +3,11 @@ import { delay, finalize, map, mapTo, materialize, switchMap, takeWhile, tap, st
 import { Directive, OnInit, TemplateRef, ViewContainerRef                                       } from '@angular/core';
 
 import { Destroyable                                                                            } from '../../destroyable/destroyable';
-import { ObserverName, DurationAnnotation, ViewStateMap, ViewMode, RenderedView                 } from '../abstraction/types/general';
+import { ObserverName, DurationAnnotation, RenderCommitmentMap, ViewMode, RenderedView          } from '../abstraction/types/general';
 import { breakdownTime, durationToMs                                                            } from '../utils/time-utils';
 import { OnObserverContext                                                                      } from './types/on-observer-context';
 import { ObserverCall                                                                           } from './types/observer-call';
-import { ViewRenderState                                                                        } from './types/view-render-state';
+import { ViewRenderCommitment                                                                   } from './types/view-render-commitment';
 
 /**
  * The default number of times the countdown will be updated in a rendered view waiting to be auto-destroyed.
@@ -81,23 +81,23 @@ const DefaultCountdownUpdateCount = 30;
 export abstract class OnObserverBaseDirective<T> extends Destroyable implements OnInit
 {
     /**
-     * A global state map holding all states for which the directive has created commitments to render observables.
-     * Ids are the timestamp of the observed calls and values are the state with its rendering parameters.
+     * A global commitment map holding all commitments to render for which the directive has created commitment observables.
+     * Ids are the timestamp of the observed calls and values are the commitments with their rendering parameters.
      *
      * @private
-     * @type {ViewStateMap<T>}
+     * @type {RenderCommitmentMap<T>}
      */
-    private states: ViewStateMap<T> = new Map();
+    private commitments: RenderCommitmentMap<T> = new Map();
 
     /**
-     * The first state in the {@link OnObserverBaseDirective.states global states map}. Used when working with a single view
-     * to retrieve its corresponding single state.
+     * The first commitment in the {@link OnObserverBaseDirective.commitments global commitments map}. Used when working with a single view
+     * to retrieve its corresponding single commitment.
      *
      * @readonly
      * @private
-     * @type {ViewRenderState<T>}
+     * @type {ViewRenderCommitment<T>}
      */
-    private get mainState(): ViewRenderState<T> { return this.states.values().next().value };
+    private get mainCommitment(): ViewRenderCommitment<T> { return this.commitments.values().next().value };
 
     /**
      * The selector defined for the directive extending this class. Will be used to create a corresponding
@@ -260,21 +260,21 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      */
     private destroyAll(): void
     {
-        this.states.forEach(({ view }) => view?.destroy());
+        this.commitments.forEach(({ view }) => view?.destroy());
     }
 
     /**
      * Creates the main feed the directive will subscribe to. The feed will listen to changed to {@link OnObserverBaseDirective.input `input`},
      * then switch to the newly received observable in order to start observing it.
-     * The newly received observable will then be materialized and calls will be aggregated as state objects with information about
-     * what to render and when. Those states will pass through the {@link OnObserverBaseDirective.onStatesChanged onStatesChanged()} method
-     * which will update the global state and create observables with commitments to render and auto destroy views according to the
-     * given states.
+     * The newly received observable will then be materialized and calls will be aggregated as commitment objects with information about
+     * what to render and when. Those commitments will pass through the {@link OnObserverBaseDirective.onCommitmentsChanged onCommitmentsChanged()} method
+     * which will update the global commitment and create observables with commitments to render and auto destroy views according to the
+     * given commitments.
      * 
      * This feed is the single reactive entrypoint, meaning any observable created by the directive will be created inside of this
      * observable or its nested observables. Any time a nested observable is created it will be switched to. This allows the pipeline to
      * completely startover when a new call is made or a new {@link OnObserverBaseDirective.input `input`} observable is provided, thus keeping
-     * a consistent stream of data to the {@link OnObserverBaseDirective.states global states map}.
+     * a consistent stream of data to the {@link OnObserverBaseDirective.commitments global commitments map}.
      *
      * @private
      * @return {Observable<void[]>} An observable as described above.
@@ -285,8 +285,8 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             tap      (()     => this.destroyAll()),
             finalize (()     => this.destroyAll()),
             switchMap(input  => input ? this.observeInput(input) : EMPTY),
-            map      (call   => this.shouldRender(call) ? this.aggregateStates(call) : this.deaggregateStates()),
-            switchMap(states => this.onStatesChanged(states)),
+            map      (call   => this.shouldRender(call) ? this.aggregateCommitments(call) : this.deaggregateCommitments()),
+            switchMap(commitments => this.onCommitmentsChanged(commitments)),
         );
     }
 
@@ -322,133 +322,133 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     }
 
     /**
-     * Indicates whether any of the states is currently rendered.
+     * Indicates whether any of the commitments is currently rendered.
      *
      * @readonly
      * @private
-     * @type {boolean} `true` is any of the states is currently rendered; otherwise `false`.
+     * @type {boolean} `true` is any of the commitments is currently rendered; otherwise `false`.
      */
     private get alreadyRendered(): boolean
     {
-        return Array.from(this.states.values()).some(state => state.isRendered);
+        return Array.from(this.commitments.values()).some(commitment => commitment.isRendered);
     }
     
     /**
-     * Creates the new states map when a new state should render.
+     * Creates the new commitments map when a new commitment should render.
      * 
-     * When `viewMode` is `'single'` the map will always contain a single state. If the state hasn't been rendered yet, a new state will be created.
-     * Otherwise, the existing state will be replaced by a clone with updated parameters (i.e. delay and countdown).
+     * When `viewMode` is `'single'` the map will always contain a single commitment. If the commitment hasn't been rendered yet, a new commitment will be created.
+     * Otherwise, the existing commitment will be replaced by a clone with updated parameters (i.e. delay and countdown).
      * 
-     * When `viewMode` is `'multiple'` a new state will always be added to the map.
+     * When `viewMode` is `'multiple'` a new commitment will always be added to the map.
      *
      * @private
      * @param {ObserverCall<T>} call The new call which should render.
-     * @return {ViewStateMap<T>} The new map of states to render.
+     * @return {RenderCommitmentMap<T>} The new map of commitments to render.
      */
-    private aggregateStates(call: ObserverCall<T>): ViewStateMap<T>
+    private aggregateCommitments(call: ObserverCall<T>): RenderCommitmentMap<T>
     {
-        const states   = this.states;
-        const newState = this.isSingleView && this.alreadyRendered
-            ? ViewRenderState.update(this.mainState, call)
-            : ViewRenderState.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
+        const commitments   = this.commitments;
+        const newCommitment = this.isSingleView && this.alreadyRendered
+            ? ViewRenderCommitment.update(this.mainCommitment, call)
+            : ViewRenderCommitment.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
 
-        return new Map(states.set(newState.commitmentId, newState));
+        return new Map(commitments.set(newCommitment.commitmentId, newCommitment));
     }
 
     /**
-     * Creates the new states map when a new state shouldn't render.
+     * Creates the new commitments map when a new commitment shouldn't render.
      *
      * @private
-     * @return {ViewStateMap<T>} If `showFor` is specified, meaning views should be auto destroyed after a certain duration,
-     * the current states will kept alive by returning them as a new map. This will allow recommiting to the same render parameters (i.e. delay and countdown).
+     * @return {RenderCommitmentMap<T>} If `showFor` is specified, meaning views should be auto destroyed after a certain duration,
+     * the current commitments will kept alive by returning them as a new map. This will allow recommiting to the same render parameters (i.e. delay and countdown).
      * Otherwise, when views should destroy immediately, an empty map will be returned.
      */
-    private deaggregateStates(): ViewStateMap<T>
+    private deaggregateCommitments(): RenderCommitmentMap<T>
     {
-        return this.showFor ? new Map(this.states) : new Map();
+        return this.showFor ? new Map(this.commitments) : new Map();
     }
     
     /**
-     * Handles the changes to the current state of the watched observable and creates and commits to render all states.
+     * Handles the changes to the current commitment of the watched observable and creates and commits to render all commitments.
      * 
-     * This will update the global state map. If an empty map is passed, all previous states will be destroyed.
+     * This will update the global commitment map. If an empty map is passed, all previous commitments will be destroyed.
      *
      * @private
-     * @param {ViewStateMap<T>} states The current state map.
+     * @param {RenderCommitmentMap<T>} commitments The current commitment map.
      * @return {Observable<void[]>} An observable joining all render commitments.
      */
-    private onStatesChanged(states: ViewStateMap<T>): Observable<void[]>
+    private onCommitmentsChanged(commitments: RenderCommitmentMap<T>): Observable<void[]>
     {
-        // If the state map has been reset, destroy any previously rendered view
-        if (!states.size) this.destroyAll();
+        // If the commitment map has been reset, destroy any previously rendered view
+        if (!commitments.size) this.destroyAll();
 
-        // Update the global state map
-        this.states = states;
-        // Map all states to a commitment to render observable
-        const commitments = Array.from(states.keys())
-                                 .map((commitmentId, index) => this.commitToRender(states, commitmentId, index));
+        // Update the global commitment map
+        this.commitments = commitments;
+        // Map all commitments to a commitment to render observable
+        const runCommitments = Array.from(commitments.keys())
+                                    .map((commitmentId, index) => this.commitToRender(commitments, commitmentId, index));
             
-        return forkJoin(commitments);
+        return forkJoin(runCommitments);
     }
     
     /**
      * Creates an observable that initiates the render flow for an emission. Render flow is as follows:
-     * 1. Delay render until the time for render (i.e. {@link ViewRenderState.renderAt}) has come.
+     * 1. Delay render until the time for render (i.e. {@link ViewRenderCommitment.renderAt}) has come.
      * 2. Render the view.
-     * 3. Update the {@link OnObserverBaseDirective.states global states map} with the rendered state.
+     * 3. Update the {@link OnObserverBaseDirective.commitments global commitments map} with the rendered commitment.
      * 4. Initiate an auto destroy timer. See {@link OnObserverBaseDirective.autoDestroy autoDestroy()}.
-     * 5. Remove the destroyed state from the {@link OnObserverBaseDirective.states global states map}.
+     * 5. Remove the destroyed commitment from the {@link OnObserverBaseDirective.commitments global commitments map}.
      *
      * @private
-     * @param {ViewStateMap<T>} states The current state map holding all commitments to render.
+     * @param {RenderCommitmentMap<T>} commitments The current commitment map holding all commitments to render.
      * @param {string} commitmentId The id of the commitment to render.
      * @param {number} index The index of the view to be rendered.
      * @return {Observable<void>} An observable that initiates the render flow for an emission.
      */
-    private commitToRender(states: ViewStateMap<T>, commitmentId: string, index: number): Observable<void>
+    private commitToRender(commitments: RenderCommitmentMap<T>, commitmentId: string, index: number): Observable<void>
     {
-        if (!states.has(commitmentId)) throw new Error(`
-            *${ this.selector } has encountered an inconsistency issue. Tried to commit to rendering state with ID ${ commitmentId }, but no state object exists with that ID.
+        if (!commitments.has(commitmentId)) throw new Error(`
+            *${ this.selector } has encountered an inconsistency issue. Tried to commit to rendering commitment with ID ${ commitmentId }, but no commitment object exists with that ID.
             Please consider filing an issue and providing a stack trace here: https://github.com/BeSpunky/angular-zen/issues/new?assignees=BeSpunky&labels=%F0%9F%90%9B+Bug&template=bug_report.md&title=%F0%9F%90%9B+
         `);
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return of(states.get(commitmentId)!).pipe(
-            switchMap(state         => this.delayRender(state)),
-            switchMap(state         => this.renderState(state, index)),
-            tap      (renderedState => states.set(commitmentId, renderedState)),
-            switchMap(renderedState => this.autoDestroy(renderedState)),
-            tap      (()            => states.delete(commitmentId))
+        return of(commitments.get(commitmentId)!).pipe(
+            switchMap(commitment         => this.delayRender(commitment)),
+            switchMap(commitment         => this.renderCommitment(commitment, index)),
+            tap      (renderedCommitment => commitments.set(commitmentId, renderedCommitment)),
+            switchMap(renderedCommitment => this.autoDestroy(renderedCommitment)),
+            tap      (()            => commitments.delete(commitmentId))
         );
     }
 
     /**
-     * Creates an observable which delays the pipeline until the time to render the view (i.e. {@link ViewRenderState.renderAt}) comes.
+     * Creates an observable which delays the pipeline until the time to render the view (i.e. {@link ViewRenderCommitment.renderAt}) comes.
      *
      * @private
-     * @param {ViewRenderState<T>} state The state to delay.
-     * @return {Observable<ViewRenderState<T>>} An observable which delays the pipeline until the time to render the view (i.e. {@link ViewRenderState.renderAt}) comes.
+     * @param {ViewRenderCommitment<T>} commitment The commitment to delay.
+     * @return {Observable<ViewRenderCommitment<T>>} An observable which delays the pipeline until the time to render the view (i.e. {@link ViewRenderCommitment.renderAt}) comes.
      */
-    private delayRender(state: ViewRenderState<T>): Observable<ViewRenderState<T>>
+    private delayRender(commitment: ViewRenderCommitment<T>): Observable<ViewRenderCommitment<T>>
     {
-        return of(state).pipe(
-            delay(new Date(state.renderAt)),
-            mapTo(state)
+        return of(commitment).pipe(
+            delay(new Date(commitment.renderAt)),
+            mapTo(commitment)
         );
     }
 
     /**
-     * Creates a new context for the given state and renders (or updates) the view.
+     * Creates a new context for the given commitment and renders (or updates) the view.
      *
      * @private
-     * @param {ViewRenderState<T>} state The state for which to create the context and render the view.
+     * @param {ViewRenderCommitment<T>} commitment The commitment for which to create the context and render the view.
      * @param {number} index The index of the view. If `viewMode` is `'single'` this should always be `0` as there is only one view.
-     * @return {Observable<ViewRenderState<T>>} An observable which renderes the state, then emits a new updated state referencing the rendered view.
+     * @return {Observable<ViewRenderCommitment<T>>} An observable which renderes the commitment, then emits a new updated commitment referencing the rendered view.
      */
-    private renderState(state: ViewRenderState<T>, index: number): Observable<ViewRenderState<T>>
+    private renderCommitment(commitment: ViewRenderCommitment<T>, index: number): Observable<ViewRenderCommitment<T>>
     {    
-        return of(OnObserverContext.fromState<T>(this.selector, index, state)).pipe(            
-            map(context => this.renderOrUpdateView(state, context)),
+        return of(OnObserverContext.fromCommitment<T>(this.selector, index, commitment)).pipe(            
+            map(context => this.renderOrUpdateView(commitment, context)),
         );
     }
 
@@ -459,11 +459,11 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @see {@link OnObserverBaseDirective.defineCountdownInterval defineCountdownInterval()} for more about the fixed countdown interval.
      *
      * @private
-     * @param {ViewRenderState<T>} state The rendered state for which to initiate auto destroy.
+     * @param {ViewRenderCommitment<T>} commitment The rendered commitment for which to initiate auto destroy.
      * @return {Observable<void>} A timer observable which counts down until the time to destroy the view is reached, then destroys the view, while
      * updating the context with the time left for destruction.
      */
-    private autoDestroy({ destroyAt, showFor, view }: ViewRenderState<T>): Observable<void>
+    private autoDestroy({ destroyAt, showFor, view }: ViewRenderCommitment<T>): Observable<void>
     {
         if (!(showFor && view)) return EMPTY;
 
@@ -480,28 +480,28 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     }
 
     /**
-     * Makes sure the specified state is rendered and its context is updated, then returns an updated state with the rendered (or updated) view.
+     * Makes sure the specified commitment is rendered and its context is updated, then returns an updated commitment with the rendered (or updated) view.
      * If the view has been previously rendered, its context will be updated. Otherwise, the view will be rendered for the first time.
      * 
-     * The new state will be used further down the pipeline to update the internal `states` map.
+     * The new commitment will be used further down the pipeline to update the internal `commitments` map.
      * 
      * @see {@link OnObserverBaseDirective.commitToRender `commitToRender()`}.
      *
      * @private
-     * @param {ViewRenderState<T>} state The state for which the view should be rendered.countdown
+     * @param {ViewRenderCommitment<T>} commitment The commitment for which the view should be rendered.countdown
      * @param {OnObserverContext<T>} context The context object to feed into the view.
-     * @return {ViewRenderState<T>} The new state containing the rendered (or updated) view.
+     * @return {ViewRenderCommitment<T>} The new commitment containing the rendered (or updated) view.
      */
-    private renderOrUpdateView(state: ViewRenderState<T>, context: OnObserverContext<T>): ViewRenderState<T>
+    private renderOrUpdateView(commitment: ViewRenderCommitment<T>, context: OnObserverContext<T>): ViewRenderCommitment<T>
     {
-        if (state.view)
+        if (commitment.view)
         {
-            state.view.context = context;
+            commitment.view.context = context;
             
-            return ViewRenderState.rendered(state, state.view);
+            return ViewRenderCommitment.rendered(commitment, commitment.view);
         }
         
-        return ViewRenderState.rendered(state, this.viewContainer.createEmbeddedView(this.template, context));
+        return ViewRenderCommitment.rendered(commitment, this.viewContainer.createEmbeddedView(this.template, context));
     }
 
     /**

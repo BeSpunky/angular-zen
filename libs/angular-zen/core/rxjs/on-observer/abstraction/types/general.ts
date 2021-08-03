@@ -1,8 +1,8 @@
 import { PartialObserver } from 'rxjs';
 import { EmbeddedViewRef } from '@angular/core';
 
-import { OnObserverContext } from './on-observer-context';
-import { ViewRenderState   } from './view-render-state';
+import { OnObserverContext    } from './on-observer-context';
+import { ViewRenderCommitment } from './view-render-commitment';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { OnObserverBaseDirective } from '../on-observer-base.directive';
@@ -28,8 +28,8 @@ export type DurationBreakdown = Record<DurationUnit, number> & Record<`total${ '
 /** Represents a view rendered by an {@link OnObserverBaseDirective `*onObserver`} directive. */
 export type RenderedView<T> = EmbeddedViewRef<OnObserverContext<T>>;
 
-/** Represents a map of render states holding the information about what views to render and when. */
-export type ViewStateMap<T> = Map<string, ViewRenderState<T>>;
+/** Represents a map of render commitments holding the information about what views to render and when. */
+export type RenderCommitmentMap<T> = Map<string, ViewRenderCommitment<T>>;
 
 /** Represents the supported view modes for {@link OnObserverBaseDirective `*onObserver`} directives. */
 export type ViewMode = 'multiple' | 'single';
