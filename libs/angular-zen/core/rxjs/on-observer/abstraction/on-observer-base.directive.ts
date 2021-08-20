@@ -282,10 +282,13 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     private renderFeed(): Observable<void[]>
     {
         return this.input.pipe(
-            tap      (()     => this.destroyAll()),
-            finalize (()     => this.destroyAll()),
-            switchMap(input  => input ? this.observeInput(input) : EMPTY),
-            map      (call   => this.shouldRender(call) ? this.aggregateCommitments(call) : this.deaggregateCommitments()),
+            // Make sure views are reset if a new observable is passed-in to the directive
+            tap      (()          => this.destroyAll()),
+            // Free memory once the directive is destroyed and the subscription closed
+            // TODO: Will this actually execute? `this.subscribe()` doesn't complete the observable but unsubscribes on component destruction
+            finalize (()          => this.destroyAll()),
+            switchMap(input       => input ? this.observeInput(input) : EMPTY),
+            map      (call        => this.shouldRender(call) ? this.aggregateCommitments(call) : this.deaggregateCommitments()),
             switchMap(commitments => this.onCommitmentsChanged(commitments)),
         );
     }
@@ -415,10 +418,14 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return of(commitments.get(commitmentId)!).pipe(
             switchMap(commitment         => this.delayRender(commitment)),
+            // Actually perform rendering (or update the view if already rendered)
             switchMap(commitment         => this.renderCommitment(commitment, index)),
+            // The commitment returned from `renderCommitment()` now contains the view, so update the global map
             tap      (renderedCommitment => commitments.set(commitmentId, renderedCommitment)),
+            // Initiate the auto-destroy mechanism (will skip if `showFor` wasn't specified)
             switchMap(renderedCommitment => this.autoDestroy(renderedCommitment)),
-            tap      (()            => commitments.delete(commitmentId))
+            // Commitment has completed successfully. Remove it from the global map
+            tap      (()                 => commitments.delete(commitmentId))
         );
     }
 
