@@ -38,7 +38,16 @@ import { ResolvedObserveContext } from './types/general';
  *      <div>...</div>
  * </ng-template>
  * ```
- *  
+ * 
+ * ## ⚠️ Extending notes:
+ * As the base class cannot deduce the directive selector (e.g. `observeLatest`, `observeMerge`, etc.) the extending class
+ * is required to do 4 things:
+ * 1. Implement the abstract `selector` member and assign it with the directive's selector.
+ * 2. Implement and `@Input public set <selector>(value: T)` which will pass its value to the `input` member.
+ * 3. Implement a static context TypeGuard.
+ * 
+ * These will enable Angular features like template type checking and the microsyntax `as` keyword.
+ * 
  * @export
  * @abstract
  * @class ObserveBaseDirective
