@@ -1,5 +1,5 @@
 import { Observable             } from 'rxjs';
-import { Directive              } from '@angular/core';
+import { Component, Directive, Input              } from '@angular/core';
 
 import { ObserveBaseDirective   } from './observe-base.directive';
 import { ResolvedObserveContext } from './types/general';
@@ -23,6 +23,7 @@ describe('ObserveBaseDirective', () =>
 });
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[observeTester]'
 })
 class ObserveTesterDirective extends ObserveBaseDirective<Observable<number>, number, ResolvedObserveContext<number>>
@@ -33,4 +34,17 @@ class ObserveTesterDirective extends ObserveBaseDirective<Observable<number>, nu
     {
         return input;
     }
+}
+
+@Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'observe-test',
+    template: /*html*/`
+        <div *observeTester="testedObservable as result; let implicitResult; let source = source">
+        </div>
+    `
+})
+class ObserveTestHostComponent
+{
+    @Input() public testedObservable?: Observable<number>
 }
