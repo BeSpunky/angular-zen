@@ -1,12 +1,32 @@
-import { Observable             } from 'rxjs';
-import { Component, Directive, Input              } from '@angular/core';
+import { Observable                             } from 'rxjs';
+import { Component, Directive, Input, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed              } from '@angular/core/testing';
 
+import { ObserveModule          } from '../observe.module';
 import { ObserveBaseDirective   } from './observe-base.directive';
 import { ResolvedObserveContext } from './types/general';
 
 describe('ObserveBaseDirective', () =>
 {
-    it('should be created', () => {  });
+    let directive    : ObserveTesterDirective;
+    let fixture      : ComponentFixture<ObserveTestHostComponent>;
+    let hostComponent: ObserveTestHostComponent;
+
+    beforeEach(async () =>
+    {
+        await TestBed.configureTestingModule({
+            imports     : [ObserveModule],
+            declarations: [ObserveTesterDirective, ObserveTestHostComponent],
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(ObserveTestHostComponent);
+        fixture.detectChanges();
+
+        hostComponent = fixture.componentInstance;
+        directive     = hostComponent.testerDirective;
+    })
+
+    it('should be created', () => expect(directive).toBeDefined());
     it('should render the template immediately when created', () => {  });
     it('should subscribe to the passed in observable', () => {  });
     it('should unsubscribe from the passed in observable on destroy', () => {  });
@@ -30,6 +50,8 @@ class ObserveTesterDirective extends ObserveBaseDirective<Observable<number>, nu
 {
     protected selector = 'observeTester';
 
+    @Input() public observeTester(input: Observable<number>) { this.input.next(input); }
+
     protected observeInput(input: Observable<number>): Observable<number>
     {
         return input;
@@ -38,7 +60,7 @@ class ObserveTesterDirective extends ObserveBaseDirective<Observable<number>, nu
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'observe-test',
+    selector: 'observe-test-host',
     template: /*html*/`
         <div *observeTester="testedObservable as result; let implicitResult; let source = source">
         </div>
@@ -47,4 +69,6 @@ class ObserveTesterDirective extends ObserveBaseDirective<Observable<number>, nu
 class ObserveTestHostComponent
 {
     @Input() public testedObservable?: Observable<number>
+
+    @ViewChild(ObserveTesterDirective) public testerDirective!: ObserveTesterDirective;
 }
