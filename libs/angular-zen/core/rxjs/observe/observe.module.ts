@@ -6,6 +6,12 @@ import { ObserveConcatDirective } from './directives/observe-concat.directive';
 import { ObserveJoinDirective   } from './directives/observe-join.directive';
 import { ObserveMergeDirective  } from './directives/observe-merge.directive';
 
+/**
+ * Provides directives to facilitate in-template subscription management to observables.
+ *
+ * @export
+ * @class ObserveModule
+ */
 @NgModule({
     declarations: [
         ObserveDirective,
