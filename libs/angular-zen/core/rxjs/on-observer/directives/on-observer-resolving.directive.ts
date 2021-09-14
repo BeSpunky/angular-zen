@@ -6,7 +6,7 @@ import { OnObserverContext                          } from '../abstraction/types
 import { OnObserverBaseDirective                    } from '../abstraction/on-observer-base.directive';
 
 /**
- * Documentation in {@link OnObserverActiveDirective.onObserverResolving} to allow in-template tooltips.
+ * Documentation in {@link OnObserverResolvingDirective.onObserverResolving} to allow in-template tooltips.
  *
  * @export
  * @class OnObserverResolvingDirective

@@ -5,7 +5,7 @@ import { Directive, OnDestroy } from '@angular/core';
  * Facilitates working with components, directives and services which manually subscribe to observables.
  * Extend this class to easily hook into ngOnDestroy and avoid memory leaks.
  *
- * @see [Wiki](TODO: ADD LINK TO WIKI) for full guide.
+ * @see [Wiki](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/destroyable-(abstract).html) for full guide.
  * 
  * @export
  * @abstract
