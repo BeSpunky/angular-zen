@@ -1,0 +1,65 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "*observe",
+  "steps": [
+    {
+      "title": "ObserveModule",
+      "description": "# ObserveModule\r\nThis module provides directives which facilitate incorporating observable streams into Angular templates. These directives will automatically subscribe and unsubscribe from the observables they are given and, while the observable is alive, will update the template on each emission.\r\n\r\nThis has various advantages over the `async` pipe:\r\n1. No need for an `*ngIf` just to subscribe to the observable.\r\n2. Subscribe once, use multiple times in the template (instead of using `| async` everywhere).\r\n3. Automatic reexposure of the observable as multicast to allow any nested subscriptions to use the same stream instead of generating a new one.\r\n4. Angular events for observer calls (next, complete, error).\r\n\r\n* `*observe` - Observes a single observable.\r\n* `*observeLatest` - Observes a map of observables using rxjs `combineLatest` and emits a map of resolved values.\r\n* `*observeJoin` - Observes a map of observables using rxjs `forkJoin` and emits a map of resolved values.\r\n* `*observeMerge` - Observes an array of observables using rxjs `merge` and emits the current value.\r\n* `*observeConcat` - Observes an array of observables using rxjs `concat` and emits the current value."
+    },
+    {
+      "file": "libs/angular-zen/core/rxjs/observe/abstraction/observe-base.directive.ts",
+      "description": "### ObserveBaseDirective\r\n\r\nAll `*observeXXX` directives extend the `ObserveBaseDirective` which provides the general functionality for the directive.",
+      "line": 61
+    },
+    {
+      "file": "libs/angular-zen/core/rxjs/observe/abstraction/observe-base.directive.ts",
+      "description": "### ObserveBaseDirective\r\n\r\nExtending classes should follow the documented guidelines to allow better DX.",
+      "line": 41,
+      "selection": {
+        "start": {
+          "line": 42,
+          "character": 1
+        },
+        "end": {
+          "line": 50,
+          "character": 4
+        }
+      }
+    },
+    {
+      "file": "libs/angular-zen/core/rxjs/observe/abstraction/observe-base.directive.ts",
+      "description": "### Abstract properties\r\n\r\nAs the base directive doesn't know what the selector will be, it has been created abstract and forces extending classes to provide that information.",
+      "line": 93,
+      "selection": {
+        "start": {
+          "line": 93,
+          "character": 1
+        },
+        "end": {
+          "line": 94,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "libs/angular-zen/core/rxjs/observe/directives/observe-concat.directive.ts",
+      "description": "### Abstract members implementation example",
+      "line": 26
+    },
+    {
+      "file": "libs/angular-zen/core/rxjs/observe/directives/observe-concat.directive.ts",
+      "description": "### Strong typing the view context\r\nThe Angular Language Service needs a static `ngTemplateContextGuard()` method to enable strong-typing of the data passed to the rendered view.\r\nHowever, it cannot detect the static member if it is defined on the base class, which is why every extending class also implements the static guard method.",
+      "line": 63,
+      "selection": {
+        "start": {
+          "line": 63,
+          "character": 1
+        },
+        "end": {
+          "line": 64,
+          "character": 1
+        }
+      }
+    }
+  ]
+}
