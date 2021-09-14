@@ -6,7 +6,20 @@ import { ResolvedObserveContext } from './types/general';
 
 describe('ObserveBaseDirective', () =>
 {
-    
+    it('should be created', () => {  });
+    it('should render the template immediately when created', () => {  });
+    it('should subscribe to the passed in observable', () => {  });
+    it('should unsubscribe from the passed in observable on destroy', () => {  });
+    it('should unsubscribe and switch observables when the passed in observable changes', () => {  });
+    it('should update the view context with the latest value emitted by the watched observable', () => {  });
+    it('should update the view context with the latest multicasted version of the observable', () => {  });
+    it('should allow access to the emitted value through an implicit `let` variable', () => {  });
+    it('should allow access to the emitted value through an variable defined using the `as` microsyntax', () => {  });
+    it('should allow access to the latest multicasted version of the observable using a let variable for `source`', () => {  });
+    it('should trigger the `nextCalled` event when the source observable emits a value', () => {  });
+    it('should trigger the `completeCalled` event when the source observable completes', () => {  });
+    it('should trigger the `errorCalled` event when the source observable errors', () => {  });
+    it('should trigger the `completeCalled` event when no source observable is passed in', () => {  });
 });
 
 @Directive({
