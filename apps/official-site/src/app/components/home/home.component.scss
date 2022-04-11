@@ -1,0 +1,34 @@
+.cover-image {
+    content            : '';
+    position           : absolute;
+    top                : 0;
+    bottom             : 0;
+    left               : 0;
+    right              : 0;
+    z-index            : -1;
+    background-size    : cover;
+    background-position: center center;
+    background-repeat  : no-repeat;
+}
+
+.project-link {
+    padding: 10px 25px !important;
+}
+
+.project-link.soon::before {
+    content       : '🚧 Soon';
+    padding-top   : 0;
+    padding-bottom: 0;
+    top           : -12px;
+    right         : initial;
+    left          : -10px;
+    transform     : rotate(-7deg);
+}
+
+.demos {
+    background: rgba(0, 0, 0, 0.14);
+}
+
+.footer a {
+    color: rgb(71, 71, 71);
+}
