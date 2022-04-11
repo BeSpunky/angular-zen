@@ -23,6 +23,9 @@
       ],
       "@bespunky/angular-zen/language": [
         "libs/angular-zen/language/src/index.ts"
+      ],
+      "@bespunky/angular-zen/language\\testing": [
+        "libs/angular-zen/language\\testing/src/index.ts"
       ]
     }
   },
