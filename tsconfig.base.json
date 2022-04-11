@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@bespunky/angular-zen": ["libs/angular-zen/src/index.ts"],
+      "@bespunky/angular-zen/async": ["libs/angular-zen/async/src/index.ts"],
       "@bespunky/angular-zen/core": ["libs/angular-zen/core/src/index.ts"],
       "@bespunky/angular-zen/core/testing": [
         "libs/angular-zen/core/testing/src/index.ts"
