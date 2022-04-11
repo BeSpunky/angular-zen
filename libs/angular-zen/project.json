@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/angular-zen",
+  "sourceRoot": "libs/angular-zen/src",
+  "prefix": "bs",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/angular-zen"],
+      "options": {
+        "project": "libs/angular-zen/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/angular-zen/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/angular-zen"],
+      "options": {
+        "jestConfig": "libs/angular-zen/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/angular-zen/src/**/*.ts",
+          "libs/angular-zen/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

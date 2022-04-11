@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "angular-zen": "libs/angular-zen",
     "official-site": "apps/official-site",
     "official-site-e2e": "apps/official-site-e2e"
   }
