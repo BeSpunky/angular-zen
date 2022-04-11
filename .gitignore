@@ -38,6 +38,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+.angular
+
 \.firebase/
 
 chrome-debugging-profile/
