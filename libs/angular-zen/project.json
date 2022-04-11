@@ -39,7 +39,9 @@
           "libs/angular-zen/core/testing/**/*.ts",
           "libs/angular-zen/core/testing/**/*.html",
           "libs/angular-zen/async/**/*.ts",
-          "libs/angular-zen/async/**/*.html"
+          "libs/angular-zen/async/**/*.html",
+          "libs/angular-zen/language/**/*.ts",
+          "libs/angular-zen/language/**/*.html"
         ]
       }
     }

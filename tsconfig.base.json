@@ -20,6 +20,9 @@
       "@bespunky/angular-zen/core": ["libs/angular-zen/core/src/index.ts"],
       "@bespunky/angular-zen/core/testing": [
         "libs/angular-zen/core/testing/src/index.ts"
+      ],
+      "@bespunky/angular-zen/language": [
+        "libs/angular-zen/language/src/index.ts"
       ]
     }
   },
