@@ -1,1 +1,2 @@
-export const greeting = "Hello World!";
+export * from './utils/language-integration-config';
+export * from './utils/setup';
