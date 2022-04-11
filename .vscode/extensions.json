@@ -3,6 +3,7 @@
     "angular.ng-template",
     "nrwl.angular-console",
     "firsttris.vscode-jest-runner",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "vsls-contrib.codetour"
   ]
 }

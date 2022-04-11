@@ -7,7 +7,23 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+
+    "build-site": "nx build --prod --project official-site && npm run generate-zen-docs",
+    "lib-vmajor": "git stash && cd libs/angular-zen && (for /F %m in ('npm version major') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
+    "lib-vminor": "git stash && cd libs/angular-zen && (for /F %m in ('npm version minor') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
+    "lib-vpatch": "git stash && cd libs/angular-zen && (for /F %m in ('npm version patch') do git commit --all -m \"Bumped library version to %m\") && git stash pop",
+    "app-vmajor": "git stash && (for /F %m in ('npm version major --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\") && git stash pop",
+    "app-vminor": "git stash && (for /F %m in ('npm version minor --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\") && git stash pop",
+    "app-vpatch": "git stash && (for /F %m in ('npm version patch --no-git-tag-version') do git commit --all -m \"Bumped workspace version to %m\") && git stash pop",
+    "vmajor": "npm run lib-vmajor && npm run app-vmajor",
+    "vminor": "npm run lib-vminor && npm run app-vminor",
+    "vpatch": "npm run lib-vpatch && npm run app-vpatch",
+    "publish": "cd dist/libs/angular-zen && npm publish --access public",
+    "publish-site": "firebase deploy --only hosting:bs-angular-zen",
+    "update-wiki-summary": "node tools/generators/generate-wiki-summary",
+    "generate-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd libs/angular-zen && compodoc",
+    "serve-zen-docs": "npm run update-wiki-summary -- ./wiki/angular-zen && cd libs/angular-zen && compodoc -s"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "bs-angular-zen",
+    "public": "./dist/apps/official-site",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
