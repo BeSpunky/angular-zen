@@ -55,7 +55,7 @@ export abstract class Destroyable implements OnDestroy
      * @param {() => void} [complete] (Optional) A callback function to execute when the observable completes.
      * @returns {Subscription} The subscription created for the observable.
      */
-    protected subscribe<T>(observable: Observable<T>, next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+    protected subscribe<T>(observable: Observable<T>, next?: (value: T) => void, error?: (error: unknown) => void, complete?: () => void): Subscription;
     /**
      * Subscribes to an observable and stores the subscription for automatic disposal.
      * When `ngOnDestroy()` is called, all subscriptions created with this method will unsubscribe.
@@ -67,7 +67,7 @@ export abstract class Destroyable implements OnDestroy
      * @returns {Subscription} The subscription created for the observable.
      */
     protected subscribe<T>(observable: Observable<T>, observer?: PartialObserver<T>): Subscription;
-    protected subscribe<T>(observable: Observable<T>, observerOrNext?: PartialObserver<T> | ((value: T) => void), error?: (error: any) => void, complete?: () => void): Subscription
+    protected subscribe<T>(observable: Observable<T>, observerOrNext?: PartialObserver<T> | ((value: T) => void), error?: (error: unknown) => void, complete?: () => void): Subscription
     {
         // Cast partial observer object
         const observer = observerOrNext instanceof Function ? {

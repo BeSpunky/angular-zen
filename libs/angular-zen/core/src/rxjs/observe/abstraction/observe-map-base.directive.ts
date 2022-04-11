@@ -29,7 +29,7 @@ import { ObservableMap, EmittedMapOf, ObserveMapContext } from './types/maps';
 export abstract class ObserveMapDirective<TInput extends ObservableMap, TContext extends ObserveMapContext<TInput>>
               extends ObserveBaseDirective<TInput, EmittedMapOf<TInput>, TContext>
 {
-    protected createViewContext(data: { value?: EmittedMapOf<TInput> | null , source?: Observable<EmittedMapOf<TInput>> }): TContext
+    protected override createViewContext(data: { value?: EmittedMapOf<TInput> | null , source?: Observable<EmittedMapOf<TInput>> }): TContext
     {
         // Spread the values emitted from the observable to allow `let` microsyntax and directly accessing them
         return { ...super.createViewContext(data),  ...data.value };

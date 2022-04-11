@@ -1,5 +1,5 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
-import { RouterOutlet                  } from '@angular/router';
+import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { RouterOutlet                             } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from './router-outlet-component-bus.service';
@@ -27,7 +27,7 @@ import { RouterOutletComponentBus } from './router-outlet-component-bus.service'
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'router-outlet[publishComponent]'
 })
-export class PublishComponentDirective extends Destroyable implements OnInit
+export class PublishComponentDirective extends Destroyable implements OnInit, OnDestroy
 {
     private outletName!: string;
 
@@ -49,7 +49,7 @@ export class PublishComponentDirective extends Destroyable implements OnInit
     /**
      * Unpublishes the outlet from the bus.
      */
-    ngOnDestroy()
+    override ngOnDestroy()
     {
         // An outlet might be kept alive while its component is switched. So when the outlet is completely destroyed,
         // it will be completely removed from the bus, even though its value on the bus is null.
@@ -59,7 +59,7 @@ export class PublishComponentDirective extends Destroyable implements OnInit
         super.ngOnDestroy();
     }
 
-    private updateComponentOnBus(instance: any): void
+    private updateComponentOnBus(instance: unknown): void
     {
         this.componentBus.publishComponent(instance, this.outletName);        
     }

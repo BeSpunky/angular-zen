@@ -1,5 +1,5 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { ActivatedRoute, Router       } from '@angular/router';
+import { Inject, Injectable, Optional   } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { DocumentRef   } from '@bespunky/angular-zen/core';
 import { RouterXConfig } from '../config/router-x-config';
@@ -99,7 +99,7 @@ export class UrlReflectionService
      */
     public routeOf(url: string): string
     {
-        return url.match(this.RouteRegex)?.groups?.route || '';
+        return url.match(this.RouteRegex)?.groups?.['route'] || '';
     }
     
     /**
@@ -228,7 +228,7 @@ export class UrlReflectionService
      * @readonly
      * @type {*}
      */
-    public get queryParams(): any
+    public get queryParams(): Params
     {
         return { ...this.route.snapshot.queryParams };
     }
@@ -252,7 +252,7 @@ export class UrlReflectionService
      */
     public get fragment(): string
     {
-        return this.route.snapshot.fragment!;
+        return this.route.snapshot.fragment || '';
     }
 
     /**

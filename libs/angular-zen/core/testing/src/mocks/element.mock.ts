@@ -65,7 +65,7 @@ export class MockElement
             // This is necessary to avoid infinite loops with zero-width matches
             if (match.index === regex.lastIndex) regex.lastIndex++;
 
-            attributes.push({ name: match.groups?.attr, value: match.groups?.value || '**' });
+            attributes.push({ name: match.groups?.['attr'], value: match.groups?.['value'] || '**' });
         }
 
         return attributes;
