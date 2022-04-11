@@ -76,6 +76,8 @@ export abstract class Destroyable implements OnDestroy
             complete
         } : observerOrNext;
 
-        return this.subscriptions.add(observable.subscribe(observer));
+        this.subscriptions.add(observable.subscribe(observer));
+
+        return this.subscriptions;
     }
 }
