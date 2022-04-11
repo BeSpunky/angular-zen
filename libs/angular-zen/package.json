@@ -1,8 +1,8 @@
 {
   "name": "@bespunky/angular-zen",
   "version": "4.0.0-alpha.0",
-  "preview": true,
   "description": "The Angular tools you always wished were there.",
+  "preview": true,
   "private": false,
   "author": {
     "name": "BeSpunky",
