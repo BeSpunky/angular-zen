@@ -33,7 +33,9 @@
       "options": {
         "lintFilePatterns": [
           "libs/angular-zen/src/**/*.ts",
-          "libs/angular-zen/src/**/*.html"
+          "libs/angular-zen/src/**/*.html",
+          "libs/angular-zen/core/**/*.ts",
+          "libs/angular-zen/core/**/*.html"
         ]
       }
     }
