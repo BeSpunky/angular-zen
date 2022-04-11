@@ -3,7 +3,6 @@ import { Directive, Input          } from '@angular/core';
 
 import { ObserveMapDirective                            } from '../abstraction/observe-map-base.directive';
 import { ObserveMapContext, EmittedMapOf, ObservableMap } from '../abstraction/types/maps';
-import { observeAsArray                                 } from '../_utils/_observe-as-array';
 
 type ObserveLatestContext<T extends ObservableMap> = ObserveMapContext<T> & {
     observeLatest: EmittedMapOf<T>
@@ -81,6 +80,6 @@ export class ObserveLatestDirective<T extends { [key: string]: Observable<unknow
     
     protected observeInput(input: T): Observable<EmittedMapOf<T>>
     {
-        return observeAsArray(input, observables => combineLatest(observables));
+        return combineLatest(input) as Observable<EmittedMapOf<T>>;
     }
 }

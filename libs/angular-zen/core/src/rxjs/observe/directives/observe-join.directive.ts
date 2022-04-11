@@ -3,7 +3,6 @@ import { Directive, Input     } from '@angular/core';
 
 import { ObserveMapDirective                            } from '../abstraction/observe-map-base.directive';
 import { EmittedMapOf, ObservableMap, ObserveMapContext } from '../abstraction/types/maps';
-import { observeAsArray                                 } from '../_utils/_observe-as-array';
 
 type ObserveJoinContext<T extends ObservableMap> = ObserveMapContext<T> & {
     observeJoin: EmittedMapOf<T>
@@ -76,6 +75,6 @@ export class ObserveJoinDirective<T extends { [key: string]: Observable<unknown>
     
     protected observeInput(input: T): Observable<EmittedMapOf<T>>
     {
-        return observeAsArray(input, observables => forkJoin(observables));
+        return forkJoin(input) as Observable<EmittedMapOf<T>>;
     }
 }
