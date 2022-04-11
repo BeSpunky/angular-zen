@@ -9,21 +9,19 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "max-len": "off",
-        "@typescript-eslint/no-empty-function": "warn",
         "@angular-eslint/directive-selector": [
-          "warn",
+          "error",
           {
             "type": "attribute",
-            "prefix": "bs-zen",
+            "prefix": "bs",
             "style": "camelCase"
           }
         ],
         "@angular-eslint/component-selector": [
-          "warn",
+          "error",
           {
             "type": "element",
-            "prefix": "bs-zen",
+            "prefix": "bs",
             "style": "kebab-case"
           }
         ]

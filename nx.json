@@ -1,40 +1,31 @@
 {
+  "npmScope": "bespunky",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "pnpm"
+  },
   "implicitDependencies": {
-    "angular.json": "*",
     "package.json": {
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.base.json": "*",
-    "tslint.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*"
+    ".eslintrc.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
-  "npmScope": "bespunky",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "NTJkNmM1ZDgtNDZmMC00OTQzLTlmYjAtODIwOWNhNDAxYzEyfHJlYWQtd3JpdGU=",
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MTIyMTVkZjAtZmZmZS00ZjNhLTkzOTItOWM4YmM2NGU2ZjY5fHJlYWQtd3JpdGU="
       }
-    }
-  },
-  "projects": {
-    "angular-zen": {
-      "tags": []
-    },
-    "official-site": {
-      "tags": []
-    },
-    "official-site-e2e": {
-      "tags": [],
-      "implicitDependencies": ["official-site"]
     }
   },
   "targetDependencies": {
@@ -44,5 +35,21 @@
         "projects": "dependencies"
       }
     ]
-  }
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "angular-zen"
 }

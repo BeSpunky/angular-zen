@@ -16,5 +16,5 @@ export interface CardInfo
 })
 export class ExampleListComponent
 {
-    @Input() public cards: CardInfo[];
+    @Input() public cards: CardInfo[] = [];
 }

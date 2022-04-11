@@ -1,8 +1,8 @@
 {
   "name": "@bespunky/angular-zen",
   "version": "4.0.0-alpha.0",
-  "preview": true,
   "description": "The Angular tools you always wished were there.",
+  "preview": true,
   "private": false,
   "author": {
     "name": "BeSpunky",
@@ -26,11 +26,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": ">= 7.2.0",
-    "@angular/core": ">= 7.2.0",
-    "lodash-es": "^4.17.15"
+    "@angular/common": "^13.3.0",
+    "@angular/core": "^13.3.0",
+    "lodash-es": "^4.17.21"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.0"
   }
 }
