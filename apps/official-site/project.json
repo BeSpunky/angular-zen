@@ -66,6 +66,28 @@
       },
       "defaultConfiguration": "development"
     },
+    "docs": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["wiki/angular-zen"],
+      "options": {
+        "commands": ["nx run official-site:docs:serve-zen"],
+        "parallel": false
+      },
+      "configurations": {
+        "generate-zen": {
+          "commands": [
+            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
+            "cd libs/angular-zen && compodoc"
+          ]
+        },
+        "serve-zen": {
+          "commands": [
+            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
+            "cd libs/angular-zen && compodoc -s"
+          ]
+        }
+      }
+    },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
@@ -87,6 +109,18 @@
       "options": {
         "jestConfig": "apps/official-site/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "nx run official-site:build:production",
+          "nx run official-site:docs:generate-zen",
+          "firebase deploy --only hosting:bs-angular-zen"
+        ],
+        "parallel": false
       }
     }
   },

@@ -20,12 +20,36 @@
       },
       "defaultConfiguration": "production"
     },
+    "version": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "git stash",
+          "cd libs/angular-zen && (for /F %m in ('pnpm version {args.versionStep}') do git commit --all -m \"Bumped library version to %m\")",
+          "git stash pop"
+        ],
+        "parallel": false
+      },
+      "configurations": {
+        "major": { "args": "--versionStep=major" },
+        "minor": { "args": "--versionStep=minor" },
+        "patch": { "args": "--versionStep=patch" }
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/angular-zen"],
       "options": {
         "jestConfig": "libs/angular-zen/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cd dist/libs/angular-zen && npm publish --access public"
       }
     },
     "lint": {
