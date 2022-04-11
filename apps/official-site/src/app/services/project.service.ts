@@ -23,7 +23,9 @@ export class ProjectService extends RouteAware
         
     private extractProject(): Project
     {
-        let project: Project;
+        if (!this.route.snapshot.root.firstChild) return ZenProject;
+
+        let project: Project | undefined;
 
         this.deepScanRoute(this.route.snapshot.root.firstChild, route =>
         {
@@ -34,6 +36,6 @@ export class ProjectService extends RouteAware
             return true;
         }, 1);
 
-        return project || ZenProject;
+        return project ?? ZenProject;
     }
 }
