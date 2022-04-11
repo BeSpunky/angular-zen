@@ -10,14 +10,11 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2018", "dom"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-        "@bespunky/angular-zen"  : ["libs/angular-zen"],
-        "@bespunky/angular-zen/*": ["libs/angular-zen/*"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
