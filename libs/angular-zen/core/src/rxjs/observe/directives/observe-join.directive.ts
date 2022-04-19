@@ -24,7 +24,7 @@ export class ObserveJoinDirective<T extends { [key: string]: Observable<unknown>
     protected selector = 'observeJoin';
 
     /**
-     * Joins a map of observables using rxjs {@link forkJoin forkJoin()} and exposes the emitted values to the template.
+     * Joins a map of observables using rxjs {@link https://rxjs.dev/api/index/function/forkJoin forkJoin()} and exposes the emitted values to the template.
      * Values are exposed in a map which keys are the same keys as the original observable map and values are
      * the emitted values corresponding to those keys.
      * 

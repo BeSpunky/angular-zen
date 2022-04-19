@@ -29,7 +29,7 @@ export class ObserveLatestDirective<T extends { [key: string]: Observable<unknow
     protected selector = 'observeLatest';
 
     /**
-     * Combines a map of observables using rxjs {@link combineLatest combineLatest()} and exposes the emitted values to the template.
+     * Combines a map of observables using rxjs {@link https://rxjs.dev/api/index/function/combineLatest combineLatest()} and exposes the emitted values to the template.
      * Values are exposed in a map which keys are the same keys as the original observable map and values are
      * the emitted values corresponding to those keys.
      * 

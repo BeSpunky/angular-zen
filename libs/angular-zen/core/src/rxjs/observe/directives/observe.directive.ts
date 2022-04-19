@@ -25,7 +25,7 @@ export class ObserveDirective<T extends Observable<unknown>>
     protected selector = 'observe';
 
     /**
-     * Tracks an observable and updated the template with its emitted value on each emission.
+     * Tracks an observable and updates the template with its emitted value on each emission.
      *
      * Any template assigned with the directive will render immediately, and its view context will be updated with the emitted value on
      * each emission. The directive will be responsible for subscribing on init and unsubscribing on destroy.

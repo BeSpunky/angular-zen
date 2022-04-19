@@ -26,7 +26,7 @@ export class ObserveConcatDirective<T extends Observable<unknown>[]>
     protected selector = 'observeConcat';
 
     /**
-     * Concats an array of observables using rxjs {@link concat concat()} and exposes the emitted values to the template.
+     * Concats an array of observables using rxjs {@link https://rxjs.dev/api/index/function/concat concat()} and exposes the emitted values to the template.
      * 
      * Any template assigned with the directive will render immediately, and its view context will be updated with the emitted value on
      * each emission. The directive will be responsible for subscribing on init and unsubscribing on destroy.
