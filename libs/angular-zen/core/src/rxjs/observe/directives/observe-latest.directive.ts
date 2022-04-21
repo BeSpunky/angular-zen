@@ -56,23 +56,23 @@ export class ObserveLatestDirective<T extends { [key: string]: Observable<unknow
      * The shared observable can be accessed using the `let source = source` microsyntax.
      * 
      * #### Observer events
-     * Whenever the observable changes state or emits a value, the corresponding event is emitted:
-     * `nextCalled` - A value has been emitted. `$event` will be emitted value.
-     * `errorCalled` - An error has occured in the pipeline. `$event` will be the error.
+     * Whenever the observable changes state or emits a value, the corresponding event is emitted:  
+     * `nextCalled` - A value has been emitted. `$event` will be the emitted value.  
+     * `errorCalled` - An error has occured in the pipeline. `$event` will be the error.  
      * `completeCalled` - The observable has completed. `$event` will be void.
-     * 
-     * Because of limitations to Angular's Structural Directives, in order to bind the events the desugared syntax must be used.
-     * This, for example, will not trigger the event:
-     * ```html
-     * <div *observeLatest="{ x: x$, y: y$ }; let source = source" (nextCalled)="onNext($event)">...</div>
-     * ```
-     * 
-     * This *will*:
-     * ```
-     * <ng-template [observeLatest]="{ x: x$, y: y$ }" let-source="source" (nextCalled)="onNext($event)">
-     *      <div>...</div>
-     * </ng-template>
-     * ```
+     *
+     * > Because of limitations to Angular's Structural Directives, in order to bind the events the desugared syntax must be used.
+     * This, for example, **will trigger** the event:
+     * > ```html
+     * ><ng-template [observe]="x$" let-source="source" (nextCalled)="onNext($event)">
+     * >    ...
+     * ></ng-template>
+     * > ```
+     * >
+     * >This **will NOT trigger** the event:
+     * >```html
+     * > <div *observe="x$; let source = source" (nextCalled)="onNext($event)">...</div>
+     * >```
      */
     @Input() public set observeLatest(value: T) { this.input.next(value); }
     
