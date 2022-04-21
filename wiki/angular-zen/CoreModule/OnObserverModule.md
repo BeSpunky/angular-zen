@@ -1,4 +1,4 @@
-The directives provided by the `OnObserverModule` aim facilitate and enrich the common practice conditionally rendering template elements according to observable states (i.e. resolving, next, error, complete).
+The directives provided by the `OnObserverModule` aim facilitate and enrich the common practice of conditionally rendering template elements according to observable states (i.e. resolving, next, error, complete).
 
 In other words, they allow you to:
 1. Delay rendering of an element until an observable has a specific state(s).

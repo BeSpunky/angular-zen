@@ -18,12 +18,23 @@
     🎁 <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/modules-overview.html">What's in the library?</a>
 </p>
 
-## 🧘‍♂️ Zen...
-`@bespunky/angular-zen` provides a set of well meditated general purpose tools for common Angular related tasks, to help you keep focused on the task at hand and stay in control of your workflow. These tools are all **🌳 tree-shakable**.
+<h2 align="center">🧘‍♂️ Zen...</h2>
 
-You may use the library as you like, with any app, under the MIT license.
+<p align="center">
+    The <code>@bespunky/angular-zen</code> library provides a set of well meditated general purpose tools for common Angular related tasks<br/>
+    to help you keep focused on the task at hand and stay in control of your workflow.<br/>  
+    These tools are all <b>🌳 tree-shakable</b>.
+</p>
+
+<p align="center">
+    You may use the library as you'd like, with any app, under the MIT license.
+</p>
 
 ## ✨ The Highlights
+
+[👁️ `*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html) - Super easy RxJS integration.
+
+[👁️ `*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) - Conditional template rendering according to observable states.
 
 [💥`Destroyable`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/destroyable-(abstract).html) - No more manual `unsubscribe()` calls.
 
@@ -48,13 +59,17 @@ You may use the library as you like, with any app, under the MIT license.
 [🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) - Create route aware services and components with language integration.
 
 ## Versions
-The library was generated using Angular 7 and has been gradually updated and tested up to Angular 11. 
+Version 5.0.0 was regenerated based on Angular 13.
+
+Previous versions of the library were based on a workspace generated using Angular 7 which has been gradually updated and tested up to Angular 11.
+
 Compatibility with older versions is possible but not guaranteed.
 
 [Full change log](https://bs-angular-zen.web.app/docs/zen/changelog.html)
 
 ## Supporting The Project
-If you like this project, find it useful and want to donate, you're welcome to buy me a coffee 😊. If you can't, no worries. A simple 'hello' or 'thank you' always warms my heart. 💗
+If you like this project, find it useful and want to donate, you're welcome to buy me a coffee 😊.  
+If you can't, no worries. A simple 'hello' or 'thank you' always warms my heart. 💗
 
 <a href="https://www.buymeacoffee.com/bespunky"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=bespunky&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
@@ -74,3 +89,5 @@ Please follow the [contribution guidelines]().
 [Source Code](https://github.com/bespunky/angular-zen)
 
 [NPM Package](https://www.npmjs.com/package/@bespunky/angular-zen)
+
+<br/>
