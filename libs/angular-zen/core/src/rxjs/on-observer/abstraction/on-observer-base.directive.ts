@@ -34,7 +34,7 @@ const DefaultCountdownUpdateCount = 30;
  * #### Auto destroy
  * Specify {@link OnObserverBaseDirective.showFor `showFor`} to automatically destroy the view after a certain duration.
  * 
- * #### Countdown udpates
+ * #### Countdown updates
  * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated in fixed intervals with the
  * amount of time left until the view is destroyed. This allows giving the user feedback in a progress bar, a spinner, a textual timer
  * or any other UI component. 
