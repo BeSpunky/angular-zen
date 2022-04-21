@@ -75,7 +75,7 @@ For small features and improvements, you can go ahead and develop them.
 1. Develop your feature or fix making [small and precise commits](#commits)
 2. [Test your work](#testing)
 3. [Document your work](#documenting)
-4. Remember to push your work each now and then, so it is safely backed-up.
+4. Remember to push your work every now and then, so it is safely backed-up.
 
 ##### Branching
 * Always create your branch out of the `development` branch.
@@ -112,6 +112,7 @@ import { EmittingWrapper               } from '../types/abstraction';
 * Use 2 spaces for `.json` file indentations.
 
 * Align object properties and assignment expressions:
+
 ```ts
 const someValue    = 1;
 const anotherValue = 2;
@@ -122,7 +123,8 @@ const config       = {
 ```
 
 * Place opening braces on a new line:
-```ts 
+
+```ts
 function doMagic(): void
 {
     if (somethingCoolHappend)
@@ -137,6 +139,7 @@ function doMagic(): void
 ```
 
 * Avoid switch statements when possible. Use a mapping object instead:
+
 ```ts
 enum Color { Black, White, ... }
 // Much cleaner, especially if there are many colors
@@ -167,6 +170,7 @@ class NoSwitchHere
  * Always state the return type of a function or a method.
  
  * Break complex functions into smaller ones and give them meaningful and explanatory names.
+
 ```ts
 function doMagic(trick: 'pigeon' | 'rabbit'): string
 {
@@ -262,3 +266,5 @@ On Windows, press `Ctrl + .` to launch the emoji dialog.
 | 📱 | mobile phone | Improved responsiveness |
 | 📦 | package | Installed, updated or downgraded a dependency | 
 | ✅ | check mark button | Added or modified unit tests |
+
+<br/>
