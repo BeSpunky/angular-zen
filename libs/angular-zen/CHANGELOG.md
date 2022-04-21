@@ -1,3 +1,22 @@
+# **v5.0.0** <small>2022-04-21</small>
+## Breaking Changes
+📦 Updated Angular to v13.
+> No version was released for Angular v12 due to lack of time. Anyone willing to contribute?
+
+📦 Updated peer rxjs to v7.
+
+📦 Updated TypeScript to v4.6.2 and made some required types  adaptations.
+
+
+
+## Other Changes
+➕ Added the [`*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).
+
+➕ Added the [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).
+
+📃 Improved documentation readability and added docs for new features.
+
+
 # **v4.0.0** <small>2021-04-07</small>
 ## Breaking Changes
 🚛 Migrated to NX. Recreated entire workspace as an NX monorepo.

@@ -20,7 +20,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
         let tp = lithtml.html(`
         <nav>
             <ul class="list">
-                <li class="title">
+                <li class="title" style="padding: 0">
                     {{#if customLogo}}
                     <a href="index.html" data-type="index-link" class="text-center">
                         <img alt="" class="img-responsive" width="180" data-type="compodoc-logo" data-src={{strip-url "images/" customLogo}}> 
@@ -28,10 +28,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                     {{else}}
                     <a href="index.html" data-type="index-link">{{documentationMainName}}</a>
                     {{/if}}
-                    <h2 class="text-center" style="margin-top: 0px">Official Docs</h2>
+                    <h2 class="text-center" style="margin-top: 0; border: none;">Official Docs</h2>
                 </li>
 
-                <li class="divider"></li>
                 ${ isNormalMode ? `{{#unless disableSearch}}{{> search-input }}{{/unless}}` : '' }
                 
                 {{#if additionalPages}}
@@ -69,7 +68,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                 {{/if}}
                 
                 <li class="text-center text-muted" style="padding: 10px; background: #eaeaea; box-shadow: 0px 1px 3px 1px #dcdcdc;">API Reference</li>
-                <li class="divider"></li>
+                {{!-- <li class="divider"></li> --}}
                 {{#if modules}}
                     <li class="chapter modules">
                         <a data-type="chapter-link" href="modules.html">

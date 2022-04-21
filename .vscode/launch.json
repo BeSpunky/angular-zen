@@ -10,6 +10,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
+      "args": ["./wiki/angular-zen"],
       "type": "pwa-node"
     },
     {

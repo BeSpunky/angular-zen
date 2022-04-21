@@ -1,8 +1,8 @@
 import { NgModule             } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ZenProjects   } from './content/all';
-import { project, childProject       } from './utils/route-builders';
+import { ZenProjects           } from './content/all';
+import { project, childProject } from './utils/route-builders';
 
 const [MainZenProject, ...ChildZenProjects] = ZenProjects;
 

@@ -6,6 +6,12 @@
 @import "./compodoc.css";
 @import "./tablesort.css";
 
+h2 {
+    /* This will make a clearer separation between topic and sub-topic or examples */
+    border-bottom: 3px double #a7a2a2;
+    margin-top   : 35px;
+}
+
 .table.table-no-borders tr>td {
     border: none !important;
 }
@@ -25,4 +31,11 @@
 
 .card-shadow {
     box-shadow: 0px 8px 4px -4px rgba(206, 206, 206, 0.4);
+}
+
+blockquote {
+    font-size    : small;
+    background   : #ebebeb8c;
+    border-left  : 5px solid #c0c0c0;
+    border-radius: 4px;
 }

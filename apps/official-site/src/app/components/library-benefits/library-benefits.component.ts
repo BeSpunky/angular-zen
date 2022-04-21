@@ -8,5 +8,5 @@ import { Benefit          } from '../../types/benefit';
 })
 export class LibraryBenefitsComponent
 {
-    @Input() public benefits: Benefit[];
+    @Input() public benefits: Benefit[] = [];
 }

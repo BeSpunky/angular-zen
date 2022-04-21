@@ -25,6 +25,20 @@ export const CoreModuleExamples: Example[] = [
         description: 'Subscribe to observables without worrying about memory leaks.',
         icon       : 'local_fire_department',
         embedUrl   : 'https://codesandbox.io/embed/destroyable-tmjni?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fdemo%2Fno-leak.component.ts&theme=dark'
+    },
+    {
+        title      : '*observe directives',
+        description: 'Enhance the concepts of the `async` pipe with new features.',
+        icon       : 'visibility',
+        embedUrl   : '',
+        soon       : true
+    },
+    {
+        title      : '*onObserver directives',
+        description: 'Condition template rendering according to observable states.',
+        icon       : 'generating_tokens',
+        embedUrl   : '',
+        soon       : true
     }
 ];
 

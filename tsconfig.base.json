@@ -15,8 +15,27 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-        "@bespunky/angular-zen"  : ["libs/angular-zen"],
-        "@bespunky/angular-zen/*": ["libs/angular-zen/*"]
+      "@bespunky/angular-zen": ["libs/angular-zen/src/index.ts"],
+      "@bespunky/angular-zen/async": ["libs/angular-zen/async/src/index.ts"],
+      "@bespunky/angular-zen/core": ["libs/angular-zen/core/src/index.ts"],
+      "@bespunky/angular-zen/core/testing": [
+        "libs/angular-zen/core/testing/src/index.ts"
+      ],
+      "@bespunky/angular-zen/language": [
+        "libs/angular-zen/language/src/index.ts"
+      ],
+      "@bespunky/angular-zen/language/testing": [
+        "libs/angular-zen/language/testing/src/index.ts"
+      ],
+      "@bespunky/angular-zen/router-x": [
+        "libs/angular-zen/router-x/src/index.ts"
+      ],
+      "@bespunky/angular-zen/router-x/testing": [
+        "libs/angular-zen/router-x/testing/src/index.ts"
+      ],
+      "@bespunky/angular-zen/universal": [
+        "libs/angular-zen/universal/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

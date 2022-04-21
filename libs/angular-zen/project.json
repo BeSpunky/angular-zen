@@ -1,0 +1,81 @@
+{
+  "projectType": "library",
+  "root": "libs/angular-zen",
+  "sourceRoot": "libs/angular-zen/src",
+  "prefix": "bs",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/angular-zen"],
+      "options": {
+        "project": "libs/angular-zen/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/angular-zen/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/angular-zen/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "version": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "git stash && cd libs/angular-zen && (for /F %m in ('pnpm version {args.versionStep}') do git commit --all -m \"Bumped library version to %m\") && git stash pop"
+        ],
+        "parallel": false
+      },
+      "configurations": {
+        "major": { "args": "--versionStep=major" },
+        "minor": { "args": "--versionStep=minor" },
+        "patch": { "args": "--versionStep=patch" }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/angular-zen"],
+      "options": {
+        "jestConfig": "libs/angular-zen/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "cwd": "dist/libs/angular-zen",
+        "command": "npm publish --access public"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/angular-zen/src/**/*.ts",
+          "libs/angular-zen/src/**/*.html",
+          "libs/angular-zen/core/**/*.ts",
+          "libs/angular-zen/core/**/*.html",
+          "libs/angular-zen/core/testing/**/*.ts",
+          "libs/angular-zen/core/testing/**/*.html",
+          "libs/angular-zen/async/**/*.ts",
+          "libs/angular-zen/async/**/*.html",
+          "libs/angular-zen/language/**/*.ts",
+          "libs/angular-zen/language/**/*.html",
+          "libs/angular-zen/language/testing/**/*.ts",
+          "libs/angular-zen/language/testing/**/*.html",
+          "libs/angular-zen/router-x/**/*.ts",
+          "libs/angular-zen/router-x/**/*.html",
+          "libs/angular-zen/router-x/testing/**/*.ts",
+          "libs/angular-zen/router-x/testing/**/*.html",
+          "libs/angular-zen/universal/**/*.ts",
+          "libs/angular-zen/universal/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
