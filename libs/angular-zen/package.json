@@ -2,7 +2,7 @@
   "name": "@bespunky/angular-zen",
   "version": "5.0.0",
   "description": "The Angular tools you always wished were there.",
-  "preview": true,
+  "preview": false,
   "private": false,
   "author": {
     "name": "BeSpunky",
