@@ -25,9 +25,7 @@
       "outputs": [],
       "options": {
         "commands": [
-          "git stash",
-          "cd libs/angular-zen && (for /F %m in ('pnpm version {args.versionStep}') do git commit --all -m \"Bumped library version to %m\")",
-          "git stash pop"
+          "git stash && cd libs/angular-zen && (for /F %m in ('pnpm version {args.versionStep}') do git commit --all -m \"Bumped library version to %m\") && git stash pop"
         ],
         "parallel": false
       },
