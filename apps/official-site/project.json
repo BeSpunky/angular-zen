@@ -105,7 +105,7 @@
         "passWithNoTests": true
       }
     },
-    "publish": {
+    "build-n-publish": {
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {

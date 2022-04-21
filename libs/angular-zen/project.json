@@ -47,7 +47,8 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "cd dist/libs/angular-zen && npm publish --access public"
+        "cwd": "dist/libs/angular-zen",
+        "command": "npm publish --access public"
       }
     },
     "lint": {
