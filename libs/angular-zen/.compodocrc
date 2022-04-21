@@ -14,7 +14,7 @@
     "includes"    : "../../wiki/angular-zen",
     "includesName": "Complete Documentation",
 
-    "theme"   : "material",
+    "theme"   : "gitbook",
     
     "disablePrivate" : true,
     "disableInternal": true,
