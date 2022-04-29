@@ -30,15 +30,13 @@ export const CoreModuleExamples: Example[] = [
         title      : '*observe directives',
         description: 'Enhance the concepts of the `async` pipe with new features.',
         icon       : 'visibility',
-        embedUrl   : '',
-        soon       : true
+        embedUrl   : 'https://codesandbox.io/embed/observe-directives-kd4th6?expanddevtools=1&fontsize=14&hidenavigation=1&initialpath=%2Fsrc%2Fapp%2Fdemo&module=%2Fsrc%2Fapp%2Fdemo%2Fdemo.component.html&theme=dark'
     },
     {
         title      : '*onObserver directives',
         description: 'Condition template rendering according to observable states.',
-        icon       : 'generating_tokens',
-        embedUrl   : '',
-        soon       : true
+        icon       : 'visibility',
+        embedUrl   : 'https://codesandbox.io/embed/on-observer-directives-87mkhv?fontsize=14&hidenavigation=1&initialpath=%2Fsrc%2Fapp%2Fdemo%2Fsimple&module=%2Fsrc%2Fapp%2Fdemo%2Fsimple%2Fsimple-demo.component.html&theme=dark'
     }
 ];
 

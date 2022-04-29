@@ -22,6 +22,8 @@ be created and appended to the DOM after it. -->
 </div>
 ```
 
+[Live example](https://bs-angular-zen.web.app/Core%20Module/*onObserver%20directives)
+
 [See all available directives](/docs/zen/modules/OnObserverModule.html)
 
 [See using inside `*observe` directives](observemodule.html#shared-observable)
