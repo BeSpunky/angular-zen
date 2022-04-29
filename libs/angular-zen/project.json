@@ -30,9 +30,15 @@
         "parallel": false
       },
       "configurations": {
-        "major": { "args": "--versionStep=major" },
-        "minor": { "args": "--versionStep=minor" },
-        "patch": { "args": "--versionStep=patch" }
+        "major": {
+          "args": "--versionStep=major"
+        },
+        "minor": {
+          "args": "--versionStep=minor"
+        },
+        "patch": {
+          "args": "--versionStep=patch"
+        }
       }
     },
     "test": {
