@@ -52,6 +52,13 @@ export class ViewRenderCommitment<T>
      * @type {boolean}
      */
     public get isRendered(): boolean { return !!this.view; }
+    /**
+     * `true` if the state represents a view that should be auto-destroyed; otherwise `false`.
+     *
+     * @readonly
+     * @type {boolean}
+     */
+    public get shouldAutoDestroy(): boolean { return this.showFor > 0; }
 
     /**
      * Creates a new state representing a new, fresh, commitment to render.
@@ -84,7 +91,9 @@ export class ViewRenderCommitment<T>
      */
     static update<T>(state: ViewRenderCommitment<T>, call: ObserverCall<T>): ViewRenderCommitment<T>
     {
-        return new ViewRenderCommitment(state.commitmentId, call, state.showAfter, state.showFor, state.renderAt, state.view);
+        const now = Date.now();
+
+        return new ViewRenderCommitment(state.commitmentId, call, state.showAfter, state.showFor, now + state.showAfter, state.view);
     }
 
     /**
