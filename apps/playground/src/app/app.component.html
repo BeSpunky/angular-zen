@@ -1,1 +1,18 @@
-<bespunky-nx-welcome></bespunky-nx-welcome>
+<h1>Demo</h1> 
+<ng-container *observeMerge="[notifications.system, notifications.birthdays]; let source = source">
+    <div *onObserverNext="source
+                          let notification
+                          let index = index
+                          let countdown = showingFor
+                          viewMode 'single'
+                          showAfter 7000
+                          countdownInterval 50
+                         "
+        class="notification transition"
+        [ngClass]="notification?.type ?? ''"
+        @grow
+    >
+        {{notification?.message}}
+        <progress [value]="5000 - (countdown?.totalMilliseconds ?? 0)" max="5000"></progress>
+    </div>
+</ng-container>
