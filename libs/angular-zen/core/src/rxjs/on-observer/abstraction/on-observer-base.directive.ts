@@ -323,18 +323,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         
         return observeOn.includes(name);
     }
-
-    /**
-     * Indicates whether any of the commitments is currently rendered.
-     *
-     * @readonly
-     * @private
-     * @type {boolean} `true` is any of the commitments is currently rendered; otherwise `false`.
-     */
-    private get alreadyRendered(): boolean
-    {
-        return Array.from(this.commitments.values()).some(commitment => commitment.isRendered);
-    }
     
     /**
      * Creates the new commitments map when a new commitment should render.
