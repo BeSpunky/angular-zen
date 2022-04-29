@@ -95,9 +95,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      *
      * @readonly
      * @private
-     * @type {ViewRenderCommitment<T>}
+     * @type {ViewRenderCommitment<T> | undefined}
      */
-    private get mainCommitment(): ViewRenderCommitment<T> { return this.commitments.values().next().value };
+    private get mainCommitment(): ViewRenderCommitment<T> | undefined { return this.commitments.values().next().value };
 
     /**
      * The selector defined for the directive extending this class. Will be used to create a corresponding
@@ -350,8 +350,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      */
     private aggregateCommitments(call: ObserverCall<T>): RenderCommitmentMap<T>
     {
-        const commitments   = this.commitments;
-        const newCommitment = this.isSingleView && this.alreadyRendered
+        const commitments = this.commitments;
+        // In single-view mode, if there's already a commitment, we'll replace it with a new one. Otherwise, we'll create a fresh one.
+        const newCommitment = this.isSingleView && this.mainCommitment
             ? ViewRenderCommitment.update(this.mainCommitment, call)
             : ViewRenderCommitment.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
 
@@ -425,7 +426,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             // Initiate the auto-destroy mechanism (will skip if `showFor` wasn't specified)
             switchMap(renderedCommitment  => this.autoDestroy(renderedCommitment)),
             // Commitment has completed successfully. Remove it from the global map.
-            tap      (destroyedCommitment => destroyedCommitment.isRendered ? null : commitments.delete(commitmentId))
+            tap      (()                  => commitments.delete(commitmentId))
         );
     }
 
@@ -440,7 +441,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {
         return of(commitment).pipe(
             delay(new Date(commitment.renderAt)),
-            mapTo(commitment)
         );
     }
 
@@ -453,10 +453,11 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @return {Observable<ViewRenderCommitment<T>>} An observable which renderes the commitment, then emits a new updated commitment referencing the rendered view.
      */
     private renderCommitment(commitment: ViewRenderCommitment<T>, index: number): Observable<ViewRenderCommitment<T>>
-    {    
-        return of(OnObserverContext.fromCommitment<T>(this.selector, index, commitment)).pipe(            
-            map(context => this.renderOrUpdateView(commitment, context)),
-        );
+    {
+        const context            = OnObserverContext.fromCommitment<T>(this.selector, index, commitment);
+        const renderedCommitment = this.renderOrUpdateView(commitment, context);
+
+        return of(renderedCommitment);
     }
 
     /**
@@ -472,9 +473,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      */
     private autoDestroy(commitment: ViewRenderCommitment<T>): Observable<ViewRenderCommitment<T>>
     {
-        const { destroyAt, view, shouldAutoDestroy } = commitment;
+        const { destroyAt, view } = commitment;
 
-        if (!(shouldAutoDestroy && view)) return of(commitment);
+        if (!(destroyAt && view)) return of(commitment);
 
         const countdownIntervalMs = this.defineCountdownInterval();
         
@@ -484,7 +485,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             tap      (timeLeftMs => this.updateViewContextCountdown(view, timeLeftMs)),
             takeWhile(timeLeftMs => timeLeftMs > 0, true),
             filter   (timeLeftMs => timeLeftMs <= 0),
-            map      (() => view.destroy()),
+            tap      (() => view.destroy()),
             mapTo    (commitment)
         );
     }
