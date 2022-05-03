@@ -414,7 +414,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             // Initiate the auto-destroy mechanism (will skip if `showFor` wasn't specified)
             switchMap(renderedCommitment  => this.autoDestroy(renderedCommitment)),
             // Commitment has completed successfully. Remove it from the global map.
-            tap      (()                  => commitments.delete(commitmentId))
+            tap      (renderedCommitment  => renderedCommitment.autoDestroys ? commitments.delete(commitmentId) : void 0)
         );
     }
 
