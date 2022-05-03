@@ -1,3 +1,12 @@
+# **v5.1.0** <small>2022-04-21</small>
+🐛 Fixed single view mode in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes renders multiple views.
+
+🐛 Fixed `showFor` property in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes causes inconcurrency issues.
+
+🧓 Marked the `showingFor` context property of [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) as deprecated. Replaced with `remaining`.
+
+➕ Implemented an `elapsed` context property for [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) to facilitate inverted countdown updates.
+
 # **v5.0.0** <small>2022-04-21</small>
 ## Breaking Changes
 📦 Updated Angular to v13.
@@ -12,7 +21,7 @@
 ## Other Changes
 ➕ Added the [`*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).
 
-➕ Added the [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).
+➕ Added the [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html).
 
 📃 Improved documentation readability and added docs for new features.
 

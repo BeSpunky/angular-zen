@@ -44,7 +44,7 @@ export class ViewRenderCommitment<T>
      * @readonly
      * @type {number}
      */
-    public get destroyAt (): number  { return this.renderAt + this.showFor; }
+    public get destroyAt (): number | undefined  { return this.showFor ? this.renderAt + this.showFor : undefined; }
     /**
      * `true` if the state represents a view that is currently rendered; otherwise `false`.
      *
@@ -52,6 +52,13 @@ export class ViewRenderCommitment<T>
      * @type {boolean}
      */
     public get isRendered(): boolean { return !!this.view; }
+    /**
+     * `true` if the state represents a view that should be auto-destroyed; otherwise `false`.
+     *
+     * @readonly
+     * @type {boolean}
+     */
+    public get autoDestroys(): boolean { return !!this.destroyAt; }
 
     /**
      * Creates a new state representing a new, fresh, commitment to render.
@@ -84,7 +91,11 @@ export class ViewRenderCommitment<T>
      */
     static update<T>(state: ViewRenderCommitment<T>, call: ObserverCall<T>): ViewRenderCommitment<T>
     {
-        return new ViewRenderCommitment(state.commitmentId, call, state.showAfter, state.showFor, state.renderAt, state.view);
+        const now = Date.now();
+
+        // In single-view mode, in case the view is already rendered and a new call is intercepted, the latest emitted value should
+        // reset renderAt date so the user has a chance to see the latest value.
+        return new ViewRenderCommitment(state.commitmentId, call, state.showAfter, state.showFor, now + state.showAfter, state.view);
     }
 
     /**

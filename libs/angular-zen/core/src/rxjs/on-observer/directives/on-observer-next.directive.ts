@@ -38,12 +38,13 @@ export class OnObserverNextDirective<T> extends OnObserverBaseDirective<T>
      * Specify {@link OnObserverBaseDirective.showFor `showFor`} to automatically destroy the view after a certain duration.
      * 
      * #### Countdown updates
-     * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated in fixed intervals with the
-     * amount of time left until the view is destroyed. This allows giving the user feedback in a progress bar, a spinner, a textual timer
+     * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated with the time remaining until the view
+     * is destroyed and the time elapsed since it was rendered. This allows giving the user feedback in a progress bar, a spinner, a textual timer
      * or any other UI component. 
      * 
-     * Countdown is provided by the {@link OnObserverContext.showingFor `showingFor`} property. Access it by assigning a variable using `let`, like so:
-     * `let remaining = showingFor`
+     * Remaining is provided by the {@link OnObserverContext.remaining `remaining`} property. Elapsed time is provided by the {@link OnObserverContext.elapsed `elapsed`}
+     * property. Access it by assigning a variable using `let`, like so:  
+     * `let remaining = remaining`
      * 
      * #### Multi view mode
      * Specify {@link OnObserverBaseDirective.viewMode `viewMode = 'multiple'`} to enable rendering a new view for each intercepted call
@@ -94,8 +95,9 @@ export class OnObserverNextDirective<T> extends OnObserverBaseDirective<T>
      * - `'100ms'` - The view will be destroyed after 100 milliseconds.
      * 
      * During the time the view is rendered, the context will be updated with a countdown object to facilitate any UI part used to
-     * indicate countdown to the user. The countdown will be exposed through the {@link OnObserverContext.showingFor `showingFor`}
-     * property in the view context and can be accessed be declaring a `let` variable (e.g. `let remaining = showingFor`).
+     * indicate countdown to the user. The countdown will be exposed through the {@link OnObserverContext.remaining `remaining`}
+     * property and the elapsed time through {@link OnObserverContext.elapsed `elapsed`} property in the view context and can both
+     * be accessed be declaring a `let` variable (e.g. `let remaining = remaining`).
      * See {@link OnObserverBaseDirective.countdownInterval `countdownInterval`} for changing the updates interval.
      * 
      * When unspecified, the view will be destroyed immediately once the observer detects a call different to the intercepted ones.
@@ -118,10 +120,12 @@ export class OnObserverNextDirective<T> extends OnObserverBaseDirective<T>
      * - `'0.5m'` - 30 seconds between each update.
      * - `'100ms'` - 100 milliseconds between each update.
      * 
+     * You can also specify `'animationFrames'` so the countdown gets updated each time the browser is working on animations.
+     * 
      * When unspecified, the total duration of the countdown will be divided by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}
      * to get a fixed interval which will make for {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`} countdown updates.
      */
-    @Input() public set onObserverNextCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
+    @Input() public set onObserverNextCountdownInterval(duration: DurationAnnotation | 'animationFrames') { this.countdownInterval = duration; };
  
     static ngTemplateContextGuard<T>(directive: OnObserverNextDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }

@@ -1,7 +1,7 @@
 ## Installing
 Use the following command:
 
-> `> npm install @bespunky/angular-zen`
+> `> npm install @bespunky/angular-zen @lodash-es`
 
 ## Import Modules Correctly
 Import modules from the corresponding package (e.g. `@bespunky/angular-zen/async`), and not directly from `@bespunky/angular-zen`.

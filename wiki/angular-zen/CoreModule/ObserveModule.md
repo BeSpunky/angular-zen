@@ -36,6 +36,8 @@ To use the emitted values, you can use either the `as` or the `let` microsyntax.
 <div *observeConcat="[init$, progress$] as statusMessage">{{ statusMessage }}</div>
 ```
 
+[Live example](https://bs-angular-zen.web.app/Core%20Module/*observe%20directives)
+
 [See the available directives](/docs/zen/modules/ObserveModule.html)
 
 ## Other Features

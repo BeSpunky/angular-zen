@@ -1,4 +1,4 @@
-import { Observable, of, timer, forkJoin, BehaviorSubject, EMPTY                                } from 'rxjs';
+import { Observable, of, forkJoin, BehaviorSubject, EMPTY, animationFrames, interval            } from 'rxjs';
 import { delay, finalize, map, mapTo, materialize, switchMap, takeWhile, tap, startWith, filter } from 'rxjs/operators';
 import { Directive, OnInit, TemplateRef, ViewContainerRef                                       } from '@angular/core';
 
@@ -35,12 +35,13 @@ const DefaultCountdownUpdateCount = 30;
  * Specify {@link OnObserverBaseDirective.showFor `showFor`} to automatically destroy the view after a certain duration.
  * 
  * #### Countdown updates
- * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated in fixed intervals with the
- * amount of time left until the view is destroyed. This allows giving the user feedback in a progress bar, a spinner, a textual timer
+ * When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated with the time remaining until the view
+ * is destroyed and the time elapsed since it was rendered. This allows giving the user feedback in a progress bar, a spinner, a textual timer
  * or any other UI component. 
  * 
- * Countdown is provided by the {@link OnObserverContext.showingFor `showingFor`} property. Access it by assigning a variable using `let`, like so:
- * `let remaining = showingFor`
+ * Remaining is provided by the {@link OnObserverContext.remaining `remaining`} property. Elapsed time is provided by the {@link OnObserverContext.elapsed `elapsed`}
+ * property. Access it by assigning a variable using `let`, like so:  
+ * `let remaining = remaining`
  * 
  * #### Multi view mode
  * Specify {@link OnObserverBaseDirective.viewMode `viewMode = 'multiple'`} to enable rendering a new view for each intercepted call
@@ -95,9 +96,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      *
      * @readonly
      * @private
-     * @type {ViewRenderCommitment<T>}
+     * @type {ViewRenderCommitment<T> | undefined}
      */
-    private get mainCommitment(): ViewRenderCommitment<T> { return this.commitments.values().next().value };
+    private get mainCommitment(): ViewRenderCommitment<T> | undefined { return this.commitments.values().next().value; }
 
     /**
      * The selector defined for the directive extending this class. Will be used to create a corresponding
@@ -171,8 +172,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * - `'100ms'` - The view will be destroyed after 100 milliseconds.
      * 
      * During the time the view is rendered, the context will be updated with a countdown object to facilitate any UI part used to
-     * indicate countdown to the user. The countdown will be exposed through the {@link OnObserverContext.showingFor `showingFor`}
-     * property in the view context and can be accessed be declaring a `let` variable (e.g. `let remaining = showingFor`).
+     * indicate countdown to the user. The countdown will be exposed through the {@link OnObserverContext.remaining `remaining`}
+     * property and the elapsed time through {@link OnObserverContext.elapsed `elapsed`} property in the view context and can both
+     * be accessed be declaring a `let` variable (e.g. `let remaining = remaining`).
      * See {@link OnObserverBaseDirective.countdownInterval `countdownInterval`} for changing the updates interval.
      * 
      * When unspecified, the view will be destroyed immediately once the observer detects a call different to the intercepted ones.
@@ -202,6 +204,8 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * - `'0.5m'` - 30 seconds between each update.
      * - `'100ms'` - 100 milliseconds between each update.
      * 
+     * You can also specify `'animationFrames'` so the countdown gets updated each time the browser is working on animations.
+     * 
      * When unspecified, the total duration of the countdown will be divided by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}
      * to get a fixed interval which will make for {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`} countdown updates.
      * 
@@ -212,7 +216,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @protected
      * @type {DurationAnnotation}
      */
-    protected countdownInterval?: DurationAnnotation;
+    protected countdownInterval?: DurationAnnotation | 'animationFrames';
     
     /**
      * ### Why BehaviorSubject<... | null> and not Subject<...>
@@ -277,9 +281,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * a consistent stream of data to the {@link OnObserverBaseDirective.commitments global commitments map}.
      *
      * @private
-     * @return {Observable<void[]>} An observable as described above.
+     * @return {Observable<ViewRenderCommitment<T>[]>} An observable as described above.
      */
-    private renderFeed(): Observable<void[]>
+    private renderFeed(): Observable<ViewRenderCommitment<T>[]>
     {
         return this.input.pipe(
             // Make sure views are reset if a new observable is passed-in to the directive
@@ -323,18 +327,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
         
         return observeOn.includes(name);
     }
-
-    /**
-     * Indicates whether any of the commitments is currently rendered.
-     *
-     * @readonly
-     * @private
-     * @type {boolean} `true` is any of the commitments is currently rendered; otherwise `false`.
-     */
-    private get alreadyRendered(): boolean
-    {
-        return Array.from(this.commitments.values()).some(commitment => commitment.isRendered);
-    }
     
     /**
      * Creates the new commitments map when a new commitment should render.
@@ -350,8 +342,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      */
     private aggregateCommitments(call: ObserverCall<T>): RenderCommitmentMap<T>
     {
-        const commitments   = this.commitments;
-        const newCommitment = this.isSingleView && this.alreadyRendered
+        const commitments = this.commitments;
+        // In single-view mode, if there's already a commitment, we'll replace it with a new one. Otherwise, we'll create a fresh one.
+        const newCommitment = this.isSingleView && this.mainCommitment
             ? ViewRenderCommitment.update(this.mainCommitment, call)
             : ViewRenderCommitment.create(call, durationToMs(this.showAfter), durationToMs(this.showFor || 0));
 
@@ -378,9 +371,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      *
      * @private
      * @param {RenderCommitmentMap<T>} commitments The current commitment map.
-     * @return {Observable<void[]>} An observable joining all render commitments.
+     * @return {Observable<ViewRenderCommitment<T>[]>} An observable joining all render commitments.
      */
-    private onCommitmentsChanged(commitments: RenderCommitmentMap<T>): Observable<void[]>
+    private onCommitmentsChanged(commitments: RenderCommitmentMap<T>): Observable<ViewRenderCommitment<T>[]>
     {
         // If the commitment map has been reset, destroy any previously rendered view
         if (!commitments.size) this.destroyAll();
@@ -406,9 +399,9 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @param {RenderCommitmentMap<T>} commitments The current commitment map holding all commitments to render.
      * @param {string} commitmentId The id of the commitment to render.
      * @param {number} index The index of the view to be rendered.
-     * @return {Observable<void>} An observable that initiates the render flow for an emission.
+     * @return {Observable<ViewRenderCommitment<T>>} An observable that initiates the render flow for an emission.
      */
-    private commitToRender(commitments: RenderCommitmentMap<T>, commitmentId: string, index: number): Observable<void>
+    private commitToRender(commitments: RenderCommitmentMap<T>, commitmentId: string, index: number): Observable<ViewRenderCommitment<T>>
     {
         if (!commitments.has(commitmentId)) throw new Error(`
             *${ this.selector } has encountered an inconsistency issue. Tried to commit to rendering commitment with ID ${ commitmentId }, but no commitment object exists with that ID.
@@ -417,15 +410,15 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return of(commitments.get(commitmentId)!).pipe(
-            switchMap(commitment         => this.delayRender(commitment)),
+            switchMap(commitment          => this.delayRender(commitment)),
             // Actually perform rendering (or update the view if already rendered)
-            switchMap(commitment         => this.renderCommitment(commitment, index)),
+            switchMap(commitment          => this.renderCommitment(commitment, index)),
             // The commitment returned from `renderCommitment()` now contains the view, so update the global map
-            tap      (renderedCommitment => commitments.set(commitmentId, renderedCommitment)),
+            tap      (renderedCommitment  => commitments.set(commitmentId, renderedCommitment)),
             // Initiate the auto-destroy mechanism (will skip if `showFor` wasn't specified)
-            switchMap(renderedCommitment => this.autoDestroy(renderedCommitment)),
-            // Commitment has completed successfully. Remove it from the global map
-            tap      (()                 => commitments.delete(commitmentId))
+            switchMap(renderedCommitment  => this.autoDestroy(renderedCommitment)),
+            // Commitment has completed successfully. Remove it from the global map.
+            tap      (renderedCommitment  => renderedCommitment.autoDestroys ? commitments.delete(commitmentId) : void 0)
         );
     }
 
@@ -440,7 +433,6 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     {
         return of(commitment).pipe(
             delay(new Date(commitment.renderAt)),
-            mapTo(commitment)
         );
     }
 
@@ -453,36 +445,44 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @return {Observable<ViewRenderCommitment<T>>} An observable which renderes the commitment, then emits a new updated commitment referencing the rendered view.
      */
     private renderCommitment(commitment: ViewRenderCommitment<T>, index: number): Observable<ViewRenderCommitment<T>>
-    {    
-        return of(OnObserverContext.fromCommitment<T>(this.selector, index, commitment)).pipe(            
-            map(context => this.renderOrUpdateView(commitment, context)),
-        );
+    {
+        const context            = OnObserverContext.fromCommitment<T>(this.selector, index, commitment);
+        const renderedCommitment = this.renderOrUpdateView(commitment, context);
+
+        return of(renderedCommitment);
     }
 
     /**
-     * Creates a timer observable which counts down until the time to destroy the view is reached, then destroys the view.
+     * Creates an interval observable which counts down until the time to destroy the view is reached, then destroys the view.
      * While the timer is running, the rendered view's context will be updated in fixed intervals with the time left before destruction.
      * 
      * @see {@link OnObserverBaseDirective.defineCountdownInterval defineCountdownInterval()} for more about the fixed countdown interval.
-     *
+     * 
+     * If {@link OnObserverBaseDirective.countdownInterval `countdownInterval`} is `'animationFrames'`, the rxjs `animationFrames()` function
+     * will be used instead of the interval.
+     * 
      * @private
      * @param {ViewRenderCommitment<T>} commitment The rendered commitment for which to initiate auto destroy.
-     * @return {Observable<void>} A timer observable which counts down until the time to destroy the view is reached, then destroys the view, while
-     * updating the context with the time left for destruction.
+     * @return {Observable<ViewRenderCommitment<T>>} A timer observable which counts down until the time to destroy the view is reached, then destroys the view, while
+     * updating the context with the time left for destruction. The observable will emit the commitment 
      */
-    private autoDestroy({ destroyAt, showFor, view }: ViewRenderCommitment<T>): Observable<void>
+    private autoDestroy(commitment: ViewRenderCommitment<T>): Observable<ViewRenderCommitment<T>>
     {
-        if (!(showFor && view)) return EMPTY;
+        const { destroyAt, view } = commitment;
 
-        const countdownIntervalMs = this.defineCountdownInterval();
-        
-        return timer(0, countdownIntervalMs).pipe(
+        if (!(destroyAt && view)) return of(commitment);
+
+        const countdownInterval = this.defineCountdownInterval();
+        const countdown: Observable<unknown> = countdownInterval === 'animationFrames' ? animationFrames() : interval(countdownInterval);
+
+        return countdown.pipe(
             map      (()         => destroyAt - Date.now()),
-            map      (timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
-            tap      (timeLeftMs => this.updateViewContextCountdown(view, timeLeftMs)),
-            takeWhile(timeLeftMs => timeLeftMs > 0, true),
-            filter   (timeLeftMs => timeLeftMs <= 0),
-            map      (()         => view.destroy())
+            map      (timeLeftMs => [timeLeftMs < 0 ? 0 : timeLeftMs, commitment.showFor - timeLeftMs]),
+            tap      (([timeLeftMs, elapsedTimeMs]) => this.updateViewContextCountdown(view, timeLeftMs, elapsedTimeMs)),
+            takeWhile(([timeLeftMs]) => timeLeftMs > 0, true),
+            filter   (([timeLeftMs]) => timeLeftMs <= 0),
+            tap      (() => view.destroy()),
+            mapTo    (commitment)
         );
     }
 
@@ -518,26 +518,30 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @private
      * @param {RenderedView<T>} view The view in which to update the countdown.
      * @param {number} timeLeftMs The time left (in milliseconds) for the view before being destroyed.
+     * @param {number} timeElapsedMs The time elapsed (in milliseconds) from the moment the view was rendered.
      */
-    private updateViewContextCountdown(view: RenderedView<T>, timeLeftMs: number): void
+    private updateViewContextCountdown(view: RenderedView<T>, timeLeftMs: number, timeElapsedMs: number): void
     {    
-        const showingFor = breakdownTime(timeLeftMs);
+        const remaining = breakdownTime(timeLeftMs);
+        const elapsed   = breakdownTime(timeElapsedMs);
 
         const { $implicit, call, index } = view.context;
 
-        view.context = new OnObserverContext(this.selector, index, call, $implicit, showingFor);
+        // TODO: Remove the `showingFor` argument when launching v6.0.0
+        view.context = new OnObserverContext(this.selector, index, call, $implicit, remaining, remaining, elapsed);
     }
 
     /**
      * Defines the interval (in milliseconds) with which countdown updates should be made to the view's context.
      * If the user has defined a value through {@link OnObserverBaseDirective.countdownInterval `countdownInterval`}, that value will be used.
+     * If the user has defined `'animationFrames'` as the value for {@link OnObserverBaseDirective.countdownInterval `countdownInterval`}, this will return `'animationFrames'`.
      * Otherwise, {@link OnObserverBaseDirective.showFor `showFor`} will be divided by a fixed number defined by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}, currently 30, meaning the user will get
      * 30 countdown updates with fixed intervals between them before the view is destroyed.
      *
      * @private
      * @return {number} The interval with which countdown updates should be made to the view's context.
      */
-    private defineCountdownInterval(): number
+    private defineCountdownInterval(): number | 'animationFrames'
     {
         // If the view should persist, or it should auto-destroy but percision has been manually specified, do nothing
         if (!this.showFor) throw new Error(`
@@ -545,6 +549,8 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             Please consider filing an issue and providing a stack trace here: https://github.com/BeSpunky/angular-zen/issues/new?assignees=BeSpunky&labels=%F0%9F%90%9B+Bug&template=bug_report.md&title=%F0%9F%90%9B+
         `);
         
+        if (this.countdownInterval === 'animationFrames') return 'animationFrames';
+
         if (this.countdownInterval) return durationToMs(this.countdownInterval);
 
         const showForMs = durationToMs(this.showFor);
