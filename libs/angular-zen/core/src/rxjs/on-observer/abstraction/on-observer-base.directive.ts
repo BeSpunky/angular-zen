@@ -1,4 +1,4 @@
-import { Observable, of, timer, forkJoin, BehaviorSubject, EMPTY                                } from 'rxjs';
+import { Observable, of, forkJoin, BehaviorSubject, EMPTY, animationFrames, interval            } from 'rxjs';
 import { delay, finalize, map, mapTo, materialize, switchMap, takeWhile, tap, startWith, filter } from 'rxjs/operators';
 import { Directive, OnInit, TemplateRef, ViewContainerRef                                       } from '@angular/core';
 
@@ -202,6 +202,8 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * - `'0.5m'` - 30 seconds between each update.
      * - `'100ms'` - 100 milliseconds between each update.
      * 
+     * You can also specify `'animationFrames'` so the countdown gets updated each time the browser is working on animations.
+     * 
      * When unspecified, the total duration of the countdown will be divided by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}
      * to get a fixed interval which will make for {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`} countdown updates.
      * 
@@ -212,7 +214,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @protected
      * @type {DurationAnnotation}
      */
-    protected countdownInterval?: DurationAnnotation;
+    protected countdownInterval?: DurationAnnotation | 'animationFrames';
     
     /**
      * ### Why BehaviorSubject<... | null> and not Subject<...>
@@ -449,11 +451,14 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     }
 
     /**
-     * Creates a timer observable which counts down until the time to destroy the view is reached, then destroys the view.
+     * Creates an interval observable which counts down until the time to destroy the view is reached, then destroys the view.
      * While the timer is running, the rendered view's context will be updated in fixed intervals with the time left before destruction.
      * 
      * @see {@link OnObserverBaseDirective.defineCountdownInterval defineCountdownInterval()} for more about the fixed countdown interval.
-     *
+     * 
+     * If {@link OnObserverBaseDirective.countdownInterval `countdownInterval`} is `'animationFrames'`, the rxjs `animationFrames()` function
+     * will be used instead of the interval.
+     * 
      * @private
      * @param {ViewRenderCommitment<T>} commitment The rendered commitment for which to initiate auto destroy.
      * @return {Observable<ViewRenderCommitment<T>>} A timer observable which counts down until the time to destroy the view is reached, then destroys the view, while
@@ -465,9 +470,10 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
 
         if (!(destroyAt && view)) return of(commitment);
 
-        const countdownIntervalMs = this.defineCountdownInterval();
-        
-        return timer(0, countdownIntervalMs).pipe(
+        const countdownInterval = this.defineCountdownInterval();
+        const countdown: Observable<unknown> = countdownInterval === 'animationFrames' ? animationFrames() : interval(countdownInterval);
+
+        return countdown.pipe(
             map      (()         => destroyAt - Date.now()),
             map      (timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
             tap      (timeLeftMs => this.updateViewContextCountdown(view, timeLeftMs)),
@@ -523,13 +529,14 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
     /**
      * Defines the interval (in milliseconds) with which countdown updates should be made to the view's context.
      * If the user has defined a value through {@link OnObserverBaseDirective.countdownInterval `countdownInterval`}, that value will be used.
+     * If the user has defined `'animationFrames'` as the value for {@link OnObserverBaseDirective.countdownInterval `countdownInterval`}, this will return `'animationFrames'`.
      * Otherwise, {@link OnObserverBaseDirective.showFor `showFor`} will be divided by a fixed number defined by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}, currently 30, meaning the user will get
      * 30 countdown updates with fixed intervals between them before the view is destroyed.
      *
      * @private
      * @return {number} The interval with which countdown updates should be made to the view's context.
      */
-    private defineCountdownInterval(): number
+    private defineCountdownInterval(): number | 'animationFrames'
     {
         // If the view should persist, or it should auto-destroy but percision has been manually specified, do nothing
         if (!this.showFor) throw new Error(`
@@ -537,6 +544,8 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
             Please consider filing an issue and providing a stack trace here: https://github.com/BeSpunky/angular-zen/issues/new?assignees=BeSpunky&labels=%F0%9F%90%9B+Bug&template=bug_report.md&title=%F0%9F%90%9B+
         `);
         
+        if (this.countdownInterval === 'animationFrames') return 'animationFrames';
+
         if (this.countdownInterval) return durationToMs(this.countdownInterval);
 
         const showForMs = durationToMs(this.showFor);

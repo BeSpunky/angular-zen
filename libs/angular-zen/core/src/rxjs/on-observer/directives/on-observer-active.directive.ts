@@ -118,10 +118,12 @@ export class OnObserverActiveDirective<T> extends OnObserverBaseDirective<T>
      * - `'0.5m'` - 30 seconds between each update.
      * - `'100ms'` - 100 milliseconds between each update.
      * 
+     * You can also specify `'animationFrames'` so the countdown gets updated each time the browser is working on animations.
+     * 
      * When unspecified, the total duration of the countdown will be divided by {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`}
      * to get a fixed interval which will make for {@link DefaultCountdownUpdateCount `DefaultCountdownUpdateCount`} countdown updates.
      */
-    @Input() public set onObserverActiveCountdownInterval(duration: DurationAnnotation) { this.countdownInterval = duration; };
+    @Input() public set onObserverActiveCountdownInterval(duration: DurationAnnotation | 'animationFrames') { this.countdownInterval = duration; };
 
     static ngTemplateContextGuard<T>(directive: OnObserverActiveDirective<T>, context: unknown): context is OnObserverContext<T> { return true; }
 }
