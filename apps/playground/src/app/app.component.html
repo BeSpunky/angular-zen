@@ -3,7 +3,8 @@
     <div *onObserverNext="source
                           let notification
                           let index = index
-                          let countdown = showingFor
+                          let countdown = remaining
+                          let elapsed = elapsed
                           viewMode 'multiple'
                           showFor 10000
                           countdownInterval 'animationFrames'
@@ -13,6 +14,6 @@
         @grow
     >
         {{notification?.message}}
-        <progress [value]="10000 - (countdown?.totalMilliseconds ?? 0)" max="10000"></progress>
+        <progress [value]="countdown?.totalMilliseconds ?? 0" max="10000"></progress>
     </div>
 </ng-container>
