@@ -4,15 +4,15 @@
                           let notification
                           let index = index
                           let countdown = showingFor
-                          viewMode 'single'
-                          showAfter 7000
-                          countdownInterval 50
+                          viewMode 'multiple'
+                          showFor 10000
+                          countdownInterval 'animationFrames'
                          "
         class="notification transition"
         [ngClass]="notification?.type ?? ''"
         @grow
     >
         {{notification?.message}}
-        <progress [value]="5000 - (countdown?.totalMilliseconds ?? 0)" max="5000"></progress>
+        <progress [value]="10000 - (countdown?.totalMilliseconds ?? 0)" max="10000"></progress>
     </div>
 </ng-container>
