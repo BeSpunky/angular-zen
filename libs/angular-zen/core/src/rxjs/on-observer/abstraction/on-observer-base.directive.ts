@@ -97,7 +97,7 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @private
      * @type {ViewRenderCommitment<T> | undefined}
      */
-    private get mainCommitment(): ViewRenderCommitment<T> | undefined { return this.commitments.values().next().value };
+    private get mainCommitment(): ViewRenderCommitment<T> | undefined { return this.commitments.values().next().value; }
 
     /**
      * The selector defined for the directive extending this class. Will be used to create a corresponding
