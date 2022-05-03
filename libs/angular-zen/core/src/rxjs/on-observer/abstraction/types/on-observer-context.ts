@@ -44,7 +44,13 @@ export class OnObserverContext<TResolved>
          * (Optional) The time left for the view to be rendered. Only used when {@link OnObserverBaseDirective.showFor `showFor`}
          * is specified in the directive.
          */
-        public readonly showingFor?: DurationBreakdown
+        public readonly remaining?: DurationBreakdown,
+        public readonly showingFor?: DurationBreakdown,
+        /**
+         * (Optional) The time elapsed from the moment the view was rendered. Only used when {@link OnObserverBaseDirective.showFor `showFor`}
+         * is specified in the directive.
+         */
+        public readonly elapsed?: DurationBreakdown
     )
     {
         this.$implicit = this[selector] = value;

@@ -475,10 +475,10 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
 
         return countdown.pipe(
             map      (()         => destroyAt - Date.now()),
-            map      (timeLeftMs => timeLeftMs < 0 ? 0 : timeLeftMs),
-            tap      (timeLeftMs => this.updateViewContextCountdown(view, timeLeftMs)),
-            takeWhile(timeLeftMs => timeLeftMs > 0, true),
-            filter   (timeLeftMs => timeLeftMs <= 0),
+            map      (timeLeftMs => [timeLeftMs < 0 ? 0 : timeLeftMs, commitment.showFor - timeLeftMs]),
+            tap      (([timeLeftMs, elapsedTimeMs]) => this.updateViewContextCountdown(view, timeLeftMs, elapsedTimeMs)),
+            takeWhile(([timeLeftMs]) => timeLeftMs > 0, true),
+            filter   (([timeLeftMs]) => timeLeftMs <= 0),
             tap      (() => view.destroy()),
             mapTo    (commitment)
         );
@@ -516,14 +516,17 @@ export abstract class OnObserverBaseDirective<T> extends Destroyable implements 
      * @private
      * @param {RenderedView<T>} view The view in which to update the countdown.
      * @param {number} timeLeftMs The time left (in milliseconds) for the view before being destroyed.
+     * @param {number} timeElapsedMs The time elapsed (in milliseconds) from the moment the view was rendered.
      */
-    private updateViewContextCountdown(view: RenderedView<T>, timeLeftMs: number): void
+    private updateViewContextCountdown(view: RenderedView<T>, timeLeftMs: number, timeElapsedMs: number): void
     {    
-        const showingFor = breakdownTime(timeLeftMs);
+        const remaining = breakdownTime(timeLeftMs);
+        const elapsed   = breakdownTime(timeElapsedMs);
 
         const { $implicit, call, index } = view.context;
 
-        view.context = new OnObserverContext(this.selector, index, call, $implicit, showingFor);
+        // TODO: Remove the `showingFor` argument when launching v6.0.0
+        view.context = new OnObserverContext(this.selector, index, call, $implicit, remaining, remaining, elapsed);
     }
 
     /**
