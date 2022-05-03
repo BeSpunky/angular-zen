@@ -45,6 +45,9 @@ export class OnObserverContext<TResolved>
          * is specified in the directive.
          */
         public readonly remaining?: DurationBreakdown,
+        /**
+         * @deprecated Use {@link OnObserverContext.remaining `remaining`} instead. This will be removed in v6.0.0.
+         */
         public readonly showingFor?: DurationBreakdown,
         /**
          * (Optional) The time elapsed from the moment the view was rendered. Only used when {@link OnObserverBaseDirective.showFor `showFor`}
