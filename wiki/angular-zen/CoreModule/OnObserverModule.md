@@ -16,9 +16,9 @@ To use the emitted values, you can use either the `as` or the `let` microsyntax.
 <!-- Will render a new div for each emission, passing it the received notification and destroying it after 5 seconds.
 If a new notification is received before the previous one is destroyed, the div will not be replaced. A new one will 
 be created and appended to the DOM after it. -->
-<div *onObserverNext="notifications$ as notification; viewMode 'multiple'; showFor '5s'; let countdown = showingFor">
+<div *onObserverNext="notifications$ as notification; viewMode 'multiple'; showFor '5s'; let remaining = remaining">
     <h3>{{ notification }}</h3>
-    <h6>Closing in {{ countdown.s }} seconds...</h6>
+    <h6>Closing in {{ remaining.s }} seconds...</h6>
 </div>
 ```
 
@@ -41,12 +41,10 @@ Specify a value for showAfter `showAfter` to delay rendering.
 Specify `showFor` to automatically destroy the view after a certain duration.
 
 #### Countdown updates
-When `showFor` is specified, the view context will be updated in fixed intervals with the
-amount of time left until the view is destroyed. This allows giving the user feedback in a progress bar, a spinner, a textual timer
-or any other UI component. 
+When {@link OnObserverBaseDirective.showFor `showFor`} is specified, the view context will be updated with the time remaining until the view is destroyed and the time elapsed since it was rendered. This allows giving the user feedback in a progress bar, a spinner, a textual timer or any other UI component. 
 
-Countdown is provided by the `showingFor` property. Access it by assigning a variable using `let`, like so:
-`let remaining = showingFor`
+Remaining is provided by the {@link OnObserverContext.remaining `remaining`} property. Elapsed time is provided by the {@link OnObserverContext.elapsed `elapsed`} property. Access it by assigning a variable using `let`, like so:  
+`let remaining = remaining`
 
 #### Multi view mode
 Specify `viewMode = 'multiple'` to enable rendering a new view for each intercepted call
