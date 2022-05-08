@@ -30,6 +30,11 @@
     You may use the library as you'd like, with any app, under the MIT license.
 </p>
 
+## 📢 What's new
+<center>
+    <iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
 ## ✨ The Highlights
 
 [👁️ `*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html) - Super easy RxJS integration.

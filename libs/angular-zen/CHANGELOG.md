@@ -1,4 +1,7 @@
 # **v5.1.0** <small>2022-04-21</small>
+
+<iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 🐛 Fixed single view mode in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes renders multiple views.
 
 🐛 Fixed `showFor` property in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes causes inconcurrency issues.
