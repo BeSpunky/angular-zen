@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const wikiFolder = process.argv[2] || './wiki'; // [2] Should be the path to the wiki folder
+const wikiFolder = process.argv[3] || './wiki'; // [3] Should be the path to the wiki folder (just did some trial and error)
 
 function log(message, level)
 {
