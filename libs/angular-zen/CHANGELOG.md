@@ -1,4 +1,7 @@
 # **v5.1.0** <small>2022-04-21</small>
+🔧 Fixed peer dependencies in `package.json` targeting a specific minimal version of Angular v13.
+
+# **v5.1.0** <small>2022-04-21</small>
 
 <iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
