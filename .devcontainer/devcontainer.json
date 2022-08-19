@@ -9,7 +9,8 @@
 		// Use -bullseye variants on local on arm64/Apple Silicon.
 		"args": {
       "NODE_VARIANT": "16",
-      "PNPM_VERSION": "6.32.4"
+      "PNPM_VERSION": "6.32.4",
+      "FIREBASE_VERSION": "9.8.1"
 		}
 	},
 
@@ -59,7 +60,6 @@
   "postCreateCommand": "pnpm install --unsafe-perm",
 
 	"features": {
-		"docker-in-docker": "latest",
 		"docker-from-docker": "latest"
 	}
 }
