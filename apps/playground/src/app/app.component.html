@@ -1,5 +1,9 @@
-<h1>Demo</h1> 
-<ng-container *observeMerge="[notifications.system, notifications.birthdays]; let source = source">
+<h1>Demo</h1>
+<input type="number" #idText/>
+<button (click)="doTheDance(idText.valueAsNumber)">Navigate to user</button>
+
+<router-outlet></router-outlet>
+<!-- <ng-container *observeMerge="[notifications.system, notifications.birthdays]; let source = source">
     <div *onObserverNext="source
                           let notification
                           let index = index
@@ -16,4 +20,4 @@
         {{notification?.message}}
         <progress [value]="countdown?.totalMilliseconds ?? 0" max="10000"></progress>
     </div>
-</ng-container>
+</ng-container> -->

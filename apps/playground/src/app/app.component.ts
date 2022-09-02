@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { ProductNavigationService } from './navigation.service';
 import { NotificationsService } from './notifications.service';
 
 const grow = trigger('grow', [
@@ -14,12 +15,17 @@ const grow = trigger('grow', [
 ]);
 
 @Component({
-    selector   : "bespunky-root",
-    templateUrl: "./app.component.html",
-    styleUrls  : ["./app.component.scss"],
+    selector   : 'bs-root',
+    templateUrl: './app.component.html',
+    styleUrls  : ['./app.component.scss'],
     animations : [grow]
 })
 export class AppComponent
 {
-    constructor(public readonly notifications: NotificationsService) { }
+    constructor(public readonly notifications: NotificationsService, public readonly navigate: ProductNavigationService) { }
+
+    doTheDance(id: number): void
+    {
+        this.navigate.toUserProfile({ isd: });
+    }
 }
