@@ -18,12 +18,7 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "MTIyMTVkZjAtZmZmZS00ZjNhLTkzOTItOWM4YmM2NGU2ZjY5fHJlYWQtd3JpdGU="
       }
     }
@@ -51,5 +46,6 @@
       "style": "scss"
     }
   },
-  "defaultProject": "angular-zen"
+  "defaultProject": "angular-zen",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }
