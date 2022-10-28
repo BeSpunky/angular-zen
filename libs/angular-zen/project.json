@@ -45,7 +45,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/angular-zen"],
       "options": {
-        "jestConfig": "libs/angular-zen/jest.config.js",
+        "jestConfig": "libs/angular-zen/jest.config.ts",
         "passWithNoTests": true
       }
     },
