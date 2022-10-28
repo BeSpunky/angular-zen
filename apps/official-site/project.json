@@ -67,7 +67,7 @@
       "defaultConfiguration": "development"
     },
     "docs": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": ["wiki/angular-zen"],
       "options": {
         "commands": ["nx run official-site:docs:serve-zen"],
@@ -106,7 +106,7 @@
       }
     },
     "build-n-publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "commands": [
