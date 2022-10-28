@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/angular-zen",
   "sourceRoot": "libs/angular-zen/src",
   "prefix": "bs",
   "targets": {

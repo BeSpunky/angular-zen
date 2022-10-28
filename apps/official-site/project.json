@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/official-site",
   "sourceRoot": "apps/official-site/src",
   "prefix": "angular-zen",
   "targets": {
