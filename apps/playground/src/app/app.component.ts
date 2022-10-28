@@ -1,6 +1,6 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
-import { ProductNavigationService } from './navigation.service';
+import { UserNavigation } from './user.routes';
 import { NotificationsService } from './notifications.service';
 
 const grow = trigger('grow', [
@@ -22,10 +22,10 @@ const grow = trigger('grow', [
 })
 export class AppComponent
 {
-    constructor(public readonly notifications: NotificationsService, public readonly navigate: ProductNavigationService) { }
+    constructor(public readonly notifications: NotificationsService, public readonly navigate: UserNavigation) { }
 
-    doTheDance(id: number): void
+    doTheDance(id: string): void
     {
-        this.navigate.toUserProfile({ isd: });
+        this.navigate.toUserId({ id });
     }
 }

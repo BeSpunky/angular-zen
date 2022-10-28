@@ -10,4 +10,4 @@ export * from './services/url-reflection.service';
 export * from './services/navigate.service';
 
 export * from './decorators/navigates-to.decorator';
-export * from './decorators/navigation.types';
+export * from './decorators/route-composition';

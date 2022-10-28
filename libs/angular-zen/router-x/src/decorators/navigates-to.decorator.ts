@@ -1,60 +1,75 @@
-import { camelCase } from 'lodash-es';
-import { Injectable, Type } from '@angular/core';
-
+import { Inject, Injectable, Optional, Type } from '@angular/core';
 import { NavigateService } from '../services/navigate.service';
-import { RouteInput, RouteArgumentsData, RouteUrls } from './navigation.types';
 
-export function replaceArgumentsInRoute<Path extends string>(path: Path, input: RouteInput<Path, RouteArgumentsData<Path>>): string
+import { RouteComposer, _RouteComposer_, ReadonlyRouteChildren, ReadonlyRouteComposer} from './route-composition';
+
+function touchFirstLetter([firstLetter, ...rest]: string, touch: (first: string) => string): string 
 {
-    return path.replace(/:([^/]*)/g, (argName) => input[argName.slice(1) as keyof RouteInput<Path, RouteArgumentsData<Path>>] as string);
+    return firstLetter ? touch(firstLetter) + rest.join('') : '';
 }
 
-function autoNavigatorNameFromProperty(propertyName: string): string
+function firstUpper(value: string): string
 {
-    return camelCase(propertyName.slice(2));
+    return touchFirstLetter(value, first => first.toUpperCase());
 }
 
-type PathsOf<Urls extends RouteUrls> = { [key in keyof Urls]: Urls[key]['path'] };
-
-export function NavigatesTo<Urls extends RouteUrls>(urls: PathsOf<Urls>)
+// TODO: Warn if multiple composers with the same name were found
+function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>): Map<string, RouteComposer<any, string, string>>
 {
-    const autoNavigators = new Map(Object.entries(urls));
+    const composer = route[_RouteComposer_];
+    const autoNavigatorName = `to${ firstUpper(composer.name) }`;
 
-    return function <TConstructor extends Type<NavigateService>>(constructor: TConstructor): TConstructor
+    const childComposers = collectArrayRouteComposersByAutoNavigatioName(route.children);
+
+    return new Map([
+        [autoNavigatorName, composer],
+        ...(childComposers ?? [])
+    ]);
+}
+
+function collectArrayRouteComposersByAutoNavigatioName(routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>)[]): Map<string, RouteComposer<any, string, string>>
+{
+    return routes?.map(collectRouteComposersByAutoNavigatorName)
+                  .reduce((allNestedComposers, childComposers) => new Map([...allNestedComposers, ...childComposers]), new Map());
+}
+
+export function NavigatesTo(...routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>)[])
+{
+    if (!routes?.length) throw `No composable routes were provided to the @NavigatesTo() decorator.`;
+
+    const composers = collectArrayRouteComposersByAutoNavigatioName(routes);
+
+    return function <TConstructor extends Type<any>>(constructor: TConstructor): TConstructor
     {
-        @Injectable({ providedIn: 'root' })
-        class NavigateXService extends constructor
+        @Injectable()
+        class NavigateXCoreService extends NavigateService { }
+        
+        class NavigateXService extends NavigateXCoreService
         {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             constructor(...args: any[])
             {
                 super(...args);
 
                 return new Proxy(this, {
                     get: (target, propertyName: string) =>
-                    {
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        if (propertyName.startsWith('to'))
-                        {
-                            const autoNavigatorName = autoNavigatorNameFromProperty(propertyName);
-
-                            if (autoNavigators.has(autoNavigatorName))
-                                return <Path extends string>(input: RouteInput<Path, RouteArgumentsData<Path>>) =>
-                                    this.autoNavigate(autoNavigators.get(autoNavigatorName) ?? '', input);
-                        }
-
-                        return target[propertyName as keyof this];
-                    },
-                    has: (target, propertyName: string) => propertyName in target || autoNavigators.has(autoNavigatorNameFromProperty(propertyName))
+                        this.attemptToProduceAutoNavigateFunctionFor(propertyName) ?? target[propertyName as keyof this],
+                    
+                    has: (target, propertyName: string) => propertyName in target || composers.has(propertyName)
                 });
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            private autoNavigate<Path extends string>(path: Path, input: RouteInput<Path, RouteArgumentsData<Path>>)
+            private attemptToProduceAutoNavigateFunctionFor(propertyName: string)
             {
-                const url = replaceArgumentsInRoute(path, input);
+                const composer = composers.get(propertyName);
+                
+                if (!composer) return undefined;
 
-                return this.navigateTo(url);
+                return (entity: any): ReturnType<NavigateService['navigateTo']> =>
+                {
+                    const composeRoute = composer.compose.bind(composer) as (entity: any) => string;
+
+                    return this.navigateTo(composeRoute(entity));
+                };
             }
         };
 

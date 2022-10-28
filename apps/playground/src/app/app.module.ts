@@ -5,18 +5,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '@bespunky/angular-zen/core';
 
 import { AppComponent } from './app.component';
-import { UserProfileComponent, UserProfileComponentModule } from './user-profile/user-profile.component';
+import { UserProfileComponentModule } from './user-profile/user-profile.component';
+import { userRoutes } from './user.routes';
 
-const routes: Routes = [
-    { path: 'user/:id/profile', component: UserProfileComponent },
-    { path: '', redirectTo: 'user/1/profile', pathMatch: 'full' },
-];
+const routerConfig = [userRoutes] as Routes;
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
         BrowserModule, BrowserAnimationsModule, CoreModule, UserProfileComponentModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routerConfig)
     ],
     providers: [],
     bootstrap: [AppComponent],
