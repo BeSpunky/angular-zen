@@ -7,6 +7,7 @@ ARG PNPM_VERSION
 # Install pnpm globally to allow running `pnpm` and `pnpx` commands (installing packages, etc.) from the container's terminal
 RUN npm install -g pnpm@${PNPM_VERSION}
 
-ARG FIREBASE_VERSION
+# ARG FIREBASE_VERSION
 # Install firebase globally to allow running `firebase` commands (for publishing the official site and stuff)
-RUN pnpm install -g firebase@${FIREBASE_VERSION}
+# RUN npm install -g firebase@${FIREBASE_VERSION}
+
