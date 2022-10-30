@@ -26,8 +26,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^13.0.0",
-    "@angular/core": "^13.0.0",
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
     "lodash-es": "^4.0.0"
   },
   "devDependencies": {
