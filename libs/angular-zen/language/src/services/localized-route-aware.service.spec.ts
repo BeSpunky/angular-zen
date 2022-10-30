@@ -10,9 +10,9 @@ import { LocalizedRouteAware       } from './localized-route-aware.service';
 @Injectable({ providedIn: 'root' })
 class LocalizedRouteAwareMock extends LocalizedRouteAware
 {
-    public onLanguageServicesReady(): void { }
-    
-    public onLanguageChanged(lang: string): void { }
+    public override onLanguageServicesReady(): void { void 0; }
+     
+    public override onLanguageChanged(lang: string): void { void 0; }
 }
 
 describe('LocalizedRouteAware (abstract)', () =>
