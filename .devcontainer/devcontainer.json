@@ -60,6 +60,6 @@
   "postCreateCommand": "pnpm install --unsafe-perm",
 
 	"features": {
-		"docker-from-docker": "latest"
+		// "docker-from-docker": "latest"
 	}
 }
