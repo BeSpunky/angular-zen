@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "14.2.8",
     "@angular/router": "14.2.8",
     "@nrwl/angular": "14.8.6",
-    "lodash-es": "^4.17.21",
     "rxjs": "~7.5.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
