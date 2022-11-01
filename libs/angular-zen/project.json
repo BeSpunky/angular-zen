@@ -78,7 +78,9 @@
           "libs/angular-zen/router-x/testing/**/*.ts",
           "libs/angular-zen/router-x/testing/**/*.html",
           "libs/angular-zen/universal/**/*.ts",
-          "libs/angular-zen/universal/**/*.html"
+          "libs/angular-zen/universal/**/*.html",
+          "libs/angular-zen/utils/**/*.ts",
+          "libs/angular-zen/utils/**/*.html"
         ]
       }
     }

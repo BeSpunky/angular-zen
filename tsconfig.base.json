@@ -35,7 +35,8 @@
       ],
       "@bespunky/angular-zen/universal": [
         "libs/angular-zen/universal/src/index.ts"
-      ]
+      ],
+      "@bespunky/angular-zen/utils": ["libs/angular-zen/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
