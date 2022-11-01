@@ -171,11 +171,11 @@ export class LanguageIntegrationService extends Destroyable
      * Translates a value (typically a translation id) into the current language used by the integrated app.
      *
      * @param {string} value The value to translate (typically a translation id).
-     * @param {*} [params] (Optional) Any params needed for translating the value.
+     * @param {Record<string, unknown>} [params] (Optional) Any params needed for translating the value.
      * @returns {string} The translation of the specified value and params in the current language used by the integrated app.
      * @throws If the language integration module hasn't been imported into the app.
      */
-    public translate(value: string, params?: any): string
+    public translate(value: string, params?: Record<string, unknown>): string
     {
         this.ensureEnabled();
 
@@ -188,12 +188,12 @@ export class LanguageIntegrationService extends Destroyable
      * This method uses lodash's `get` and `set` functions to access properties.
      * The `paths` argument is an array of `get`/`set` compatible paths.
      * 
-     * @param {*} data The object/array which holds the translatable properties/values. Can be a deeply nested object..
+     * @param {Record<string, unknown>} data The object which holds the translatable properties. Can be a deeply nested object.
      * @param {string[]} paths The paths of the translatable properties/values to translate and replace.
      * @see https://lodash.com/docs/4.17.15#get for path syntax.
      * @throws If the language integration module hasn't been imported into the app.
      */
-    public translateProperties(data: any, paths: string[]): void
+    public translateProperties(data: Record<string, unknown>, paths: string[]): void
     {
         this.ensureEnabled();
         
