@@ -1,6 +1,6 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/official-site",
   "sourceRoot": "apps/official-site/src",
   "prefix": "angular-zen",
   "targets": {
@@ -67,7 +67,7 @@
       "defaultConfiguration": "development"
     },
     "docs": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": ["wiki/angular-zen"],
       "options": {
         "commands": ["nx run official-site:docs:serve-zen"],
@@ -101,12 +101,12 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/official-site"],
       "options": {
-        "jestConfig": "apps/official-site/jest.config.js",
+        "jestConfig": "apps/official-site/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build-n-publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "commands": [

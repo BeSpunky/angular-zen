@@ -182,8 +182,8 @@ describe('UrlReflectionService', () =>
         {
             const params = urlReflection.queryParams;
 
-            expect(params.maxReadingTime).toEqual('7');
-            expect(params.period        ).toEqual('lastYear');
+            expect(params['maxReadingTime']).toEqual('7');
+            expect(params['period']        ).toEqual('lastYear');
         });
 
         it('should return the query string portion of the active route using `queryString`', () =>
