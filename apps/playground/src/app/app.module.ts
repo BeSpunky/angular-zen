@@ -3,20 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '@bespunky/angular-zen/core';
+import { provideRouterX, provideRoutesX } from '@bespunky/angular-zen/router-x';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponentModule } from './user-profile/user-profile.component';
 import { userRoutes } from './user.routes';
 
-const routerConfig = [userRoutes] as Routes;
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
         BrowserModule, BrowserAnimationsModule, CoreModule, UserProfileComponentModule,
-        RouterModule.forRoot(routerConfig)
+        RouterModule
     ],
-    providers: [],
+    providers: [provideRouterX([userRoutes])],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

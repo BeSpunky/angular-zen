@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Route, Router } from '@angular/router';
+import { InjectionToken } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 export type Head<T> = T extends [infer First, ...infer _] ? First : unknown;
 export type Tail<T> = T extends [...infer _, infer Last] ? Last : unknown;
@@ -58,6 +59,7 @@ type ValidRouteNameChar =
 //     Name extends `${ infer Char }${ infer Rest }` ?
 //     Char extends ValidRouteNameChar ? JoinStrings<Char, ValidRouteName<Rest>> : `{${ Char }}${Rest} - The char wrapped in brackets is invalid for route names.` : '';
 export const _RouteComposer_ = Symbol('RouteComposer');
+export const _NavigatorToken_ = Symbol('NavigatorXToken');
 
 export interface ReadonlyRoute<PathSegment extends string, FriendlyName extends string> extends Readonly<Omit<Route, 'path' | 'children'>>
 {
@@ -116,6 +118,14 @@ export type ComposableRoute<Route, Entity, FullPath extends string> =
     & ReadonlyRoute<Segment, FriendlyName>
     & { readonly children?: ComposableRoutesArray<Children, Entity, FullPath> }
     : never;
+
+export type NavigationXRoute<Route, Entity, FullPath extends string> = {
+    readonly [ _NavigatorToken_ ]: InjectionToken<AutoNavigateRouteMethods<Route, Entity, FullPath>>
+};
+
+export type ComposableRootRoute<Route, Entity, FullPath extends string> =
+    & ComposableRoute<Route, Entity, FullPath>
+    & NavigationXRoute<Route, Entity, FullPath>;
 
 type hf = RouteSegments<TESTROUTE>
 type RA = RouteArgument<TESTROUTE>;
@@ -187,12 +197,15 @@ type pal = GeneratedRouteComposerName<TESTROUTE>;
 export class RouteComposer<Entity, FullPath extends string, Name extends string>
 {
     public readonly args: RouteArgument<FullPath>[];
+    public readonly hasArgs: boolean;
     public readonly compose: RouteComposerComposeMethod<Entity, FullPath>;
+
 
     constructor(public readonly path: FullPath, public readonly name: Name)
     {
         this.args = extractArgsFromPath(path);
-        this.compose = (this.args.length ? this.routePathWithArgs.bind(this) : this.routePath.bind(this)) as RouteComposerComposeMethod<Entity, FullPath>;
+        this.hasArgs = this.args.length > 0;
+        this.compose = (this.hasArgs ? this.routePathWithArgs.bind(this) : this.routePath.bind(this)) as RouteComposerComposeMethod<Entity, FullPath>;
     }
 
     private routePathWithArgs(entity: EntityRouteArgs<Entity, FullPath>)
@@ -252,7 +265,7 @@ export function routeConfigFor<Entity>()
         return new RouteComposer<Entity, FullPath, ComposerName>(path, composerName);
     }
 
-    function prefixedRoute<
+    function prefixedRouteCore<
         Segment      extends string,
         FriendlyName extends string,
         Children     extends readonly ReadonlyRoute<string, string>[],
@@ -273,12 +286,24 @@ export function routeConfigFor<Entity>()
         } as const as ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>;
     }
 
+    function prefixedRoute<
+        Segment      extends string,
+        FriendlyName extends string,
+        Children     extends readonly ReadonlyRoute<string, string>[],
+        Root         extends string
+    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>, root: Root): ComposableRootRoute<typeof route, Entity, CombinedPath<Root, Segment>>
+    {
+        return {
+            ...prefixedRouteCore(route, root),
+            [ _NavigatorToken_ ]: new InjectionToken(`_ROUTER_X_NAVIGATION__${ route.path }`)
+        };
+    }
 
     function route<
         Segment      extends string,
         FriendlyName extends string,
         Children     extends readonly ReadonlyRoute<string, string>[]
-    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>): ComposableRoute<typeof route, Entity, CombinedPath<'', Segment>>
+    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>): ComposableRootRoute<typeof route, Entity, CombinedPath<'', Segment>>
     {
         // When the `root` arg was optional with a default value of `''`, TS appended `${string}` (e.g. `${string}/theaters/:theaterId`)
         // to the route template for some reason, which breaks the arg extraction later on.

@@ -1,7 +1,7 @@
-import { Inject, Injectable, Optional, Type } from '@angular/core';
-import { NavigateService } from '../services/navigate.service';
+import { FactoryProvider, inject, Injectable, Provider } from '@angular/core';
+import { provideRouter, provideRoutes, Router } from '@angular/router';
 
-import { RouteComposer, _RouteComposer_, ReadonlyRouteChildren, ReadonlyRouteComposer} from './route-composition';
+import { RouteComposer, _RouteComposer_, ReadonlyRouteChildren, ReadonlyRouteComposer, ReadonlyRoute, AutoNavigateRouteMethods, NoHead, NavigationXRoute, _NavigatorToken_, ComposableRootRoute} from './route-composition';
 
 function touchFirstLetter([firstLetter, ...rest]: string, touch: (first: string) => string): string 
 {
@@ -33,46 +33,68 @@ function collectArrayRouteComposersByAutoNavigatioName(routes: (ReadonlyRouteCom
                   .reduce((allNestedComposers, childComposers) => new Map([...allNestedComposers, ...childComposers]), new Map());
 }
 
-export function NavigatesTo(...routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>)[])
+function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<any, string, string>)
+{
+    if (!composer) return undefined;
+
+    if (composer.hasArgs)
+    {
+        const compose = composer.compose.bind(composer) as (entity: unknown) => string;
+        
+        return (entity: unknown) => router.navigateByUrl(compose(entity));
+    }
+
+    return () => router.navigateByUrl(composer.compose());
+}
+
+export function withNavigationXToken<
+    Route extends ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteComposer<Entity, FullPath, ComposerName> & ReadonlyRouteChildren<Children> & NavigationXRoute<Route, Entity, FullPath>,
+    Entity,
+    Segment extends string,
+    FriendlyName extends string,
+    FullPath extends string,
+    ComposerName extends string,
+    Children extends ReadonlyRoute<string, string>[]
+>(route: Route): FactoryProvider
+{
+    return {
+        provide: route[ _NavigatorToken_ ],
+        deps: [Router],
+        useFactory: (router: Router) => 
+        {    
+            const composers = collectRouteComposersByAutoNavigatorName(route);
+    
+            return new Proxy({}, {
+                get: (_, propertyName: string) =>
+                    attemptToProduceAutoNavigateFunctionFor(router, composers.get(propertyName)),
+                
+                has: (_, propertyName: string) => composers.has(propertyName)
+            });
+        }
+    };
+}
+
+export function provideRouterX(routes: (ReadonlyRoute<string, string> & ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any> & NavigationXRoute<any, any, string>)[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
+{
+    return [
+        ...provideRouter(routes, ...features),
+        ...provideRoutesX(...routes)
+    ];
+}
+
+export function provideRoutesX(...routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any> & NavigationXRoute<any, any, string>)[])
 {
     if (!routes?.length) throw `No composable routes were provided to the @NavigatesTo() decorator.`;
 
-    const composers = collectArrayRouteComposersByAutoNavigatioName(routes);
+    const navigators = routes.map(withNavigationXToken);
 
-    return function <TConstructor extends Type<any>>(constructor: TConstructor): TConstructor
-    {
-        @Injectable()
-        class NavigateXCoreService extends NavigateService { }
-        
-        class NavigateXService extends NavigateXCoreService
-        {
-            constructor(...args: any[])
-            {
-                super(...args);
+    return [
+        ...navigators,
+        ...provideRoutes(routes)
+    ];
+}
 
-                return new Proxy(this, {
-                    get: (target, propertyName: string) =>
-                        this.attemptToProduceAutoNavigateFunctionFor(propertyName) ?? target[propertyName as keyof this],
-                    
-                    has: (target, propertyName: string) => propertyName in target || composers.has(propertyName)
-                });
-            }
-
-            private attemptToProduceAutoNavigateFunctionFor(propertyName: string)
-            {
-                const composer = composers.get(propertyName);
-                
-                if (!composer) return undefined;
-
-                return (entity: any): ReturnType<NavigateService['navigateTo']> =>
-                {
-                    const composeRoute = composer.compose.bind(composer) as (entity: any) => string;
-
-                    return this.navigateTo(composeRoute(entity));
-                };
-            }
-        };
-
-        return NavigateXService;
-    };
+export function useNavigationX<Route, Entity, FullPath extends string>(route: ComposableRootRoute<Route, Entity, FullPath>): AutoNavigateRouteMethods<Route, Entity, FullPath>
+{
+    return inject(route[ _NavigatorToken_ ]);
 }

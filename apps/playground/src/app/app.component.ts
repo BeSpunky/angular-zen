@@ -1,7 +1,8 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
-import { UserNavigation } from './user.routes';
+import { useNavigationX } from '@bespunky/angular-zen/router-x';
 import { NotificationsService } from './notifications.service';
+import { userRoutes } from './user.routes';
 
 const grow = trigger('grow', [
     transition(':enter', [
@@ -22,10 +23,12 @@ const grow = trigger('grow', [
 })
 export class AppComponent
 {
-    constructor(public readonly notifications: NotificationsService, public readonly navigate: UserNavigation) { }
+    private readonly navigate = useNavigationX(userRoutes);
+
+    constructor(public readonly notifications: NotificationsService) { }
 
     doTheDance(id: string): void
-    {
+    {        
         this.navigate.toUserId({ id });
     }
 }
