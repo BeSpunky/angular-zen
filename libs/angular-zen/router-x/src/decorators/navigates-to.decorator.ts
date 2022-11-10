@@ -1,7 +1,7 @@
-import { FactoryProvider, inject, Injectable, Provider } from '@angular/core';
+import { FactoryProvider, inject, Provider } from '@angular/core';
 import { provideRouter, provideRoutes, Router } from '@angular/router';
 
-import { RouteComposer, _RouteComposer_, ReadonlyRouteChildren, ReadonlyRouteComposer, ReadonlyRoute, AutoNavigateRouteMethods, NoHead, NavigationXRoute, _NavigatorToken_, ComposableRootRoute} from './route-composition';
+import { RouteComposer, _RouteComposer_, ReadonlyRouteChildren, ReadonlyRouteComposer, NoHead, _NavigatorToken_, ComposableRootRoute, ReadonlyRoute, NavigationXRoute, AutoNavigateRouteMethods} from './route-composition';
 
 function touchFirstLetter([firstLetter, ...rest]: string, touch: (first: string) => string): string 
 {
@@ -14,7 +14,7 @@ function firstUpper(value: string): string
 }
 
 // TODO: Warn if multiple composers with the same name were found
-function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>): Map<string, RouteComposer<any, string, string>>
+function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteComposer<unknown, string, string> & ReadonlyRouteChildren<any>): Map<string, RouteComposer<unknown, string, string>>
 {
     const composer = route[_RouteComposer_];
     const autoNavigatorName = `to${ firstUpper(composer.name) }`;
@@ -27,13 +27,13 @@ function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteComposer<a
     ]);
 }
 
-function collectArrayRouteComposersByAutoNavigatioName(routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any>)[]): Map<string, RouteComposer<any, string, string>>
+function collectArrayRouteComposersByAutoNavigatioName(routes: (ReadonlyRouteComposer<unknown, string, string> & ReadonlyRouteChildren<any>)[]): Map<string, RouteComposer<unknown, string, string>>
 {
     return routes?.map(collectRouteComposersByAutoNavigatorName)
                   .reduce((allNestedComposers, childComposers) => new Map([...allNestedComposers, ...childComposers]), new Map());
 }
 
-function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<any, string, string>)
+function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
 {
     if (!composer) return undefined;
 
@@ -47,15 +47,7 @@ function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: Rout
     return () => router.navigateByUrl(composer.compose());
 }
 
-export function withNavigationXToken<
-    Route extends ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteComposer<Entity, FullPath, ComposerName> & ReadonlyRouteChildren<Children> & NavigationXRoute<Route, Entity, FullPath>,
-    Entity,
-    Segment extends string,
-    FriendlyName extends string,
-    FullPath extends string,
-    ComposerName extends string,
-    Children extends ReadonlyRoute<string, string>[]
->(route: Route): FactoryProvider
+export function withNavigationXToken(route: ReadonlyRoute<string, string> & ReadonlyRouteChildren<any> & ReadonlyRouteComposer<any, string, string> & NavigationXRoute<any, any, string>): FactoryProvider
 {
     return {
         provide: route[ _NavigatorToken_ ],
@@ -74,7 +66,7 @@ export function withNavigationXToken<
     };
 }
 
-export function provideRouterX(routes: (ReadonlyRoute<string, string> & ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any> & NavigationXRoute<any, any, string>)[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
+export function provideRouterX(routes: ComposableRootRoute<any>[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
 {
     return [
         ...provideRouter(routes, ...features),
@@ -82,7 +74,7 @@ export function provideRouterX(routes: (ReadonlyRoute<string, string> & Readonly
     ];
 }
 
-export function provideRoutesX(...routes: (ReadonlyRouteComposer<any, string, string> & ReadonlyRouteChildren<any> & NavigationXRoute<any, any, string>)[])
+export function provideRoutesX(...routes: ComposableRootRoute<any>[])
 {
     if (!routes?.length) throw `No composable routes were provided to the @NavigatesTo() decorator.`;
 
@@ -94,7 +86,14 @@ export function provideRoutesX(...routes: (ReadonlyRouteComposer<any, string, st
     ];
 }
 
-export function useNavigationX<Route, Entity, FullPath extends string>(route: ComposableRootRoute<Route, Entity, FullPath>): AutoNavigateRouteMethods<Route, Entity, FullPath>
+export function useNavigationX<
+    Route extends ReadonlyRoute<string, string> & ReadonlyRouteChildren<any>,
+    Entity,
+    Root extends string,
+    FullPath extends string,
+    ComposerName extends string
+>(route: Route & ReadonlyRouteComposer<Entity, FullPath, ComposerName> & NavigationXRoute<Route, Entity, Root>)//: AutoNavigateRouteMethods<Route, Entity, Root>
 {
-    return inject(route[ _NavigatorToken_ ]);
+    const newLocal = route[ _NavigatorToken_ ];
+    return inject(newLocal);
 }

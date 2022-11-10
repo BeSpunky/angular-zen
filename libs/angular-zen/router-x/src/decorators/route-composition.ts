@@ -38,6 +38,10 @@ export type Narrow<T> =
     | T extends Function | Primitive | [] ? T : never
     | { [K in keyof T]: Narrow<T[K]> };
 
+export type AsObject<T> = { [ k in keyof T ]: T[ k ] };
+
+type FLATTT = AsObject<{ a: 3 } & { b: 2 }>;
+
 type CharArray<S extends string> = {
     0: [''],
     1: [S],
@@ -98,34 +102,36 @@ export type EntityRouteArgs<T, Path extends string> =
 
 // =======================================================================================
 
-export type CombinedPath<Root extends string, Segment extends string> = Root extends '' ? Segment : Join<[Root, Segment], '/'>;
+export type CombinedPath<Root extends string, Segment extends string> = FirstChar<Root> extends string ? Join<[Root, Segment], '/'> : Segment;
 
 export type ttt = CombinedPath<'ha/asd','va/asd'>
 
-type ComposableRoutesArray<Children, Entity, FullPath extends string> =
+type ComposableRoutesArray<Children, Entity, Root extends string> =
     Children extends readonly [infer First, ...infer Rest] ?
     First extends ReadonlyRoute<infer Segment, string> ?
     readonly [
-        ComposableRoute<First, Entity, CombinedPath<FullPath, Segment>>,
-        ...ComposableRoutesArray<Rest, Entity, FullPath>
+        ComposableRoute<First, Entity, CombinedPath<Root, Segment>>,
+        ...ComposableRoutesArray<Rest, Entity, Root>
     ]
     : []
     : [];
 
-export type ComposableRoute<Route, Entity, FullPath extends string> =
+export type ComposableRoute<Route extends ReadonlyRoute<string, string> & ReadonlyRouteChildren<any>, Entity, Root extends string> =
     Route extends ReadonlyRoute<infer Segment, infer FriendlyName> & ReadonlyRouteChildren<infer Children> ?
-    & ReadonlyRouteComposer<Entity, FullPath, RouteComposerName<FriendlyName, FullPath>>    
-    & ReadonlyRoute<Segment, FriendlyName>
-    & { readonly children?: ComposableRoutesArray<Children, Entity, FullPath> }
+        & ReadonlyRouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>    
+        & ReadonlyRoute<Segment, FriendlyName>
+        & { readonly children?: ComposableRoutesArray<Children, Entity, CombinedPath<Root, Segment>> }
     : never;
 
-export type NavigationXRoute<Route, Entity, FullPath extends string> = {
-    readonly [ _NavigatorToken_ ]: InjectionToken<AutoNavigateRouteMethods<Route, Entity, FullPath>>
+export type NavigationXRoute<Route, Entity, Root extends string> = {
+    readonly [ _NavigatorToken_ ]: InjectionToken<AutoNavigateRouteMethods<Route, Entity, Root>>
 };
 
-export type ComposableRootRoute<Route, Entity, FullPath extends string> =
-    & ComposableRoute<Route, Entity, FullPath>
-    & NavigationXRoute<Route, Entity, FullPath>;
+export type ComposableRootRoute<ComposableR extends ComposableRoute<any, any, string>> =
+    ComposableR extends ComposableRoute<infer Route, infer Entity, infer Root> ?
+        & ComposableR
+        & NavigationXRoute<Route, Entity, Join<NoTail<RouteSegments<Root>> & string[], '/'>>
+    : never;
 
 type hf = RouteSegments<TESTROUTE>
 type RA = RouteArgument<TESTROUTE>;
@@ -200,7 +206,6 @@ export class RouteComposer<Entity, FullPath extends string, Name extends string>
     public readonly hasArgs: boolean;
     public readonly compose: RouteComposerComposeMethod<Entity, FullPath>;
 
-
     constructor(public readonly path: FullPath, public readonly name: Name)
     {
         this.args = extractArgsFromPath(path);
@@ -215,7 +220,10 @@ export class RouteComposer<Entity, FullPath extends string, Name extends string>
             {
                 const argName = arg.substring(1) as keyof EntityRouteArgs<Entity, FullPath>;
 
-                return route.replace(arg, String(entity[argName]));
+                const value = entity[ argName ];
+                const formattedValue = value instanceof Date ? value.toUTCString() : String(value);
+
+                return route.replace(arg, formattedValue);
             },
             this.path
         );
@@ -270,7 +278,7 @@ export function routeConfigFor<Entity>()
         FriendlyName extends string,
         Children     extends readonly ReadonlyRoute<string, string>[],
         Root         extends string
-    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>, root: Root): ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>
+    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>, root: Root)//: ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>
     {
         const path         = combinePath(root, route.path) as CombinedPath<Root, Segment>;
         const composerName = (route.friendlyName ?? generateRouteComposerName(path)) as RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>;
@@ -283,7 +291,7 @@ export function routeConfigFor<Entity>()
             ...route,
             children,
             [_RouteComposer_]: composer
-        } as const as ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>;
+        } as const;
     }
 
     function prefixedRoute<
@@ -291,19 +299,19 @@ export function routeConfigFor<Entity>()
         FriendlyName extends string,
         Children     extends readonly ReadonlyRoute<string, string>[],
         Root         extends string
-    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>, root: Root): ComposableRootRoute<typeof route, Entity, CombinedPath<Root, Segment>>
+    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>, root: Root)//: ComposableRootRoute<ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>>
     {
         return {
             ...prefixedRouteCore(route, root),
-            [ _NavigatorToken_ ]: new InjectionToken(`_ROUTER_X_NAVIGATION__${ route.path }`)
-        };
+            [ _NavigatorToken_ ]: new InjectionToken<AutoNavigateRouteMethods<typeof route, Entity, Root>>(`_ROUTER_X_NAVIGATION__${ route.path }`)
+        } as const;
     }
 
     function route<
         Segment      extends string,
         FriendlyName extends string,
         Children     extends readonly ReadonlyRoute<string, string>[]
-    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>): ComposableRootRoute<typeof route, Entity, CombinedPath<'', Segment>>
+    >(route: ReadonlyRoute<Segment, FriendlyName> & ReadonlyRouteChildren<Children>)//: ComposableRootRoute<ComposableRoute<typeof route, Entity, CombinedPath<'', Segment>>>
     {
         // When the `root` arg was optional with a default value of `''`, TS appended `${string}` (e.g. `${string}/theaters/:theaterId`)
         // to the route template for some reason, which breaks the arg extraction later on.
@@ -322,18 +330,20 @@ export function routeConfigFor<Entity>()
 export type RouteComposerName<FriendlyName extends string | undefined, FullPath extends string> =
     FirstChar<FriendlyName> extends string ? FriendlyName : GeneratedRouteComposerName<FullPath>;
 
-export type AutoNavigateMethodName<T extends string> = `to${ Capitalize<T> }`;
+export type AutoNavigateMethodName<Name extends string> = `to${ Capitalize<Name> }`;
 
 export type AutoNavigateMethod<Entity, FullPath extends string> = RouteOperationMethod<Entity, FullPath, ReturnType<Router['navigateByUrl']>>;
 
-export type AutoNavigateRouteMethods<Route, Entity, FullPath extends string> =
+export type AutoNavigateRouteMethods<Route, Entity, Root extends string> =
     Route extends ReadonlyRoute<infer Segment, infer FriendlyName> & ReadonlyRouteChildren<infer Children> ?
-    & { [k in AutoNavigateMethodName<RouteComposerName<FriendlyName, CombinedPath<FullPath, Segment>>>]: AutoNavigateMethod<Entity, CombinedPath<FullPath, Segment>> }
-    & AutoNavigateRouteArrayMethods<Children, Entity, CombinedPath<FullPath, Segment>>
+    // AsObject<
+        & { [k in AutoNavigateMethodName<RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>]: AutoNavigateMethod<Entity, CombinedPath<Root, Segment>> }
+        & AutoNavigateRouteArrayMethods<Children, Entity, CombinedPath<Root, Segment>>
+    // >
     : {};
 
-export type AutoNavigateRouteArrayMethods<Routes, Entity, FullPath extends string> =
+export type AutoNavigateRouteArrayMethods<Routes, Entity, Root extends string> =
     Routes extends readonly [infer Route, ...infer Rest] ?
-    & AutoNavigateRouteMethods<Route, Entity, FullPath>
-    & AutoNavigateRouteArrayMethods<Rest, Entity, FullPath>
+    & AutoNavigateRouteMethods<Route, Entity, Root>
+    & AutoNavigateRouteArrayMethods<Rest, Entity, Root>
     : {};

@@ -28,7 +28,7 @@ export class AppComponent
     constructor(public readonly notifications: NotificationsService) { }
 
     doTheDance(id: string): void
-    {        
-        this.navigate.toUserId({ id });
+    {
+        this.navigate.toUserIdProfileBirthday({ id, birthday: new Date() });
     }
 }
