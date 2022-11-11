@@ -30,6 +30,9 @@
       "@bespunky/angular-zen/router-x": [
         "libs/angular-zen/router-x/src/index.ts"
       ],
+      "@bespunky/angular-zen/router-x/navigator-x": [
+        "libs/angular-zen/router-x/navigator-x/src/index.ts"
+      ],
       "@bespunky/angular-zen/router-x/testing": [
         "libs/angular-zen/router-x/testing/src/index.ts"
       ],
