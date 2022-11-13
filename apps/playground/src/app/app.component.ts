@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { useNavigationX } from '@bespunky/angular-zen/router-x/navigator-x';
 import { NotificationsService } from './notifications.service';
-import { userRoutes } from './user.routes';
+import { theaterRoutes } from './theater.routes';
 
 @Component({
     selector   : 'bs-root',
@@ -10,12 +10,12 @@ import { userRoutes } from './user.routes';
 })
 export class AppComponent
 {
-    private readonly navigate = useNavigationX(userRoutes);
+    private readonly navigate = useNavigationX(theaterRoutes);
 
     constructor(public readonly notifications: NotificationsService) { }
 
-    doTheDance(id: string): void
+    onSomethingHappened(theaterId: string): void
     {
-        this.navigate.toUserIdProfileBirthday({ id, birthday: new Date() });
+        this.navigate.toTheatersTheaterId({ theaterId });
     }
 }

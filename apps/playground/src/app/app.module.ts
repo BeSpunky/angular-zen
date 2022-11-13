@@ -6,16 +6,16 @@ import { CoreModule } from '@bespunky/angular-zen/core';
 import { provideRouterX } from '@bespunky/angular-zen/router-x/navigator-x';
 
 import { AppComponent } from './app.component';
-import { UserProfileComponentModule } from './user-profile/user-profile.component';
-import { userRoutes } from './user.routes';
+import { TheaterShowComponent } from './theater-show/theater-show.component';
+import { theaterRoutes } from './theater.routes';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [ AppComponent, TheaterShowComponent],
     imports: [
-        BrowserModule, BrowserAnimationsModule, CoreModule, UserProfileComponentModule,
+        BrowserModule, BrowserAnimationsModule, CoreModule,
         RouterModule
     ],
-    providers: [provideRouterX([userRoutes])],
-    bootstrap: [AppComponent],
+    providers: [ provideRouterX([ theaterRoutes ]) ],
+    bootstrap: [ AppComponent ],
 })
-export class AppModule { }
+export class AppModule {}
