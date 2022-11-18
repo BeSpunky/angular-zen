@@ -9,10 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TheaterShowComponent
 {
-    public id: Observable<number>;
+    public theaterId: Observable<number>;
+    public showId: Observable<number>;
 
     constructor(private route: ActivatedRoute)
     {
-        this.id = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
+        this.theaterId = this.route.paramMap.pipe(map(params => Number(params.get('theaterId'))));
+        this.showId = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
     }
 }

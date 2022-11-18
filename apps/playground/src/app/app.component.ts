@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { useNavigationX } from '@bespunky/angular-zen/router-x/navigator-x';
-import { NotificationsService } from './notifications.service';
 import { theaterRoutes } from './theater.routes';
 
 @Component({
@@ -12,10 +11,8 @@ export class AppComponent
 {
     private readonly navigate = useNavigationX(theaterRoutes);
 
-    constructor(public readonly notifications: NotificationsService) { }
-
-    onSomethingHappened(theaterId: string): void
+    onSomeEvent(theaterId: string, showId: number): void
     {
-        this.navigate.toTheatersTheaterId({ theaterId });
+        this.navigate.toShowDetails({ id: showId, theaterId: +theaterId });
     }
 }

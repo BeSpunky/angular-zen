@@ -1,6 +1,6 @@
 <h1>Demo</h1>
 <input type="number" #idText/>
-<button (click)="doTheDance(idText.value)">Navigate to user</button>
+<button (click)="onSomeEvent(idText.value, 5)">Navigate</button>
 
 <router-outlet></router-outlet>
 <!-- <ng-container *observeMerge="[notifications.system, notifications.birthdays]; let source = source">

@@ -1,7 +1,7 @@
-export interface Show
+export interface TheaterShow
 {
     id       : number;
-    theaterId: string;
+    theaterId: number;
     name     : string;
     date     : Date;
 }

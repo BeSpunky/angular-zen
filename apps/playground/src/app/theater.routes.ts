@@ -1,8 +1,8 @@
 import { routeConfigFor } from '@bespunky/angular-zen/router-x/navigator-x';
-import { Show } from './theater-show/model';
 import { TheaterShowComponent } from './theater-show/theater-show.component';
+import { TheaterShow } from './theater-show/model';
 
-const theater = routeConfigFor<Show>();
+const theater = routeConfigFor<TheaterShow>()
 
 export const theaterRoutes = theater.route({
     path: 'theaters',
@@ -15,7 +15,7 @@ export const theaterRoutes = theater.route({
                     path: 'shows',
                     component: TheaterShowComponent,
                     children: [
-                        { path: ':id', component: TheaterShowComponent }
+                        { path: ':id', friendlyName: 'ShowDetails', component: TheaterShowComponent }
                     ]
                 }
             ]
