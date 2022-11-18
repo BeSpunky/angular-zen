@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { EmptyObject } from './_utils.types';
 import { RouteArgument, CombinedPath } from './route-paths.types';
-import { ReadonlyRoute, ReadonlyRouteChildren } from './composable-routes.types';
+import { ReadonlyRoute } from './composable-routes.types';
 import { EntityRouteArgs, RouteComposerName } from './route-composer.types';
 
 export type RouteOperationMethod<Entity, Path extends string, ReturnType> =
@@ -14,7 +14,7 @@ export type AutoNavigateMethodName<Name extends string> = `to${ Capitalize<Name>
 export type AutoNavigateMethod<Entity, FullPath extends string> = RouteOperationMethod<Entity, FullPath, ReturnType<Router[ 'navigateByUrl' ]>>;
 
 export type AutoNavigateRouteMethods<Route, Entity, Root extends string> =
-    Route extends ReadonlyRoute<infer Segment, infer FriendlyName> & ReadonlyRouteChildren<infer Children> ?
+    Route extends ReadonlyRoute<infer Segment, infer FriendlyName, infer Children> ?
         & { [ k in AutoNavigateMethodName<RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>> ]: AutoNavigateMethod<Entity, CombinedPath<Root, Segment>>; }
         & AutoNavigateRouteArrayMethods<Children, Entity, CombinedPath<Root, Segment>>
     : EmptyObject;

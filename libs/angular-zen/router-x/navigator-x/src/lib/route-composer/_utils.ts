@@ -1,10 +1,10 @@
 import { RouteComposer } from './router-composer';
 import { firstUpper } from '../_utils/_string-utils';
-import { ReadonlyRouteChildren, ReadonlyRouteComposer, _RouteComposer_ } from '../types/composable-routes.types';
+import { ReadonlyRoute, WithRouteComposer, _RouteComposer_ } from '../types/composable-routes.types';
 import { RouteArgument } from '../types/route-paths.types';
 
 // TODO: Warn if multiple composers with the same name were found
-export function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteComposer<unknown, string, string> & ReadonlyRouteChildren<any>): Map<string, RouteComposer<unknown, string, string>>
+export function collectRouteComposersByAutoNavigatorName(route: WithRouteComposer<unknown, string, string> & ReadonlyRoute<string, string, any>): Map<string, RouteComposer<unknown, string, string>>
 {
     const composer = route[ _RouteComposer_ ];
     const autoNavigatorName = `to${ firstUpper(composer.name) }`;
@@ -17,7 +17,7 @@ export function collectRouteComposersByAutoNavigatorName(route: ReadonlyRouteCom
     ]);
 }
 
-function collectArrayRouteComposersByAutoNavigatioName(routes: (ReadonlyRouteComposer<unknown, string, string> & ReadonlyRouteChildren<any>)[]): Map<string, RouteComposer<unknown, string, string>>
+function collectArrayRouteComposersByAutoNavigatioName(routes: (WithRouteComposer<unknown, string, string> & ReadonlyRoute<string, string, any>)[]): Map<string, RouteComposer<unknown, string, string>>
 {
     return routes?.map(collectRouteComposersByAutoNavigatorName)
         .reduce((allNestedComposers, childComposers) => new Map([ ...allNestedComposers, ...childComposers ]), new Map());

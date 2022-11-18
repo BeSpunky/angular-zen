@@ -3,7 +3,7 @@ import { provideRouter, provideRoutes, Router } from '@angular/router';
 import { collectRouteComposersByAutoNavigatorName } from './route-composer/_utils';
 
 import { RouteComposer } from './route-composer/router-composer';
-import { ComposableRootRoute, NavigatorXRoute, ReadonlyRoute, ReadonlyRouteChildren, ReadonlyRouteComposer, _NavigatorXToken_ } from './types/composable-routes.types';
+import { ComposableRootRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer, _NavigatorXToken_ } from './types/composable-routes.types';
 import { NoHead } from './types/_arrays.types';
 
 function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
@@ -20,7 +20,7 @@ function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: Rout
     return () => router.navigateByUrl(composer.compose());
 }
 
-function createNavigatorXFrom(route: ReadonlyRoute<string, string> & ReadonlyRouteChildren<any> & ReadonlyRouteComposer<any, string, string> & NavigatorXRoute<any, any, string>): FactoryProvider
+function createNavigatorXFrom(route: ReadonlyRoute<string, string, any> & WithRouteComposer<any, string, string> & WithNavigationX<any, any, string>): FactoryProvider
 {
     return {
         provide: route[ _NavigatorXToken_ ],
