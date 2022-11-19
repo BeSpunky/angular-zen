@@ -1,6 +1,7 @@
 import { RouteOperationMethod } from './auto-navigator-methods.types';
 import { RouteArgumentName, RouteSegments } from './route-paths.types';
 import { FirstChar } from './_strings.types';
+import { Narrow } from './_utils.types';
 import { ValidRouteNameChar } from './___composer-name-validation.types';
 
 type CapitalizeRouteSegment<Segment extends string> =
@@ -28,9 +29,9 @@ export type RouteComposerName<FriendlyName extends string | undefined, FullPath 
 
 export type RouteComposerComposeMethod<Entity, Path extends string> = RouteOperationMethod<Entity, Path, string>;
 
-export type EntityRouteArgs<T, Path extends string> =
-    RouteArgumentName<Path> extends keyof T
-    ? Pick<T, RouteArgumentName<Path>>
-    : `Route argument '${ Exclude<RouteArgumentName<Path>, keyof T> }' doesn't match any property on the route's corresponding entity.`;
+export type EntityRouteArgs<Entity, Path extends string> =
+    RouteArgumentName<Path> extends keyof Entity
+    ? Narrow<Pick<Entity, RouteArgumentName<Path>>>
+    : `Route argument '${ Exclude<RouteArgumentName<Path>, keyof Entity> }' doesn't match any property on the route's corresponding entity.`;
 
 
