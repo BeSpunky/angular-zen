@@ -1,8 +1,7 @@
 import type { FirstChar, Join, Split } from './_strings.types';
+import type { TrimPrefix } from './_strings.types';
 
 export type RouteSegments<Path extends string> = Split<Path, '/'>;
-
-export type TrimPrefix<S extends string, Prefix extends string = ':'> = S extends `${ Prefix }${ infer Trimmed }` ? Trimmed : never;
 
 export type RouteArgument<Path extends string> = Extract<RouteSegments<Path>[ number ], `:${ string }`>;
 
