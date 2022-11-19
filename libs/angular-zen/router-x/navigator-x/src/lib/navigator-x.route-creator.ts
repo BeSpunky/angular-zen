@@ -1,12 +1,14 @@
 import { InjectionToken } from '@angular/core';
 import { RouteComposer } from './route-composer/router-composer';
-import { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
-import { ComposableRootRoute, ComposableRoute, ComposableRoutesArray, ReadonlyRoute, WithNavigationX, _NavigatorXToken_, _RouteComposer_ } from './types/composable-routes.types';
-import { EntityRouteArgs, GeneratedRouteComposerName, RouteComposerName } from './types/route-composer.types';
-import { CombinedPath, RouteSegments } from './types/route-paths.types';
-import { NoTail } from './types/_arrays.types';
-import { Join } from './types/_strings.types';
 import { firstUpper } from './_utils/_string-utils';
+import { _NavigatorXToken_, _RouteComposer_ } from './_navigator-x.symbols';
+
+import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
+import type { ComposableRoute, ComposableRoutesArray, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';
+import type { GeneratedRouteComposerName, RouteComposerName } from './types/route-composer.types';
+import type { CombinedPath, RouteSegments } from './types/route-paths.types';
+import type { NoTail } from './types/_arrays.types';
+import type { Join } from './types/_strings.types';
 
 const autoNavigatorNameSeparator = '';
 

@@ -1,7 +1,9 @@
 import { RouteComposer } from './router-composer';
 import { firstUpper } from '../_utils/_string-utils';
-import { ReadonlyRoute, WithRouteComposer, _RouteComposer_ } from '../types/composable-routes.types';
-import { RouteArgument } from '../types/route-paths.types';
+import { _RouteComposer_ } from '../_navigator-x.symbols';
+
+import type { ReadonlyRoute, WithRouteComposer } from '../types/composable-routes.types';
+import type { RouteArgument } from '../types/route-paths.types';
 
 // TODO: Warn if multiple composers with the same name were found
 export function collectRouteComposersByAutoNavigatorName(route: WithRouteComposer<unknown, string, string> & ReadonlyRoute<string, string, any>): Map<string, RouteComposer<unknown, string, string>>

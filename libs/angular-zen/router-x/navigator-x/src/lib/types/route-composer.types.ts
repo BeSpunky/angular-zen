@@ -1,8 +1,8 @@
-import { RouteOperationMethod } from './auto-navigator-methods.types';
-import { RouteArgumentName, RouteSegments } from './route-paths.types';
-import { FirstChar } from './_strings.types';
-import { Narrow } from './_utils.types';
-import { ValidRouteNameChar } from './___composer-name-validation.types';
+import type { RouteOperationMethod } from './auto-navigator-methods.types';
+import type { RouteArgumentName, RouteSegments } from './route-paths.types';
+import type { FirstChar } from './_strings.types';
+import type { Narrow } from './_utils.types';
+import type { ValidRouteNameChar } from './___composer-name-validation.types';
 
 type CapitalizeRouteSegment<Segment extends string> =
     Segment['length'] extends 0 | 1 ? never :

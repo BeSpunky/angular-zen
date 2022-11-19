@@ -1,4 +1,4 @@
-import { FirstChar, Join, Split } from './_strings.types';
+import type { FirstChar, Join, Split } from './_strings.types';
 
 export type RouteSegments<Path extends string> = Split<Path, '/'>;
 

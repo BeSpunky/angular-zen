@@ -1,8 +1,8 @@
-import { Router } from '@angular/router';
-import { Narrow } from './_utils.types';
-import { RouteArgument, CombinedPath } from './route-paths.types';
-import { ReadonlyRoute } from './composable-routes.types';
-import { EntityRouteArgs, RouteComposerName } from './route-composer.types';
+import type { Router } from '@angular/router';
+import type { Narrow } from './_utils.types';
+import type { RouteArgument, CombinedPath } from './route-paths.types';
+import type { ReadonlyRoute } from './composable-routes.types';
+import type { EntityRouteArgs, RouteComposerName } from './route-composer.types';
 
 export type RouteOperationMethod<Entity, Path extends string, ReturnType> =
     RouteArgument<Path> extends never

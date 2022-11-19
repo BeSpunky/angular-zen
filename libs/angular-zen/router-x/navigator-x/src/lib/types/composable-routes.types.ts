@@ -1,14 +1,12 @@
-import { InjectionToken } from '@angular/core';
-import { Route } from '@angular/router';
-import { RouteComposer } from '../route-composer/router-composer';
-import { AutoNavigateRouteMethods } from './auto-navigator-methods.types';
-import { RouteComposerName } from './route-composer.types';
-import { CombinedPath, RouteSegments } from './route-paths.types';
-import { NoTail } from './_arrays.types';
-import { Join } from './_strings.types';
-
-export const _RouteComposer_ = Symbol('RouteComposer');
-export const _NavigatorXToken_ = Symbol('NavigatorXToken');
+import type { InjectionToken } from '@angular/core';
+import type { Route } from '@angular/router';
+import type { _NavigatorXToken_, _RouteComposer_ } from '../_navigator-x.symbols';
+import type { RouteComposer } from '../route-composer/router-composer';
+import type { AutoNavigateRouteMethods } from './auto-navigator-methods.types';
+import type { RouteComposerName } from './route-composer.types';
+import type { CombinedPath, RouteSegments } from './route-paths.types';
+import type { NoTail } from './_arrays.types';
+import type { Join } from './_strings.types';
 
 export interface ReadonlyRoute<PathSegment extends string, FriendlyName extends string, Children extends readonly ReadonlyRoute<string, string, any>[] | undefined> extends Readonly<Omit<Route, 'path' | 'children'>>
 {

@@ -1,6 +1,6 @@
-import { RouteComposerComposeMethod, EntityRouteArgs } from '../types/route-composer.types';
-import { RouteArgument } from '../types/route-paths.types';
 import { extractArgsFromPath } from './_utils';
+import type { RouteComposerComposeMethod, EntityRouteArgs } from '../types/route-composer.types';
+import type  { RouteArgument } from '../types/route-paths.types';
 
 export class RouteComposer<Entity, FullPath extends string, Name extends string> {
     public readonly args: RouteArgument<FullPath>[];

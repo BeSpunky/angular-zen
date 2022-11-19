@@ -1,10 +1,11 @@
 import { FactoryProvider, Provider } from '@angular/core';
 import { provideRouter, provideRoutes, Router } from '@angular/router';
 import { collectRouteComposersByAutoNavigatorName } from './route-composer/_utils';
+import { _NavigatorXToken_ } from './_navigator-x.symbols';
 
-import { RouteComposer } from './route-composer/router-composer';
-import { ComposableRootRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer, _NavigatorXToken_ } from './types/composable-routes.types';
-import { NoHead } from './types/_arrays.types';
+import type { RouteComposer } from './route-composer/router-composer';
+import type { ComposableRootRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer } from './types/composable-routes.types';
+import type { NoHead } from './types/_arrays.types';
 
 function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
 {
