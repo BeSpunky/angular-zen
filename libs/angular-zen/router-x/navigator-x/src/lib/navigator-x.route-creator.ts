@@ -10,7 +10,7 @@ import type { CombinedPath, RouteSegments } from './types/route-paths.types';
 import type { NoTail } from './types/_arrays.types';
 import type { Join } from './types/_strings.types';
 
-const autoNavigatorNameSeparator = '';
+export const autoNavigatorNameSeparator = '';
 
 function generateRouteComposerName<Path extends string>(path: Path): GeneratedRouteComposerName<Path>
 {

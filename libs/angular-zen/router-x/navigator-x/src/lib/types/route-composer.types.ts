@@ -1,3 +1,4 @@
+import { autoNavigatorNameSeparator } from '../navigator-x.route-creator';
 import type { RouteOperationMethod } from './auto-navigator-methods.types';
 import type { RouteArgumentName, RouteSegments } from './route-paths.types';
 import type { FirstChar } from './_strings.types';
@@ -10,13 +11,15 @@ type CapitalizeRouteSegment<Segment extends string> =
 
 type JoinStrings<S1 extends string, S2 extends string> = `${ S1 }${ S2 }`;
 
-type SegmentedRouteComposerName<Segments extends string[], Separator extends ValidRouteNameChar = ''> = {
+type Separator = typeof autoNavigatorNameSeparator;
+
+type SegmentedRouteComposerName<Segments extends string[]> = {
     0: '',
     1: CapitalizeRouteSegment<Segments[0]>,
     multi: Segments extends [infer First, ...infer Rest] ?
              First extends string ?
                Rest extends string[]
-               ? JoinStrings<CapitalizeRouteSegment<First>, JoinStrings<Separator, SegmentedRouteComposerName<Rest, ''>>>
+               ? JoinStrings<CapitalizeRouteSegment<First>, JoinStrings<Separator, SegmentedRouteComposerName<Rest>>>
                : never
              : never
            : never
