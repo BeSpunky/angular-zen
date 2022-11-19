@@ -46,42 +46,6 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
         return (segment ? `${ root }/${ segment }` : root) as CombinedPath<Root, Segment>;
     }
 
-    function createFullRoutePath<
-        Route    extends ReadonlyRoute<Segment, string, Children>,
-        Segment  extends string,
-        Children extends ReadonlyRoute<string, string, any>[],
-        Root     extends string,
-        FullPath extends CombinedPath<Root, Segment>
-    >(tree: Route, root: Root): FullPath
-    {
-        return combinePath(root, tree.path) as FullPath;
-    }
-
-    function createComposableChildrenRecursively<
-        Route    extends ReadonlyRoute<Segment, string, Children>,
-        Segment  extends string,
-        Children extends ReadonlyRoute<string, string, any>[],
-        Root     extends string,
-        FullPath extends CombinedPath<Root, Segment>
-    >(tree: Route, path: FullPath)
-    {
-        return tree.children?.map(child => prefixedRoute(child, path)) as
-            ComposableRoutesArray<Children, Entity, FullPath> | undefined;
-    }
-
-    function createRouteComposer<
-        Route    extends ReadonlyRoute<Segment, string, Children>,
-        Segment  extends string,
-        Children extends ReadonlyRoute<string, string, any>[],        FriendlyName extends string,
-        FullPath     extends string,
-        ComposerName extends RouteComposerName<FriendlyName, FullPath>
-    >(tree: Route, path: FullPath): RouteComposer<Entity, FullPath, ComposerName>
-    {
-        const composerName = (tree.friendlyName ?? generateRouteComposerName(path)) as ComposerName;
-
-        return new RouteComposer<Entity, FullPath, ComposerName>(path, composerName);
-    }
-
     function prefixedRouteCore<
         Segment      extends string,
         FriendlyName extends string,
