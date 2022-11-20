@@ -8,12 +8,21 @@ import type { CombinedPath, RouteSegments } from './route-paths.types';
 import type { NoTail } from './_arrays.types';
 import type { Join } from './_strings.types';
 
-export interface ReadonlyRoute<PathSegment extends string, FriendlyName extends string, Children extends readonly ReadonlyRoute<string, string, any>[] | undefined> extends Readonly<Omit<Route, 'path' | 'children'>>
+export interface ReadonlyRoute<PathSegment extends string, FriendlyName extends string, Children extends DeepReadonlyRouteChildren | undefined> extends Readonly<Omit<Route, 'path' | 'children'>>
 {
     readonly friendlyName?: FriendlyName;
     readonly path?: PathSegment;
     readonly children?: Children;
 }
+
+type MaxRouteChildrenDepth = 15;
+
+export type DeepReadonlyRouteChildren<Depth extends number = MaxRouteChildrenDepth, Levels extends Array<boolean> = []> =
+    readonly ReadonlyRoute<
+        string,
+        string,
+        Levels[ 'length' ] extends Depth ? any : DeepReadonlyRouteChildren<Depth, [ ...Levels, true ]>
+    >[];
 
 export interface WithRouteComposer<Entity, FullPath extends string, Name extends string>
 {
@@ -33,7 +42,7 @@ export type ComposableRoutesArray<RouteArray, Entity, Root extends string> =
     ]
     : [] : [];
 
-export type ComposableRoute<Route extends ReadonlyRoute<string, string, any>, Entity, Root extends string> =
+export type ComposableRoute<Route extends ReadonlyRoute<string, string, DeepReadonlyRouteChildren | undefined>, Entity, Root extends string> =
     Route extends ReadonlyRoute<infer Segment, infer FriendlyName, infer Children> ?
     & ReadonlyRoute<Segment, FriendlyName, Children>
     // & { readonly children?: ComposableRoutesArray<Children, Entity, CombinedPath<Root, Segment>>; }

@@ -4,7 +4,7 @@ import { firstUpper } from './_utils/_string-utils';
 import { _NavigatorXToken_, _RouteComposer_ } from './_navigator-x.symbols';
 
 import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
-import type { ComposableRoute, ComposableRoutesArray, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';
+import type { ComposableRoute, ComposableRoutesArray, DeepReadonlyRouteChildren, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';
 import type { GeneratedRouteComposerName, RouteComposerName } from './types/route-composer.types';
 import type { CombinedPath, RouteSegments } from './types/route-paths.types';
 import type { NoTail } from './types/_arrays.types';
@@ -26,14 +26,14 @@ interface RouteConfigurator<Entity>
     route: <
         Segment extends string,
         FriendlyName extends string,
-        Children extends readonly ReadonlyRoute<string, string, any>[]
+        Children extends DeepReadonlyRouteChildren | undefined
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>) =>
         ComposableRoute<typeof route, Entity, ''> & WithNavigationX<typeof route, Entity, ''>;
     
     prefixedRoute: <
         Segment extends string,
         FriendlyName extends string,
-        Children extends readonly ReadonlyRoute<string, string, any>[],
+        Children extends DeepReadonlyRouteChildren | undefined,
         Root extends string
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>, root: Root) => 
         ComposableRoute<typeof route, Entity, Root> & WithNavigationX<typeof route, Entity, Join<NoTail<RouteSegments<Root>> & string[], '/'>>;
@@ -49,7 +49,7 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
     function prefixedRouteCore<
         Segment      extends string,
         FriendlyName extends string,
-        Children     extends readonly ReadonlyRoute<string, string, any>[],
+        Children     extends DeepReadonlyRouteChildren | undefined,
         Root         extends string
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>, root: Root)//: ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>
     {
@@ -70,7 +70,7 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
     function prefixedRoute<
         Segment      extends string,
         FriendlyName extends string,
-        Children     extends readonly ReadonlyRoute<string, string, any>[],
+        Children     extends DeepReadonlyRouteChildren | undefined,
         Root         extends string
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>, root: Root)//: ComposableRootRoute<ComposableRoute<typeof route, Entity, CombinedPath<Root, Segment>>>
     {
@@ -83,7 +83,7 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
     function route<
         Segment      extends string,
         FriendlyName extends string,
-        Children     extends readonly ReadonlyRoute<string, string, any>[]
+        Children     extends DeepReadonlyRouteChildren | undefined
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>)//: ComposableRootRoute<ComposableRoute<typeof route, Entity, CombinedPath<'', Segment>>>
     {
         // When the `root` arg was optional with a default value of `''`, TS appended `${string}` (e.g. `${string}/theaters/:theaterId`)
