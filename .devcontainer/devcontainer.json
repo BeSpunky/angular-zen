@@ -9,7 +9,7 @@
 		// Use -bullseye variants on local on arm64/Apple Silicon.
 		"args": {
       "NODE_VARIANT": "16",
-      "PNPM_VERSION": "7.14.1",
+      "PNPM_VERSION": "7.16.1",
       "FIREBASE_VERSION": "9.13.0"
 		}
 	},
