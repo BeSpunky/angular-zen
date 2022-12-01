@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
-import { _NavigatorXToken_ } from './_navigator-x.symbols';
+import { _NavigatorXToken_ } from './_navigation-x.symbols';
 import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
 import type { WithNavigationX, ReadonlyRoute, WithRouteComposer, DeepReadonlyRouteChildren } from './types/composable-routes.types';
-import type { routeConfigFor } from './navigator-x.route-creator';
-import type { provideRouterX, provideRoutesX } from './navigator-x.providers';
+import type { routeConfigFor } from './navigation-x.route-creator';
+import type { provideRouterX, provideRoutesX } from './navigation-x.providers';
 
 /**
  * Injects the auto-generated strongly-typed navigation service for the specified route tree.

@@ -1,6 +1,6 @@
 import { RouteComposer } from './router-composer';
 import { firstUpper } from '../_utils/_string-utils';
-import { _RouteComposer_ } from '../_navigator-x.symbols';
+import { _RouteComposer_ } from '../_navigation-x.symbols';
 
 import type { ReadonlyRoute, WithRouteComposer } from '../types/composable-routes.types';
 import type { RouteArgument } from '../types/route-paths.types';

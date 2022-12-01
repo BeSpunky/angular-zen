@@ -1,6 +1,6 @@
 import type { InjectionToken } from '@angular/core';
 import type { Route } from '@angular/router';
-import type { _NavigatorXToken_, _RouteComposer_ } from '../_navigator-x.symbols';
+import type { _NavigatorXToken_, _RouteComposer_ } from '../_navigation-x.symbols';
 import type { RouteComposer } from '../route-composer/router-composer';
 import type { AutoNavigateRouteMethods } from './auto-navigator-methods.types';
 import type { RouteComposerName } from './route-composer.types';

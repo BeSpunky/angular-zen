@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { RouteComposer } from './route-composer/router-composer';
 import { firstUpper } from './_utils/_string-utils';
-import { _NavigatorXToken_, _RouteComposer_ } from './_navigator-x.symbols';
+import { _NavigatorXToken_, _RouteComposer_ } from './_navigation-x.symbols';
 
 import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
 import type { ComposableRoute, ComposableRoutesArray, DeepReadonlyRouteChildren, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';

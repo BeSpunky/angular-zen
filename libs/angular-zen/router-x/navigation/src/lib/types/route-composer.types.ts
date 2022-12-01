@@ -1,4 +1,4 @@
-import { autoNavigatorNameSeparator } from '../navigator-x.route-creator';
+import { autoNavigatorNameSeparator } from '../navigation-x.route-creator';
 import type { RouteOperationMethod } from './auto-navigator-methods.types';
 import type { RouteArgumentName, RouteSegments } from './route-paths.types';
 import type { FirstChar } from './_strings.types';
