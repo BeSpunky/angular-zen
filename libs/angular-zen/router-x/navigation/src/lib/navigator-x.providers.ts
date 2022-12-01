@@ -7,7 +7,7 @@ import type { RouteComposer } from './route-composer/router-composer';
 import type { NavigationXRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer } from './types/composable-routes.types';
 import type { NoHead } from './types/_arrays.types';
 
-function attemptToProduceAutoNavigationFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
+function attemptToProduceAutoNavigationFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>): ((entity: unknown) => Promise<boolean>) | undefined
 {
     if (!composer) return undefined;
 
@@ -40,7 +40,7 @@ function createNavigationXFactoryProvider(route: ReadonlyRoute<string, string, a
     };
 }
 
-function provideNavigatorsFor(...routes: NavigationXRoute<any>[])
+function provideNavigatorsFor(...routes: NavigationXRoute<any>[]): FactoryProvider[]
 {
     if (!routes?.length) throw `No routes were provided.`;
 

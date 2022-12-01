@@ -23,13 +23,37 @@ function generateRouteComposerName<Path extends string>(path: Path): GeneratedRo
 
 interface RouteConfigurator<Entity>
 {
-    route: <
+    /**
+     * Generates a strongly-typed navigation-x route.
+     * Pass the result to either `provideRouterX()` or `provideRoutesX()` and you'll be able to call `useNavigationX()`
+     * with the route tree you specified.
+     *
+     * @template Segment The strong-typed path property of the route segment.
+     * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
+     * @template Children The strong-typed children of the route segment.
+     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route 
+     * @return  
+     */
+     route: <
         Segment extends string,
         FriendlyName extends string,
         Children extends DeepReadonlyRouteChildren | undefined
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>) =>
         ComposableRoute<typeof route, Entity, ''> & WithNavigationX<typeof route, Entity, ''>;
     
+    /**
+     * Generates a strongly-typed navigation-x route with a predefined path prefix.
+     * Pass the result to either `provideRouterX()` or `provideRoutesX()` and you'll be able to call `useNavigationX()`
+     * with the route tree you specified.
+     *
+     * @template Segment The strong-typed path property of the route segment.
+     * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
+     * @template Children The strong-typed children of the route segment.
+     * @template Root The strong-typed url prefix for all routes in the tree.
+     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route 
+     * @param {Root} root The url prefix all routes in this config tree start from.
+     * @return  
+     */
     prefixedRoute: <
         Segment extends string,
         FriendlyName extends string,
@@ -39,6 +63,18 @@ interface RouteConfigurator<Entity>
         ComposableRoute<typeof route, Entity, Root> & WithNavigationX<typeof route, Entity, Join<NoTail<RouteSegments<Root>> & string[], '/'>>;
 }
 
+/**
+ * Creates a strongly-typed configurator for Angular routes.
+ * 
+ * Call this with an entity, then generate a strongly typed Angular route config tree using one of the
+ * configurator's functions.
+ * 
+ * Store the generated route somewhere and use `provideRouterX()` or `provideRoutesX()` to tell Angular about it.
+ *
+ * @export
+ * @template Entity The entity (or data structure) route arguments should match with.
+ * @return {RouteConfigurator<Entity>} An object which allows generating strongly typed routes.
+ */
 export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
 {
     function combinePath<Root extends string, Segment extends string>(root: Root, segment?: Segment)
