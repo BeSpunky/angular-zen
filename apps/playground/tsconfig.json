@@ -11,6 +11,7 @@
     }
   ],
   "compilerOptions": {
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

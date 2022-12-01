@@ -56,6 +56,9 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "poll": 2500
+      },
       "configurations": {
         "production": {
           "browserTarget": "playground:build:production"

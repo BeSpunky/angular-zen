@@ -1,25 +1,18 @@
-import { trigger, transition, style, animate } from '@angular/animations';
-import { Component } from "@angular/core";
-import { NotificationsService } from './notifications.service';
-
-const grow = trigger('grow', [
-    transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0)' }),
-       animate('0.5s cubic-bezier(.01,1.02,.44,1.13)', style({ opacity: 1, transform: 'scale(1)' })),
-    ]),
-    transition(':leave', [
-        style({ opacity: 1, transform: 'scale(1)' }),
-       animate('0.5s cubic-bezier(.01,1.02,.44,1.13)', style({ opacity: 0, transform: 'scale(0)' })),
-    ]),
-]);
+import { Component } from '@angular/core';
+import { useNavigationX } from '@bespunky/angular-zen/router-x/navigation';
+import { theaterRoutes } from './theater.routes';
 
 @Component({
-    selector   : "bespunky-root",
-    templateUrl: "./app.component.html",
-    styleUrls  : ["./app.component.scss"],
-    animations : [grow]
+    selector   : 'bs-root',
+    templateUrl: './app.component.html',
+    styleUrls  : ['./app.component.scss'],
 })
 export class AppComponent
 {
-    constructor(public readonly notifications: NotificationsService) { }
+    private readonly navigate = useNavigationX(theaterRoutes);
+
+    onSomeEvent(theaterId: string, showId: number): void
+    {
+        this.navigate.toShowDetails({ id: showId, theaterId: +theaterId });
+    }
 }
