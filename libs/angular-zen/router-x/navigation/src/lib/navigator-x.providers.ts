@@ -21,7 +21,7 @@ function attemptToProduceAutoNavigationFunctionFor(router: Router, composer?: Ro
     return () => router.navigateByUrl(composer.compose());
 }
 
-function createNavigationXFactory(route: ReadonlyRoute<string, string, any> & WithRouteComposer<any, string, string> & WithNavigationX<any, any, string>): FactoryProvider
+function createNavigationXFactoryProvider(route: ReadonlyRoute<string, string, any> & WithRouteComposer<any, string, string> & WithNavigationX<any, any, string>): FactoryProvider
 {
     return {
         provide: route[ _NavigatorXToken_ ],
@@ -40,23 +40,27 @@ function createNavigationXFactory(route: ReadonlyRoute<string, string, any> & Wi
     };
 }
 
+function provideNavigatorsFor(...routes: NavigationXRoute<any>[])
+{
+    if (!routes?.length) throw `No routes were provided.`;
+
+    return routes.map(createNavigationXFactoryProvider);
+}
+
+
 export function provideRouterX(routes: NavigationXRoute<any>[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
 {
     return [
         ...provideRouter(routes, ...features),
-        ...provideRoutesX(...routes)
+        ...provideNavigatorsFor(...routes)
     ];
 }
 
-export function provideRoutesX(...routes: NavigationXRoute<any>[])
+export function provideRoutesX(...routes: NavigationXRoute<any>[]): Provider[]
 {
-    if (!routes?.length) throw `No routes were provided.`;
-
-    const navigators = routes.map(createNavigationXFactory);
-
     return [
-        ...navigators,
-        ...provideRoutes(routes)
+        ...provideRoutes(routes),
+        ...provideNavigatorsFor(routes)
     ];
 }
 
