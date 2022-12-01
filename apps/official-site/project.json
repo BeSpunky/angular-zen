@@ -76,14 +76,14 @@
       "configurations": {
         "generate-zen": {
           "commands": [
-            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
+            "pnpm run update-wiki-summary ./wiki/angular-zen",
             "cd libs/angular-zen && compodoc"
           ]
         },
         "serve-zen": {
           "commands": [
-            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
-            "cd libs/angular-zen && compodoc -s"
+            "pnpm run update-wiki-summary ./wiki/angular-zen",
+            "cd libs/angular-zen && compodoc -s -w"
           ]
         }
       }
