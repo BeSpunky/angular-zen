@@ -58,7 +58,6 @@ export type ComposableRoutesArray<RouteArray, Entity, Root extends string> =
 export type ComposableRoute<Route extends ReadonlyRoute<string, string, DeepReadonlyRouteChildren | undefined>, Entity, Root extends string> =
     Route extends ReadonlyRoute<infer Segment, infer FriendlyName, infer Children> ?
     & ReadonlyRoute<Segment, FriendlyName, Children>
-    // & { readonly children?: ComposableRoutesArray<Children, Entity, CombinedPath<Root, Segment>>; }
     & WithRouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>
     : never;
 
