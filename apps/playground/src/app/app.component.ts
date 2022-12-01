@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { useNavigationX } from '@bespunky/angular-zen/router-x/navigator-x';
+import { useNavigationX } from '@bespunky/angular-zen/router-x/navigation';
 import { theaterRoutes } from './theater.routes';
 
 @Component({

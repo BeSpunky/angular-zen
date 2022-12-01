@@ -1,4 +1,4 @@
-import { routeConfigFor } from '@bespunky/angular-zen/router-x/navigator-x';
+import { routeConfigFor } from '@bespunky/angular-zen/router-x/navigation';
 import { TheaterShowComponent } from './theater-show/theater-show.component';
 import { TheaterShow } from './theater-show/model';
 

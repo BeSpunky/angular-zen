@@ -81,8 +81,8 @@
           "libs/angular-zen/universal/**/*.html",
           "libs/angular-zen/utils/**/*.ts",
           "libs/angular-zen/utils/**/*.html",
-          "libs/angular-zen/router-x/navigator-x/**/*.ts",
-          "libs/angular-zen/router-x/navigator-x/**/*.html"
+          "libs/angular-zen/router-x/navigation/**/*.ts",
+          "libs/angular-zen/router-x/navigation/**/*.html"
         ]
       }
     }
