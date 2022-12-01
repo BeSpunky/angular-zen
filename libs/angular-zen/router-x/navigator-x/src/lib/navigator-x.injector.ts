@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { _NavigatorXToken_ } from './_navigator-x.symbols';
 import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
-import type { WithNavigationX, ReadonlyRoute, WithRouteComposer } from './types/composable-routes.types';
+import type { WithNavigationX, ReadonlyRoute, WithRouteComposer, DeepReadonlyRouteChildren } from './types/composable-routes.types';
 
 export function useNavigationX<
-    Route extends ReadonlyRoute<string, string, any>,
+    Route extends ReadonlyRoute<string, string, DeepReadonlyRouteChildren>,
     Entity,
     Root extends string,
     FullPath extends string,
