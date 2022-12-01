@@ -4,10 +4,10 @@ import { collectRouteComposersByAutoNavigatorName } from './route-composer/_util
 import { _NavigatorXToken_ } from './_navigator-x.symbols';
 
 import type { RouteComposer } from './route-composer/router-composer';
-import type { ComposableRootRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer } from './types/composable-routes.types';
+import type { NavigationXRoute, WithNavigationX, ReadonlyRoute, WithRouteComposer } from './types/composable-routes.types';
 import type { NoHead } from './types/_arrays.types';
 
-function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
+function attemptToProduceAutoNavigationFunctionFor(router: Router, composer?: RouteComposer<unknown, string, string>)
 {
     if (!composer) return undefined;
 
@@ -21,7 +21,7 @@ function attemptToProduceAutoNavigateFunctionFor(router: Router, composer?: Rout
     return () => router.navigateByUrl(composer.compose());
 }
 
-function createNavigatorXFrom(route: ReadonlyRoute<string, string, any> & WithRouteComposer<any, string, string> & WithNavigationX<any, any, string>): FactoryProvider
+function createNavigationXFactory(route: ReadonlyRoute<string, string, any> & WithRouteComposer<any, string, string> & WithNavigationX<any, any, string>): FactoryProvider
 {
     return {
         provide: route[ _NavigatorXToken_ ],
@@ -32,7 +32,7 @@ function createNavigatorXFrom(route: ReadonlyRoute<string, string, any> & WithRo
     
             return new Proxy({}, {
                 get: (_, propertyName: string) =>
-                    attemptToProduceAutoNavigateFunctionFor(router, composers.get(propertyName)),
+                    attemptToProduceAutoNavigationFunctionFor(router, composers.get(propertyName)),
                 
                 has: (_, propertyName: string) => composers.has(propertyName)
             });
@@ -40,7 +40,7 @@ function createNavigatorXFrom(route: ReadonlyRoute<string, string, any> & WithRo
     };
 }
 
-export function provideRouterX(routes: ComposableRootRoute<any>[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
+export function provideRouterX(routes: NavigationXRoute<any>[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
 {
     return [
         ...provideRouter(routes, ...features),
@@ -48,11 +48,11 @@ export function provideRouterX(routes: ComposableRootRoute<any>[], ...features: 
     ];
 }
 
-export function provideRoutesX(...routes: ComposableRootRoute<any>[])
+export function provideRoutesX(...routes: NavigationXRoute<any>[])
 {
     if (!routes?.length) throw `No routes were provided.`;
 
-    const navigators = routes.map(createNavigatorXFrom);
+    const navigators = routes.map(createNavigationXFactory);
 
     return [
         ...navigators,
