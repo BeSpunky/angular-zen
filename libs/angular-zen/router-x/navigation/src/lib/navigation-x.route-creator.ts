@@ -28,10 +28,12 @@ interface RouteConfigurator<Entity>
      * Pass the result to either `provideRouterX()` or `provideRoutesX()` and you'll be able to call `useNavigationX()`
      * with the route tree you specified.
      *
+     * ❕ Remember to pass the route config `as const`.
+     * 
      * @template Segment The strong-typed path property of the route segment.
      * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
      * @template Children The strong-typed children of the route segment.
-     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route 
+     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route The route config to strong-type. Remember to pass it in use `as const`.
      * @return  
      */
      route: <
@@ -46,11 +48,13 @@ interface RouteConfigurator<Entity>
      * Pass the result to either `provideRouterX()` or `provideRoutesX()` and you'll be able to call `useNavigationX()`
      * with the route tree you specified.
      *
+     * ❕ Remember to pass the route config `as const`.
+     * 
      * @template Segment The strong-typed path property of the route segment.
      * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
      * @template Children The strong-typed children of the route segment.
      * @template Root The strong-typed url prefix for all routes in the tree.
-     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route 
+     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route The route config to strong-type. Remember to pass it in use `as const`.
      * @param {Root} root The url prefix all routes in this config tree start from.
      * @return  
      */
