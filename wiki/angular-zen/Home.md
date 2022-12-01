@@ -31,11 +31,18 @@
 </p>
 
 ## 📢 What's new
+<h2 align="center">Checkout the new ALPHA <code>useNavigationX()</code> function!</h2>
+<center>
+    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html">Strong-typed and auto generated navigation system for Angular is coming up</a>
+</center>
+
 <center>
     <iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
 
 ## ✨ The Highlights
+
+[✨ Strong-typed and auto generated navigation system for Angular (Alpha)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html)
 
 [👁️ `*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html) - Super easy RxJS integration.
 
