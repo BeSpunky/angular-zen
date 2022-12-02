@@ -21,7 +21,7 @@ specifiers:
   '@angular/router': 14.2.8
   '@babel/core': '>=7.0.1 <8.0.0'
   '@babel/preset-env': '>=7.0.0 <8.0.0'
-  '@bespunky/typescript-utils': ^0.0.1-alpha.0
+  '@bespunky/typescript-utils': 0.1.0-alpha.0
   '@compodoc/compodoc': ^1.1.19
   '@hirez_io/observer-spy': ^2.2.0
   '@nrwl/angular': 14.8.6
@@ -87,7 +87,7 @@ devDependencies:
   '@angular/language-service': 14.2.8
   '@babel/core': 7.17.10
   '@babel/preset-env': 7.17.10_@babel+core@7.17.10
-  '@bespunky/typescript-utils': 0.0.1-alpha.0
+  '@bespunky/typescript-utils': 0.1.0-alpha.0
   '@compodoc/compodoc': 1.1.19
   '@hirez_io/observer-spy': 2.2.0_h3fol56o7oi4ogjegssi4vvo7q
   '@nrwl/cli': 14.8.6
@@ -2846,8 +2846,8 @@ packages:
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  /@bespunky/typescript-utils/0.0.1-alpha.0:
-    resolution: {integrity: sha512-RNiJrTlir+nNuyaIR7J1vkK/J/fY2R/dwOkKkfFpmthYwClGcwZN14rnx07QasLopFm9nckKIOgGqwRjrkvI2A==}
+  /@bespunky/typescript-utils/0.1.0-alpha.0:
+    resolution: {integrity: sha512-3EZQZjjHYW8CPun6dGcmpAKai2C7A2dhqRIr9k4DF/5qnUJrlU+WffpsCQLLlkuLwqVQ1mzu4HcHYSdEaUfUdQ==}
     dependencies:
       tslib: 2.4.0
     dev: true
