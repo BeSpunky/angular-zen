@@ -1,5 +1,5 @@
 import type { Router } from '@angular/router';
-import type { Narrow } from './_utils.types';
+import type { Narrow } from '@bespunky/typescript-utils';
 import type { RouteArgument, CombinedPath } from './route-paths.types';
 import type { ReadonlyRoute } from './composable-routes.types';
 import type { EntityRouteArgs, RouteComposerName } from './route-composer.types';

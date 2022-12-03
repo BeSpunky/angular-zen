@@ -1,8 +1,8 @@
+import type { FirstChar, Narrow } from '@bespunky/typescript-utils';
+
 import { autoNavigatorNameSeparator } from '../navigation-x.route-creator';
 import type { RouteOperationMethod } from './auto-navigator-methods.types';
 import type { RouteArgumentName, RouteSegments } from './route-paths.types';
-import type { FirstChar } from './_strings.types';
-import type { Narrow } from './_utils.types';
 import type { ValidRouteNameChar } from './___composer-name-validation.types';
 
 type CapitalizeRouteSegment<Segment extends string> =
