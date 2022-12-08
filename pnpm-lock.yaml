@@ -21,6 +21,7 @@ specifiers:
   '@angular/router': 14.2.8
   '@babel/core': '>=7.0.1 <8.0.0'
   '@babel/preset-env': '>=7.0.0 <8.0.0'
+  '@bespunky/rxjs': 0.1.0-alpha.0
   '@bespunky/typescript-utils': 0.1.0-alpha.0
   '@compodoc/compodoc': ^1.1.19
   '@hirez_io/observer-spy': ^2.2.0
@@ -72,6 +73,7 @@ dependencies:
   '@angular/platform-browser': 14.2.8_lzw7pg3sd5rn6c2lvhx6enwxrq
   '@angular/platform-browser-dynamic': 14.2.8_iywgoyehgskqliodutdrtqowny
   '@angular/router': 14.2.8_2dqy33qixcl6kszjmzbjileewe
+  '@bespunky/rxjs': 0.1.0-alpha.0_rxjs@7.5.5
   '@nrwl/angular': 14.8.6_js6l34meqgufatfajzrzxiihxm
   rxjs: 7.5.5
   tslib: 2.4.0
@@ -2845,6 +2847,15 @@ packages:
 
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  /@bespunky/rxjs/0.1.0-alpha.0_rxjs@7.5.5:
+    resolution: {integrity: sha512-JtmErj2flY4uIWwLTRzMgnsY6s31hKknOdnSXd1Y/lkIkqmP6lims+ftku6Q4NDP6chL11oGj4ftR2pdQs1jfA==}
+    peerDependencies:
+      rxjs: '>=6.6.6 <=7.5.5'
+    dependencies:
+      rxjs: 7.5.5
+      tslib: 2.4.0
+    dev: false
 
   /@bespunky/typescript-utils/0.1.0-alpha.0:
     resolution: {integrity: sha512-3EZQZjjHYW8CPun6dGcmpAKai2C7A2dhqRIr9k4DF/5qnUJrlU+WffpsCQLLlkuLwqVQ1mzu4HcHYSdEaUfUdQ==}
