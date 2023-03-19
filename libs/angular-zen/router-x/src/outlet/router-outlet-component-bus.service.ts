@@ -1,6 +1,7 @@
 import { BehaviorSubject          } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 import { PRIMARY_OUTLET           } from '@angular/router';
+import { AnyObject } from '@bespunky/typescript-utils';
 
 /**
  * Holds data related with a router outlet event.
@@ -41,10 +42,10 @@ export class ComponentPublishEventData extends RouterOutletEventData
     /**
      * Creates an instance of ComponentPublishEventData.
      * 
-     * @param {BehaviorSubject<any>} changes The observable used to track changes to the activated component of the triggering outlet.
+     * @param {BehaviorSubject<AnyObject | null>} changes The observable used to track changes to the activated component of the triggering outlet.
      * @param {string} outletName The name of the outlet which triggered the event. For the primary unnamed outlet, this will be angular's PRIMARY_OUTLET.
      */
-    constructor(public readonly changes: BehaviorSubject<any>, outletName: string)
+    constructor(public readonly changes: BehaviorSubject<AnyObject | null>, outletName: string)
     {
         super(outletName);
     }
@@ -54,9 +55,9 @@ export class ComponentPublishEventData extends RouterOutletEventData
      * This will be null if the outlet has deactivated the component.
      * 
      * @readonly
-     * @type {(any | null)}
+     * @type {(AnyObject | null)}
      */
-    public get componentInstance(): any | null
+    public get componentInstance(): AnyObject | null
     {
         return this.changes.value;
     }
@@ -85,15 +86,28 @@ export class ComponentPublishEventData extends RouterOutletEventData
 @Injectable({ providedIn: 'root' })
 export class RouterOutletComponentBus
 {
+    private _outletsState = new Map<string, AnyObject | null>();
+
+    /**
+     * Gets a shallow clone of the current state outlet state.
+     *
+     * @readonly
+     * @type {(Map<string, AnyObject | null>)}
+     */
+    public get outletsState(): Map<string, AnyObject | null>
+    {
+        return new Map(this._outletsState);
+    }
+
     /**
      * A map of the currently instantiated components by outlet name.
      * Users can either subscribe to changes, or get the current value of a component.
      * 
      * The primary unnamed outlet component will be accessible via PRIMARY_OUTLET, but for scalability it is better to access it via the `instance()` method.
      *
-     * @type {{ [outletName: string]: BehaviorSubject<any> }}
+     * @private
      */
-    private readonly components: { [outletName: string]: BehaviorSubject<any> } = {};
+    private readonly components = new Map<string, BehaviorSubject<AnyObject | null>>();
 
     /**
      * Emits whenever a router outlet marked with the `publishComponent` directive activates a component.
@@ -101,13 +115,13 @@ export class RouterOutletComponentBus
      * 
      * @type {EventEmitter<ComponentPublishEventData>}
      */
-    public componentPublished  : EventEmitter<ComponentPublishEventData> = new EventEmitter();
+    public readonly componentPublished  : EventEmitter<ComponentPublishEventData> = new EventEmitter();
     /**
      * Emits whenever a router outlet marked with the `publishComponent` directive is removed from the DOM.
      *
      * @type {EventEmitter<ComponentPublishEventData>}
      */
-    public componentUnpublished: EventEmitter<RouterOutletEventData>     = new EventEmitter();
+    public readonly componentUnpublished: EventEmitter<RouterOutletEventData>     = new EventEmitter();
 
     /**
      * Publishes the instance of a currently activated or deactivated component by the specified outlet.
@@ -117,19 +131,25 @@ export class RouterOutletComponentBus
      * 
      * The last published component of an outlet can be fetched using the `instance()` method.
      * 
-     * @param {*} instance The instance of the activated component. For publishing deactivation of a component pass `null`.
+     * @param {AnyObject | null} instance The instance of the activated component. For publishing deactivation of a component pass `null`.
      * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet which activated or deactivated the component. The primary unnamed outlet will be used when not specified.
      */
-    public publishComponent(instance: any, outletName: string = PRIMARY_OUTLET): void
+    public publishComponent(instance: AnyObject | null, outletName: string = PRIMARY_OUTLET): void
     {
-        const components       = this.components;
-        const componentChanged = components[outletName] || new BehaviorSubject(instance);
+        const components = this.components;
 
-        if (!components[outletName]) components[outletName] = componentChanged;
-            
-        componentChanged.next(instance);
+        let componentChanges = components.get(outletName);
 
-        this.componentPublished.emit(new ComponentPublishEventData(componentChanged, outletName));
+        if (!componentChanges)
+        {
+            componentChanges = new BehaviorSubject(instance);
+            components.set(outletName, componentChanges);
+        }
+        
+        this._outletsState.set(outletName, instance);
+        componentChanges.next(instance);
+
+        this.componentPublished.emit(new ComponentPublishEventData(componentChanges, outletName));
     }
 
     /**
@@ -142,12 +162,13 @@ export class RouterOutletComponentBus
     {
         const components = this.components;
 
-        if (components[outletName])
+        if (components.has(outletName))
         {
             // Notify any subscribers that the outlet will stop emitting
-            components[outletName].complete();
+            components.get(outletName)?.complete();
             // Make sure the outlet is no longer present on the bus
-            delete components[outletName];
+            components.delete(outletName);
+            this._outletsState.delete(outletName);
 
             this.componentUnpublished.emit(new RouterOutletEventData(outletName));
         }
@@ -166,7 +187,7 @@ export class RouterOutletComponentBus
      */
     public isComponentPublished(outletName: string = PRIMARY_OUTLET): boolean
     {
-        return !!this.components[outletName];
+        return this.components.has(outletName);
     }
 
     /**
@@ -174,21 +195,21 @@ export class RouterOutletComponentBus
      * If the outlet is not rendered (present in the DOM), or hasn't been marked with `publishComponent`, this will be `null`.
      *
      * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to track changes for. The primary unnamed outlet will be used when not specified.
-     * @returns {(BehaviorSubject<any> | null)} An observable to use for tracking changes to the activated component for the specified outlet, or `null` if no such outlet exists.
+     * @returns {(BehaviorSubject<AnyObject | null> | null)} An observable to use for tracking changes to the activated component for the specified outlet, or `null` if no such outlet exists.
      */
-    public changes(outletName: string = PRIMARY_OUTLET): BehaviorSubject<any> | null
+    public changes(outletName: string = PRIMARY_OUTLET): BehaviorSubject<AnyObject | null> | null
     {
-        return this.components[outletName] || null;
+        return this.components.get(outletName) ?? null;
     }
     
     /**
      * Gets the current instance of the component created by the specified outlet.
      *
      * @param {string} [outletName=PRIMARY_OUTLET] (Optional) The name of the outlet to fetch the component instance for. If not provided, the primary unnamed outlet's component will be fetched.
-     * @returns {(any | null)} The instance of the component created by the specified outlet. If the outlet doesn't exist, or there is no component instance for the requested outlet, returns `null`.
+     * @returns {(AnyObject | null)} The instance of the component created by the specified outlet. If the outlet doesn't exist, or there is no component instance for the requested outlet, returns `null`.
      */
-    public instance(outletName: string = PRIMARY_OUTLET): any | null
+    public instance(outletName: string = PRIMARY_OUTLET): AnyObject | null
     {
-        return this.components[outletName]?.value || null;
+        return this.components.get(outletName)?.value ?? null;
     }
 }
