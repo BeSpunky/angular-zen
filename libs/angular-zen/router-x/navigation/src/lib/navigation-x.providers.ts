@@ -48,6 +48,14 @@ function provideNavigatorsFor(...routes: NavigationXRoute<any>[]): FactoryProvid
 }
 
 
+/**
+ * Wraps Angular's `provideRouter` function and adds providers for the navigation-x module.
+ *
+ * @export
+ * @param {NavigationXRoute<any>[]} routes The Angular routes config tree to initialize navigation-x for.
+ * @param {...NoHead<Parameters<typeof provideRouter>>} features Addtional features to pass into Angular's `provideRouter` function.
+ * @return {Provider[]} The providers returned by `provideRouter`, along with other providers needed for navigation-x to work.
+ */
 export function provideRouterX(routes: NavigationXRoute<any>[], ...features: NoHead<Parameters<typeof provideRouter>>): Provider[]
 {
     return [
@@ -56,6 +64,13 @@ export function provideRouterX(routes: NavigationXRoute<any>[], ...features: NoH
     ];
 }
 
+/**
+ * Wraps Angular's `provideRoutes` function and adds providers for the navigation-x module.
+ *
+ * @export
+ * @param {...NavigationXRoute<any>[]} routes The Angular routes config tree to initialize navigation-x for.
+ * @return {Provider[]} The providers returned by `provideRoutes`, along with other providers needed for navigation-x to work.
+ */
 export function provideRoutesX(...routes: NavigationXRoute<any>[]): Provider[]
 {
     return [
