@@ -1,5 +1,5 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { RouterOutlet                             } from '@angular/router';
+import { Attribute, Directive, OnDestroy, OnInit } from '@angular/core';
+import { RouterOutlet                            } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
 import { RouterOutletComponentBus } from './router-outlet-component-bus.service';
@@ -29,17 +29,18 @@ import { RouterOutletComponentBus } from './router-outlet-component-bus.service'
 })
 export class PublishComponentDirective extends Destroyable implements OnInit, OnDestroy
 {
-    private outletName!: string;
-
-    constructor(private outlet: RouterOutlet, private element: ElementRef, private componentBus: RouterOutletComponentBus) { super(); }
+    constructor(
+        private outlet: RouterOutlet,
+        private componentBus: RouterOutletComponentBus,
+        @Attribute('name')
+        private outletName: string
+    ) { super(); }
 
     /**
      * Registers to outlet events to publish the activated and deactivated components to the bus.     *
      */
     ngOnInit()
     {
-        this.outletName = this.element.nativeElement.attributes.name?.value;
-
         // When the outlet activates a new instance, update the component on the bus
         this.subscribe(this.outlet.activateEvents, this.updateComponentOnBus.bind(this));
         // When the outlet deactivates an instance, set the component to null on the bus.
