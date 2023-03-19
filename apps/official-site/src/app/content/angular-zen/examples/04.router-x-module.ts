@@ -3,6 +3,22 @@ import { Topic   } from '../../../types/topic';
 
 export const RouterXModuleExamples: Example[] = [
     {
+        title      : 'NavigationX',
+        description: 'Automatically generated navigation services with strongly-typed routes.',
+        icon       : 'switch_access_shortcut',
+        embedUrl   : '',
+        notes      : 'Checkout docs for PREVIEW version',
+        soon       : true
+    },
+    {
+        title      : 'Routing Utils',
+        description: 'Interacting with the router and its outlets with an easy-to-use API.',
+        icon       : 'alt_route',
+        embedUrl   : '',
+        notes      : 'Checkout docs for PREVIEW version',
+        soon       : true
+    },
+    {
         title      : 'RouterOutletComponentBus',
         description: 'Fetching the instances of components activated by the outlets in your app.',
         icon       : 'settings_input_component',
