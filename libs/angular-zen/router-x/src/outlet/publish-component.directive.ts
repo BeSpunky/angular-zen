@@ -2,6 +2,7 @@ import { Attribute, Directive, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet                            } from '@angular/router';
 
 import { Destroyable              } from '@bespunky/angular-zen/core';
+import { AnyObject                } from '@bespunky/typescript-utils';
 import { RouterOutletComponentBus } from './router-outlet-component-bus.service';
 
 /**
@@ -60,7 +61,7 @@ export class PublishComponentDirective extends Destroyable implements OnInit, On
         super.ngOnDestroy();
     }
 
-    private updateComponentOnBus(instance: unknown): void
+    private updateComponentOnBus(instance: AnyObject | null): void
     {
         this.componentBus.publishComponent(instance, this.outletName);        
     }
