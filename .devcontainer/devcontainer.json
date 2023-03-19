@@ -32,29 +32,33 @@
     4200 // ng serve
   ],
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-    "dbaeumer.vscode-eslint",
-    "gkalpak.aio-docs-utils",
-    "angular.ng-template",
-    "ms-azuretools.vscode-docker",
-    "nrwl.angular-console",
-    "meganrogge.template-string-converter",
-    "plievone.vscode-template-literal-editor",
-    "gruntfuggly.todo-tree",
-    "wallabyjs.wallaby-vscode",
-    "williamragstad.wr-docthis",
-    "jakearl.search-editor-apply-changes",
-    "wallabyjs.quokka-vscode",
-    "yzhang.markdown-all-in-one",
-    "eamodio.gitlens",
-    "github.copilot",
-    "tobermory.es6-string-html",
-    "wwm.better-align",
-    "jannisx11.batch-rename-extension",
-    "matthewthorning.align-vertically",
-    "nicoespeon.abracadabra"
-	],
+  "customizations": {
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "gkalpak.aio-docs-utils",
+        "angular.ng-template",
+        "ms-azuretools.vscode-docker",
+        "nrwl.angular-console",
+        "meganrogge.template-string-converter",
+        "plievone.vscode-template-literal-editor",
+        "gruntfuggly.todo-tree",
+        "wallabyjs.wallaby-vscode",
+        "williamragstad.wr-docthis",
+        "jakearl.search-editor-apply-changes",
+        "wallabyjs.quokka-vscode",
+        "yzhang.markdown-all-in-one",
+        "eamodio.gitlens",
+        "github.copilot",
+        "tobermory.es6-string-html",
+        "wwm.better-align",
+        "jannisx11.batch-rename-extension",
+        "matthewthorning.align-vertically",
+        "nicoespeon.abracadabra"
+      ]
+    }
+  },
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "pnpm install --unsafe-perm",
@@ -62,6 +66,6 @@
   "remoteUser": "root",
 
   "features": {
-		// "docker-from-docker": "latest"
-	}
+    // "docker-from-docker": "latest"
+  }
 }
