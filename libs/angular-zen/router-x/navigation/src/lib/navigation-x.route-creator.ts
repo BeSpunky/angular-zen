@@ -96,7 +96,7 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
         const path         = combinePath(root, route.path) as CombinedPath<Root, Segment>;
         const composerName = (route.friendlyName ?? generateRouteComposerName(path)) as RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>;
 
-        const composer = new  RouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>(path, composerName);
+        const composer = new RouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>(path, composerName);
         const children = route.children?.map(child => prefixedRoute(child, path)) as
                             ComposableRoutesArray<Children, Entity, CombinedPath<Root, Segment>> | undefined;
 
