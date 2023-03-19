@@ -1,7 +1,26 @@
-# TODO: DEFINE VERSION
+# 14.0.0-preview.0 <small>2023-03-17</small>
 
 # Breaking Changes
 📦 Upgraded Angular to v14.
+
+🚀 Changed version convension to walk along Angular versions.
+
+♻️ Made the router outlet component bus service store data in a `Map` instead of a plain object.
+
+# Other Changes
+➕ Implemented strongly-typed and auto generated navigation system.
+
+➕ Implemented `useRouterEvent` and `useRouterEvents` which facilitate hooking into router events.
+
+➕ Implemented `useRouterDeepScan` for recursive processing of routes when routes change.
+
+➕ Implemented `useRouterOutletStateTracker` to allow an app-wide state view of the initialized router outlets.
+
+➕ Implemented `useActivatedRouteComponent` to allow access to the latest activated component on the main outlet.
+
+
+
+
 
 # **v5.1.0** <small>2022-04-21</small>
 🔧 Fixed peer dependencies in `package.json` targeting a specific minimal version of Angular v13.

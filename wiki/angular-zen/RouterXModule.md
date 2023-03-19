@@ -7,6 +7,12 @@ Some of the services in the module are independent and will work even when the m
 Use `RouterXModule.forRoot()` when importing in `AppModule`.  
 Use `RouterXModule.forChild()` when importing in child/feature modules.
 
+## Navigation-X
+### Checkout the new [`navigation-x` child-module](routerxmodule/navigationx.html) for magical routing capabilities. 🪄
+
+## Utils
+### Checkout the new [standalone routing utils](routerxmodule/utils.html). 🪄
+
 ## Services
 
 | Name                                                                        | Description                                                                                                                                                                     | Module Independent                                               |

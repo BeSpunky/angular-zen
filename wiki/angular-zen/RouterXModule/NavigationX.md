@@ -5,7 +5,7 @@ The purpose of these tools is to create a tight-relation between:
 2. Our router navigation calls
 3. The entity (or data structure) which corresponds to the route
 
-> This development is in ALPHA mode. Implementation might change. Avoid using in production.
+> ⚠️ The `navigation-x` module is in PREVIEW mode. Implementation might change. Avoid using in production.
 > 
 > Please provide feedback on the module.
 
