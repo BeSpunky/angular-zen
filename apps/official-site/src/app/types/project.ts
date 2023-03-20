@@ -1,3 +1,4 @@
+import { Data    } from '@angular/router';
 import { Benefit } from '../types/benefit';
 import { Credit  } from '../types/credit';
 import { Topic   } from './topic';
@@ -18,9 +19,9 @@ export interface Project
     soon?         : boolean;
 }
 
-export function isProject(value: Object): value is Project
+export function isProject(data: Data): data is Project
 {
     const expectedProps: (keyof Project)[] = ['name', 'strongName', 'slogan', 'benefits', 'benefitsSlogan'];
 
-    return expectedProps.every(name => name in value);
+    return expectedProps.every(name => name in data);
 }
