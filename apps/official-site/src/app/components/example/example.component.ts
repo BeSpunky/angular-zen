@@ -12,8 +12,8 @@ import { Example } from '../../types/example';
 export class ExampleComponent
 {
     public example     : Example;
-    public loaded      : boolean = false;
     public safeEmbedUrl: SafeResourceUrl;
+    public loaded = false;
     
     constructor(private sanitizer: DomSanitizer, route: ActivatedRoute)
     {
