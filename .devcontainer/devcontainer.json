@@ -55,7 +55,7 @@
     }
   },
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "pnpm install --unsafe-perm",
+  "postCreateCommand": "pnpm install",
   "remoteUser": "root",
   "features": {
     // "docker-from-docker": "latest"
