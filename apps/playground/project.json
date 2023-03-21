@@ -1,8 +1,9 @@
 {
+  "name": "playground",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/playground/src",
-  "prefix": "bespunky",
+  "prefix": "angular-zen",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -56,9 +57,6 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
-      "options": {
-        "poll": 2500
-      },
       "configurations": {
         "production": {
           "browserTarget": "playground:build:production"
@@ -79,9 +77,17 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "apps/playground/src/**/*.ts",
-          "apps/playground/src/**/*.html"
+          "apps/playground/**/*.ts",
+          "apps/playground/**/*.html"
         ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/playground/jest.config.ts",
+        "passWithNoTests": true
       }
     }
   },
