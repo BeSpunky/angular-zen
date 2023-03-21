@@ -1,0 +1,63 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/typescript-node
+{
+  "name": "angular-zen",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick a Node version: 18, 16, 14.
+    // Append -bullseye or -buster to pin to an OS version.
+    // Use -bullseye variants on local on arm64/Apple Silicon.
+    "args": {
+      "NODE_VARIANT": "16",
+      "PNPM_VERSION": "7.16.1",
+      "FIREBASE_VERSION": "9.13.0"
+    }
+  },
+  // Define where the code will reside inside the container
+  "workspaceFolder": "/code",
+  // Bind mount the local code folder to allow faster reads and writes between the container and the host
+  "workspaceMount": "source=${localWorkspaceFolder},target=/code,type=bind,consistency=consistent",
+  "mounts": [
+    // Declare the node_modules folder as a volume for faster reads and writes
+    "source=node_modules,target=/code/node_modules,type=volume"//,
+    // Share the local pnpm global store on the host with the container (The PNPM_GLOBAL_STORE_PATH arg should match the target specified here).
+    // This allows faster installations of packages by utilizing the already installed packages.
+    // "source=${localEnv:PNPM_HOME}/store,target=/code/.pnpm-store,type=bind"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    4200 // ng serve
+  ],
+  "customizations": {
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "gkalpak.aio-docs-utils",
+        "angular.ng-template",
+        "ms-azuretools.vscode-docker",
+        "nrwl.angular-console",
+        "meganrogge.template-string-converter",
+        "plievone.vscode-template-literal-editor",
+        "gruntfuggly.todo-tree",
+        "wallabyjs.wallaby-vscode",
+        "williamragstad.wr-docthis",
+        "jakearl.search-editor-apply-changes",
+        "wallabyjs.quokka-vscode",
+        "yzhang.markdown-all-in-one",
+        "eamodio.gitlens",
+        "tobermory.es6-string-html",
+        "wwm.better-align",
+        "jannisx11.batch-rename-extension",
+        "matthewthorning.align-vertically",
+        "nicoespeon.abracadabra"
+      ]
+    }
+  },
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm install",
+  "remoteUser": "root",
+  "features": {
+    // "docker-from-docker": "latest"
+  }
+}

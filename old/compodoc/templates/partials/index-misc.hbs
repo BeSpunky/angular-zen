@@ -1,0 +1,22 @@
+<section>
+    <h3 id="index">{{t "index" }}</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                    {{#each list}}
+                        <li style="line-height: 1.2; margin-bottom: 8px;">
+                            <a href="#{{name}}" title="{{file}}">
+                                <b>{{name}}</b>
+                                <br/>
+                                <span class="text-muted" style="font-size: x-small;">({{short-url file}})</span>
+                            </a>
+                        </li>
+                    {{/each}}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

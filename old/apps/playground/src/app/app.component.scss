@@ -1,0 +1,52 @@
+:host {
+    display       : flex;
+    flex-direction: column;
+    gap           : 20px;
+
+    align-items: center;
+}
+
+.notification {
+    height: 20px;
+    width : 250px;
+    
+    background : #003f649c;
+    color      : white;
+    font-weight: bold;
+
+    padding: 30px;
+
+    border-radius: 5px;
+    box-shadow   : -2px 2px 3px rgba(211, 211, 211, 0.699);
+
+    progress { height: 9px; }
+
+    .countdown {
+        position: absolute;
+    
+        top  : 3px;
+        right: 3px;
+    
+        font-size  : smaller;
+        font-weight: normal;
+    }
+}
+
+.notification.info { background : #003f649c; }
+.notification.warning { background : #f55b089c; }
+.notification.party { 
+    background : #0764009c;
+    animation: 0.5s party infinite;
+}
+
+.notification.float {
+    position: absolute;
+    right   : 15px;
+}
+
+@keyframes party {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    50% { transform: rotate(0deg); }
+    100% { transform: rotate(-1deg); }
+}
