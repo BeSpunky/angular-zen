@@ -18,6 +18,8 @@
 
 ➕ Implemented `useActivatedRouteComponent` to allow access to the latest activated component on the main outlet.
 
+⚡ Removed the lodash-es dependency.
+
 
 
 
@@ -45,8 +47,6 @@
 📦 Updated peer rxjs to v7.
 
 📦 Updated TypeScript to v4.6.2 and made some required types  adaptations.
-
-
 
 ## Other Changes
 ➕ Added the [`*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).
