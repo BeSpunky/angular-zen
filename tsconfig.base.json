@@ -30,12 +30,19 @@
       "@bespunky/angular-zen/router-x": [
         "libs/angular-zen/router-x/src/index.ts"
       ],
+      "@bespunky/angular-zen/router-x/navigation": [
+        "libs/angular-zen/router-x/navigation/src/index.ts"
+      ],
       "@bespunky/angular-zen/router-x/testing": [
         "libs/angular-zen/router-x/testing/src/index.ts"
       ],
+      "@bespunky/angular-zen/router-x/utils": [
+        "libs/angular-zen/router-x/utils/src/index.ts"
+      ],
       "@bespunky/angular-zen/universal": [
         "libs/angular-zen/universal/src/index.ts"
-      ]
+      ],
+      "@bespunky/angular-zen/utils": ["libs/angular-zen/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

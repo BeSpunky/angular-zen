@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { get, set                     } from 'lodash-es';
 import { from, of, Observable         } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { Destroyable                                    } from '@bespunky/angular-zen/core';
+import { access                                         } from '@bespunky/angular-zen/utils';
 import { LanguageIntegrationConfig, LanguageIntegration } from '../config/language-integration-config';
 
 /**
@@ -171,11 +171,11 @@ export class LanguageIntegrationService extends Destroyable
      * Translates a value (typically a translation id) into the current language used by the integrated app.
      *
      * @param {string} value The value to translate (typically a translation id).
-     * @param {*} [params] (Optional) Any params needed for translating the value.
+     * @param {Record<string, unknown>} [params] (Optional) Any params needed for translating the value.
      * @returns {string} The translation of the specified value and params in the current language used by the integrated app.
      * @throws If the language integration module hasn't been imported into the app.
      */
-    public translate(value: string, params?: any): string
+    public translate(value: string, params?: Record<string, unknown>): string
     {
         this.ensureEnabled();
 
@@ -185,25 +185,44 @@ export class LanguageIntegrationService extends Destroyable
     /**
      * Dives deep into an object or an array and replaces the indicated properties in-place with their translation. 
      *
-     * This method uses lodash's `get` and `set` functions to access properties.
-     * The `paths` argument is an array of `get`/`set` compatible paths.
+     * The `paths` argument is an array of paths representing deep properties which should be translated.
+     * For example:
      * 
-     * @param {*} data The object/array which holds the translatable properties/values. Can be a deeply nested object..
-     * @param {string[]} paths The paths of the translatable properties/values to translate and replace.
-     * @see https://lodash.com/docs/4.17.15#get for path syntax.
+     * ```typescript
+     * // If we have a user object, we can translate its city and role properties
+     * {
+     *     id: 15,
+     *     addresses: [
+     *         { city: 'Tel Aviv', ... },
+     *         { city: 'Rishon LeTzion' }
+     *     ],
+     *     system: {
+     *         role: 'Admin'
+     *     }
+     * }
+     * 
+     * // Our paths would be:
+     * `addresses[0].city`
+     * `addresses[1].city`
+     * `system.role`
+     * ```
+     * 
+     * @param {Record<string, unknown>} data The object which holds the translatable properties. Can be a deeply nested object.
+     * @param {string[]} paths The paths of the translatable properties to translate and replace.
      * @throws If the language integration module hasn't been imported into the app.
      */
-    public translateProperties(data: any, paths: string[]): void
+    public translateProperties(data: Record<string, unknown>, paths: string[]): void
     {
         this.ensureEnabled();
         
         paths.forEach(path =>
         {
-            const value = get(data, path);
+            const valueAccessor = access<string>(data, path);
+            const value = valueAccessor.get();
 
             if (typeof value !== 'string') return;
 
-            set(data, path, this.translate(value));
+            valueAccessor.set(this.translate(value));
         });
     }
     

@@ -372,32 +372,32 @@ describe('RouteAware (abstract)', () =>
 @Injectable({ providedIn: 'root' })
 class RouteAwareMock extends RouteAware
 {
-    onNavigationStart(event: NavigationStart): void { }
+    onNavigationStart(event: NavigationStart): void { void 0; }
     
-    onNavigationEnd(event: NavigationEnd): void { }
+    onNavigationEnd(event: NavigationEnd): void { void 0; }
 
     scanRouteSegments(process: (route: ActivatedRouteSnapshot, component: any) => boolean, levels?: number): void
     {
         this.deepScanRoute(this.route.snapshot, process, levels);
     }
 
-    resolveInMacroTask(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
+    override resolveInMacroTask(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
         return super.resolveInMacroTask(resolvers, ...resolverArgs);
     }
 
-    resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
+    override resolve(resolvers: Resolver | Resolver[], ...resolverArgs: any[]): Observable<any[]>
     {
         return super.resolve(resolvers, ...resolverArgs);
     }
 
     // Using any to simplify testing. For some reason typescript is not happy with the same signature as the one from the base class
-    observeRouterEvent(eventType: Type<any>, autoUnsubscribe: boolean = true): Observable<any>
+    override observeRouterEvent(eventType: Type<any>, autoUnsubscribe: boolean = true): Observable<any>
     {
         return super.observeRouterEvent(eventType, autoUnsubscribe);
     }
 
-    get activatedRouteComponent() { return super.activatedRouteComponent; }
+    override get activatedRouteComponent() { return super.activatedRouteComponent; }
 }
 
 @Injectable({ providedIn: 'root' })

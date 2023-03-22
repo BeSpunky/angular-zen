@@ -1,8 +1,8 @@
 {
   "name": "@bespunky/angular-zen",
-  "version": "5.1.0",
+  "version": "14.0.0-preview.2",
   "description": "The Angular tools you always wished were there.",
-  "preview": false,
+  "preview": true,
   "private": false,
   "author": {
     "name": "BeSpunky",
@@ -26,9 +26,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^13.3.0",
-    "@angular/core": "^13.3.0",
-    "lodash-es": "^4.17.21"
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0"
   },
   "devDependencies": {
     "@bespunky/typescript-utils": "^0.0.1-alpha.0"

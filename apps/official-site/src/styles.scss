@@ -64,7 +64,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 3px;  
 }
 
-/* ========= ⬇ Soon Tag ⬇ ========= */
+/* ========= ⬇️ Soon Tag ⬇️ ========= */
 
 .soon {
     opacity   : 0.5;
@@ -84,6 +84,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding      : 5px 15px;
     border-radius: 3px;
     transform    : rotate(7deg);
+
+    z-index: 999;
 }
 
-/* ========= ⬆ End Soon Tag ⬆ ========= */
+/* ========= ⬆️ End Soon Tag ⬆️ ========= */

@@ -1,4 +1,36 @@
+# 14.0.0-preview.0 <small>2023-03-17</small>
+
+# Breaking Changes
+📦 Upgraded Angular to v14.
+
+🚀 Changed version convension to walk along Angular versions.
+
+♻️ Made the router outlet component bus service store data in a `Map` instead of a plain object.
+
+# Other Changes
+➕ Implemented strongly-typed and auto generated navigation system.
+
+➕ Implemented `useRouterEvent` and `useRouterEvents` which facilitate hooking into router events.
+
+➕ Implemented `useRouterDeepScan` for recursive processing of routes when routes change.
+
+➕ Implemented `useRouterOutletStateTracker` to allow an app-wide state view of the initialized router outlets.
+
+➕ Implemented `useActivatedRouteComponent` to allow access to the latest activated component on the main outlet.
+
+⚡ Removed the lodash-es dependency.
+
+
+
+
+
 # **v5.1.0** <small>2022-04-21</small>
+🔧 Fixed peer dependencies in `package.json` targeting a specific minimal version of Angular v13.
+
+# **v5.1.0** <small>2022-04-21</small>
+
+<iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 🐛 Fixed single view mode in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes renders multiple views.
 
 🐛 Fixed `showFor` property in [`*onObserver` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/onobservermodule.html) sometimes causes inconcurrency issues.
@@ -15,8 +47,6 @@
 📦 Updated peer rxjs to v7.
 
 📦 Updated TypeScript to v4.6.2 and made some required types  adaptations.
-
-
 
 ## Other Changes
 ➕ Added the [`*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html).

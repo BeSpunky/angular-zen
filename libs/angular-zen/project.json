@@ -1,12 +1,13 @@
 {
+  "name": "angular-zen",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/angular-zen",
   "sourceRoot": "libs/angular-zen/src",
   "prefix": "bs",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/angular-zen"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "libs/angular-zen/ng-package.json"
       },
@@ -21,7 +22,7 @@
       "defaultConfiguration": "production"
     },
     "version": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "commands": [
@@ -43,14 +44,14 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/angular-zen"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/angular-zen/jest.config.js",
+        "jestConfig": "libs/angular-zen/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "cwd": "dist/libs/angular-zen",
@@ -78,8 +79,25 @@
           "libs/angular-zen/router-x/testing/**/*.ts",
           "libs/angular-zen/router-x/testing/**/*.html",
           "libs/angular-zen/universal/**/*.ts",
-          "libs/angular-zen/universal/**/*.html"
+          "libs/angular-zen/universal/**/*.html",
+          "libs/angular-zen/utils/**/*.ts",
+          "libs/angular-zen/utils/**/*.html",
+          "libs/angular-zen/router-x/navigation/**/*.ts",
+          "libs/angular-zen/router-x/navigation/**/*.html",
+          "libs/angular-zen/router-x/utils/**/*.ts",
+          "libs/angular-zen/router-x/utils/**/*.html"
         ]
+      }
+    },
+    "build-n-publish": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "nx run angular-zen:build:production",
+          "nx run angular-zen:publish"
+        ],
+        "parallel": false
       }
     }
   },

@@ -214,9 +214,9 @@ export class HeadService
             // If a wildcard was specified for the attribute...
             return value === '**' ?
                 // ... Query only by attribute name
-                `[${attribute}]` :
+                `[${String(attribute)}]` :
                 // Otherwise, match the exact value
-                `[${attribute}="${value}"]`;
+                `[${String(attribute)}="${value}"]`;
         }).join('');
 
         return head.querySelectorAll(`${name}${attributes}`);

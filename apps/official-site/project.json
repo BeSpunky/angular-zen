@@ -1,6 +1,7 @@
 {
+  "name": "official-site",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/official-site",
   "sourceRoot": "apps/official-site/src",
   "prefix": "angular-zen",
   "targets": {
@@ -56,6 +57,9 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "poll": 2500
+      },
       "configurations": {
         "production": {
           "browserTarget": "official-site:build:production"
@@ -67,7 +71,7 @@
       "defaultConfiguration": "development"
     },
     "docs": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": ["wiki/angular-zen"],
       "options": {
         "commands": ["nx run official-site:docs:serve-zen"],
@@ -76,14 +80,14 @@
       "configurations": {
         "generate-zen": {
           "commands": [
-            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
+            "pnpm run update-wiki-summary ./wiki/angular-zen",
             "cd libs/angular-zen && compodoc"
           ]
         },
         "serve-zen": {
           "commands": [
-            "pnpm run update-wiki-summary -- ./wiki/angular-zen",
-            "cd libs/angular-zen && compodoc -s"
+            "pnpm run update-wiki-summary ./wiki/angular-zen",
+            "cd libs/angular-zen && compodoc -s -w"
           ]
         }
       }
@@ -92,21 +96,21 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "apps/official-site/src/**/*.ts",
-          "apps/official-site/src/**/*.html"
+          "apps/official-site/**/*.ts",
+          "apps/official-site/**/*.html"
         ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/official-site"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/official-site/jest.config.js",
+        "jestConfig": "apps/official-site/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build-n-publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "commands": [
