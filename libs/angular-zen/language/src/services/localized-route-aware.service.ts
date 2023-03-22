@@ -55,7 +55,7 @@ export abstract class LocalizedRouteAware extends RouteAware
      * @virtual
      * @protected
      */
-    protected onLanguageServicesReady(): void { }
+    protected onLanguageServicesReady(): void { void 0; }
 
     /**
      * Called when the current language used by the integrated app has changed. Override to implement.
@@ -64,5 +64,5 @@ export abstract class LocalizedRouteAware extends RouteAware
      * @protected
      * @param {*} lang The language code of the new language.
      */
-    protected onLanguageChanged(lang: string): void { }
+    protected onLanguageChanged(lang: string): void { void 0; }
 }

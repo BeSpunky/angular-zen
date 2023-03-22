@@ -1,4 +1,6 @@
 import { InjectionToken } from '@angular/core';
+import type { Join, NoTail } from '@bespunky/typescript-utils';
+
 import { RouteComposer } from './route-composer/router-composer';
 import { firstUpper } from './_utils/_string-utils';
 import { _NavigatorXToken_, _RouteComposer_ } from './_navigation-x.symbols';
@@ -7,8 +9,6 @@ import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.ty
 import type { ComposableRoute, ComposableRoutesArray, DeepReadonlyRouteChildren, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';
 import type { GeneratedRouteComposerName, RouteComposerName } from './types/route-composer.types';
 import type { CombinedPath, RouteSegments } from './types/route-paths.types';
-import type { NoTail } from './types/_arrays.types';
-import type { Join } from './types/_strings.types';
 
 export const autoNavigatorNameSeparator = '';
 
@@ -96,7 +96,7 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
         const path         = combinePath(root, route.path) as CombinedPath<Root, Segment>;
         const composerName = (route.friendlyName ?? generateRouteComposerName(path)) as RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>;
 
-        const composer = new  RouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>(path, composerName);
+        const composer = new RouteComposer<Entity, CombinedPath<Root, Segment>, RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>>(path, composerName);
         const children = route.children?.map(child => prefixedRoute(child, path)) as
                             ComposableRoutesArray<Children, Entity, CombinedPath<Root, Segment>> | undefined;
 

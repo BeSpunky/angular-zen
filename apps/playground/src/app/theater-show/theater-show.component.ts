@@ -1,11 +1,14 @@
 import { map, Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
+    standalone : true,
     selector   : 'bs-theater-show',
     templateUrl: './theater-show.component.html',
     styleUrls  : ['./theater-show.component.scss'],
+    imports    : [AsyncPipe]
 })
 export class TheaterShowComponent
 {

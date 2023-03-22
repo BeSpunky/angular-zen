@@ -1,4 +1,5 @@
 {
+  "name": "angular-zen",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/angular-zen/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/angular-zen"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "libs/angular-zen/ng-package.json"
       },
@@ -43,7 +44,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/angular-zen"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/angular-zen/jest.config.ts",
         "passWithNoTests": true
@@ -82,7 +83,9 @@
           "libs/angular-zen/utils/**/*.ts",
           "libs/angular-zen/utils/**/*.html",
           "libs/angular-zen/router-x/navigation/**/*.ts",
-          "libs/angular-zen/router-x/navigation/**/*.html"
+          "libs/angular-zen/router-x/navigation/**/*.html",
+          "libs/angular-zen/router-x/utils/**/*.ts",
+          "libs/angular-zen/router-x/utils/**/*.html"
         ]
       }
     }

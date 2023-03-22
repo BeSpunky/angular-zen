@@ -1,12 +1,11 @@
 import type { InjectionToken } from '@angular/core';
 import type { Route } from '@angular/router';
+import type { Join, NoTail } from '@bespunky/typescript-utils';
 import type { _NavigatorXToken_, _RouteComposer_ } from '../_navigation-x.symbols';
 import type { RouteComposer } from '../route-composer/router-composer';
 import type { AutoNavigateRouteMethods } from './auto-navigator-methods.types';
 import type { RouteComposerName } from './route-composer.types';
 import type { CombinedPath, RouteSegments } from './route-paths.types';
-import type { NoTail } from './_arrays.types';
-import type { Join } from './_strings.types';
 
 export interface ReadonlyRoute<PathSegment extends string, FriendlyName extends string, Children extends DeepReadonlyRouteChildren | undefined> extends Readonly<Omit<Route, 'path' | 'children'>>
 {
