@@ -88,6 +88,17 @@
           "libs/angular-zen/router-x/utils/**/*.html"
         ]
       }
+    },
+    "build-n-publish": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "nx run angular-zen:build:production",
+          "nx run angular-zen:publish"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []
