@@ -31,7 +31,6 @@ specifiers:
   '@nrwl/nx-cloud': 15.1.1
   '@nrwl/workspace': 15.1.1
   '@types/jest': 28.1.8
-  '@types/lodash-es': ^4.17.6
   '@types/node': 16.11.7
   '@typescript-eslint/eslint-plugin': ^5.36.1
   '@typescript-eslint/parser': ^5.36.1
@@ -92,7 +91,6 @@ devDependencies:
   '@nrwl/nx-cloud': 15.1.1
   '@nrwl/workspace': 15.1.1_r7rglavwsrrxr6p6u7uuphngda
   '@types/jest': 28.1.8
-  '@types/lodash-es': 4.17.7
   '@types/node': 16.11.7
   '@typescript-eslint/eslint-plugin': 5.56.0_ldbltef7towbem5h7qak2pmw6e
   '@typescript-eslint/parser': 5.56.0_oy7hgmlo6357d5kkcjbkfgtg4q
@@ -4470,16 +4468,6 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-
-  /@types/lodash-es/4.17.7:
-    resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
-    dependencies:
-      '@types/lodash': 4.14.191
-    dev: true
-
-  /@types/lodash/4.14.191:
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
-    dev: true
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
