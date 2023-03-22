@@ -7,6 +7,9 @@
   "features": {
       "ghcr.io/devcontainers-contrib/features/pnpm:2": {
           "version": "latest"
+      },
+      "ghcr.io/devcontainers-contrib/features/firebase-cli": {
+          "version": "latest"
       }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
