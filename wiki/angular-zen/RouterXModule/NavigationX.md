@@ -5,6 +5,10 @@ The purpose of these tools is to create a tight-relation between:
 2. Our router navigation calls
 3. The entity (or data structure) which corresponds to the route
 
+![Config](/docs/zen/.attachments/navigation-x-config.png)
+
+![Usage](/docs/zen/.attachments/navigation-x-usage.png)
+
 > ⚠️ The `navigation-x` module is in PREVIEW mode. Implementation might change. Avoid using in production.
 > 
 > Please provide feedback on the module.

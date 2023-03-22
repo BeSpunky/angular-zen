@@ -33,8 +33,13 @@
 ## 📢 What's new
 <h3 align="center">Checkout the new <code>useNavigationX()</code> function!</h3>
 <center>
-    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html">Strong-typed and auto generated navigation system for Angular (PREVIEW)</a>
+    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigationx.html">Strong-typed and auto generated navigation system for Angular (PREVIEW)</a>
 </center>
+
+<p align="center">
+    <img src="https://bs-angular-zen.web.app/docs/zen/.attachments/navigation-x-usage.png"/>
+</p>
+
 <br/>
 <center>
     ⚒️ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/utils.html">Other util functions (PREVIEW)</a>
@@ -43,7 +48,7 @@
 
 ## ✨ The Highlights
 
-[✨ Strong-typed and auto generated navigation system for Angular (PREVIEW)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html)
+[✨ Strong-typed and auto generated navigation system for Angular (PREVIEW)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigationx.html)
 
 [⚒️ Standalone routing utils (PREVIEW)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/utils.html)
 
