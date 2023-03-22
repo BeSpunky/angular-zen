@@ -33,13 +33,12 @@
 ## 📢 What's new
 <h2 align="center">Checkout the new <code>useNavigationX()</code> function!</h2>
 <center>
-    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html">Strong-typed and auto generated navigation system for Angular is coming up</a>
+    ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html">Strong-typed and auto generated navigation system for Angular (PREVIEW)</a>
 </center>
 <br/>
 <center>
     ⚒️ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/utils.html">Other util functions (PREVIEW)</a>
 </center>
-
 <br/>
 
 ## ✨ The Highlights
