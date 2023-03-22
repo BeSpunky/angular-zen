@@ -31,18 +31,22 @@
 </p>
 
 ## 📢 What's new
-<h2 align="center">Checkout the new <code>useNavigationX()</code> function! <b>(preview)</b></h2>
+<h2 align="center">Checkout the new <code>useNavigationX()</code> function!</h2>
 <center>
     ✨ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html">Strong-typed and auto generated navigation system for Angular is coming up</a>
 </center>
-
+<br/>
 <center>
-    <iframe width="450" src="https://www.youtube.com/embed/yQVQcGwWw2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    ⚒️ <a href="https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/utils.html">Other util functions (PREVIEW)</a>
 </center>
+
+<br/>
 
 ## ✨ The Highlights
 
-[✨ Strong-typed and auto generated navigation system for Angular (Preview)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html)
+[✨ Strong-typed and auto generated navigation system for Angular (PREVIEW)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/navigation-x.html)
+
+[⚒️ Standalone routing utils (PREVIEW)](https://bs-angular-zen.web.app/docs/zen/additional-documentation/routerxmodule/utils.html)
 
 [👁️ `*observe` directives](https://bs-angular-zen.web.app/docs/zen/additional-documentation/coremodule/observemodule.html) - Super easy RxJS integration.
 
@@ -71,11 +75,13 @@
 [🗣 `LocalizedRouteAware`](https://bs-angular-zen.web.app/docs/zen/additional-documentation/languageintegrationmodule/localizedrouteaware-\(abstract\).html) - Create route aware services and components with language integration.
 
 ## Versions
-Version 5.0.0 was regenerated based on Angular 13.
+Starting from v14, zen versions will stick to Angular's major versions.
 
-Previous versions of the library were based on a workspace generated using Angular 7 which has been gradually updated and tested up to Angular 11.
+> Version 5.0.0 was regenerated based on Angular 13.
 
-Compatibility with older versions is possible but not guaranteed.
+> Previous versions of the library were based on a workspace generated using Angular 7 which has been gradually updated and tested up to Angular 11.
+> 
+> Compatibility with older versions is possible but not guaranteed.
 
 [Full change log](https://bs-angular-zen.web.app/docs/zen/changelog.html)
 
