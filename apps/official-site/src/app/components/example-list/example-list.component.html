@@ -2,8 +2,9 @@
     <a *ngFor="let card of cards"
        [routerLink]="card.soon ? ['./'] : ['./', card.title]"
        class="non-link-style transition hover-zoom relative"
+       [ngClass]="{ soon: card.soon }"
     >
-        <mat-card [ngClass]="{ soon: card.soon }">
+        <mat-card>
             <mat-card-header>
                 <div mat-card-avatar>
                     <mat-icon>{{card.icon}}</mat-icon>
