@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { useNavigationX } from '@bespunky/angular-zen/router-x/navigation';
 import { theaterRoutes } from './theater.routes';
 
@@ -14,8 +14,12 @@ export class AppComponent
 {
     private readonly navigate = useNavigationX(theaterRoutes);
 
+    constructor(private readonly router: Router) {}
+    
     onSomeEvent(theaterId: string, showId: number): void
     {
-        this.navigate.toShowDetails({ id: showId, theaterId: +theaterId });
+        this.router.navigate<typeof theaterRoutes>(['theeters', theaterId, 'shows']);
+
+        this.navigate.toShowDetails({ id: showId, theaterId });
     }
 }
