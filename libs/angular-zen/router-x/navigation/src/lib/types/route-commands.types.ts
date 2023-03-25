@@ -15,7 +15,15 @@ type OutletsCommand<AllowedCommands extends unknown[]> = {
         [outletName: string]: AllowedCommands;
     };
 };
-    
+
+// TODO: This requires more work. It currently assumes that the commands will always start
+// from the root of the tree object, but commands can be relative and start from anywhere.
+// For example:
+// Full potential route: /theaters/:theaterId/shows/:showId 
+// Potential relatives:
+// - :theaterId
+// - shows/:showId
+// - :theaterId/shows
 type AllowedRouteCommands<
     Route extends ReadonlyRoute<string, string, any>,
     Entity,
