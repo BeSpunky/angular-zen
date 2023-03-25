@@ -21,7 +21,7 @@ function generateRouteComposerName<Path extends string>(path: Path): GeneratedRo
         .join(autoNavigatorNameSeparator) as GeneratedRouteComposerName<Path>;
 }
 
-interface RouteConfigurator<Entity>
+interface RouteConfigurator<Entity, QueryParamsEntity>
 {
     /**
      * Generates a strongly-typed navigation-x route.
@@ -79,7 +79,7 @@ interface RouteConfigurator<Entity>
  * @template Entity The entity (or data structure) route arguments should match with.
  * @return {RouteConfigurator<Entity>} An object which allows generating strongly typed routes.
  */
-export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
+export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfigurator<Entity, QueryParamsEntity>
 {
     function combinePath<Root extends string, Segment extends string>(root: Root, segment?: Segment)
     {
@@ -137,6 +137,6 @@ export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
     return {
         route,
         prefixedRoute
-    } as RouteConfigurator<Entity>;
+    } as RouteConfigurator<Entity, QueryParamsEntity>;
 }
 
