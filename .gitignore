@@ -50,3 +50,5 @@ projects/bespunky/angular-zen/debug.log
 debug.log
 
 wiki/**/summary.json
+
+.pnpm-debug.log
