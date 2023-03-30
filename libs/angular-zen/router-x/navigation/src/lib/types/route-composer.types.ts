@@ -17,12 +17,8 @@ type SegmentedRouteComposerName<Segments extends string[]> = {
     0: '',
     1: CapitalizeRouteSegment<Segments[0]>,
     multi: Segments extends [infer First extends string, ...infer Rest extends string[]]
-             First extends string ?
-               Rest extends string[]
         ? JoinStrings<CapitalizeRouteSegment<First>, JoinStrings<Separator, SegmentedRouteComposerName<Rest>>>
         : never
-             : never
-           : never
 }[Segments['length'] extends 0 | 1 ? Segments['length'] : 'multi']
 
 export type GeneratedRouteComposerName<Path extends string> = SegmentedRouteComposerName<RouteSegments<Path>>;
