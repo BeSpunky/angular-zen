@@ -8,7 +8,7 @@ import { _NavigatorXToken_, _RouteComposer_ } from './_navigation-x.symbols';
 import type { AutoNavigateRouteMethods } from './types/auto-navigator-methods.types';
 import type { ComposableRoute, ComposableRoutesArray, DeepReadonlyRouteChildren, ReadonlyRoute, WithNavigationX } from './types/composable-routes.types';
 import type { GeneratedRouteComposerName, RouteComposerName } from './types/route-composer.types';
-import type { CombinedPath, RouteSegments } from './types/route-paths.types';
+import type { CombinedPath, RoutePathSegment, RoutePath, RoutePathWithQuery, RouteSegments } from './types/route-paths.types';
 
 export const autoNavigatorNameSeparator = '';
 
@@ -21,7 +21,17 @@ function generateRouteComposerName<Path extends string>(path: Path): GeneratedRo
         .join(autoNavigatorNameSeparator) as GeneratedRouteComposerName<Path>;
 }
 
-interface RouteConfigurator<Entity, QueryParamsEntity>
+export function path<Segment extends string>(segment: Segment): RoutePath<Segment>
+{
+    const strongSegment = Object.assign(
+        segment,
+        { withQuery<QueryEntity>() { return segment as RoutePathWithQuery<Segment, QueryEntity> }
+    }) as RoutePath<Segment>;
+
+    return strongSegment;
+}
+
+interface RouteConfigurator<Entity>
 {
     /**
      * Generates a strongly-typed navigation-x route.
@@ -30,14 +40,14 @@ interface RouteConfigurator<Entity, QueryParamsEntity>
      *
      * ❕ Remember to pass the route config `as const`.
      * 
-     * @template Segment The strong-typed path property of the route segment.
+     * @template RoutePathSegment The strong-typed path property of the route segment.
      * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
      * @template Children The strong-typed children of the route segment.
      * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route The route config to strong-type. Remember to pass it in use `as const`.
      * @return  
      */
-     route: <
-        Segment extends string,
+    route: <
+        Segment extends RoutePathSegment,
         FriendlyName extends string,
         Children extends DeepReadonlyRouteChildren | undefined
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>) =>
@@ -50,16 +60,16 @@ interface RouteConfigurator<Entity, QueryParamsEntity>
      *
      * ❕ Remember to pass the route config `as const`.
      * 
-     * @template Segment The strong-typed path property of the route segment.
+     * @template RoutePathSegment The strong-typed path property of the route segment.
      * @template FriendlyName The strong-typed friendly name for the route segment. Taken from the `friendlyName` proeprty.
      * @template Children The strong-typed children of the route segment.
      * @template Root The strong-typed url prefix for all routes in the tree.
-     * @param {ReadonlyRoute<Segment, FriendlyName, Children>} route The route config to strong-type. Remember to pass it in use `as const`.
+     * @param {ReadonlyRoute<RoutePathSegment, FriendlyName, Children>} route The route config to strong-type. Remember to pass it in use `as const`.
      * @param {Root} root The url prefix all routes in this config tree start from.
      * @return  
      */
     prefixedRoute: <
-        Segment extends string,
+        Segment extends RoutePathSegment,
         FriendlyName extends string,
         Children extends DeepReadonlyRouteChildren | undefined,
         Root extends string
@@ -79,7 +89,7 @@ interface RouteConfigurator<Entity, QueryParamsEntity>
  * @template Entity The entity (or data structure) route arguments should match with.
  * @return {RouteConfigurator<Entity>} An object which allows generating strongly typed routes.
  */
-export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfigurator<Entity, QueryParamsEntity>
+export function routeConfigFor<Entity>(): RouteConfigurator<Entity>
 {
     function combinePath<Root extends string, Segment extends string>(root: Root, segment?: Segment)
     {
@@ -87,7 +97,7 @@ export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfi
     }
 
     function prefixedRouteCore<
-        Segment      extends string,
+        Segment      extends RoutePathSegment,
         FriendlyName extends string,
         Children     extends DeepReadonlyRouteChildren | undefined,
         Root         extends string
@@ -108,7 +118,7 @@ export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfi
     }
 
     function prefixedRoute<
-        Segment      extends string,
+        Segment      extends RoutePathSegment,
         FriendlyName extends string,
         Children     extends DeepReadonlyRouteChildren | undefined,
         Root         extends string
@@ -121,7 +131,7 @@ export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfi
     }
 
     function route<
-        Segment      extends string,
+        Segment      extends RoutePathSegment,
         FriendlyName extends string,
         Children     extends DeepReadonlyRouteChildren | undefined
     >(route: ReadonlyRoute<Segment, FriendlyName, Children>)//: ComposableRootRoute<ComposableRoute<typeof route, Entity, CombinedPath<'', Segment>>>
@@ -137,6 +147,6 @@ export function routeConfigFor<Entity, QueryParamsEntity = Entity>(): RouteConfi
     return {
         route,
         prefixedRoute
-    } as RouteConfigurator<Entity, QueryParamsEntity>;
+    } as RouteConfigurator<Entity>;
 }
 

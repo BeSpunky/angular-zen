@@ -1,20 +1,40 @@
 import type { Router } from '@angular/router';
 import type { Narrow } from '@bespunky/typescript-utils';
-import type { RouteArgument, CombinedPath } from './route-paths.types';
+import type { RouteArgument, CombinedPath, RoutePathSegment, QueryEntityOf, SegmentOf, RoutePathWithQuery, RoutePath, __QueryEntity__ } from './route-paths.types';
 import type { ReadonlyRoute } from './composable-routes.types';
 import type { EntityRouteArgs, RouteComposerName } from './route-composer.types';
 
-export type RouteOperationMethod<Entity, Path extends string, ReturnType> =
-    RouteArgument<Path> extends never
+export type RouteOperationOptions<Path extends RoutePathSegment> = {
+    queryParams?: QueryEntityOf<Path>;
+};
+
+type RouteOperationNoArgs<Path extends RoutePathSegment, ReturnType> =
+    // This condition should be expanded if new options are added to the `RouteOperationOptions` type.
+    QueryEntityOf<Path> extends never
     ? () => ReturnType
-    : (entity: EntityRouteArgs<Entity, Path>) => ReturnType;
+    : (options?: RouteOperationOptions<Path>) => ReturnType;
+
+type RouteOperationWithArgs<Entity, Path extends RoutePathSegment, ReturnType> =
+    (entity: EntityRouteArgs<Entity, SegmentOf<Path>>, ...more: Parameters<RouteOperationNoArgs<Path, ReturnType>>) => ReturnType;
+
+export type RouteOperationMethod<Entity, Path extends RoutePathSegment, ReturnType> =
+    RouteArgument<SegmentOf<Path>> extends never
+    ? RouteOperationNoArgs<Path, ReturnType>
+    : RouteOperationWithArgs<Entity, Path, ReturnType>;
 
 type AutoNavigateMethodName<Name extends string> = `to${ Capitalize<Name> }`;
 
-type AutoNavigateMethod<Entity, FullPath extends string> = RouteOperationMethod<Entity, FullPath, ReturnType<Router[ 'navigateByUrl' ]>>;
+type AutoNavigateMethod<Entity, FullPath extends RoutePathSegment> = RouteOperationMethod<Entity, FullPath, ReturnType<Router[ 'navigateByUrl' ]>>;
 
-type AutoNavigateObjectFor<Segment extends string, FriendlyName extends string, Entity, Root extends string> =
-    { [ k in AutoNavigateMethodName<RouteComposerName<FriendlyName, CombinedPath<Root, Segment>>> ]: AutoNavigateMethod<Entity, CombinedPath<Root, Segment>>; };
+type AutoNavigateObjectFor<
+    Segment extends RoutePathSegment,
+    FriendlyName extends string,
+    Entity,
+    Root extends string
+> = {
+        [k in AutoNavigateMethodName<RouteComposerName<FriendlyName, CombinedPath<Root, SegmentOf<Segment>>>>]:
+            AutoNavigateMethod<Entity, RoutePathWithQuery<CombinedPath<Root, Segment>, QueryEntityOf<Segment>>>;
+};
 
 export type AutoNavigateRouteMethods<Route, Entity, Root extends string> =
     Route extends ReadonlyRoute<infer Segment, infer FriendlyName, infer Children> ?
@@ -22,7 +42,7 @@ export type AutoNavigateRouteMethods<Route, Entity, Root extends string> =
     ? AutoNavigateObjectFor<Segment, FriendlyName, Entity, Root>
     : Narrow<
         & AutoNavigateObjectFor<Segment, FriendlyName, Entity, Root>
-        & AutoNavigateRouteArrayMethods<Children, Entity, CombinedPath<Root, Segment>>
+        & AutoNavigateRouteArrayMethods<Children, Entity, RoutePathWithQuery<CombinedPath<Root, Segment>, QueryEntityOf<Segment>>>
     > : never;
 
 export type AutoNavigateRouteArrayMethods<Routes, Entity, Root extends string> =
