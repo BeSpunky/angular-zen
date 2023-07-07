@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 // The possible query parameters for the theater shows route
 export interface TheaterShowsFilter
 {
-    search: string;
-    toolbar: boolean;
+    search?: string;
+    toolbar?: boolean;
 }
 
 @Component({
